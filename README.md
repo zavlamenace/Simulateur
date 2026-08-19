@@ -31,10 +31,20 @@ Formule vérifiée point par point contre le tableau de mesures fourni par le
 client (la marge de confort de 15 cm/côté est déjà intégrée dans les
 longueurs de queue commercialisées — pas de terme supplémentaire à ajouter).
 
-Le confort est calculé **séparément par axe**, mais le client n'achète qu'un
-seul jeu de queues : la queue réellement utilisable = la plus contraignante
-des deux axes (le minimum des deux résultats). Le détail par axe reste
-affiché dans chaque fiche taille pour la transparence.
+Le confort est calculé **indépendamment par axe**, et le client est conseillé
+sur **deux jeux de queues distincts** — un pour la longueur, un pour la
+largeur — afin de profiter du meilleur confort possible sur chaque sens de
+jeu (ex. 140 cm en longueur + 120 cm en largeur, plutôt que 120 cm partout).
+
+Seule la classification globale d'une taille (bon/correct/juste, utilisée
+pour décider la recommandation et le repli en cascade) se base sur l'axe le
+plus contraignant des deux — c'est un raccourci de classement, pas une
+consigne d'achat.
+
+Échelle de confort fixe :
+- **140 cm** — très confortable
+- **120 cm** — confort correct, légère gêne
+- **100 cm** — confort minimal, pas le choix
 
 Voir les commentaires en tête de `configurateur-billard.html` (section
 "RÉFÉRENTIEL DE CALCUL") pour la version commentée de cette règle, validée

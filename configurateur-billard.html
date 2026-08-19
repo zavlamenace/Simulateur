@@ -21,10 +21,19 @@
     - Espace pièce nécessaire (par axe) = tapis de jeu (par axe) + 2 × queue.
       Formule vérifiée point par point contre le tableau de référence fourni
       (marge de 15cm/côté déjà intégrée dans les longueurs de queue vendues).
-    - 3 longueurs de queue commercialisées : 100 / 120 / 140 cm.
-    - Le confort est calculé séparément sur chaque axe (longueur / largeur),
-      mais le client n'achète qu'UN seul jeu de queues : la queue réellement
-      utilisable = la plus contraignante des deux axes (le minimum).
+    - 3 longueurs de queue commercialisées, avec une échelle de confort fixe :
+        100cm = confort minimal, pas le choix (l'axe ne permet rien de plus)
+        120cm = confort correct, légère gêne
+        140cm = très confortable
+    - Le confort est calculé INDÉPENDAMMENT sur chaque axe (longueur / largeur).
+      On ne force PAS le client sur un seul jeu de queues : on lui conseille
+      un jeu adapté à la longueur ET un jeu adapté à la largeur, pour profiter
+      du meilleur confort possible sur chaque dimension où c'est permis (ex. :
+      140cm en longueur + 120cm en largeur, plutôt que 120cm partout).
+      Seule la classification globale d'une taille — utilisée pour décider si
+      on la recommande ou si on redescend d'une taille — se base sur l'axe le
+      plus contraignant des deux (le minimum) ; l'achat, lui, reste sur deux
+      jeux distincts quand les axes divergent.
     - Recommandation : on retient la PLUS GRANDE taille de billard qui atteint
       le confort optimal (140cm sur les DEUX axes). Si aucune taille n'atteint
       140 des deux côtés, on redescend jusqu'au 7 pieds (la plus petite taille
@@ -33,7 +42,8 @@
     - Si même le 7 pieds ne rentre pas (même avec une queue de 100cm sur un
       axe) → écran "pièce trop petite" + incitation à appeler un conseiller.
     - Le billard est testé dans les deux orientations possibles dans le
-      rectangle de la pièce ; l'orientation la plus favorable est retenue.
+      rectangle de la pièce ; l'orientation retenue est explicitement affichée
+      au client (ex. "billard positionné en longueur" / "... pivoté 90°").
 -->
 
 <style>
@@ -317,6 +327,9 @@
   }
   #bdf-config .bdf-size-dims { font-size: 12.5px; color: var(--ink-muted); font-variant-numeric: tabular-nums; }
 
+  #bdf-config .bdf-badge-row {
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
   #bdf-config .bdf-badge {
     display: inline-flex; align-items: center; gap: 6px;
     font-size: 12.5px; font-weight: 600;
@@ -411,7 +424,7 @@
   <header class="bdf-head">
     <p class="bdf-eyebrow">Configurateur d'espace</p>
     <h1>Quelle taille de billard pour votre pièce&nbsp;?</h1>
-    <p class="bdf-lede">Indiquez les dimensions disponibles, nous calculons en temps réel les tailles de billard compatibles et la longueur de queue qui vous offrira le meilleur confort de jeu.</p>
+    <p class="bdf-lede">Indiquez les dimensions disponibles, nous calculons en temps réel les tailles de billard compatibles et la longueur de queue à privilégier sur chaque sens de jeu pour votre confort.</p>
   </header>
 
   <div class="bdf-card">
@@ -472,9 +485,9 @@
   var CUE_LENGTHS = [140, 120, 100];
 
   var COMFORT_LEVELS = {
-    140: { key: "optimal", label: "Confort optimal",              badge: "b-good",    tone: "good" },
-    120: { key: "confort", label: "Confort",                       badge: "b-ok",      tone: "ok" },
-    100: { key: "jouable", label: "Jouable, confort réduit",       badge: "b-caution", tone: "caution" }
+    140: { key: "optimal", label: "Très confortable",                  badge: "b-good",    tone: "good" },
+    120: { key: "confort", label: "Confort correct, légère gêne",      badge: "b-ok",      tone: "ok" },
+    100: { key: "minimal", label: "Confort minimal, pas le choix",     badge: "b-caution", tone: "caution" }
   };
 
   /* ========================================================================
@@ -524,7 +537,10 @@
     var cueOnLength = maxCueForAxis(roomL, play.length);
     var cueOnWidth = maxCueForAxis(roomW, play.width);
     if (cueOnLength === null || cueOnWidth === null) return null;
-    // Un seul jeu de queues acheté : la contrainte la plus forte gagne.
+    // `achieved` sert UNIQUEMENT à classer/recommander une taille (elle vaut
+    // le confort de l'axe le plus contraignant). Elle ne représente pas la
+    // queue à acheter : le client est conseillé sur les deux axes séparément
+    // (cueOnLength / cueOnWidth), voir le rendu des badges plus bas.
     var achieved = Math.min(cueOnLength, cueOnWidth);
     return { achieved: achieved, cueOnLength: cueOnLength, cueOnWidth: cueOnWidth, rotated: false };
   }
@@ -661,6 +677,26 @@
     renderGrid(results, roomL, roomW);
   }
 
+  // Formule le conseil d'achat : un jeu de queues par axe, avec leur niveau
+  // de confort respectif quand ils diffèrent, plutôt qu'une seule valeur.
+  function describeCuePlan(cueOnLength, cueOnWidth, rotated) {
+    if (cueOnLength === cueOnWidth) {
+      var level = COMFORT_LEVELS[cueOnLength];
+      return level.label + " : queue de " + cueOnLength + " cm dans les deux sens de jeu.";
+    }
+    var levelLen = COMFORT_LEVELS[cueOnLength];
+    var levelWid = COMFORT_LEVELS[cueOnWidth];
+    return "Queue de " + cueOnLength + " cm en longueur (" + levelLen.label.toLowerCase() + "), " +
+      cueOnWidth + " cm en largeur (" + levelWid.label.toLowerCase() + ") — deux jeux de queues " +
+      "différents pour profiter du meilleur confort possible sur chaque dimension.";
+  }
+
+  function describeOrientation(rotated) {
+    return rotated
+      ? "Billard pivoté à 90° : sa plus grande dimension suit la largeur de la pièce."
+      : "Billard positionné dans le sens de la longueur de la pièce.";
+  }
+
   function renderSummary(results, roomL, roomW) {
     els.summary.dataset.active = "true";
     els.summary.textContent = "";
@@ -671,15 +707,12 @@
 
     if (results.recommended) {
       var r = results.recommended;
-      var level = COMFORT_LEVELS[r.achieved];
       var tone = r.achieved === 140 ? "good" : "caution";
       card.classList.add("state-" + tone);
       icon.textContent = "✓";
 
       var title = el("p", "bdf-summary-title", "Notre recommandation : billard " + r.size.label);
-      var subText = r.achieved === 140
-        ? "Confort optimal avec une queue de 140 cm sur les deux dimensions de votre pièce."
-        : "Meilleure option pour votre pièce, avec une queue de " + r.achieved + " cm (" + level.label.toLowerCase() + ").";
+      var subText = describeCuePlan(r.cueOnLength, r.cueOnWidth, r.rotated);
       var sub = el("p", "bdf-summary-sub", subText);
 
       text.appendChild(title);
@@ -687,7 +720,7 @@
       card.appendChild(icon);
       card.appendChild(text);
 
-      trackEvent("taille_recommandee", { taille: r.size.id, queue: r.achieved });
+      trackEvent("taille_recommandee", { taille: r.size.id, queueLongueur: r.cueOnLength, queueLargeur: r.cueOnWidth });
     } else {
       card.classList.add("state-bad");
       icon.textContent = "!";
@@ -747,23 +780,31 @@
     toggle.appendChild(top);
 
     if (evaluation.fits) {
-      var level = COMFORT_LEVELS[evaluation.achieved];
-      var badge = el("span", "bdf-badge " + level.badge);
-      badge.appendChild(el("span", "dot"));
-      badge.appendChild(document.createTextNode(level.label + " (queue " + evaluation.achieved + " cm)"));
-      toggle.appendChild(badge);
+      var badgeRow = el("div", "bdf-badge-row");
 
-      var axisDetail = el("div", "bdf-axis-detail");
-      var axLen = el("span");
-      axLen.innerHTML = "";
-      axLen.appendChild(document.createTextNode("Longueur : jusqu'à "));
-      axLen.appendChild(el("b", null, evaluation.cueOnLength + " cm"));
-      var axWid = el("span");
-      axWid.appendChild(document.createTextNode("Largeur : jusqu'à "));
-      axWid.appendChild(el("b", null, evaluation.cueOnWidth + " cm"));
-      axisDetail.appendChild(axLen);
-      axisDetail.appendChild(axWid);
-      toggle.appendChild(axisDetail);
+      if (evaluation.cueOnLength === evaluation.cueOnWidth) {
+        var level = COMFORT_LEVELS[evaluation.cueOnLength];
+        var badge = el("span", "bdf-badge " + level.badge);
+        badge.appendChild(el("span", "dot"));
+        badge.appendChild(document.createTextNode(level.label + " — queue " + evaluation.cueOnLength + " cm"));
+        badgeRow.appendChild(badge);
+      } else {
+        var levelLen = COMFORT_LEVELS[evaluation.cueOnLength];
+        var badgeLen = el("span", "bdf-badge " + levelLen.badge);
+        badgeLen.appendChild(el("span", "dot"));
+        badgeLen.appendChild(document.createTextNode("Longueur : " + evaluation.cueOnLength + " cm"));
+        var levelWid = COMFORT_LEVELS[evaluation.cueOnWidth];
+        var badgeWid = el("span", "bdf-badge " + levelWid.badge);
+        badgeWid.appendChild(el("span", "dot"));
+        badgeWid.appendChild(document.createTextNode("Largeur : " + evaluation.cueOnWidth + " cm"));
+        badgeRow.appendChild(badgeLen);
+        badgeRow.appendChild(badgeWid);
+      }
+      toggle.appendChild(badgeRow);
+
+      if (evaluation.cueOnLength !== evaluation.cueOnWidth) {
+        toggle.appendChild(el("div", "bdf-axis-detail", "Deux jeux de queues différents conseillés, un par sens de jeu."));
+      }
     } else {
       var badgeBad = el("span", "bdf-badge b-bad");
       badgeBad.appendChild(el("span", "dot"));
@@ -848,8 +889,11 @@
     }));
 
     wrap.appendChild(svg);
+    var cueSummary = evaluation.cueOnLength === evaluation.cueOnWidth
+      ? "zone de jeu en pointillés (queue " + evaluation.cueOnLength + " cm)"
+      : "zone de jeu en pointillés (queue " + evaluation.cueOnLength + " cm en longueur, " + evaluation.cueOnWidth + " cm en largeur)";
     var caption = el("p", "bdf-plan-caption",
-      "Pièce " + roomL + " × " + roomW + " cm — zone de jeu avec queue " + Math.min(evaluation.cueOnLength, evaluation.cueOnWidth) + " cm en pointillés");
+      describeOrientation(evaluation.rotated) + " Pièce " + roomL + " × " + roomW + " cm — " + cueSummary);
     wrap.appendChild(caption);
     return wrap;
   }
