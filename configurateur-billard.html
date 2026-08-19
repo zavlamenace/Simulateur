@@ -1,0 +1,899 @@
+<title>Trouvez votre billard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,480;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!--
+  ============================================================================
+  CONFIGURATEUR "QUELLE TAILLE DE BILLARD POUR MA PIÈCE" — Billards de France
+  ============================================================================
+  Prototype fonctionnel autonome (HTML + CSS + JS vanilla, zéro dépendance).
+  Destiné à être repris par le développeur pour :
+    - intégration en module PrestaShop (bloc CMS / page blog),
+    - branchement sur le webservice PrestaShop (voir getProduits()),
+    - branchement analytics (voir trackEvent()),
+    - revue de sécurité (validation d'entrée déjà faite côté client, mais à
+      dupliquer côté serveur si un jour un traitement serveur est ajouté ;
+      aucun innerHTML n'est utilisé avec du contenu dynamique non maîtrisé,
+      tout passe par textContent / création de nœuds).
+
+  RÉFÉRENTIEL DE CALCUL — logique métier validée avec le client (19/08/2026) :
+    - Espace pièce nécessaire (par axe) = tapis de jeu (par axe) + 2 × queue.
+      Formule vérifiée point par point contre le tableau de référence fourni
+      (marge de 15cm/côté déjà intégrée dans les longueurs de queue vendues).
+    - 3 longueurs de queue commercialisées : 100 / 120 / 140 cm.
+    - Le confort est calculé séparément sur chaque axe (longueur / largeur),
+      mais le client n'achète qu'UN seul jeu de queues : la queue réellement
+      utilisable = la plus contraignante des deux axes (le minimum).
+    - Recommandation : on retient la PLUS GRANDE taille de billard qui atteint
+      le confort optimal (140cm sur les DEUX axes). Si aucune taille n'atteint
+      140 des deux côtés, on redescend jusqu'au 7 pieds (la plus petite taille
+      vendue) et on l'affiche avec le confort réellement atteint, même réduit
+      ("jouable, confort de jeu légèrement réduit") plutôt que de bloquer.
+    - Si même le 7 pieds ne rentre pas (même avec une queue de 100cm sur un
+      axe) → écran "pièce trop petite" + incitation à appeler un conseiller.
+    - Le billard est testé dans les deux orientations possibles dans le
+      rectangle de la pièce ; l'orientation la plus favorable est retenue.
+-->
+
+<style>
+  /* ---------------------------------------------------------------------
+     TOKENS — palette extraite de la charte Billards de France (fond ivoire,
+     rouge bordeaux de marque, noir encre) + palette sémantique dédiée aux
+     niveaux de confort, volontairement distincte de l'accent de marque.
+     --------------------------------------------------------------------- */
+  #bdf-config {
+    --paper: #F7F2EA;
+    --surface: #FFFFFF;
+    --surface-sunken: #F1EAE0;
+    --ink: #21170F;
+    --ink-muted: #6E5F4F;
+    --line: #E4D9C8;
+    --line-strong: #D2C3AC;
+
+    --wine: #7A2233;
+    --wine-deep: #591826;
+    --wine-tint: #F3E4E6;
+
+    --good: #3F7A52;
+    --good-tint: #E7F0E7;
+    --ok: #B07A22;
+    --ok-tint: #F5EBD8;
+    --caution: #B4562A;
+    --caution-tint: #F5E3D6;
+    --bad: #A03A3A;
+    --bad-tint: #F3E0DF;
+
+    --radius-lg: 18px;
+    --radius-md: 12px;
+    --radius-sm: 8px;
+    --shadow-card: 0 1px 2px rgba(33,23,15,0.06), 0 8px 24px -12px rgba(33,23,15,0.18);
+
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    #bdf-config:not([data-theme="light"]) {
+      --paper: #1B1512;
+      --surface: #241C17;
+      --surface-sunken: #2C221C;
+      --ink: #F3EAE0;
+      --ink-muted: #B7A793;
+      --line: #3A2E25;
+      --line-strong: #4A3B2F;
+
+      --wine: #D97A8C;
+      --wine-deep: #F0A2B0;
+      --wine-tint: #3A2229;
+
+      --good: #7FBF93;
+      --good-tint: #223028;
+      --ok: #E0B15C;
+      --ok-tint: #332A1B;
+      --caution: #E28F5F;
+      --caution-tint: #382820;
+      --bad: #E08080;
+      --bad-tint: #3A2323;
+      color-scheme: dark;
+    }
+  }
+  #bdf-config[data-theme="dark"] {
+    --paper: #1B1512;
+    --surface: #241C17;
+    --surface-sunken: #2C221C;
+    --ink: #F3EAE0;
+    --ink-muted: #B7A793;
+    --line: #3A2E25;
+    --line-strong: #4A3B2F;
+    --wine: #D97A8C;
+    --wine-deep: #F0A2B0;
+    --wine-tint: #3A2229;
+    --good: #7FBF93;
+    --good-tint: #223028;
+    --ok: #E0B15C;
+    --ok-tint: #332A1B;
+    --caution: #E28F5F;
+    --caution-tint: #382820;
+    --bad: #E08080;
+    --bad-tint: #3A2323;
+    color-scheme: dark;
+  }
+
+  #bdf-config, #bdf-config * { box-sizing: border-box; }
+  #bdf-config {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 32px 20px 48px;
+  }
+  #bdf-config h1, #bdf-config h2, #bdf-config h3 {
+    font-family: "Fraunces", ui-serif, Georgia, serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    margin: 0;
+    color: var(--ink);
+  }
+  #bdf-config .bdf-eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--wine);
+    margin: 0 0 6px;
+  }
+  #bdf-config .bdf-lede {
+    color: var(--ink-muted);
+    max-width: 60ch;
+    margin: 10px 0 0;
+    font-size: 15px;
+  }
+  #bdf-config .bdf-nums { font-variant-numeric: tabular-nums; }
+
+  #bdf-config header.bdf-head { margin-bottom: 28px; }
+  #bdf-config h1 { font-size: clamp(26px, 4vw, 32px); }
+
+  /* --- Carte de saisie ------------------------------------------------ */
+  #bdf-config .bdf-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: 24px;
+  }
+  #bdf-config .bdf-form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin-top: 18px;
+  }
+  #bdf-config label.bdf-field-label {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 7px;
+  }
+  #bdf-config .bdf-input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  #bdf-config input[type="number"] {
+    width: 100%;
+    font: inherit;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+    background: var(--surface-sunken);
+    border: 1.5px solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    padding: 11px 44px 11px 14px;
+    -moz-appearance: textfield;
+  }
+  #bdf-config input[type="number"]::-webkit-outer-spin-button,
+  #bdf-config input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  #bdf-config input[type="number"]:focus-visible {
+    outline: 2px solid var(--wine);
+    outline-offset: 1px;
+    border-color: var(--wine);
+  }
+  #bdf-config .bdf-unit {
+    position: absolute;
+    right: 14px;
+    font-size: 13px;
+    color: var(--ink-muted);
+    pointer-events: none;
+  }
+  #bdf-config .bdf-hint {
+    font-size: 13px;
+    color: var(--ink-muted);
+    margin: 14px 0 0;
+  }
+
+  /* --- Résumé / recommandation ---------------------------------------- */
+  #bdf-config .bdf-summary {
+    margin-top: 22px;
+    display: none;
+  }
+  #bdf-config .bdf-summary[data-active="true"] { display: block; }
+  #bdf-config .bdf-summary-card {
+    border-radius: var(--radius-lg);
+    padding: 22px 24px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  #bdf-config .bdf-summary-card.state-good { background: var(--good-tint); border: 1px solid color-mix(in srgb, var(--good) 35%, transparent); }
+  #bdf-config .bdf-summary-card.state-caution { background: var(--caution-tint); border: 1px solid color-mix(in srgb, var(--caution) 35%, transparent); }
+  #bdf-config .bdf-summary-card.state-bad { background: var(--bad-tint); border: 1px solid color-mix(in srgb, var(--bad) 35%, transparent); }
+  #bdf-config .bdf-summary-icon {
+    width: 44px; height: 44px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-family: "Fraunces", serif;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .state-good .bdf-summary-icon { background: var(--good); color: var(--good-tint); }
+  .state-caution .bdf-summary-icon { background: var(--caution); color: var(--caution-tint); }
+  .state-bad .bdf-summary-icon { background: var(--bad); color: var(--bad-tint); }
+  #bdf-config .bdf-summary-text { flex: 1; min-width: 220px; }
+  #bdf-config .bdf-summary-title { font-family: "Fraunces", serif; font-size: 20px; font-weight: 600; margin: 0 0 4px; }
+  #bdf-config .bdf-summary-sub { font-size: 14px; color: var(--ink-muted); margin: 0; }
+  #bdf-config .bdf-call-btn {
+    background: var(--wine);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 11px 18px;
+    font: inherit;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  #bdf-config .bdf-call-btn:hover { background: var(--wine-deep); }
+  #bdf-config .bdf-call-btn:focus-visible { outline: 2px solid var(--wine); outline-offset: 2px; }
+
+  /* --- Grille des tailles ---------------------------------------------- */
+  #bdf-config .bdf-sizes { margin-top: 26px; display: none; }
+  #bdf-config .bdf-sizes[data-active="true"] { display: block; }
+  #bdf-config .bdf-sizes-head {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 14px;
+  }
+  #bdf-config .bdf-sizes-head h2 { font-size: 18px; }
+  #bdf-config .bdf-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+  }
+
+  #bdf-config .bdf-size-card {
+    background: var(--surface);
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  #bdf-config .bdf-size-card[data-recommended="true"] {
+    border-color: var(--wine);
+    box-shadow: 0 0 0 1px var(--wine);
+  }
+  #bdf-config .bdf-size-card[data-fits="false"] { opacity: 0.55; }
+
+  #bdf-config .bdf-size-toggle {
+    width: 100%;
+    background: none;
+    border: none;
+    font: inherit;
+    color: var(--ink);
+    text-align: left;
+    padding: 16px 16px 14px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  #bdf-config .bdf-size-toggle:disabled { cursor: default; }
+  #bdf-config .bdf-size-toggle:focus-visible { outline: 2px solid var(--wine); outline-offset: -2px; }
+
+  #bdf-config .bdf-size-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  #bdf-config .bdf-size-name { font-family: "Fraunces", serif; font-size: 19px; font-weight: 600; }
+  #bdf-config .bdf-recommended-pill {
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    background: var(--wine); color: #fff; padding: 3px 8px; border-radius: 100px;
+  }
+  #bdf-config .bdf-size-dims { font-size: 12.5px; color: var(--ink-muted); font-variant-numeric: tabular-nums; }
+
+  #bdf-config .bdf-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12.5px; font-weight: 600;
+    padding: 5px 10px; border-radius: 100px;
+    width: fit-content;
+  }
+  #bdf-config .bdf-badge .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  #bdf-config .bdf-badge.b-good { background: var(--good-tint); color: var(--good); }
+  #bdf-config .bdf-badge.b-good .dot { background: var(--good); }
+  #bdf-config .bdf-badge.b-ok { background: var(--ok-tint); color: var(--ok); }
+  #bdf-config .bdf-badge.b-ok .dot { background: var(--ok); }
+  #bdf-config .bdf-badge.b-caution { background: var(--caution-tint); color: var(--caution); }
+  #bdf-config .bdf-badge.b-caution .dot { background: var(--caution); }
+  #bdf-config .bdf-badge.b-bad { background: var(--bad-tint); color: var(--bad); }
+  #bdf-config .bdf-badge.b-bad .dot { background: var(--bad); }
+
+  #bdf-config .bdf-axis-detail {
+    font-size: 12px; color: var(--ink-muted); display: flex; gap: 14px; flex-wrap: wrap;
+  }
+  #bdf-config .bdf-axis-detail b { color: var(--ink); font-weight: 600; }
+
+  #bdf-config .bdf-chevron { transition: transform 0.2s ease; color: var(--ink-muted); flex-shrink: 0; }
+  #bdf-config .bdf-size-card[data-open="true"] .bdf-chevron { transform: rotate(180deg); }
+
+  /* --- Panneau déplié : plan 2D + produits ------------------------------ */
+  #bdf-config .bdf-detail-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.25s ease;
+  }
+  #bdf-config .bdf-size-card[data-open="true"] .bdf-detail-panel { grid-template-rows: 1fr; }
+  #bdf-config .bdf-detail-inner { overflow: hidden; }
+  #bdf-config .bdf-detail-content { padding: 4px 16px 18px; border-top: 1px solid var(--line); }
+
+  #bdf-config .bdf-plan {
+    background: var(--surface-sunken);
+    border-radius: var(--radius-sm);
+    margin-top: 14px;
+    padding: 10px;
+  }
+  #bdf-config .bdf-plan svg { display: block; width: 100%; height: auto; max-height: 220px; }
+  #bdf-config .bdf-plan-caption {
+    font-size: 11.5px; color: var(--ink-muted); text-align: center; margin-top: 6px;
+  }
+
+  #bdf-config .bdf-products-label {
+    font-size: 12.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--ink-muted); margin: 18px 0 10px;
+  }
+  #bdf-config .bdf-product-row {
+    display: flex; gap: 12px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: thin;
+  }
+  #bdf-config .bdf-product-card {
+    flex: 0 0 128px;
+    text-decoration: none;
+    color: var(--ink);
+    display: block;
+  }
+  #bdf-config .bdf-product-thumb {
+    width: 128px; height: 128px; border-radius: var(--radius-sm);
+    background: var(--surface); border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  #bdf-config .bdf-product-card:hover .bdf-product-thumb { border-color: var(--wine); transform: translateY(-2px); }
+  #bdf-config .bdf-product-thumb svg { width: 56%; height: 56%; color: var(--line-strong); }
+  #bdf-config .bdf-product-brand {
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+    color: var(--wine); margin: 8px 0 2px;
+  }
+  #bdf-config .bdf-product-name { font-size: 12.5px; line-height: 1.35; }
+
+  #bdf-config .bdf-toosmall-note {
+    margin-top: 14px; font-size: 13px; color: var(--ink-muted);
+  }
+
+  #bdf-config footer.bdf-foot {
+    margin-top: 30px; padding-top: 18px; border-top: 1px solid var(--line);
+    font-size: 13px; color: var(--ink-muted);
+    display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  }
+  #bdf-config footer.bdf-foot a { color: var(--wine); font-weight: 600; text-decoration: none; }
+  #bdf-config footer.bdf-foot a:hover { text-decoration: underline; }
+
+  @media (prefers-reduced-motion: reduce) {
+    #bdf-config * { transition: none !important; }
+  }
+</style>
+
+<div id="bdf-config">
+  <header class="bdf-head">
+    <p class="bdf-eyebrow">Configurateur d'espace</p>
+    <h1>Quelle taille de billard pour votre pièce&nbsp;?</h1>
+    <p class="bdf-lede">Indiquez les dimensions disponibles, nous calculons en temps réel les tailles de billard compatibles et la longueur de queue qui vous offrira le meilleur confort de jeu.</p>
+  </header>
+
+  <div class="bdf-card">
+    <label class="bdf-field-label" for="bdf-help-toggle" style="display:none;"></label>
+    <div class="bdf-form-grid">
+      <div>
+        <label class="bdf-field-label" for="bdf-longueur">Longueur de la pièce</label>
+        <div class="bdf-input-wrap">
+          <input type="number" id="bdf-longueur" inputmode="numeric" min="0" max="2000" step="1" placeholder="ex. 450" aria-describedby="bdf-hint" />
+          <span class="bdf-unit">cm</span>
+        </div>
+      </div>
+      <div>
+        <label class="bdf-field-label" for="bdf-largeur">Largeur de la pièce</label>
+        <div class="bdf-input-wrap">
+          <input type="number" id="bdf-largeur" inputmode="numeric" min="0" max="2000" step="1" placeholder="ex. 350" aria-describedby="bdf-hint" />
+          <span class="bdf-unit">cm</span>
+        </div>
+      </div>
+    </div>
+    <p class="bdf-hint" id="bdf-hint">Mesurez l'espace de jeu disponible à hauteur de table (un meuble bas ne compte pas comme obstacle).</p>
+  </div>
+
+  <div class="bdf-summary" id="bdf-summary" data-active="false"></div>
+
+  <div class="bdf-sizes" id="bdf-sizes" data-active="false">
+    <div class="bdf-sizes-head">
+      <h2>Comparer les tailles</h2>
+    </div>
+    <div class="bdf-grid" id="bdf-grid"></div>
+  </div>
+
+  <footer class="bdf-foot">
+    <span>Un doute sur votre mesure&nbsp;? Nos conseillers vous répondent.</span>
+    <a href="tel:0562693020">05&nbsp;62&nbsp;69&nbsp;30&nbsp;20</a>
+  </footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ========================================================================
+     1. RÉFÉRENTIEL DE DONNÉES
+     Source : tableau fourni par le client (mesures atelier). Toutes les
+     dimensions sont en centimètres. À faire évoluer ici uniquement si la
+     gamme change — c'est la seule source de vérité du calculateur.
+     ======================================================================== */
+  var REFERENTIEL = [
+    { id: "7",  label: "7 pieds",  table: { length: 211, width: 120 }, play: { length: 181, width: 90 } },
+    { id: "8",  label: "8 pieds",  table: { length: 239, width: 127 }, play: { length: 209, width: 97 } },
+    { id: "9",  label: "9 pieds",  table: { length: 269, width: 142 }, play: { length: 239, width: 112 } },
+    { id: "10", label: "10 pieds", table: { length: 322, width: 174 }, play: { length: 292, width: 144 } },
+    { id: "12", label: "12 pieds", table: { length: 383, width: 204 }, play: { length: 353, width: 174 } }
+  ];
+
+  // Longueurs de queue commercialisées, du plus confortable au plus court.
+  var CUE_LENGTHS = [140, 120, 100];
+
+  var COMFORT_LEVELS = {
+    140: { key: "optimal", label: "Confort optimal",              badge: "b-good",    tone: "good" },
+    120: { key: "confort", label: "Confort",                       badge: "b-ok",      tone: "ok" },
+    100: { key: "jouable", label: "Jouable, confort réduit",       badge: "b-caution", tone: "caution" }
+  };
+
+  /* ========================================================================
+     2. CATALOGUE PRODUITS — MAPPING STATIQUE (à tenir à jour manuellement)
+     -----------------------------------------------------------------------
+     TODO DÉVELOPPEUR : remplacer par un appel au webservice PrestaShop
+     (ex. GET /api/products?filter[category]=billard-<taille>) et supprimer
+     ce mapping statique. Conserver la même forme de retour pour ne pas
+     casser le rendu : { brand, name, url, image }.
+     Règle de marque confirmée par le client : le 7 pieds existe chez
+     Plaisance ET Lafuge ; à partir du 8 pieds, seule la gamme Lafuge existe.
+     ======================================================================== */
+  var CATALOGUE = {
+    "7":  [
+      { brand: "Plaisance", name: "Billard Plaisance — 7 pieds", url: "#", image: null },
+      { brand: "Lafuge",    name: "Billard Lafuge — 7 pieds",    url: "#", image: null }
+    ],
+    "8":  [ { brand: "Lafuge", name: "Billard Lafuge — 8 pieds",  url: "#", image: null } ],
+    "9":  [ { brand: "Lafuge", name: "Billard Lafuge — 9 pieds",  url: "#", image: null } ],
+    "10": [ { brand: "Lafuge", name: "Billard Lafuge — 10 pieds", url: "#", image: null } ],
+    "12": [ { brand: "Lafuge", name: "Billard Lafuge — 12 pieds", url: "#", image: null } ]
+  };
+
+  function getProduits(sizeId) {
+    // Point d'extension unique pour brancher le webservice PrestaShop plus tard.
+    return CATALOGUE[sizeId] || [];
+  }
+
+  /* ========================================================================
+     3. MOTEUR DE CALCUL
+     ======================================================================== */
+
+  // Plus grande queue (parmi 140/120/100) qui tient sur un axe donné.
+  // Retourne null si même 100cm ne rentre pas sur cet axe.
+  function maxCueForAxis(roomAxisCm, playAxisCm) {
+    var excess = roomAxisCm - playAxisCm;
+    var capCm = excess / 2;
+    for (var i = 0; i < CUE_LENGTHS.length; i++) {
+      if (CUE_LENGTHS[i] <= capCm) return CUE_LENGTHS[i];
+    }
+    return null;
+  }
+
+  // Évalue une taille dans une orientation donnée (play.length sur l'axe
+  // "longueur" de la pièce, play.width sur l'axe "largeur").
+  function evaluateOrientation(roomL, roomW, play) {
+    var cueOnLength = maxCueForAxis(roomL, play.length);
+    var cueOnWidth = maxCueForAxis(roomW, play.width);
+    if (cueOnLength === null || cueOnWidth === null) return null;
+    // Un seul jeu de queues acheté : la contrainte la plus forte gagne.
+    var achieved = Math.min(cueOnLength, cueOnWidth);
+    return { achieved: achieved, cueOnLength: cueOnLength, cueOnWidth: cueOnWidth, rotated: false };
+  }
+
+  // Teste les deux orientations possibles du billard dans le rectangle de
+  // la pièce et retient la meilleure (queue la plus longue obtenue).
+  function evaluateSize(roomL, roomW, size) {
+    var normal = evaluateOrientation(roomL, roomW, size.play);
+    var rotated = evaluateOrientation(roomL, roomW, { length: size.play.width, width: size.play.length });
+    if (rotated) rotated.rotated = true;
+
+    var best = null;
+    if (normal && rotated) best = normal.achieved >= rotated.achieved ? normal : rotated;
+    else best = normal || rotated;
+
+    if (!best) return { fits: false, achieved: null, rotated: false };
+    return {
+      fits: true,
+      achieved: best.achieved,
+      cueOnLength: best.rotated ? best.cueOnWidth : best.cueOnLength,
+      cueOnWidth: best.rotated ? best.cueOnLength : best.cueOnWidth,
+      rotated: best.rotated
+    };
+  }
+
+  // Calcule l'évaluation de toutes les tailles + désigne la recommandation.
+  function computeResults(roomL, roomW) {
+    var evaluations = REFERENTIEL.map(function (size) {
+      var evalResult = evaluateSize(roomL, roomW, size);
+      return Object.assign({ size: size }, evalResult);
+    });
+
+    // Règle de recommandation : la plus GRANDE taille qui atteint 140 sur
+    // les deux axes. Si aucune n'atteint 140, on retombe sur la plus petite
+    // taille qui rentre quand même (quitte à afficher un confort réduit).
+    var recommended = null;
+    for (var i = evaluations.length - 1; i >= 0; i--) {
+      if (evaluations[i].fits && evaluations[i].achieved === 140) { recommended = evaluations[i]; break; }
+    }
+    if (!recommended) {
+      for (var j = 0; j < evaluations.length; j++) {
+        if (evaluations[j].fits) { recommended = evaluations[j]; break; }
+      }
+    }
+
+    return { evaluations: evaluations, recommended: recommended };
+  }
+
+  /* ========================================================================
+     4. ANALYTICS — points d'accroche pour le développeur (GA4 / Matomo…)
+     ======================================================================== */
+  function trackEvent(name, detail) {
+    try {
+      document.dispatchEvent(new CustomEvent("bdf-config:" + name, { detail: detail || {} }));
+      if (window.dataLayer) window.dataLayer.push({ event: "bdf-config:" + name, ...detail });
+    } catch (e) { /* no-op : le tracking ne doit jamais casser l'outil */ }
+  }
+
+  /* ========================================================================
+     5. RENDU
+     ======================================================================== */
+  var els = {
+    longueur: document.getElementById("bdf-longueur"),
+    largeur: document.getElementById("bdf-largeur"),
+    summary: document.getElementById("bdf-summary"),
+    sizes: document.getElementById("bdf-sizes"),
+    grid: document.getElementById("bdf-grid")
+  };
+
+  var openCardId = null; // une seule fiche dépliée à la fois
+  var lastTrackedDims = "";
+
+  function clampDim(raw) {
+    var n = parseFloat(raw);
+    if (!isFinite(n) || n <= 0) return null;
+    return Math.min(n, 2000); // borne haute de sécurité (20 m)
+  }
+
+  function el(tag, className, text) {
+    var node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined) node.textContent = text;
+    return node;
+  }
+
+  function iconSvg(pathD, viewBox) {
+    var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("viewBox", viewBox || "0 0 24 24");
+    svg.setAttribute("fill", "none");
+    var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("d", pathD);
+    path.setAttribute("stroke", "currentColor");
+    path.setAttribute("stroke-width", "1.6");
+    path.setAttribute("stroke-linecap", "round");
+    path.setAttribute("stroke-linejoin", "round");
+    svg.appendChild(path);
+    return svg;
+  }
+
+  function billiardPlaceholderIcon() {
+    // Icône générique (silhouette de billard) utilisée tant qu'aucune photo
+    // produit réelle n'est branchée.
+    return iconSvg("M3 8h18M3 8a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2M21 8a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2M3 16h18M8 12h.01M12 12h.01M16 12h.01", "0 0 24 24");
+  }
+
+  function chevronIcon() {
+    var svg = iconSvg("M6 9l6 6 6-6", "0 0 24 24");
+    svg.setAttribute("width", "18");
+    svg.setAttribute("height", "18");
+    svg.classList.add("bdf-chevron");
+    return svg;
+  }
+
+  function render() {
+    var roomL = clampDim(els.longueur.value);
+    var roomW = clampDim(els.largeur.value);
+
+    if (!roomL || !roomW) {
+      els.summary.dataset.active = "false";
+      els.sizes.dataset.active = "false";
+      els.summary.textContent = "";
+      els.grid.textContent = "";
+      return;
+    }
+
+    var dimsKey = roomL + "x" + roomW;
+    if (dimsKey !== lastTrackedDims) {
+      lastTrackedDims = dimsKey;
+      trackEvent("dimensions_saisies", { longueur: roomL, largeur: roomW });
+    }
+
+    var results = computeResults(roomL, roomW);
+    renderSummary(results, roomL, roomW);
+    renderGrid(results, roomL, roomW);
+  }
+
+  function renderSummary(results, roomL, roomW) {
+    els.summary.dataset.active = "true";
+    els.summary.textContent = "";
+
+    var card = el("div", "bdf-summary-card");
+    var icon = el("div", "bdf-summary-icon");
+    var text = el("div", "bdf-summary-text");
+
+    if (results.recommended) {
+      var r = results.recommended;
+      var level = COMFORT_LEVELS[r.achieved];
+      var tone = r.achieved === 140 ? "good" : "caution";
+      card.classList.add("state-" + tone);
+      icon.textContent = "✓";
+
+      var title = el("p", "bdf-summary-title", "Notre recommandation : billard " + r.size.label);
+      var subText = r.achieved === 140
+        ? "Confort optimal avec une queue de 140 cm sur les deux dimensions de votre pièce."
+        : "Meilleure option pour votre pièce, avec une queue de " + r.achieved + " cm (" + level.label.toLowerCase() + ").";
+      var sub = el("p", "bdf-summary-sub", subText);
+
+      text.appendChild(title);
+      text.appendChild(sub);
+      card.appendChild(icon);
+      card.appendChild(text);
+
+      trackEvent("taille_recommandee", { taille: r.size.id, queue: r.achieved });
+    } else {
+      card.classList.add("state-bad");
+      icon.textContent = "!";
+      var title2 = el("p", "bdf-summary-title", "Aucun de nos billards ne rentre dans cet espace");
+      var sub2 = el("p", "bdf-summary-sub", "Même notre plus petit modèle (7 pieds) nécessite davantage de recul. Parlez-nous de votre pièce, nous avons souvent une solution.");
+      text.appendChild(title2);
+      text.appendChild(sub2);
+      card.appendChild(icon);
+      card.appendChild(text);
+
+      var callBtn = el("a", "bdf-call-btn");
+      callBtn.href = "tel:0562693020";
+      callBtn.textContent = "Appeler un conseiller — 05 62 69 30 20";
+      callBtn.addEventListener("click", function () { trackEvent("appel_conseiller_clic", { contexte: "trop_petit" }); });
+      card.appendChild(callBtn);
+
+      trackEvent("aucune_taille_compatible", { longueur: roomL, largeur: roomW });
+    }
+
+    els.summary.appendChild(card);
+  }
+
+  function renderGrid(results, roomL, roomW) {
+    els.sizes.dataset.active = "true";
+    els.grid.textContent = "";
+
+    results.evaluations.forEach(function (evaluation) {
+      els.grid.appendChild(renderSizeCard(evaluation, results.recommended, roomL, roomW));
+    });
+  }
+
+  function renderSizeCard(evaluation, recommended, roomL, roomW) {
+    var size = evaluation.size;
+    var isRecommended = recommended && recommended.size.id === size.id;
+    var isOpen = openCardId === size.id;
+
+    var card = el("div", "bdf-size-card");
+    card.dataset.fits = evaluation.fits ? "true" : "false";
+    card.dataset.recommended = isRecommended ? "true" : "false";
+    card.dataset.open = isOpen ? "true" : "false";
+
+    var toggle = el("button", "bdf-size-toggle");
+    toggle.type = "button";
+    toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    if (!evaluation.fits) toggle.disabled = true;
+
+    var top = el("div", "bdf-size-top");
+    var nameWrap = el("div");
+    var nameRow = el("div", "bdf-size-top");
+    nameRow.style.gap = "8px";
+    nameRow.appendChild(el("span", "bdf-size-name", size.label));
+    if (isRecommended) nameRow.appendChild(el("span", "bdf-recommended-pill", "Conseillé"));
+    nameWrap.appendChild(nameRow);
+    nameWrap.appendChild(el("div", "bdf-size-dims bdf-nums", size.table.length + " × " + size.table.width + " cm"));
+    top.appendChild(nameWrap);
+    if (evaluation.fits) top.appendChild(chevronIcon());
+    toggle.appendChild(top);
+
+    if (evaluation.fits) {
+      var level = COMFORT_LEVELS[evaluation.achieved];
+      var badge = el("span", "bdf-badge " + level.badge);
+      badge.appendChild(el("span", "dot"));
+      badge.appendChild(document.createTextNode(level.label + " (queue " + evaluation.achieved + " cm)"));
+      toggle.appendChild(badge);
+
+      var axisDetail = el("div", "bdf-axis-detail");
+      var axLen = el("span");
+      axLen.innerHTML = "";
+      axLen.appendChild(document.createTextNode("Longueur : jusqu'à "));
+      axLen.appendChild(el("b", null, evaluation.cueOnLength + " cm"));
+      var axWid = el("span");
+      axWid.appendChild(document.createTextNode("Largeur : jusqu'à "));
+      axWid.appendChild(el("b", null, evaluation.cueOnWidth + " cm"));
+      axisDetail.appendChild(axLen);
+      axisDetail.appendChild(axWid);
+      toggle.appendChild(axisDetail);
+    } else {
+      var badgeBad = el("span", "bdf-badge b-bad");
+      badgeBad.appendChild(el("span", "dot"));
+      badgeBad.appendChild(document.createTextNode("Ne rentre pas dans votre pièce"));
+      toggle.appendChild(badgeBad);
+    }
+
+    card.appendChild(toggle);
+
+    if (evaluation.fits) {
+      toggle.addEventListener("click", function () {
+        openCardId = isOpen ? null : size.id;
+        if (!isOpen) trackEvent("taille_depliee", { taille: size.id });
+        renderGrid(computeResults(roomL, roomW), roomL, roomW);
+      });
+
+      var panel = el("div", "bdf-detail-panel");
+      var inner = el("div", "bdf-detail-inner");
+      var content = el("div", "bdf-detail-content");
+
+      content.appendChild(buildPlan(size, evaluation, roomL, roomW));
+      content.appendChild(buildProductRow(size));
+
+      inner.appendChild(content);
+      panel.appendChild(inner);
+      card.appendChild(panel);
+    }
+
+    return card;
+  }
+
+  /* -- Plan 2D (SVG, coordonnées en cm, vu du dessus) -------------------- */
+  function buildPlan(size, evaluation, roomL, roomW) {
+    var wrap = el("div", "bdf-plan");
+
+    var play = evaluation.rotated
+      ? { length: size.play.width, width: size.play.length }
+      : { length: size.play.length, width: size.play.width };
+    var table = evaluation.rotated
+      ? { length: size.table.width, width: size.table.length }
+      : { length: size.table.length, width: size.table.width };
+
+    var pad = Math.max(20, Math.round(Math.min(roomL, roomW) * 0.06));
+    var vbW = roomL + pad * 2;
+    var vbH = roomW + pad * 2;
+
+    var svgNS = "http://www.w3.org/2000/svg";
+    var svg = document.createElementNS(svgNS, "svg");
+    svg.setAttribute("viewBox", "0 0 " + vbW + " " + vbH);
+    svg.setAttribute("role", "img");
+    svg.setAttribute("aria-label", "Plan de la pièce vu du dessus, avec le billard " + size.label + " positionné au centre");
+
+    function rect(x, y, w, h, opts) {
+      var r = document.createElementNS(svgNS, "rect");
+      r.setAttribute("x", x); r.setAttribute("y", y);
+      r.setAttribute("width", w); r.setAttribute("height", h);
+      Object.keys(opts).forEach(function (k) { r.setAttribute(k, opts[k]); });
+      return r;
+    }
+
+    // Pièce
+    svg.appendChild(rect(pad, pad, roomL, roomW, {
+      fill: "none", stroke: "var(--line-strong)", "stroke-width": "2", "vector-effect": "non-scaling-stroke"
+    }));
+
+    // Zone de recul (queue) — surface = tapis + queue de chaque côté
+    var clearW = play.length + evaluation.cueOnLength * 2;
+    var clearH = play.width + evaluation.cueOnWidth * 2;
+    var clearX = pad + (roomL - clearW) / 2;
+    var clearY = pad + (roomW - clearH) / 2;
+    svg.appendChild(rect(clearX, clearY, clearW, clearH, {
+      fill: "none", stroke: "var(--wine)", "stroke-width": "1.5", "stroke-dasharray": "6 5",
+      "vector-effect": "non-scaling-stroke", opacity: "0.55"
+    }));
+
+    // Billard (tapis)
+    var tableX = pad + (roomL - play.length) / 2;
+    var tableY = pad + (roomW - play.width) / 2;
+    svg.appendChild(rect(tableX, tableY, play.length, play.width, {
+      fill: "var(--wine)", opacity: "0.16", stroke: "var(--wine)", "stroke-width": "2",
+      "vector-effect": "non-scaling-stroke", rx: "2"
+    }));
+
+    wrap.appendChild(svg);
+    var caption = el("p", "bdf-plan-caption",
+      "Pièce " + roomL + " × " + roomW + " cm — zone de jeu avec queue " + Math.min(evaluation.cueOnLength, evaluation.cueOnWidth) + " cm en pointillés");
+    wrap.appendChild(caption);
+    return wrap;
+  }
+
+  /* -- Liste produits (miniatures, marque, nom, lien) --------------------- */
+  function buildProductRow(size) {
+    var frag = document.createDocumentFragment();
+    frag.appendChild(el("p", "bdf-products-label", "Nos billards " + size.label + " disponibles"));
+
+    var row = el("div", "bdf-product-row");
+    var produits = getProduits(size.id);
+
+    produits.forEach(function (produit) {
+      var card = document.createElement("a");
+      card.className = "bdf-product-card";
+      card.href = produit.url;
+      card.target = "_blank";
+      card.rel = "noopener noreferrer";
+      card.addEventListener("click", function () {
+        trackEvent("produit_clique", { taille: size.id, marque: produit.brand, nom: produit.name });
+      });
+
+      var thumb = el("div", "bdf-product-thumb");
+      if (produit.image) {
+        var img = document.createElement("img");
+        img.src = produit.image;
+        img.alt = produit.name;
+        img.style.width = "100%"; img.style.height = "100%"; img.style.objectFit = "cover";
+        thumb.appendChild(img);
+      } else {
+        thumb.appendChild(billiardPlaceholderIcon());
+      }
+
+      card.appendChild(thumb);
+      card.appendChild(el("div", "bdf-product-brand", produit.brand));
+      card.appendChild(el("div", "bdf-product-name", produit.name));
+      row.appendChild(card);
+    });
+
+    frag.appendChild(row);
+    return frag;
+  }
+
+  els.longueur.addEventListener("input", render);
+  els.largeur.addEventListener("input", render);
+})();
+</script>
