@@ -75,15 +75,44 @@ des deux — c'est un raccourci de classement, pas une consigne d'achat.
 
 ## Charte graphique appliquée
 
-- Fond : gris clair neutre (`#F2F3F3`)
+- Fond : gris clair neutre (`#F2F3F3`), **majoritaire sur toute la page**
 - Titres : Georgia, gras
-- Corps de texte : Helvetica
-- Rouge (accent principal, CTA, taille conseillée) : `#AD132C`
-- Rouge pâle (accent secondaire, zone de recul sur le plan, badge "Gêne") :
-  `#E37688`
-- Noir/encre pour le texte et les tracés
+- Corps de texte : Helvetica, en noir/encre (`#17181A`)
+- Rouge principal (CTA, taille conseillée, avatar conseiller) : `#AD132C`
+- Rouge pâle (accent secondaire uniquement — zone de recul sur le plan,
+  badge "Gêne") : `#E37688`
 - Billard sur le plan 2D : vert (couleur neutre du tapis, distincte de
   l'accent de marque)
+
+**Thème unique, volontairement** : contrairement à une v1 précédente, ce
+widget ne s'adapte plus au mode sombre du système du visiteur — il impose
+toujours son fond gris clair et son rouge de marque. C'est un choix
+délibéré suite à un retour du client : en mode sombre système, le rouge de
+marque était automatiquement éclairci pour le contraste, ce qui donnait
+l'impression visuelle d'utiliser le rouge secondaire à la place du
+principal. Le code ne contient donc plus de bloc `@media
+(prefers-color-scheme: dark)`.
+
+## Responsive
+
+Le widget s'adapte à la largeur réelle de son conteneur (et non à celle de
+la fenêtre du navigateur) via les **CSS container queries**
+(`container-type: inline-size` sur `#bdf-config`, règles `@container bdf
+(min-width: …)`), pas seulement des `@media`. C'est important puisque
+l'outil sera inséré dans une colonne de blog dont la largeur n'est pas
+celle de l'écran. Sur un navigateur qui ne supporte pas les container
+queries (rare aujourd'hui), le widget reste utilisable : il retombe
+simplement sur la mise en page mobile (une colonne), sans achèvement
+cassé — pas de polyfill nécessaire, mais à vérifier une fois inséré dans
+le vrai thème PrestaShop.
+
+- **Mobile** (< 520px de large) : tout est empilé sur une colonne, grille
+  des tailles en 2 colonnes.
+- **Tablette** (520–760px) : grille des tailles en 3 colonnes.
+- **Desktop** (≥ 700px) : le formulaire de saisie passe à gauche et le
+  résultat (recommandation + plan 2D) à droite, côte à côte.
+- **Grand écran** (≥ 760px) : grille des tailles sur une seule ligne de 5
+  colonnes.
 
 ## À faire côté développeur avant mise en production
 
@@ -112,6 +141,13 @@ des deux — c'est un raccourci de classement, pas une consigne d'achat.
 - [ ] **Photos produits** : remplacer les vignettes placeholder (icône
   générique) par les vraies photos produit (`image` dans `CATALOGUE` ou la
   réponse API).
+- [ ] **Avatar conseiller** : le client a fourni une illustration de
+  conseiller (avatar avec casque, style plat) à utiliser dans la bulle de
+  contact. Cette v1 dessine un avatar équivalent en SVG (voir
+  `bubblePersonIcon()`) en attendant le fichier réel — à remplacer par
+  l'asset fourni (`<img>` ou SVG optimisé) dès qu'il est transmis au format
+  fichier (le visuel collé dans la conversation ne peut pas être extrait
+  automatiquement).
 - [ ] **Animation du plan** : la transition du rectangle billard repose sur
   l'animation CSS des propriétés géométriques SVG (`x`/`y`/`width`/`height`
   sur `<rect>`), supportée nativement par les navigateurs modernes

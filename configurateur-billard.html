@@ -80,42 +80,9 @@
 
     color-scheme: light;
   }
-  @media (prefers-color-scheme: dark) {
-    #bdf-config:not([data-theme="light"]) {
-      --bg: #17181A;
-      --surface: #202224;
-      --surface-sunken: #26282B;
-      --ink: #F1F2F2;
-      --ink-muted: #A7ABAE;
-      --line: #34373A;
-      --line-strong: #42464A;
-
-      --red: #E8677D;
-      --red-deep: #F0899B;
-      --red-pale: #E37688;
-      --red-tint: #3A2229;
-
-      --good: #7FC496;
-      --good-tint: #1F3327;
-      --ok: #E0B15C;
-      --ok-tint: #332A1B;
-      --gene-ink: #F0A8B4;
-      --gene-tint: #3A2229;
-
-      --locked-bg: #26282B;
-      --locked-ink: #6E7275;
-      color-scheme: dark;
-    }
-  }
-  #bdf-config[data-theme="dark"] {
-    --bg: #17181A; --surface: #202224; --surface-sunken: #26282B;
-    --ink: #F1F2F2; --ink-muted: #A7ABAE; --line: #34373A; --line-strong: #42464A;
-    --red: #E8677D; --red-deep: #F0899B; --red-pale: #E37688; --red-tint: #3A2229;
-    --good: #7FC496; --good-tint: #1F3327; --ok: #E0B15C; --ok-tint: #332A1B;
-    --gene-ink: #F0A8B4; --gene-tint: #3A2229;
-    --locked-bg: #26282B; --locked-ink: #6E7275;
-    color-scheme: dark;
-  }
+  /* Thème unique, volontairement : ce widget doit toujours reprendre le fond
+     gris clair et le rouge de marque de Billards de France, quel que soit le
+     mode sombre/clair du système du visiteur — voir la discussion du 20/08. */
 
   #bdf-config, #bdf-config * { box-sizing: border-box; }
   #bdf-config {
@@ -124,9 +91,11 @@
     font-family: Helvetica, "Helvetica Neue", Arial, sans-serif;
     font-size: 15px;
     line-height: 1.5;
-    max-width: 900px;
+    max-width: 1080px;
     margin: 0 auto;
-    padding: 32px 20px 48px;
+    padding: clamp(20px, 4vw, 40px) clamp(16px, 4vw, 28px) 44px;
+    container-type: inline-size;
+    container-name: bdf;
   }
   #bdf-config h1, #bdf-config h2, #bdf-config h3 {
     font-family: Georgia, "Times New Roman", Times, serif;
@@ -137,15 +106,25 @@
   }
   #bdf-config .bdf-lede { color: var(--ink-muted); margin: 10px 0 0; font-size: 15px; }
   #bdf-config .bdf-nums { font-variant-numeric: tabular-nums; }
-  #bdf-config header.bdf-head { margin-bottom: 26px; }
-  #bdf-config h1 { font-size: clamp(24px, 4vw, 30px); }
+  #bdf-config header.bdf-head { margin-bottom: 24px; }
+  #bdf-config h1 { font-size: clamp(24px, 3.2cqi, 34px); }
+
+  /* --- Zone haute : saisie + résultat côte à côte sur grand écran -------- */
+  #bdf-config .bdf-top-grid { display: grid; grid-template-columns: 1fr; gap: 18px; align-items: start; }
+  #bdf-config .bdf-top-right { display: flex; flex-direction: column; gap: 18px; }
+  @container bdf (min-width: 700px) {
+    #bdf-config .bdf-top-grid { grid-template-columns: minmax(260px, 340px) 1fr; }
+  }
 
   /* --- Carte de saisie -------------------------------------------------- */
   #bdf-config .bdf-card {
     background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg);
     box-shadow: var(--shadow-card); padding: 22px 24px;
   }
-  #bdf-config .bdf-form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-top: 16px; }
+  #bdf-config .bdf-form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin-top: 16px; }
+  @container bdf (min-width: 700px) {
+    #bdf-config .bdf-form-grid { grid-template-columns: 1fr; }
+  }
   #bdf-config label.bdf-field-label {
     display: block; font-size: 12.5px; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase;
     color: var(--ink-muted); margin-bottom: 7px;
@@ -163,7 +142,7 @@
   #bdf-config .bdf-hint { font-size: 13px; color: var(--ink-muted); margin: 14px 0 0; }
 
   /* --- Résumé / recommandation ------------------------------------------ */
-  #bdf-config .bdf-summary { margin-top: 20px; display: none; }
+  #bdf-config .bdf-summary { display: none; }
   #bdf-config .bdf-summary[data-active="true"] { display: block; }
   #bdf-config .bdf-summary-card {
     border-radius: var(--radius-lg); padding: 16px 20px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
@@ -171,12 +150,12 @@
   #bdf-config .bdf-summary-card.state-good { background: var(--good-tint); border: 1px solid color-mix(in srgb, var(--good) 35%, transparent); }
   #bdf-config .bdf-summary-card.state-alert { background: var(--red-tint); border: 1px solid color-mix(in srgb, var(--red) 35%, transparent); }
   #bdf-config .bdf-summary-icon {
-    width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; font-family: Georgia, serif; font-size: 18px; font-weight: 700;
+    width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-family: Georgia, serif; font-size: 19px; font-weight: 700; overflow: hidden;
   }
-  #bdf-config .bdf-summary-icon svg { width: 22px; height: 22px; }
+  #bdf-config .bdf-summary-icon svg { width: 100%; height: 100%; }
   .state-good .bdf-summary-icon { background: var(--good); color: var(--good-tint); }
-  .state-alert .bdf-summary-icon { background: var(--red); color: #fff; }
+  .state-alert .bdf-summary-icon { background: none; color: var(--red); }
   #bdf-config .bdf-summary-text { flex: 1; min-width: 220px; }
   #bdf-config .bdf-summary-title { font-family: Georgia, serif; font-size: 18px; font-weight: 700; margin: 0; }
   #bdf-config .bdf-summary-sub { font-size: 13.5px; color: var(--ink-muted); margin: 4px 0 0; }
@@ -189,7 +168,7 @@
   #bdf-config .bdf-call-btn:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
 
   /* --- Plan 2D permanent -------------------------------------------------- */
-  #bdf-config .bdf-plan-section { margin-top: 22px; display: none; }
+  #bdf-config .bdf-plan-section { display: none; flex: 1; }
   #bdf-config .bdf-plan-section[data-active="true"] { display: block; }
   #bdf-config .bdf-plan {
     background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg);
@@ -208,7 +187,9 @@
   #bdf-config .bdf-sizes[data-active="true"] { display: block; }
   #bdf-config .bdf-sizes-head { margin-bottom: 12px; }
   #bdf-config .bdf-sizes-head h2 { font-size: 17px; }
-  #bdf-config .bdf-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+  #bdf-config .bdf-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  @container bdf (min-width: 520px) { #bdf-config .bdf-grid { grid-template-columns: repeat(3, 1fr); } }
+  @container bdf (min-width: 760px) { #bdf-config .bdf-grid { grid-template-columns: repeat(5, 1fr); } }
 
   #bdf-config .bdf-size-card {
     background: var(--surface); border: 1.5px solid var(--line); border-radius: var(--radius-md);
@@ -258,17 +239,25 @@
   #bdf-config .bdf-products-label {
     font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-muted); margin: 0 0 10px;
   }
-  #bdf-config .bdf-product-row { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: thin; }
-  #bdf-config .bdf-product-card { flex: 0 0 128px; text-decoration: none; color: var(--ink); display: block; }
-  #bdf-config .bdf-product-thumb {
-    width: 128px; height: 128px; border-radius: var(--radius-sm); background: var(--surface); border: 1px solid var(--line);
-    display: flex; align-items: center; justify-content: center; overflow: hidden;
-    transition: border-color 0.15s ease, transform 0.15s ease;
+  #bdf-config .bdf-product-row { display: flex; gap: 14px; overflow-x: auto; padding: 4px 4px 8px; scrollbar-width: thin; }
+  #bdf-config .bdf-product-card {
+    flex: 0 0 150px; text-decoration: none; color: var(--ink); display: block; background: var(--surface);
+    border: 1px solid var(--line); border-radius: var(--radius-md); padding: 10px; transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
   }
-  #bdf-config .bdf-product-card:hover .bdf-product-thumb { border-color: var(--red); transform: translateY(-2px); }
-  #bdf-config .bdf-product-thumb svg { width: 56%; height: 56%; color: var(--line-strong); }
-  #bdf-config .bdf-product-brand { font-size: 10.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--red); margin: 8px 0 2px; }
-  #bdf-config .bdf-product-name { font-size: 12.5px; line-height: 1.35; }
+  #bdf-config .bdf-product-card:hover { border-color: var(--red); transform: translateY(-2px); box-shadow: var(--shadow-card); }
+  #bdf-config .bdf-product-thumb {
+    width: 100%; aspect-ratio: 1; border-radius: var(--radius-sm); background: var(--surface-sunken); border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  #bdf-config .bdf-product-thumb svg { width: 52%; height: 52%; color: var(--line-strong); }
+  #bdf-config .bdf-product-brand { font-size: 10.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--red); margin: 10px 0 2px; }
+  #bdf-config .bdf-product-name { font-size: 12.5px; line-height: 1.35; min-height: 2.7em; }
+  #bdf-config .bdf-product-cta {
+    display: block; margin-top: 10px; text-align: center; font-size: 12px; font-weight: 700;
+    color: var(--red); border: 1.5px solid var(--red); border-radius: var(--radius-sm); padding: 7px 0;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  #bdf-config .bdf-product-card:hover .bdf-product-cta { background: var(--red); color: #fff; }
 
   /* --- Raisonnement repliable ---------------------------------------------- */
   #bdf-config .bdf-reasoning { margin-top: 26px; border-top: 1px solid var(--line); padding-top: 16px; }
@@ -282,14 +271,15 @@
   #bdf-config .bdf-reasoning-body { font-size: 13.5px; color: var(--ink-muted); margin: 12px 0 0; }
 
   #bdf-config footer.bdf-foot {
-    margin-top: 26px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 13px; color: var(--ink-muted);
-    display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    margin-top: 30px; padding: 18px 20px; border-radius: var(--radius-lg); background: var(--surface);
+    border: 1px solid var(--line); font-size: 13.5px; color: var(--ink-muted);
+    display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap;
   }
-  #bdf-config .bdf-foot-contact { display: flex; align-items: center; gap: 10px; }
-  #bdf-config .bdf-foot-bubble { width: 26px; height: 26px; flex-shrink: 0; color: var(--red); }
+  #bdf-config .bdf-foot-contact { display: flex; align-items: center; gap: 12px; }
+  #bdf-config .bdf-foot-bubble { width: 38px; height: 38px; flex-shrink: 0; color: var(--red); }
   #bdf-config .bdf-foot-bubble svg { width: 100%; height: 100%; }
-  #bdf-config footer.bdf-foot a { color: var(--red); font-weight: 700; text-decoration: none; }
-  #bdf-config footer.bdf-foot a:hover { text-decoration: underline; }
+  #bdf-config .bdf-foot-contact strong { display: block; color: var(--ink); font-weight: 700; font-size: 14px; }
+  #bdf-config footer.bdf-foot a.bdf-call-btn { padding: 10px 16px; font-size: 13.5px; }
 
   @media (prefers-reduced-motion: reduce) { #bdf-config * { transition: none !important; } }
 </style>
@@ -300,30 +290,33 @@
     <p class="bdf-lede">Indiquez les dimensions disponibles : nous affichons en direct l'implantation possible et la longueur de queue à privilégier sur chaque sens de jeu.</p>
   </header>
 
-  <div class="bdf-card">
-    <div class="bdf-form-grid">
-      <div>
-        <label class="bdf-field-label" for="bdf-longueur">Longueur de la pièce</label>
-        <div class="bdf-input-wrap">
-          <input type="number" id="bdf-longueur" inputmode="numeric" min="0" max="2000" step="1" placeholder="ex. 450" aria-describedby="bdf-hint" />
-          <span class="bdf-unit">cm</span>
+  <div class="bdf-top-grid">
+    <div class="bdf-card">
+      <div class="bdf-form-grid">
+        <div>
+          <label class="bdf-field-label" for="bdf-longueur">Longueur de la pièce</label>
+          <div class="bdf-input-wrap">
+            <input type="number" id="bdf-longueur" inputmode="numeric" min="0" max="2000" step="1" placeholder="ex. 450" aria-describedby="bdf-hint" />
+            <span class="bdf-unit">cm</span>
+          </div>
+        </div>
+        <div>
+          <label class="bdf-field-label" for="bdf-largeur">Largeur de la pièce</label>
+          <div class="bdf-input-wrap">
+            <input type="number" id="bdf-largeur" inputmode="numeric" min="0" max="2000" step="1" placeholder="ex. 350" aria-describedby="bdf-hint" />
+            <span class="bdf-unit">cm</span>
+          </div>
         </div>
       </div>
-      <div>
-        <label class="bdf-field-label" for="bdf-largeur">Largeur de la pièce</label>
-        <div class="bdf-input-wrap">
-          <input type="number" id="bdf-largeur" inputmode="numeric" min="0" max="2000" step="1" placeholder="ex. 350" aria-describedby="bdf-hint" />
-          <span class="bdf-unit">cm</span>
-        </div>
+      <p class="bdf-hint" id="bdf-hint">Mesurez l'espace de jeu disponible à hauteur de table (un meuble bas ne compte pas comme obstacle).</p>
+    </div>
+
+    <div class="bdf-top-right">
+      <div class="bdf-summary" id="bdf-summary" data-active="false"></div>
+      <div class="bdf-plan-section" id="bdf-plan-section" data-active="false">
+        <div class="bdf-plan" id="bdf-plan"></div>
       </div>
     </div>
-    <p class="bdf-hint" id="bdf-hint">Mesurez l'espace de jeu disponible à hauteur de table (un meuble bas ne compte pas comme obstacle).</p>
-  </div>
-
-  <div class="bdf-summary" id="bdf-summary" data-active="false"></div>
-
-  <div class="bdf-plan-section" id="bdf-plan-section" data-active="false">
-    <div class="bdf-plan" id="bdf-plan"></div>
   </div>
 
   <div class="bdf-sizes" id="bdf-sizes" data-active="false">
@@ -348,9 +341,12 @@
   <footer class="bdf-foot">
     <div class="bdf-foot-contact">
       <span class="bdf-foot-bubble" id="bdf-foot-bubble"></span>
-      <span>Un doute sur votre mesure&nbsp;? Nos conseillers vous répondent.</span>
+      <span>
+        <strong>Un doute sur votre mesure&nbsp;?</strong>
+        Nos conseillers vous répondent.
+      </span>
     </div>
-    <a href="tel:0562693020">05&nbsp;62&nbsp;69&nbsp;30&nbsp;20</a>
+    <a class="bdf-call-btn" href="tel:0562693020">05&nbsp;62&nbsp;69&nbsp;30&nbsp;20</a>
   </footer>
 </div>
 
@@ -519,16 +515,31 @@
     svg.appendChild(svgEl("path", { d: "M8 11V7a4 4 0 0 1 8 0v4", stroke: "currentColor", "stroke-width": "1.5", "stroke-linecap": "round", fill: "none" }));
     return svg;
   }
-  // Bulle de dialogue avec un petit bonhomme à l'intérieur — utilisée pour
-  // donner un aspect plus humain aux invitations à contacter un conseiller.
+  // Avatar "conseiller au casque" dans une bulle ronde — donne un aspect
+  // humain aux invitations à contacter un conseiller. Le disque reprend la
+  // couleur du conteneur (currentColor) ; le pictogramme reste blanc.
+  // TODO DÉVELOPPEUR : le client a fourni une illustration de conseiller
+  // (avatar avec casque, style plat) à intégrer telle quelle si le fichier
+  // est transmis — remplacer simplement le contenu de cette fonction par
+  // un <img>/data URI vers l'asset réel, la structure (cercle + libellé)
+  // peut rester identique.
   function bubblePersonIcon() {
-    var svg = svgEl("svg", { viewBox: "0 0 24 24", fill: "none" });
+    var svg = svgEl("svg", { viewBox: "0 0 48 48", fill: "none" });
+    svg.appendChild(svgEl("circle", { cx: "24", cy: "24", r: "23", fill: "currentColor" }));
+    // Épaules / buste
+    svg.appendChild(svgEl("path", { d: "M11 37c0-8.3 5.8-15 13-15s13 6.7 13 15", fill: "#fff" }));
+    // Tête
+    svg.appendChild(svgEl("circle", { cx: "24", cy: "20", r: "7.4", fill: "#fff" }));
+    // Arceau du casque, par-dessus la tête
     svg.appendChild(svgEl("path", {
-      d: "M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8A2.5 2.5 0 0 1 17.5 16H10l-4 4v-4H6.5A2.5 2.5 0 0 1 4 13.5v-8Z",
-      fill: "currentColor", opacity: "0.14", stroke: "currentColor", "stroke-width": "1.4", "stroke-linejoin": "round"
+      d: "M13.5 19a10.5 10.5 0 0 1 21 0", stroke: "#fff", "stroke-width": "2.6", "stroke-linecap": "round", fill: "none"
     }));
-    svg.appendChild(svgEl("circle", { cx: "12", cy: "8.4", r: "1.8", fill: "currentColor" }));
-    svg.appendChild(svgEl("path", { d: "M8 13.2c0-1.9 1.8-3.4 4-3.4s4 1.5 4 3.4", stroke: "currentColor", "stroke-width": "1.4", "stroke-linecap": "round", fill: "none" }));
+    // Oreillettes du casque
+    svg.appendChild(svgEl("rect", { x: "11.6", y: "17.4", width: "4.2", height: "7.4", rx: "2.1", fill: "#fff" }));
+    svg.appendChild(svgEl("rect", { x: "32.2", y: "17.4", width: "4.2", height: "7.4", rx: "2.1", fill: "#fff" }));
+    // Micro
+    svg.appendChild(svgEl("path", { d: "M33.4 22.4c0 4.4-3.4 7-6.6 7.6", stroke: "#fff", "stroke-width": "2.2", "stroke-linecap": "round", fill: "none" }));
+    svg.appendChild(svgEl("circle", { cx: "25.6", cy: "30.1", r: "1.9", fill: "#fff" }));
     return svg;
   }
 
@@ -868,6 +879,7 @@
       card.appendChild(thumb);
       card.appendChild(el("div", "bdf-product-brand", produit.brand));
       card.appendChild(el("div", "bdf-product-name", produit.name));
+      card.appendChild(el("span", "bdf-product-cta", "Voir le produit"));
       row.appendChild(card);
     });
 
