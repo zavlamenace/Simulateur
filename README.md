@@ -26,14 +26,19 @@ calcul se fait côté client, en JS vanilla.
    animation, l'espacement disponible et la liste de produits se mettent à
    jour en conséquence. La taille conseillée reste identifiée par un badge
    "Conseillé" pendant ce temps.
-6. Un bloc **"Espacement disponible depuis le billard"** (Haut / Bas / Gauche
-   / Droite, en cm) affiche l'espace réel entre le cadre du billard et les
-   murs, pour la taille actuellement prévisualisée.
-7. Si même le 7 pieds ne rentre pas, l'outil bascule sur un écran d'invitation
-   à appeler un conseiller (05 62 69 30 20), plutôt que de bloquer le client.
+6. L'**espacement disponible** (Haut / Bas / Gauche / Droite, en cm) est
+   annoté directement sur le plan 2D, comme des cotes de plan d'architecte,
+   plutôt que dans un bloc de chiffres séparé — mesuré depuis le cadre du
+   billard jusqu'aux murs, pour la taille actuellement prévisualisée.
+7. Si même le 7 pieds ne rentre pas, **le plan reste visible** : il compare
+   à l'échelle la pièce réelle (contour gris) à l'espace minimum qu'il
+   faudrait pour notre plus petit billard (zone rouge), et l'outil bascule
+   sur un écran d'invitation à appeler un conseiller (icône bulle + silhouette,
+   05 62 69 30 20) plutôt que de bloquer le client.
 8. Un raisonnement condensé ("Comment calculons-nous votre recommandation ?")
-   est disponible en accordéon repliable tout en bas, pour ne pas alourdir la
-   page tout en offrant une explication commerciale à qui la demande.
+   est disponible en accordéon repliable tout en bas (deux phrases, wording
+   volontairement court), pour ne pas alourdir la page tout en offrant une
+   explication à qui la demande.
 
 ## Logique de calcul (référentiel métier)
 

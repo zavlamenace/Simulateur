@@ -135,11 +135,7 @@
     margin: 0;
     color: var(--ink);
   }
-  #bdf-config .bdf-eyebrow {
-    font-size: 12px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
-    color: var(--red); margin: 0 0 6px;
-  }
-  #bdf-config .bdf-lede { color: var(--ink-muted); max-width: 62ch; margin: 10px 0 0; font-size: 15px; }
+  #bdf-config .bdf-lede { color: var(--ink-muted); margin: 10px 0 0; font-size: 15px; }
   #bdf-config .bdf-nums { font-variant-numeric: tabular-nums; }
   #bdf-config header.bdf-head { margin-bottom: 26px; }
   #bdf-config h1 { font-size: clamp(24px, 4vw, 30px); }
@@ -175,9 +171,10 @@
   #bdf-config .bdf-summary-card.state-good { background: var(--good-tint); border: 1px solid color-mix(in srgb, var(--good) 35%, transparent); }
   #bdf-config .bdf-summary-card.state-alert { background: var(--red-tint); border: 1px solid color-mix(in srgb, var(--red) 35%, transparent); }
   #bdf-config .bdf-summary-icon {
-    width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; font-family: Georgia, serif; font-size: 17px; font-weight: 700;
+    width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-family: Georgia, serif; font-size: 18px; font-weight: 700;
   }
+  #bdf-config .bdf-summary-icon svg { width: 22px; height: 22px; }
   .state-good .bdf-summary-icon { background: var(--good); color: var(--good-tint); }
   .state-alert .bdf-summary-icon { background: var(--red); color: #fff; }
   #bdf-config .bdf-summary-text { flex: 1; min-width: 220px; }
@@ -198,24 +195,13 @@
     background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg);
     box-shadow: var(--shadow-card); padding: 16px;
   }
-  #bdf-config .bdf-plan svg { display: block; width: 100%; height: auto; max-height: 280px; }
+  #bdf-config .bdf-plan svg { display: block; width: 100%; height: auto; max-height: 340px; }
   #bdf-config .bdf-plan-caption { font-size: 12.5px; color: var(--ink-muted); text-align: center; margin: 10px 0 0; }
   #bdf-config rect.bdf-anim { transition: x 0.35s ease, y 0.35s ease, width 0.35s ease, height 0.35s ease; }
-
-  /* --- Espacement disponible --------------------------------------------- */
-  #bdf-config .bdf-spacing { margin-top: 16px; }
-  #bdf-config .bdf-spacing-label {
-    font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-muted); margin: 0 0 10px;
-  }
-  #bdf-config .bdf-spacing-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px;
-  }
-  #bdf-config .bdf-spacing-tile {
-    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm);
-    padding: 10px 12px; text-align: center;
-  }
-  #bdf-config .bdf-spacing-tile .side { font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-muted); }
-  #bdf-config .bdf-spacing-tile .val { font-family: Georgia, serif; font-size: 19px; font-weight: 700; margin-top: 2px; font-variant-numeric: tabular-nums; }
+  #bdf-config .bdf-dim-line { stroke: var(--ink-muted); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  #bdf-config .bdf-dim-tick { stroke: var(--ink-muted); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  #bdf-config .bdf-dim-bg { fill: var(--surface); }
+  #bdf-config .bdf-dim-text { fill: var(--ink); font-family: Helvetica, Arial, sans-serif; font-weight: 700; }
 
   /* --- Grille des tailles -------------------------------------------------- */
   #bdf-config .bdf-sizes { margin-top: 24px; display: none; }
@@ -293,12 +279,15 @@
   #bdf-config .bdf-reasoning summary::-webkit-details-marker { display: none; }
   #bdf-config .bdf-reasoning summary .chev { transition: transform 0.2s ease; color: var(--red); flex-shrink: 0; }
   #bdf-config .bdf-reasoning[open] summary .chev { transform: rotate(90deg); }
-  #bdf-config .bdf-reasoning-body { font-size: 13.5px; color: var(--ink-muted); margin: 12px 0 0; max-width: 68ch; }
+  #bdf-config .bdf-reasoning-body { font-size: 13.5px; color: var(--ink-muted); margin: 12px 0 0; }
 
   #bdf-config footer.bdf-foot {
     margin-top: 26px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 13px; color: var(--ink-muted);
     display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
   }
+  #bdf-config .bdf-foot-contact { display: flex; align-items: center; gap: 10px; }
+  #bdf-config .bdf-foot-bubble { width: 26px; height: 26px; flex-shrink: 0; color: var(--red); }
+  #bdf-config .bdf-foot-bubble svg { width: 100%; height: 100%; }
   #bdf-config footer.bdf-foot a { color: var(--red); font-weight: 700; text-decoration: none; }
   #bdf-config footer.bdf-foot a:hover { text-decoration: underline; }
 
@@ -307,7 +296,6 @@
 
 <div id="bdf-config">
   <header class="bdf-head">
-    <p class="bdf-eyebrow">Configurateur d'espace</p>
     <h1>Quelle taille de billard pour votre pièce&nbsp;?</h1>
     <p class="bdf-lede">Indiquez les dimensions disponibles : nous affichons en direct l'implantation possible et la longueur de queue à privilégier sur chaque sens de jeu.</p>
   </header>
@@ -336,10 +324,6 @@
 
   <div class="bdf-plan-section" id="bdf-plan-section" data-active="false">
     <div class="bdf-plan" id="bdf-plan"></div>
-    <div class="bdf-spacing">
-      <p class="bdf-spacing-label">Espacement disponible depuis le billard</p>
-      <div class="bdf-spacing-grid" id="bdf-spacing-grid"></div>
-    </div>
   </div>
 
   <div class="bdf-sizes" id="bdf-sizes" data-active="false">
@@ -355,17 +339,17 @@
       Comment calculons-nous votre recommandation&nbsp;?
     </summary>
     <p class="bdf-reasoning-body">
-      Nous mesurons l'espace de jeu nécessaire dans chaque sens (longueur et largeur) : la surface de tapis du billard,
-      plus le recul nécessaire pour tirer sans contrainte de chaque côté. Ce recul dépend de la longueur de queue utilisée
-      (1&nbsp;m, 1,20&nbsp;m ou 1,40&nbsp;m) — plus la queue est longue, plus le confort de jeu est grand, mais plus il faut
-      d'espace libre autour du billard. Nous vous conseillons toujours la plus grande taille de billard qui permet un
-      confort optimal (queue de 1,40&nbsp;m) dans les deux sens de jeu, jamais une taille plus grande qui vous obligerait
-      à jouer avec une queue plus courte et donc moins confortable.
+      Nous calculons l'espace nécessaire pour bien jouer dans les deux sens de votre pièce. Nous vous conseillons
+      toujours la plus grande table qui garde un confort de jeu optimal — jamais une taille plus grande qui vous
+      ferait perdre ce confort.
     </p>
   </details>
 
   <footer class="bdf-foot">
-    <span>Un doute sur votre mesure&nbsp;? Nos conseillers vous répondent.</span>
+    <div class="bdf-foot-contact">
+      <span class="bdf-foot-bubble" id="bdf-foot-bubble"></span>
+      <span>Un doute sur votre mesure&nbsp;? Nos conseillers vous répondent.</span>
+    </div>
     <a href="tel:0562693020">05&nbsp;62&nbsp;69&nbsp;30&nbsp;20</a>
   </footer>
 </div>
@@ -495,10 +479,10 @@
     summary: document.getElementById("bdf-summary"),
     planSection: document.getElementById("bdf-plan-section"),
     plan: document.getElementById("bdf-plan"),
-    spacingGrid: document.getElementById("bdf-spacing-grid"),
     sizes: document.getElementById("bdf-sizes"),
     grid: document.getElementById("bdf-grid"),
-    products: document.getElementById("bdf-products")
+    products: document.getElementById("bdf-products"),
+    footBubble: document.getElementById("bdf-foot-bubble")
   };
 
   var SVGNS = "http://www.w3.org/2000/svg";
@@ -535,6 +519,18 @@
     svg.appendChild(svgEl("path", { d: "M8 11V7a4 4 0 0 1 8 0v4", stroke: "currentColor", "stroke-width": "1.5", "stroke-linecap": "round", fill: "none" }));
     return svg;
   }
+  // Bulle de dialogue avec un petit bonhomme à l'intérieur — utilisée pour
+  // donner un aspect plus humain aux invitations à contacter un conseiller.
+  function bubblePersonIcon() {
+    var svg = svgEl("svg", { viewBox: "0 0 24 24", fill: "none" });
+    svg.appendChild(svgEl("path", {
+      d: "M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8A2.5 2.5 0 0 1 17.5 16H10l-4 4v-4H6.5A2.5 2.5 0 0 1 4 13.5v-8Z",
+      fill: "currentColor", opacity: "0.14", stroke: "currentColor", "stroke-width": "1.4", "stroke-linejoin": "round"
+    }));
+    svg.appendChild(svgEl("circle", { cx: "12", cy: "8.4", r: "1.8", fill: "currentColor" }));
+    svg.appendChild(svgEl("path", { d: "M8 13.2c0-1.9 1.8-3.4 4-3.4s4 1.5 4 3.4", stroke: "currentColor", "stroke-width": "1.4", "stroke-linecap": "round", fill: "none" }));
+    return svg;
+  }
 
   function describeOrientation(rotated) {
     return rotated
@@ -543,19 +539,55 @@
   }
 
   /* ========================================================================
-     6. PLAN 2D — construit une fois par changement de dimensions de pièce,
-     puis seulement mis à jour (avec transition CSS) quand la taille active
-     change, pour obtenir l'effet de billard qui grandit/rétrécit.
+     6. PLAN 2D — visible en permanence, dans les deux cas de figure :
+     - une taille rentre : billard (vert, dimensions réelles du cadre) +
+       zone de recul recommandée (pointillés) + cotes d'espacement directement
+       annotées sur le plan (Haut/Bas/Gauche/Droite, mesurées depuis le cadre
+       du billard). Le plan est construit une fois par changement de
+       dimensions de pièce, puis seulement mis à jour (avec transition CSS)
+       quand la taille active change, pour l'effet de billard qui grandit.
+     - aucune taille ne rentre : la pièce (à l'échelle réelle) est comparée
+       à l'espace minimum qu'il faudrait pour notre plus petit billard.
      ======================================================================== */
+  function addDimAnnotation(group, x1, y1, x2, y2, valueCm, fontSize) {
+    var line = svgEl("line", { class: "bdf-dim-line", x1: x1, y1: y1, x2: x2, y2: y2 });
+    group.appendChild(line);
+
+    var horizontal = Math.abs(y1 - y2) < 0.01;
+    var t = fontSize * 0.45;
+    if (horizontal) {
+      group.appendChild(svgEl("line", { class: "bdf-dim-tick", x1: x1, y1: y1 - t, x2: x1, y2: y1 + t }));
+      group.appendChild(svgEl("line", { class: "bdf-dim-tick", x1: x2, y1: y2 - t, x2: x2, y2: y2 + t }));
+    } else {
+      group.appendChild(svgEl("line", { class: "bdf-dim-tick", x1: x1 - t, y1: y1, x2: x1 + t, y2: y1 }));
+      group.appendChild(svgEl("line", { class: "bdf-dim-tick", x1: x2 - t, y1: y2, x2: x2 + t, y2: y2 }));
+    }
+
+    var midX = (x1 + x2) / 2, midY = (y1 + y2) / 2;
+    var text = svgEl("text", {
+      class: "bdf-dim-text", x: midX, y: midY, "text-anchor": "middle", "dominant-baseline": "middle", "font-size": fontSize
+    });
+    text.textContent = valueCm + " cm";
+    group.appendChild(text);
+
+    var bbox;
+    try { bbox = text.getBBox(); } catch (e) { bbox = { x: midX - fontSize * 1.6, y: midY - fontSize * 0.6, width: fontSize * 3.2, height: fontSize * 1.2 }; }
+    var padX = fontSize * 0.35, padY = fontSize * 0.22;
+    var bg = svgEl("rect", {
+      class: "bdf-dim-bg", x: bbox.x - padX, y: bbox.y - padY, width: bbox.width + padX * 2, height: bbox.height + padY * 2, rx: 3
+    });
+    group.insertBefore(bg, text);
+  }
+
   function buildPlanSkeleton(roomL, roomW) {
     els.plan.textContent = "";
-    var pad = Math.max(20, Math.round(Math.min(roomL, roomW) * 0.08));
+    var pad = Math.max(28, Math.round(Math.min(roomL, roomW) * 0.1));
     var vbW = roomL + pad * 2;
     var vbH = roomW + pad * 2;
 
     var svg = svgEl("svg", {
       viewBox: "0 0 " + vbW + " " + vbH, role: "img",
-      "aria-label": "Plan de la pièce vu du dessus, avec le billard positionné au centre"
+      "aria-label": "Plan de la pièce vu du dessus, avec le billard positionné au centre et l'espacement annoté"
     });
 
     var roomRect = svgEl("rect", {
@@ -570,21 +602,24 @@
       class: "bdf-anim", fill: "var(--good)", opacity: "0.85", stroke: "var(--good)", "stroke-width": "2",
       "vector-effect": "non-scaling-stroke", rx: "2"
     });
+    var dimsGroup = svgEl("g", { class: "bdf-dims" });
 
     svg.appendChild(roomRect);
     svg.appendChild(clearRect);
     svg.appendChild(tableRect);
+    svg.appendChild(dimsGroup);
     els.plan.appendChild(svg);
 
     var caption = el("p", "bdf-plan-caption");
     els.plan.appendChild(caption);
 
-    state.planEls = { pad: pad, roomRect: roomRect, clearRect: clearRect, tableRect: tableRect, caption: caption };
+    state.planEls = { pad: pad, roomRect: roomRect, clearRect: clearRect, tableRect: tableRect, dimsGroup: dimsGroup, caption: caption };
   }
 
   function updatePlanGeometry(size, evaluation, roomL, roomW) {
     var p = state.planEls;
     var play = evaluation.rotated ? { length: size.play.width, width: size.play.length } : { length: size.play.length, width: size.play.width };
+    var table = evaluation.rotated ? { length: size.table.width, width: size.table.length } : { length: size.table.length, width: size.table.width };
 
     var clearW = play.length + evaluation.cueOnLength * 2;
     var clearH = play.width + evaluation.cueOnWidth * 2;
@@ -593,15 +628,64 @@
     p.clearRect.setAttribute("width", clearW);
     p.clearRect.setAttribute("height", clearH);
 
-    p.tableRect.setAttribute("x", p.pad + (roomL - play.length) / 2);
-    p.tableRect.setAttribute("y", p.pad + (roomW - play.width) / 2);
-    p.tableRect.setAttribute("width", play.length);
-    p.tableRect.setAttribute("height", play.width);
+    var tableX = p.pad + (roomL - table.length) / 2;
+    var tableY = p.pad + (roomW - table.width) / 2;
+    p.tableRect.setAttribute("x", tableX);
+    p.tableRect.setAttribute("y", tableY);
+    p.tableRect.setAttribute("width", table.length);
+    p.tableRect.setAttribute("height", table.width);
+
+    // Cotes d'espacement, directement annotées sur le plan (depuis le cadre
+    // du billard jusqu'au mur), plutôt que dans un bloc séparé.
+    var spacing = computeTableSpacing(size, evaluation, roomL, roomW);
+    var roomLeft = p.pad, roomTop = p.pad, roomRight = p.pad + roomL, roomBottom = p.pad + roomW;
+    var tableRight = tableX + table.length, tableBottom = tableY + table.width;
+    var centerX = p.pad + roomL / 2, centerY = p.pad + roomW / 2;
+    var fontSize = Math.max(9, Math.min(roomL, roomW) * 0.035);
+
+    p.dimsGroup.textContent = "";
+    addDimAnnotation(p.dimsGroup, centerX, roomTop, centerX, tableY, spacing.haut, fontSize);
+    addDimAnnotation(p.dimsGroup, centerX, tableBottom, centerX, roomBottom, spacing.bas, fontSize);
+    addDimAnnotation(p.dimsGroup, roomLeft, centerY, tableX, centerY, spacing.gauche, fontSize);
+    addDimAnnotation(p.dimsGroup, tableRight, centerY, roomRight, centerY, spacing.droite, fontSize);
 
     var cueSummary = evaluation.cueOnLength === evaluation.cueOnWidth
-      ? "zone de recul en pointillés (queue " + evaluation.cueOnLength + " cm)"
-      : "zone de recul en pointillés (queue " + evaluation.cueOnLength + " cm en longueur, " + evaluation.cueOnWidth + " cm en largeur)";
+      ? "zone de recul recommandée en pointillés (queue " + evaluation.cueOnLength + " cm)"
+      : "zone de recul recommandée en pointillés (queue " + evaluation.cueOnLength + " cm en longueur, " + evaluation.cueOnWidth + " cm en largeur)";
     p.caption.textContent = describeOrientation(evaluation.rotated) + " Pièce " + roomL + " × " + roomW + " cm — " + cueSummary;
+  }
+
+  function renderTooSmallPlan(roomL, roomW) {
+    els.plan.textContent = "";
+    state.planEls = null;
+
+    var seven = REFERENTIEL[0];
+    var reqL = seven.play.length + 100 * 2;
+    var reqW = seven.play.width + 100 * 2;
+    var maxL = Math.max(roomL, reqL);
+    var maxW = Math.max(roomW, reqW);
+    var pad = Math.max(28, Math.round(Math.min(maxL, maxW) * 0.1));
+    var vbW = maxL + pad * 2, vbH = maxW + pad * 2;
+    var cx = vbW / 2, cy = vbH / 2;
+
+    var svg = svgEl("svg", {
+      viewBox: "0 0 " + vbW + " " + vbH, role: "img",
+      "aria-label": "Comparaison entre votre pièce et l'espace minimum nécessaire pour notre plus petit billard"
+    });
+    svg.appendChild(svgEl("rect", {
+      x: cx - roomL / 2, y: cy - roomW / 2, width: roomL, height: roomW,
+      fill: "none", stroke: "var(--line-strong)", "stroke-width": "2", "vector-effect": "non-scaling-stroke"
+    }));
+    svg.appendChild(svgEl("rect", {
+      x: cx - reqL / 2, y: cy - reqW / 2, width: reqL, height: reqW,
+      fill: "var(--red)", opacity: "0.12", stroke: "var(--red)", "stroke-width": "2",
+      "stroke-dasharray": "6 5", "vector-effect": "non-scaling-stroke", rx: "2"
+    }));
+    els.plan.appendChild(svg);
+
+    var caption = el("p", "bdf-plan-caption",
+      "Votre pièce (contour gris) : " + roomL + " × " + roomW + " cm — espace minimum pour notre plus petit billard, le 7 pieds (zone rouge) : " + reqL + " × " + reqW + " cm.");
+    els.plan.appendChild(caption);
   }
 
   /* ========================================================================
@@ -635,9 +719,10 @@
     }
 
     renderSummary(results);
+    els.planSection.dataset.active = "true"; // le plan reste visible dans tous les cas, y compris "trop petit"
 
     if (!results.recommended) {
-      els.planSection.dataset.active = "false";
+      renderTooSmallPlan(roomL, roomW);
       els.sizes.dataset.active = "false";
       els.products.dataset.active = "false";
       return;
@@ -645,10 +730,8 @@
 
     var activeEval = results.evaluations.filter(function (e) { return e.size.id === state.activeId; })[0] || results.recommended;
 
-    els.planSection.dataset.active = "true";
     if (roomChanged || !state.planEls) buildPlanSkeleton(roomL, roomW);
     updatePlanGeometry(activeEval.size, activeEval, roomL, roomW);
-    renderSpacing(activeEval);
 
     els.sizes.dataset.active = "true";
     renderGrid(results);
@@ -663,7 +746,6 @@
     var activeEval = state.results.evaluations.filter(function (e) { return e.size.id === sizeId; })[0];
     if (!activeEval || !activeEval.fits) return;
     updatePlanGeometry(activeEval.size, activeEval, state.roomL, state.roomW);
-    renderSpacing(activeEval);
     renderGrid(state.results);
     renderProducts(activeEval.size);
     trackEvent("taille_selectionnee", { taille: sizeId });
@@ -685,7 +767,7 @@
       trackEvent("taille_recommandee", { taille: r.size.id, queueLongueur: r.cueOnLength, queueLargeur: r.cueOnWidth });
     } else {
       card.classList.add("state-alert");
-      icon.textContent = "!";
+      icon.appendChild(bubblePersonIcon());
       text.appendChild(el("p", "bdf-summary-title", "Aucun de nos billards ne rentre dans cet espace"));
       text.appendChild(el("p", "bdf-summary-sub", "Même notre plus petit modèle (7 pieds) nécessite davantage de recul. Parlez-nous de votre pièce, nous avons souvent une solution."));
       card.appendChild(icon); card.appendChild(text);
@@ -698,17 +780,6 @@
       trackEvent("aucune_taille_compatible", { longueur: state.roomL, largeur: state.roomW });
     }
     els.summary.appendChild(card);
-  }
-
-  function renderSpacing(evaluation) {
-    els.spacingGrid.textContent = "";
-    var spacing = computeTableSpacing(evaluation.size, evaluation, state.roomL, state.roomW);
-    [["Haut", spacing.haut], ["Bas", spacing.bas], ["Gauche", spacing.gauche], ["Droite", spacing.droite]].forEach(function (pair) {
-      var tile = el("div", "bdf-spacing-tile");
-      tile.appendChild(el("div", "side", pair[0]));
-      tile.appendChild(el("div", "val bdf-nums", pair[1] + " cm"));
-      els.spacingGrid.appendChild(tile);
-    });
   }
 
   function renderGrid(results) {
@@ -803,6 +874,7 @@
     els.products.appendChild(row);
   }
 
+  els.footBubble.appendChild(bubblePersonIcon());
   els.longueur.addEventListener("input", render);
   els.largeur.addEventListener("input", render);
 })();
