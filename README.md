@@ -35,10 +35,18 @@ calcul se fait côté client, en JS vanilla.
    faudrait pour notre plus petit billard (zone rouge), et l'outil bascule
    sur un écran d'invitation à appeler un conseiller (icône bulle + silhouette,
    05 62 69 30 20) plutôt que de bloquer le client.
-8. Un raisonnement condensé ("Comment calculons-nous votre recommandation ?")
-   est disponible en accordéon repliable tout en bas (deux phrases, wording
-   volontairement court), pour ne pas alourdir la page tout en offrant une
-   explication à qui la demande.
+8. Une **légende de confort toujours visible** (sans clic) est affichée
+   juste au-dessus de la grille des tailles : elle explique en une ligne
+   chacun des trois niveaux (Confortable = 140 cm, Moyennement confortable
+   = 120 cm, Gêne = 100 cm), pour que le client comprenne d'où viennent les
+   pastilles de couleur sans avoir à deviner.
+9. Un raisonnement pédagogique ("Comment calculons-nous votre
+   recommandation ?") est disponible en accordéon repliable tout en bas :
+   trois étapes courtes numérotées (tapis → 15 cm de cadre/bande → recul de
+   la queue), suivies d'un **schéma statique** (billard vu du dessus, sur
+   l'exemple du 7 pieds avec une queue de 140 cm) qui illustre visuellement
+   cette même chaîne, avec les 15 cm du cadre et la zone de recul annotés
+   directement sur le dessin.
 
 ## Logique de calcul (référentiel métier)
 

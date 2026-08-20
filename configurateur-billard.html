@@ -187,6 +187,17 @@
   #bdf-config .bdf-sizes[data-active="true"] { display: block; }
   #bdf-config .bdf-sizes-head { margin-bottom: 12px; }
   #bdf-config .bdf-sizes-head h2 { font-size: 17px; }
+  #bdf-config .bdf-legend {
+    display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 0 0 16px; padding: 12px 16px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-md);
+    font-size: 12.5px; color: var(--ink-muted);
+  }
+  #bdf-config .bdf-legend-item { display: flex; align-items: center; gap: 7px; }
+  #bdf-config .bdf-legend-item strong { color: var(--ink); font-weight: 700; }
+  #bdf-config .bdf-legend .dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+  #bdf-config .bdf-legend .dot-good { background: var(--good); }
+  #bdf-config .bdf-legend .dot-ok { background: var(--ok); }
+  #bdf-config .bdf-legend .dot-gene { background: var(--red-pale); }
   #bdf-config .bdf-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
   @container bdf (min-width: 520px) { #bdf-config .bdf-grid { grid-template-columns: repeat(3, 1fr); } }
   @container bdf (min-width: 760px) { #bdf-config .bdf-grid { grid-template-columns: repeat(5, 1fr); } }
@@ -269,6 +280,19 @@
   #bdf-config .bdf-reasoning summary .chev { transition: transform 0.2s ease; color: var(--red); flex-shrink: 0; }
   #bdf-config .bdf-reasoning[open] summary .chev { transform: rotate(90deg); }
   #bdf-config .bdf-reasoning-body { font-size: 13.5px; color: var(--ink-muted); margin: 12px 0 0; }
+  #bdf-config .bdf-reasoning-steps { margin: 12px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  #bdf-config .bdf-reasoning-steps li { display: flex; gap: 10px; font-size: 13.5px; color: var(--ink-muted); line-height: 1.5; }
+  #bdf-config .bdf-reasoning-steps .num {
+    flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%; background: var(--red-tint); color: var(--red);
+    font-size: 11.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 1px;
+  }
+  #bdf-config .bdf-reasoning-steps strong { color: var(--ink); }
+  #bdf-config .bdf-explainer { margin-top: 18px; background: var(--surface-sunken); border-radius: var(--radius-md); padding: 16px; }
+  #bdf-config .bdf-explainer svg { display: block; width: 100%; height: auto; max-height: 300px; }
+  #bdf-config .bdf-explainer-caption { font-size: 12px; color: var(--ink-muted); text-align: center; margin: 10px 0 0; }
+  #bdf-config .bdf-callout-line { stroke: var(--ink-muted); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  #bdf-config .bdf-callout-dot { fill: var(--ink-muted); }
+  #bdf-config .bdf-callout-text { fill: var(--ink); font-family: Helvetica, Arial, sans-serif; font-weight: 700; }
 
   #bdf-config footer.bdf-foot {
     margin-top: 30px; padding: 18px 20px; border-radius: var(--radius-lg); background: var(--surface);
@@ -321,6 +345,11 @@
 
   <div class="bdf-sizes" id="bdf-sizes" data-active="false">
     <div class="bdf-sizes-head"><h2>Comparer les tailles</h2></div>
+    <div class="bdf-legend">
+      <span class="bdf-legend-item"><span class="dot dot-good"></span><strong>Confortable</strong>&nbsp;: vous jouez avec une queue de 140&nbsp;cm</span>
+      <span class="bdf-legend-item"><span class="dot dot-ok"></span><strong>Moyennement confortable</strong>&nbsp;: queue de 120&nbsp;cm</span>
+      <span class="bdf-legend-item"><span class="dot dot-gene"></span><strong>Gêne</strong>&nbsp;: jouable, mais seulement avec une queue de 100&nbsp;cm</span>
+    </div>
     <div class="bdf-grid" id="bdf-grid"></div>
   </div>
 
@@ -331,11 +360,12 @@
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Comment calculons-nous votre recommandation&nbsp;?
     </summary>
-    <p class="bdf-reasoning-body">
-      Nous calculons l'espace nécessaire pour bien jouer dans les deux sens de votre pièce. Nous vous conseillons
-      toujours la plus grande table qui garde un confort de jeu optimal — jamais une taille plus grande qui vous
-      ferait perdre ce confort.
-    </p>
+    <ol class="bdf-reasoning-steps">
+      <li><span class="num">1</span><span>Chaque billard a un <strong>tapis de jeu</strong>, entouré d'un cadre en bois et d'une <strong>bande de jeu de 15&nbsp;cm</strong> de chaque côté (schéma ci-dessous).</span></li>
+      <li><span class="num">2</span><span>Pour tirer sans être gêné, il faut ensuite un espace libre derrière ce cadre : c'est le <strong>recul de la queue</strong>. Plus il est grand — jusqu'à 140&nbsp;cm — plus le jeu est confortable.</span></li>
+      <li><span class="num">3</span><span>Nous additionnons ces trois éléments (tapis + 15&nbsp;cm de cadre + recul de la queue) dans les deux sens de votre pièce, et nous vous conseillons toujours la plus grande table qui reste confortable des deux côtés.</span></li>
+    </ol>
+    <div class="bdf-explainer" id="bdf-explainer"></div>
   </details>
 
   <footer class="bdf-foot">
@@ -478,7 +508,8 @@
     sizes: document.getElementById("bdf-sizes"),
     grid: document.getElementById("bdf-grid"),
     products: document.getElementById("bdf-products"),
-    footBubble: document.getElementById("bdf-foot-bubble")
+    footBubble: document.getElementById("bdf-foot-bubble"),
+    explainer: document.getElementById("bdf-explainer")
   };
 
   var SVGNS = "http://www.w3.org/2000/svg";
@@ -700,6 +731,71 @@
   }
 
   /* ========================================================================
+     6bis. SCHÉMA PÉDAGOGIQUE — statique, construit une seule fois au
+     chargement (indépendant des dimensions saisies par le client). Illustre
+     la chaîne tapis → 15cm de cadre/bande → recul de la queue, sur
+     l'exemple du 7 pieds avec une queue de 140cm (confort optimal), pour
+     accompagner le texte de la section "Comment calculons-nous...".
+     ======================================================================== */
+  function addCallout(svg, fromX, fromY, toX, toY, text, anchor) {
+    svg.appendChild(svgEl("line", { class: "bdf-callout-line", x1: fromX, y1: fromY, x2: toX, y2: toY }));
+    svg.appendChild(svgEl("circle", { class: "bdf-callout-dot", cx: fromX, cy: fromY, r: 3 }));
+    var t = svgEl("text", { class: "bdf-callout-text", x: toX, y: toY, "text-anchor": anchor || "middle", "font-size": 12 });
+    t.textContent = text;
+    svg.appendChild(t);
+  }
+
+  function buildExplainerDiagram() {
+    var size = REFERENTIEL[0]; // 7 pieds, l'exemple le plus simple
+    var cue = 140; // confort optimal
+    var play = size.play, table = size.table;
+    var clearW = play.length + cue * 2, clearH = play.width + cue * 2;
+
+    var padTop = 60, padSide = 200, padBottom = 50;
+    var vbW = clearW + padSide * 2, vbH = clearH + padTop + padBottom;
+    var cx = padSide + clearW / 2, cy = padTop + clearH / 2;
+
+    var svg = svgEl("svg", {
+      viewBox: "0 0 " + vbW + " " + vbH, role: "img",
+      "aria-label": "Schéma d'un billard vu du dessus : tapis, cadre de 15 cm, et recul de la queue jusqu'au mur"
+    });
+
+    // Recul de la queue (zone en pointillés, jusqu'au mur minimal)
+    svg.appendChild(svgEl("rect", {
+      x: cx - clearW / 2, y: cy - clearH / 2, width: clearW, height: clearH,
+      fill: "none", stroke: "var(--red-pale)", "stroke-width": "2", "stroke-dasharray": "7 6", "vector-effect": "non-scaling-stroke"
+    }));
+    // Cadre + bande (anneau plein, 15cm), dessiné en dessous du tapis
+    svg.appendChild(svgEl("rect", {
+      x: cx - table.length / 2, y: cy - table.width / 2, width: table.length, height: table.width,
+      fill: "var(--line-strong)", stroke: "var(--ink-muted)", "stroke-width": "1.5", "vector-effect": "non-scaling-stroke", rx: "2"
+    }));
+    // Tapis (par-dessus, laisse apparaître l'anneau du cadre autour)
+    var tapisRect = svgEl("rect", {
+      x: cx - play.length / 2, y: cy - play.width / 2, width: play.length, height: play.width,
+      fill: "var(--good)", opacity: "0.9", stroke: "var(--good)", "stroke-width": "1.5", "vector-effect": "non-scaling-stroke", rx: "2"
+    });
+    svg.appendChild(tapisRect);
+
+    var tapisLabel = svgEl("text", {
+      x: cx, y: cy, "text-anchor": "middle", "dominant-baseline": "middle", "font-size": 13,
+      fill: "#fff", "font-family": "Helvetica, Arial, sans-serif", "font-weight": "700"
+    });
+    tapisLabel.textContent = "Tapis";
+    svg.appendChild(tapisLabel);
+
+    // Callout 1 : cadre / bande (15cm), pointe vers le bord haut du cadre
+    addCallout(svg, cx - table.length / 2 + 15, cy - table.width / 2, padSide - 20, padTop - 30, "15 cm — cadre + bande", "end");
+    // Callout 2 : recul de la queue, pointe vers le bord bas de la zone pointillée
+    addCallout(svg, cx, cy + clearH / 2, cx, cy + clearH / 2 + padBottom - 14, "Recul jusqu'à 140 cm — position mini. du mur", "middle");
+
+    var wrap = el("div");
+    wrap.appendChild(svg);
+    wrap.appendChild(el("p", "bdf-explainer-caption", "Exemple sur un 7 pieds avec une queue de 140 cm (confort optimal)."));
+    return wrap;
+  }
+
+  /* ========================================================================
      7. RENDU
      ======================================================================== */
   function render() {
@@ -887,6 +983,7 @@
   }
 
   els.footBubble.appendChild(bubblePersonIcon());
+  els.explainer.appendChild(buildExplainerDiagram());
   els.longueur.addEventListener("input", render);
   els.largeur.addEventListener("input", render);
 })();
