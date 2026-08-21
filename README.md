@@ -25,7 +25,10 @@ calcul se fait côté client, en JS vanilla.
    **prévisualiser** : le billard sur le plan grandit/rétrécit avec une
    animation, l'espacement disponible et la liste de produits se mettent à
    jour en conséquence. La taille conseillée reste identifiée par un badge
-   "Conseillé" pendant ce temps.
+   "Conseillé" pendant ce temps. Les produits sont affichés **par marque,
+   chacune sur sa propre rangée horizontale** (ex. Plaisance au-dessus de
+   Lafuge pour le 7 pieds), pour comparer les modèles d'une même marque
+   côte à côte ; à partir du 8 pieds, seule la rangée Lafuge est visible.
 6. L'**espacement disponible** (Haut / Bas / Gauche / Droite, en cm) est
    annoté directement sur le plan 2D, comme des cotes de plan d'architecte,
    plutôt que dans un bloc de chiffres séparé — mesuré depuis le cadre du
@@ -42,11 +45,12 @@ calcul se fait côté client, en JS vanilla.
    pastilles de couleur sans avoir à deviner.
 9. Un raisonnement pédagogique ("Comment calculons-nous votre
    recommandation ?") est disponible en accordéon repliable tout en bas :
-   trois étapes courtes numérotées (tapis → 15 cm de cadre/bande → recul de
-   la queue), suivies d'un **schéma statique** (billard vu du dessus, sur
-   l'exemple du 7 pieds avec une queue de 140 cm) qui illustre visuellement
-   cette même chaîne, avec les 15 cm du cadre et la zone de recul annotés
-   directement sur le dessin.
+   trois étapes numérotées avec un exemple chiffré complet (211 − 30 = 181
+   cm de tapis, puis 181 + 140 + 140 = 461 cm), suivies d'un **schéma
+   illustré** (billard vu du dessus avec cadre en bois arrondi, 6 poches,
+   tapis vert, et une **queue de billard dessinée** qui sort du billard
+   vers le mur) pour visualiser concrètement le recul nécessaire — plutôt
+   que de simples rectangles abstraits.
 
 ## Logique de calcul (référentiel métier)
 

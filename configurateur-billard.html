@@ -73,6 +73,11 @@
     --locked-bg: #EDEDEC;
     --locked-ink: #9A9D9F;
 
+    /* Tons bois, réservés au schéma pédagogique (cadre du billard, queue) —
+       n'interviennent pas dans le reste de l'interface. */
+    --wood: #B98D5E;
+    --wood-dark: #7A5A3A;
+
     --radius-lg: 16px;
     --radius-md: 12px;
     --radius-sm: 8px;
@@ -261,8 +266,13 @@
     display: flex; align-items: center; justify-content: center; overflow: hidden;
   }
   #bdf-config .bdf-product-thumb svg { width: 52%; height: 52%; color: var(--line-strong); }
-  #bdf-config .bdf-product-brand { font-size: 10.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--red); margin: 10px 0 2px; }
-  #bdf-config .bdf-product-name { font-size: 12.5px; line-height: 1.35; min-height: 2.7em; }
+  #bdf-config .bdf-product-name { font-size: 12.5px; line-height: 1.35; min-height: 2.7em; margin-top: 8px; }
+  #bdf-config .bdf-brand-group + .bdf-brand-group { margin-top: 20px; }
+  #bdf-config .bdf-brand-title {
+    font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: var(--ink); margin: 0 0 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  #bdf-config .bdf-brand-title::before { content: ""; width: 4px; height: 15px; background: var(--red); border-radius: 2px; }
   #bdf-config .bdf-product-cta {
     display: block; margin-top: 10px; text-align: center; font-size: 12px; font-weight: 700;
     color: var(--red); border: 1.5px solid var(--red); border-radius: var(--radius-sm); padding: 7px 0;
@@ -295,15 +305,22 @@
   #bdf-config .bdf-callout-text { fill: var(--ink); font-family: Helvetica, Arial, sans-serif; font-weight: 700; }
 
   #bdf-config footer.bdf-foot {
-    margin-top: 30px; padding: 18px 20px; border-radius: var(--radius-lg); background: var(--surface);
-    border: 1px solid var(--line); font-size: 13.5px; color: var(--ink-muted);
-    display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+    margin-top: 32px; padding: 22px 26px; border-radius: var(--radius-lg); background: var(--red);
+    color: #fff; display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap;
+    box-shadow: 0 10px 30px -12px color-mix(in srgb, var(--red) 55%, transparent);
   }
-  #bdf-config .bdf-foot-contact { display: flex; align-items: center; gap: 12px; }
-  #bdf-config .bdf-foot-bubble { width: 38px; height: 38px; flex-shrink: 0; color: var(--red); }
+  #bdf-config .bdf-foot-contact { display: flex; align-items: center; gap: 14px; }
+  #bdf-config .bdf-foot-bubble {
+    width: 52px; height: 52px; flex-shrink: 0; color: #fff; background: rgba(255,255,255,0.16); border-radius: 50%; padding: 4px;
+  }
   #bdf-config .bdf-foot-bubble svg { width: 100%; height: 100%; }
-  #bdf-config .bdf-foot-contact strong { display: block; color: var(--ink); font-weight: 700; font-size: 14px; }
-  #bdf-config footer.bdf-foot a.bdf-call-btn { padding: 10px 16px; font-size: 13.5px; }
+  #bdf-config .bdf-foot-contact strong { display: block; font-family: Georgia, serif; font-weight: 700; font-size: 17px; }
+  #bdf-config .bdf-foot-contact span > span:last-child { display: block; font-size: 13px; color: rgba(255,255,255,0.82); margin-top: 2px; }
+  #bdf-config footer.bdf-foot a.bdf-call-btn {
+    background: #fff; color: var(--red); padding: 13px 22px; font-size: 16px; border-radius: 100px;
+  }
+  #bdf-config footer.bdf-foot a.bdf-call-btn:hover { background: rgba(255,255,255,0.9); }
+  #bdf-config footer.bdf-foot a.bdf-call-btn svg { width: 18px; height: 18px; }
 
   @media (prefers-reduced-motion: reduce) { #bdf-config * { transition: none !important; } }
 </style>
@@ -361,9 +378,9 @@
       Comment calculons-nous votre recommandation&nbsp;?
     </summary>
     <ol class="bdf-reasoning-steps">
-      <li><span class="num">1</span><span>Chaque billard a un <strong>tapis de jeu</strong>, entouré d'un cadre en bois et d'une <strong>bande de jeu de 15&nbsp;cm</strong> de chaque côté (schéma ci-dessous).</span></li>
-      <li><span class="num">2</span><span>Pour tirer sans être gêné, il faut ensuite un espace libre derrière ce cadre : c'est le <strong>recul de la queue</strong>. Plus il est grand — jusqu'à 140&nbsp;cm — plus le jeu est confortable.</span></li>
-      <li><span class="num">3</span><span>Nous additionnons ces trois éléments (tapis + 15&nbsp;cm de cadre + recul de la queue) dans les deux sens de votre pièce, et nous vous conseillons toujours la plus grande table qui reste confortable des deux côtés.</span></li>
+      <li><span class="num">1</span><span>On part de la taille du billard, cadre compris (ex. 211&nbsp;cm pour un 7&nbsp;pieds). On enlève <strong>15&nbsp;cm de chaque côté</strong> (30&nbsp;cm au total) : c'est le cadre et la bande de jeu. Il reste le <strong>tapis</strong> — 181&nbsp;cm dans notre exemple.</span></li>
+      <li><span class="num">2</span><span>On ajoute ensuite la longueur de queue choisie — 100, 120 ou 140&nbsp;cm — <strong>de chaque côté</strong> du tapis, pour laisser assez de recul au joueur.</span></li>
+      <li><span class="num">3</span><span>Exemple avec une queue de 140&nbsp;cm : 181 + 140 + 140 = <strong>461&nbsp;cm</strong> nécessaires dans ce sens de la pièce (schéma ci-dessous). On refait ce calcul dans l'autre sens, et on vous conseille toujours la plus grande table qui reste confortable (140&nbsp;cm) dans les deux sens.</span></li>
     </ol>
     <div class="bdf-explainer" id="bdf-explainer"></div>
   </details>
@@ -372,11 +389,11 @@
     <div class="bdf-foot-contact">
       <span class="bdf-foot-bubble" id="bdf-foot-bubble"></span>
       <span>
-        <strong>Un doute sur votre mesure&nbsp;?</strong>
-        Nos conseillers vous répondent.
+        <strong>Pas sûr du résultat&nbsp;?</strong>
+        <span>Un conseiller Billards de France vous aide à choisir, gratuitement.</span>
       </span>
     </div>
-    <a class="bdf-call-btn" href="tel:0562693020">05&nbsp;62&nbsp;69&nbsp;30&nbsp;20</a>
+    <a class="bdf-call-btn" href="tel:0562693020" id="bdf-foot-call">05&nbsp;62&nbsp;69&nbsp;30&nbsp;20</a>
   </footer>
 </div>
 
@@ -509,6 +526,7 @@
     grid: document.getElementById("bdf-grid"),
     products: document.getElementById("bdf-products"),
     footBubble: document.getElementById("bdf-foot-bubble"),
+    footCall: document.getElementById("bdf-foot-call"),
     explainer: document.getElementById("bdf-explainer")
   };
 
@@ -571,6 +589,15 @@
     // Micro
     svg.appendChild(svgEl("path", { d: "M33.4 22.4c0 4.4-3.4 7-6.6 7.6", stroke: "#fff", "stroke-width": "2.2", "stroke-linecap": "round", fill: "none" }));
     svg.appendChild(svgEl("circle", { cx: "25.6", cy: "30.1", r: "1.9", fill: "#fff" }));
+    return svg;
+  }
+
+  function phoneIcon() {
+    var svg = svgEl("svg", { viewBox: "0 0 24 24", fill: "none" });
+    svg.appendChild(svgEl("path", {
+      d: "M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.9 21 3 13.1 3 3.9c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.2 1L6.6 10.8Z",
+      stroke: "currentColor", "stroke-width": "1.6", "stroke-linejoin": "round", "stroke-linecap": "round"
+    }));
     return svg;
   }
 
@@ -751,43 +778,59 @@
     var play = size.play, table = size.table;
     var clearW = play.length + cue * 2, clearH = play.width + cue * 2;
 
-    var padTop = 60, padSide = 200, padBottom = 50;
+    var padTop = 60, padSide = 200, padBottom = 60;
     var vbW = clearW + padSide * 2, vbH = clearH + padTop + padBottom;
     var cx = padSide + clearW / 2, cy = padTop + clearH / 2;
+    var tableX = cx - table.length / 2, tableY = cy - table.width / 2;
+    var tableRight = tableX + table.length, tableBottom = tableY + table.width;
 
     var svg = svgEl("svg", {
       viewBox: "0 0 " + vbW + " " + vbH, role: "img",
-      "aria-label": "Schéma d'un billard vu du dessus : tapis, cadre de 15 cm, et recul de la queue jusqu'au mur"
+      "aria-label": "Schéma d'un billard vu du dessus, avec le cadre de 15 cm et une queue de billard illustrant le recul nécessaire jusqu'au mur"
     });
 
-    // Recul de la queue (zone en pointillés, jusqu'au mur minimal)
+    // Murs de la pièce (double trait, pour se lire comme un plan d'architecte)
+    svg.appendChild(svgEl("rect", {
+      x: cx - clearW / 2 - 6, y: cy - clearH / 2 - 6, width: clearW + 12, height: clearH + 12,
+      fill: "none", stroke: "var(--ink)", "stroke-width": "5", "vector-effect": "non-scaling-stroke"
+    }));
+    svg.appendChild(svgEl("rect", {
+      x: cx - clearW / 2, y: cy - clearH / 2, width: clearW, height: clearH,
+      fill: "var(--bg)", stroke: "var(--ink)", "stroke-width": "1.5", "vector-effect": "non-scaling-stroke"
+    }));
+    // Zone de recul recommandée (pointillés, jusqu'au mur)
     svg.appendChild(svgEl("rect", {
       x: cx - clearW / 2, y: cy - clearH / 2, width: clearW, height: clearH,
       fill: "none", stroke: "var(--red-pale)", "stroke-width": "2", "stroke-dasharray": "7 6", "vector-effect": "non-scaling-stroke"
     }));
-    // Cadre + bande (anneau plein, 15cm), dessiné en dessous du tapis
+
+    // Cadre en bois du billard, coins arrondis + 6 poches (4 coins + 2 milieux)
     svg.appendChild(svgEl("rect", {
-      x: cx - table.length / 2, y: cy - table.width / 2, width: table.length, height: table.width,
-      fill: "var(--line-strong)", stroke: "var(--ink-muted)", "stroke-width": "1.5", "vector-effect": "non-scaling-stroke", rx: "2"
+      x: tableX, y: tableY, width: table.length, height: table.width,
+      fill: "var(--wood)", stroke: "var(--wood-dark)", "stroke-width": "2", "vector-effect": "non-scaling-stroke", rx: "16"
     }));
-    // Tapis (par-dessus, laisse apparaître l'anneau du cadre autour)
-    var tapisRect = svgEl("rect", {
+    [[tableX, tableY], [tableRight, tableY], [tableX, tableBottom], [tableRight, tableBottom],
+     [tableX + table.length / 2, tableY], [tableX + table.length / 2, tableBottom]].forEach(function (p) {
+      svg.appendChild(svgEl("circle", { cx: p[0], cy: p[1], r: 9, fill: "var(--wood-dark)" }));
+    });
+    // Tapis (feutrine verte), en retrait de 15cm du cadre sur toute la gamme
+    svg.appendChild(svgEl("rect", {
       x: cx - play.length / 2, y: cy - play.width / 2, width: play.length, height: play.width,
-      fill: "var(--good)", opacity: "0.9", stroke: "var(--good)", "stroke-width": "1.5", "vector-effect": "non-scaling-stroke", rx: "2"
-    });
-    svg.appendChild(tapisRect);
+      fill: "var(--good)", stroke: "color-mix(in srgb, var(--good) 60%, black)", "stroke-width": "1.5",
+      "vector-effect": "non-scaling-stroke", rx: "3"
+    }));
 
-    var tapisLabel = svgEl("text", {
-      x: cx, y: cy, "text-anchor": "middle", "dominant-baseline": "middle", "font-size": 13,
-      fill: "#fff", "font-family": "Helvetica, Arial, sans-serif", "font-weight": "700"
-    });
-    tapisLabel.textContent = "Tapis";
-    svg.appendChild(tapisLabel);
+    // Queue de billard, illustrée en train de sortir du billard vers le mur
+    // (bille près du tapis, manche plus sombre côté joueur/mur)
+    var stickX = cx, ballY = tableBottom + 13, shaftTop = tableBottom + 22, shaftBottom = cy + clearH / 2 - 34, gripBottom = cy + clearH / 2 - 10;
+    svg.appendChild(svgEl("circle", { cx: stickX, cy: ballY, r: 6, fill: "#fff", stroke: "var(--ink-muted)", "stroke-width": "1.5" }));
+    svg.appendChild(svgEl("line", { x1: stickX, y1: shaftTop, x2: stickX, y2: shaftBottom, stroke: "var(--wood)", "stroke-width": "5", "stroke-linecap": "round", "vector-effect": "non-scaling-stroke" }));
+    svg.appendChild(svgEl("line", { x1: stickX, y1: shaftBottom, x2: stickX, y2: gripBottom, stroke: "var(--wood-dark)", "stroke-width": "7", "stroke-linecap": "round", "vector-effect": "non-scaling-stroke" }));
 
-    // Callout 1 : cadre / bande (15cm), pointe vers le bord haut du cadre
-    addCallout(svg, cx - table.length / 2 + 15, cy - table.width / 2, padSide - 20, padTop - 30, "15 cm — cadre + bande", "end");
-    // Callout 2 : recul de la queue, pointe vers le bord bas de la zone pointillée
-    addCallout(svg, cx, cy + clearH / 2, cx, cy + clearH / 2 + padBottom - 14, "Recul jusqu'à 140 cm — position mini. du mur", "middle");
+    // Repères
+    addCallout(svg, tableX + 15, tableY, padSide - 20, padTop - 30, "15 cm — cadre + bande", "end");
+    addCallout(svg, stickX + 4, (shaftTop + gripBottom) / 2, vbW - 15, (shaftTop + gripBottom) / 2, "Recul jusqu'à 140 cm", "end");
+    addCallout(svg, cx - clearW / 2 - 6, cy - clearH / 2 - 6, padSide - 20, padTop + 10, "Mur de la pièce", "end");
 
     var wrap = el("div");
     wrap.appendChild(svg);
@@ -950,39 +993,54 @@
     return card;
   }
 
+  function buildProductCard(produit, sizeId) {
+    var card = document.createElement("a");
+    card.className = "bdf-product-card";
+    card.href = produit.url;
+    card.target = "_blank";
+    card.rel = "noopener noreferrer";
+    card.addEventListener("click", function () { trackEvent("produit_clique", { taille: sizeId, marque: produit.brand, nom: produit.name }); });
+
+    var thumb = el("div", "bdf-product-thumb");
+    if (produit.image) {
+      var img = document.createElement("img");
+      img.src = produit.image; img.alt = produit.name;
+      img.style.width = "100%"; img.style.height = "100%"; img.style.objectFit = "cover";
+      thumb.appendChild(img);
+    } else {
+      thumb.appendChild(billiardPlaceholderIcon());
+    }
+    card.appendChild(thumb);
+    card.appendChild(el("div", "bdf-product-name", produit.name));
+    card.appendChild(el("span", "bdf-product-cta", "Voir le produit"));
+    return card;
+  }
+
+  // Une rangée horizontale distincte par marque (Plaisance au-dessus de
+  // Lafuge quand les deux existent pour une taille, ex. le 7 pieds), pour
+  // qu'on puisse comparer les modèles d'une même marque côte à côte.
   function renderProducts(size) {
     els.products.textContent = "";
-    els.products.appendChild(el("p", "bdf-products-label", "Nos billards " + size.label + " disponibles"));
-    var row = el("div", "bdf-product-row");
+    els.products.appendChild(el("p", "bdf-products-label", "Nos billards proposés à cette taille :"));
 
-    getProduits(size.id).forEach(function (produit) {
-      var card = document.createElement("a");
-      card.className = "bdf-product-card";
-      card.href = produit.url;
-      card.target = "_blank";
-      card.rel = "noopener noreferrer";
-      card.addEventListener("click", function () { trackEvent("produit_clique", { taille: size.id, marque: produit.brand, nom: produit.name }); });
+    var produits = getProduits(size.id);
+    var brands = [];
+    produits.forEach(function (p) { if (brands.indexOf(p.brand) === -1) brands.push(p.brand); });
 
-      var thumb = el("div", "bdf-product-thumb");
-      if (produit.image) {
-        var img = document.createElement("img");
-        img.src = produit.image; img.alt = produit.name;
-        img.style.width = "100%"; img.style.height = "100%"; img.style.objectFit = "cover";
-        thumb.appendChild(img);
-      } else {
-        thumb.appendChild(billiardPlaceholderIcon());
-      }
-      card.appendChild(thumb);
-      card.appendChild(el("div", "bdf-product-brand", produit.brand));
-      card.appendChild(el("div", "bdf-product-name", produit.name));
-      card.appendChild(el("span", "bdf-product-cta", "Voir le produit"));
-      row.appendChild(card);
+    brands.forEach(function (brand) {
+      var group = el("div", "bdf-brand-group");
+      group.appendChild(el("p", "bdf-brand-title", brand));
+      var row = el("div", "bdf-product-row");
+      produits.filter(function (p) { return p.brand === brand; }).forEach(function (produit) {
+        row.appendChild(buildProductCard(produit, size.id));
+      });
+      group.appendChild(row);
+      els.products.appendChild(group);
     });
-
-    els.products.appendChild(row);
   }
 
   els.footBubble.appendChild(bubblePersonIcon());
+  els.footCall.prepend(phoneIcon());
   els.explainer.appendChild(buildExplainerDiagram());
   els.longueur.addEventListener("input", render);
   els.largeur.addEventListener("input", render);
