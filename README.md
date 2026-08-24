@@ -153,13 +153,17 @@ le vrai thème PrestaShop.
 - [ ] **Photos produits** : remplacer les vignettes placeholder (icône
   générique) par les vraies photos produit (`image` dans `CATALOGUE` ou la
   réponse API).
-- [ ] **Avatar conseiller** : le client a fourni une illustration de
-  conseiller (avatar avec casque, style plat) à utiliser dans la bulle de
-  contact. Cette v1 dessine un avatar équivalent en SVG (voir
-  `bubblePersonIcon()`) en attendant le fichier réel — à remplacer par
-  l'asset fourni (`<img>` ou SVG optimisé) dès qu'il est transmis au format
-  fichier (le visuel collé dans la conversation ne peut pas être extrait
-  automatiquement).
+- [x] **Avatar conseiller** : la vraie photo fournie par le client est
+  intégrée (variable `CONSEILLER_PHOTO_URL` en haut du `<script>`, section
+  montage en bas de fichier). Le fichier source est aussi conservé dans
+  `assets/conseiller.jpg` pour référence. **À faire côté développeur** :
+  la photo est actuellement encodée en data URI directement dans le HTML
+  (~780 Ko) pour garder le prototype autonome en un seul fichier — en
+  production, mieux vaut héberger ce fichier via le gestionnaire de médias
+  PrestaShop et remplacer `CONSEILLER_PHOTO_URL` par son URL réelle, pour
+  ne pas alourdir le poids de la page et bénéficier de la mise en cache
+  navigateur. L'ancien avatar SVG dessiné (`bubblePersonIcon()`) reste dans
+  le code comme solution de repli si `CONSEILLER_PHOTO_URL` est vidé.
 - [ ] **Animation du plan** : la transition du rectangle billard repose sur
   l'animation CSS des propriétés géométriques SVG (`x`/`y`/`width`/`height`
   sur `<rect>`), supportée nativement par les navigateurs modernes
