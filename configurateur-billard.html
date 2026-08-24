@@ -314,6 +314,7 @@
     width: 52px; height: 52px; flex-shrink: 0; color: #fff; background: rgba(255,255,255,0.16); border-radius: 50%; padding: 4px;
   }
   #bdf-config .bdf-foot-bubble svg { width: 100%; height: 100%; }
+  #bdf-config .bdf-foot-bubble img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; border-radius: 50%; }
   #bdf-config .bdf-foot-contact strong { display: block; font-family: Georgia, serif; font-weight: 700; font-size: 17px; }
   #bdf-config .bdf-foot-contact span > span:last-child { display: block; font-size: 13px; color: rgba(255,255,255,0.82); margin-top: 2px; }
   #bdf-config footer.bdf-foot a.bdf-call-btn {
@@ -349,7 +350,7 @@
           </div>
         </div>
       </div>
-      <p class="bdf-hint" id="bdf-hint">Mesurez l'espace de jeu disponible à hauteur de table (un meuble bas ne compte pas comme obstacle).</p>
+      <p class="bdf-hint" id="bdf-hint">Mesurez l'espace de jeu disponible à hauteur de table (un meuble bas (type canapé) ne compte pas comme obstacle).</p>
     </div>
 
     <div class="bdf-top-right">
@@ -1039,7 +1040,21 @@
     });
   }
 
-  els.footBubble.appendChild(bubblePersonIcon());
+  // TODO DÉVELOPPEUR / CLIENT : le client a fourni une vraie photo de
+  // conseiller (portrait avec casque) à utiliser ici à la place de l'avatar
+  // dessiné. Dès que le fichier est disponible, remplacer `null` ci-dessous
+  // par son URL (ou une data URI) — le cadrage (visage + buste, centré) est
+  // déjà géré par le CSS de .bdf-foot-bubble img, aucun autre changement
+  // requis.
+  var CONSEILLER_PHOTO_URL = null;
+  if (CONSEILLER_PHOTO_URL) {
+    var conseillerImg = document.createElement("img");
+    conseillerImg.src = CONSEILLER_PHOTO_URL;
+    conseillerImg.alt = "Conseiller Billards de France";
+    els.footBubble.appendChild(conseillerImg);
+  } else {
+    els.footBubble.appendChild(bubblePersonIcon());
+  }
   els.footCall.prepend(phoneIcon());
   els.explainer.appendChild(buildExplainerDiagram());
   els.longueur.addEventListener("input", render);
