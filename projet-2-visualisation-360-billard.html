@@ -713,15 +713,27 @@ var GLB = {"mendoza":"Z2xURgIAAAA4PwAAfAwAAEpTT057ImFzc2V0Ijp7InZlcnNpb24iOiIyLj
     analytics.track('ar_download', { product: current.id });
     $('result-help').textContent = 'Image envoyée dans vos téléchargements. Sinon, appuyez longuement sur l\'image.';
   }
+  // Page de test claude.ai : l'enregistrement passe par la fonction de sauvegarde de la page hôte
+  function hostSave() {
+    if (!(window.claude && typeof window.claude.use === 'function')) return Promise.resolve(false);
+    return window.claude.use('downloads').then(function (dl) {
+      if (!dl) return false;
+      return dl.save({ filename: fileName(), data: lastBlob }).then(function () { analytics.track('ar_share', { product: current.id, via: 'host' }); return true; },
+        function (e) { diag('Sauvegarde hôte: ' + (e && e.code || e), e && e.code === 'declined' ? '' : 'err'); return e && e.code === 'declined'; });
+    }, function () { return false; });
+  }
   $('btn-share').addEventListener('click', function () {
     if (!lastBlob) return;
+    hostSave().then(function (handled) { if (!handled) nativeSave(); });
+  });
+  function nativeSave() {
     var file = null;
     try { file = new File([lastBlob], fileName(), { type: 'image/jpeg' }); } catch (e) { /* File() indisponible */ }
     if (file && navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
       navigator.share({ files: [file], title: current.name }).then(function () { analytics.track('ar_share', { product: current.id }); },
         function (e) { if (e && e.name === 'AbortError') { diag('Partage annulé'); return; } diag('Partage refusé: ' + (e && e.message), 'err'); saveViaLink(); });
     } else { diag('Partage de fichiers indisponible, repli téléchargement'); saveViaLink(); }
-  });
+  }
 })();
 </script>
 </body>
