@@ -16,18 +16,42 @@ avant toute intégration PrestaShop. Indépendant du configurateur de taille (pr
    - une aide discrète apparaît 5 s au premier chargement, puis via le bouton « ? »
 4. Menu déroulant pour changer de billard sans repasser par la fiche produit.
 5. « Voir le produit » : retour vers la fiche du billard sélectionné (conversion).
-6. « Enregistrer » : composition locale photo + 3D + logo discret en bas à droite,
-   puis partage/enregistrement dans les photos (feuille de partage iOS/Android)
-   ou appui long sur l'image si le partage de fichiers n'est pas disponible.
-7. Portrait et paysage (en paysage, la fiche passe en colonne à droite).
+6. « Enregistrer » : composition locale photo + 3D à la résolution native de l'écran,
+   logo sur une plaque blanche translucide en bas à droite, puis feuille de partage
+   native (Enregistrer dans Photos, AirDrop, WhatsApp…) ; repli sur un téléchargement
+   direct, puis sur l'appui long sur l'image.
+7. Portrait et paysage (en paysage, la fiche passe en colonne à droite sur un tiers
+   de l'écran). Reprendre la photo recentre le billard ; changer de billard conserve
+   position et zoom.
 
-## Chargement différé
+## Moteur 3D et chargement différé
 
-La librairie 3D (`@google/model-viewer` 3.4.0, ~930 Ko, three.js inclus) n'est
-téléchargée **qu'au clic sur le bouton**, jamais au chargement de la fiche produit.
-Le modèle 3D du billard n'est décodé qu'après la prise de photo. La version 3.4.0 est
-retenue volontairement : dernière version compatible WebGL 1, donc iPhone anciens non
-mis à jour (iOS 13+) ; les versions 4.x exigent WebGL 2 (iOS 15+).
+Le rendu est fait directement avec three.js r160 (+ GLTFLoader), regroupés dans le
+fichier HTML (~700 Ko) pour que le prototype fonctionne sans aucune requête réseau,
+y compris dans le bac à sable de la page de test claude.ai. Le modèle est décodé en
+mémoire (pas de fetch), le moteur WebGL n'est initialisé qu'après la prise de photo.
+r160 est la dernière version compatible WebGL 1 : iPhone anciens (iOS 12/13) et
+Android d'entrée de gamme fonctionnent, WebGL 2 est utilisé quand il existe.
+
+**En production** : sortir three.js dans un fichier séparé sur le domaine du site,
+chargé uniquement au clic sur le bouton (jamais au chargement de la fiche produit),
+et servir les `.glb` depuis le domaine.
+
+## Tester sur une vraie URL (GitHub Pages)
+
+La page de test claude.ai exige une connexion et bloque l'enregistrement/partage de
+fichiers. Pour tester l'enregistrement de l'image sur iPhone et Android :
+Settings du dépôt → *Pages* → *Deploy from a branch* → branche
+`claude/ar-billard-visualization-d8gtr4`, dossier `/ (root)` → Save. Le dépôt doit
+être public. URL obtenue :
+`https://zavlamenace.github.io/Simulateur/projet-2-visualisation-360-billard.html`
+
+## Diagnostic
+
+Lien « Diagnostic » en pied de page : panneau qui affiche l'appareil (navigateur,
+écran, WebGL 1/2, partage de fichiers disponible), puis chaque événement et chaque
+erreur en direct. Bouton « Copier » pour coller le rapport dans une conversation.
+À retirer à l'intégration.
 
 ## Analytics (console pour le prototype)
 
@@ -35,17 +59,16 @@ Chaque événement s'affiche dans la console (`[BDF analytics]`) et s'accumule d
 `window.__bdfArEvents`. Événements : `ar_cta_click`, `ar_lib_loaded` / `ar_lib_error`,
 `ar_unsupported`, `ar_photo_taken` (source camera/gallery), `ar_model_loaded` (durée),
 `ar_first_gesture`, `ar_hint_opened`, `ar_product_switched`, `ar_retake`, `ar_capture`,
-`ar_share`, `ar_view_product`, `ar_closed` (durée, nombre de gestes, changements,
+`ar_share`, `ar_download`, `ar_view_product`, `ar_closed` (durée, nombre de gestes, changements,
 captures). À brancher sur GA4/Matomo lors de l'intégration : une seule fonction
 `analytics.track(nom, propriétés)` à remplacer.
 
 ## Sécurité
 
 - Aucune donnée ne quitte l'appareil : ni photo, ni capture, ni événements.
-- Un seul appel réseau : la librairie 3D, version épinglée, empreinte d'intégrité
-  (`integrity` SHA-384) vérifiée par le navigateur. **En production, copier le fichier
-  sur le domaine du site** et remplacer l'URL, pour ne dépendre d'aucun CDN tiers et
-  rester compatible avec une CSP stricte (`script-src 'self'`).
+- Aucun appel réseau : three.js est dans le fichier, le modèle est décodé en mémoire.
+  Vérifié sous une CSP stricte (`default-src 'self'; connect-src 'self'`).
+  En production, three.js devient un fichier séparé servi par le domaine du site.
 - Les modèles 3D sont référencés par identifiant produit dans une liste fermée, jamais
   par une URL venant d'un paramètre.
 - Aucun contenu utilisateur injecté dans le HTML, pas de `eval`, pas de stockage local.
