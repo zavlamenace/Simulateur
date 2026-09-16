@@ -48,7 +48,9 @@ avant toute intégration PrestaShop. Indépendant du configurateur de taille (pr
 ### Envoi des demandes (à brancher par l'agence)
 
 Le prototype n'a pas de serveur : l'envoi est simulé (panneau Diagnostic, objet
-`window.__bdfLastLead`). En production, renseigner `SHOP.leadEndpoint` avec l'URL d'un
+`window.__bdfLastLead`) et l'écran de confirmation l'indique en rouge tant que
+`SHOP.leadEndpoint` est vide. La page de test claude.ai bloque de toute façon toute
+requête sortante : les envois ne se testeront que sur GitHub Pages ou sur le site. En production, renseigner `SHOP.leadEndpoint` avec l'URL d'un
 contrôleur du module PrestaShop qui reçoit un POST JSON :
 
 ```
@@ -105,6 +107,16 @@ Chaque événement s'affiche dans la console (`[BDF analytics]`) et s'accumule d
 captures). À brancher sur GA4/Matomo lors de l'intégration : une seule fonction
 `analytics.track(nom, propriétés)` à remplacer.
 
+## Données personnelles (à valider par le responsable, textes modifiables dans `SHOP`)
+
+- Prise de photo : autorisation demandée par iOS/Android eux-mêmes ; la photo reste sur
+  l'appareil, l'écran de départ le dit (« La photo reste sur votre téléphone »).
+- Envoi d'une demande : case de consentement explicite, finalité (répondre), durée de
+  conservation (`SHOP.retentionMonths`, 6 mois) et lien vers la politique de
+  confidentialité (`SHOP.privacyUrl`, URL à vérifier) affichés dans le formulaire.
+  L'image d'un intérieur est une donnée personnelle : la politique de confidentialité du
+  site doit mentionner ce traitement.
+
 ## Sécurité
 
 - Aucune donnée ne quitte l'appareil : ni photo, ni capture, ni événements.
@@ -125,8 +137,13 @@ Traitement appliqué (`scratchpad/gt/crop.mjs` puis gltf-transform) :
    au niveau du sol ;
 2. conservation de la composante connexe principale (l'objet) et des fragments dans
    sa boîte ; suppression des morceaux de sol et de mur isolés ;
-3. recentrage, pose au sol, `weld`, texture réduite à 1024 px (JPEG), `quantize`,
-   `prune` → 1,46 Mo, 32 000 triangles.
+3. recentrage, pose au sol, `weld`, texture réduite à 2048 px (JPEG), `quantize`,
+   `prune` → 1,98 Mo, 32 000 triangles (`assets/3d/babyfoot.glb`).
+
+Comparaison faite avec le fichier Kiri brut : barres, joueurs et trous sont identiques
+dans l'export d'origine ; l'aperçu photoréaliste de l'app Kiri est un rendu 3DGS
+(Gaussian Splatting), pas le maillage exporté. Pistes : Scaniverse (iPhone 16 Pro,
+LiDAR, gratuit), RealityScan Mobile (Epic, gratuit), Reality Composer (Apple).
 
 Le modèle n'a pas d'échelle métrique : le prototype le met à la hauteur réelle du produit
 (`height` dans le catalogue, 0,90 m pour le baby-foot) et le pose au sol automatiquement.
@@ -172,4 +189,5 @@ Commencer par 3 produits pilotes (un billard, un baby-foot, un porte-queue) avan
 - Billards placeholder en géométrie simple (proportions réelles 210 × 120 × 80 cm et
   240 × 130 cm) : uniquement pour valider les gestes et le parcours.
 - Pas d'ancrage au sol ni de détection de plan : le placement est libre, à l'œil.
-- Le logo est une reconstitution vectorielle ; remplacer par le PNG officiel.
+- Le logo officiel (`assets/logo-billards-de-france.png`) est intégré en base64 dans
+  le fichier, en-tête et capture.
