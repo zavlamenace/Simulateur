@@ -262,6 +262,110 @@ Si une colonne est insérée, « Prix TTC » change de place mais garde son nom,
    - brouillons d'arguments, au moins 4 par gamme, plus un argument par finition Référence : Formica noir brillant, blanc brillant, teck marron, chêne gris anthracite, chêne naturel. Statut « À valider », photos à fournir.
 4. Attendre les photos des grilles Design et Prestige, puis les photos ultra zoomées.
 
+## Grilles Design et Prestige + PDF « Différences selon les gammes » (18/11)
+
+### Décisions
+**Design** : 4 modèles à 4 390 €, style Moderne, pieds carrés en hêtre 120 × 120. Le libellé de finition est celui de la grille papier :
+- New York : laqué blanc, vernis mat ;
+- Washington : laqué gris anthracite, vernis mat ;
+- Miami : laqué noir, vernis mat ;
+- Boston : laqué gris clair, vernis mat.
+
+| Option Design | Prix | Règle |
+|---|---|---|
+| Tapis (33 teintes) | inclus | |
+| 1 jeu de bandes | inclus | |
+| 2e jeu de bandes, quel qu'il soit | **700 €** | Différent du jeu inclus |
+| RAL au choix | +250 € | |
+| Vernis grand brillant + polissage du billard | +540 € | Seul niveau de vernis proposé |
+| Vernis grand brillant + polissage du dessus | +270 € | Nécessite le plateau bois laqué |
+| Plateau bois laqué (même configuration que le billard) | 990 € | |
+| Plateau 100 % verre Sécurit 8 mm, motif à carré, 2 parties, sans allonge | 1 100 € | |
+| Plateau vitré (cadre bois, verre Sécurit 6 mm, 2 parties) | 1 600 € | **Allonge incluse** |
+| Allonge 45 cm, une seule finition laquée | +500 € | **Uniquement avec le plateau bois laqué** |
+| Rangement des accessoires (queues, billes, craies, brosse) | +400 € | |
+
+Retirés : vernis brillant simple (+150 € / +50 €), bandes peintes, incrustation de matière.
+
+**Prestige** : 13 modèles. La ligne « Cardiff wengé » de la grille est obsolète.
+
+| Modèle | Piètement | Style et finition | Prix |
+|---|---|---|---|
+| Douvres | pieds tournés hêtre Ø 100 | Rustique, chêne n°1 | 4 600 € |
+| Cardiff | pieds carrés tauari 100 × 100 | Campagnard, chêne n°1 | 4 600 € |
+| Rome | pieds tournés chêne Ø 100 | Louis XIV, chêne n°1 | 4 600 € |
+| Venise | pieds carrés chêne 100 × 100 | Campagnard, chêne n°1 | 4 600 € |
+| Rotterdam blanchi | pieds tournés chêne Ø 100 | Moderne, blanchi n°19 | 4 600 € |
+| Rotterdam wengé | pieds tournés chêne Ø 100 | Moderne, wengé n°17 | 4 600 € |
+| Athènes | pieds carrés chêne 100 × 100 | Moderne, blanc n°21 | 4 600 € |
+| Florence | pieds carrés chêne 100 × 100 | Campagnard, vieilli ciré n°7 | 4 600 € |
+| Sydney | pieds carrés chêne 100 × 100 | Moderne, naturel mat n°23 | 4 600 € |
+| Helsinki blanchi | pieds carrés chêne 100 × 100 | Moderne, blanchi n°19 + rechampi wengé | **4 600 €** (prix du site) |
+| Helsinki wengé | pieds carrés chêne 100 × 100 | Moderne, wengé n°17 + rechampi aluminium | 4 600 € |
+| Pékin | pieds galbés chêne 130 × 100 | Moderne, naturel mat n°23 + rechampi noir | 5 400 € |
+| Paris | pieds gainés de cuir 100 × 100 | Moderne, cuir noir + inserts chêne naturel n°23 | 8 800 € |
+
+| Option Prestige | Prix | Règle |
+|---|---|---|
+| Tapis, 1 jeu de bandes | inclus | |
+| 2e jeu de bandes | 700 € | |
+| Plateau bois en 2 parties, teinte du billard | 990 € | **Allonge 45 cm incluse** |
+| Motif décor à carré peint sur le plateau bois | +300 € | Exemples : Athènes, 4 carrés marron foncé ; Helsinki, 4 carrés aluminium |
+| Plateau 100 % verre Sécurit 8 mm, motif à carré, sans allonge | 1 200 € | |
+| Plateau vitré (cadre bois, verre 6 mm) | 1 600 € | Allonge incluse |
+| Pieds métalliques | « Bientôt » | |
+
+« Supplément teinte » : ne pas le noter.
+
+**Inclus de série sur Prestige** :
+- Simonis 760, porte-queues et rangement des bandes intégrés (Octopack) ;
+- rangement du plateau sous le billard ;
+- goulottes insonorisées et **un tiroir abattant de chaque côté** : réception centralisée des billes ;
+- ardoise monobloc 19 mm avec longerons métalliques ;
+- châssis Woodstone.
+
+**Woodstone** (argument du PDF) : bois haute densité aux fibres serrées. Il absorbe le poids de l'ardoise sans fléchir et ne travaille pas avec l'humidité ni la température. La surface reste parfaitement plane dans le temps.
+
+**Référence** :
+- l'Octopack n'est **pas possible** : la ligne reste masquée, avec cette note ;
+- on **ajoute** une ligne « Rangement des accessoires » à **400 €**, Actif (queues, billes, craies, brosse, comme sur Design) ;
+- **pieds métalliques** : leur prix est l'écart entre la version bois et la version métal (Bogota 1 995 € → 2 395 €, soit 400 €). Ce supplément est déjà compris dans le prix des modèles « Pieds métalliques ». La couleur RAL des pieds passe donc à **0 €, Actif**, avec cette note ;
+- Panama : on n'y touche pas (Masqué) ;
+- PMMA : sorti du catalogue (déjà supprimé) ;
+- RCS : confirmé.
+
+**Strachan 777** : liste de la grille papier, qui fait foi : Vert, Bleu, Rouge, Gris, Bordeaux, Cherry, Violet. Simonis : on garde 26 teintes, même si la grille papier en annonce 25.
+
+**Banc laqué** à 740 € : coloris blanc, noir, gris clair, anthracite ou aluminium. Il est proposé pour Référence, Design et Prestige.
+
+**Décor du verre** (dépoli, etc.) : non proposé dans l'outil.
+
+**Données internes du PDF à ne jamais reprendre côté client** : « Sous-traitant » (Référence), « 0 SAV en 10 ans ».
+
+### Production
+1. **Connaissances** : mettre à jour `design.md`, `prestige.md`, `reference.md`, `conditions.md` (Strachan) et `a-verifier.md` (écarts tranchés : 2e jeu à 700 €, vernis, Helsinki à 4 600 €, Cardiff wengé obsolète, Strachan papier).
+2. **Trace** : mettre à jour `arguments_brouillons.py` et `construire_sheet.py`, et adapter les tests. Commit et push.
+3. **Google Sheet en ligne**, par écritures ciblées après relecture de chaque bloc :
+   - **Design** :
+     - modèles : version = piètement, finition = grille, note « Vérifié grille papier » ;
+     - options : 2e jeu américain 600 → 700 € ; libellés « grand brillant » ; vernis du dessus → nécessite « Plateau table bois laqué » ;
+     - remplir la ligne « Plateau table » avec les 3 plateaux ; allonge → nécessite « Plateau table bois laqué » ; rangement des accessoires renommé.
+   - **Prestige** :
+     - modèles : piètement et finition, note « Vérifié grille papier » ;
+     - options : 2e jeu américain 600 → 700 € ; détails des plateaux (allonge incluse) ; détail du motif à carré.
+   - **Référence** :
+     - Octopack reste masqué, note « Pas possible sur la Référence » ;
+     - nouvelle ligne « Rangement des accessoires », 400 €, Actif ;
+     - pieds couleur RAL → 0 €, Actif, note sur l'écart de 400 € déjà compris dans la version métal.
+   - **Coloris** : les 7 lignes Strachan reprennent la liste papier, avec leurs codes couleur.
+   - **Accessoires & mobilier** : coloris du banc.
+   - **Arguments** :
+     - Design : pieds en hêtre massif et laques vernis mat ;
+     - Prestige : réception centralisée avec un tiroir de chaque côté, Woodstone détaillé, porte-queues et rangement des bandes, piètement et finition de chaque modèle.
+
+     Les textes restent « À valider ».
+4. **En attente** : la photo des accessoires (vous la renvoyez), puis les grilles Lafuge et livraison + montage, puis les photos ultra zoomées.
+
 ## Questions encore ouvertes
 1. **RCS** (confirmé le 17/11) : la mention légale prend la forme « RCS [ville du greffe] [SIREN] ». Pour une société du Gers, ce serait « RCS Auch 997 739 107 ». À confirmer, ou à corriger si le greffe est un autre.
 2. **Panama** (pieds bois et pieds métalliques) : rangé dans « Bonnes affaires » sur le site. Toujours au catalogue ?

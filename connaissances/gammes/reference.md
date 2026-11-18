@@ -22,11 +22,13 @@ Entrée de gamme, **le meilleur rapport qualité-prix**. Production en série, e
 - **Châssis** : bois massif et renforts métalliques.
 - **Pieds** :
   - bois massif uni, de la même couleur que le cadre, avec vérins ;
-  - ou version **pieds métalliques**, laqués époxy, réglables : noir, blanc ou gris anthracite. Une couleur RAL au choix est prévue, mais son prix n'est pas encore fixé (statut « Bientôt ») ;
+  - ou version **pieds métalliques**, laqués époxy, réglables : noir, blanc, gris anthracite ou couleur RAL au choix, **sans supplément** ;
+  - **prix des pieds métalliques = écart entre la version bois et la version métal** (Bogota 1 995 € → Bogota métallique 2 395 €, Mendoza idem), soit 400 €. Cet écart est déjà compris dans le prix des modèles « Pieds métalliques ».
   - les **pieds PMMA transparents ne sont plus fabriqués** : ne jamais les proposer.
 - **Finitions** : Formica, une par modèle (tableau « Modèles » ci-dessous).
 - **Récupération des billes** : 6 boîtes en bois insonorisées.
-- **Rangement Octopack** : inclus de série sur Prestige ; pas proposé sur la Référence pour l'instant.
+- **Rangement Octopack** : **pas possible** sur la Référence (il est de série sur Prestige).
+- **Rangement des accessoires** : **en option à 400 €**. Queues, billes, boîte de craies et brosse se rangent sous le billard, comme sur Design.
 - **Dessus de table** : bois en 2 parties (+330 €) ou verre Sécurit en 2 parties (+1 100 €). Pas d'allonge.
 - **Banc laqué** assorti : +740 € (onglet Accessoires & mobilier, le même que pour Design et Prestige).
 

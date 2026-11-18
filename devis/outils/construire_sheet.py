@@ -22,6 +22,7 @@ from openpyxl.worksheet.datavalidation import DataValidation
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import arguments_brouillons  # noqa: E402
+import grilles_papier as gp  # noqa: E402
 
 ENCRE, ROUGE, CREME, SABLE_CLAIR, SABLE, ANTHRACITE = "151515", "B01C2E", "F6F3EE", "EFE9E3", "D9CFBF", "3D4248"
 TITRE = Font(name="EB Garamond", size=20, bold=True, color=ENCRE)
@@ -177,7 +178,7 @@ def jeux_de_bandes():
     inclus[2][2] = "Bandes pool calibrées (billes Ø 50,8 mm), système breveté"
     second = [
         ["2e jeu de bandes", "2e jeu de bandes américain", "Second jeu de bandes interchangeables : américain",
-         600, None, "Actif", "Tous", None, "Jeu de bandes américain", "Plusieurs possibles", None],
+         700, None, "Actif", "Tous", None, "Jeu de bandes américain", "Plusieurs possibles", None],
         ["2e jeu de bandes", "2e jeu de bandes pool", "Second jeu de bandes interchangeables : pool",
          700, None, "Actif", "Tous", None, "Jeu de bandes pool", "Plusieurs possibles", None],
         ["2e jeu de bandes", "2e jeu de bandes français", "Second jeu de bandes interchangeables : français",
@@ -248,9 +249,12 @@ def onglet_reference(wb, ref):
         ["Couleur des pieds", "Pieds gris anthracite", "Pieds métalliques laqués époxy, gris anthracite", 0, None,
          "Actif", "Pieds métalliques", None, None, "Un seul par groupe", None],
         ["Couleur des pieds", "Pieds couleur RAL au choix", "Pieds métalliques dans la couleur RAL de votre choix",
-         None, None, "Bientôt", "Pieds métalliques", None, None, "Un seul par groupe", "Prix à définir"],
+         0, None, "Actif", "Pieds métalliques", None, None, "Un seul par groupe",
+         "Sans supplément : l'écart bois → métal (400 €) est déjà dans le prix du modèle pieds métalliques"],
         ["Rangement", "Rangement Octopack", "Rangement intégré des accessoires", None, None, "Masqué", "Tous", None,
-         None, "Plusieurs possibles", "Inclus sur Prestige ; pas proposé sur la Référence pour l'instant"],
+         None, "Plusieurs possibles", "Pas possible sur la Référence"],
+        ["Rangement", "Rangement des accessoires", "Queues, billes, boîte de craies et brosse rangées sous le billard",
+         400, None, "Actif", "Tous", None, None, "Plusieurs possibles", None],
     ]
     bloc_options(f, opts)
     bloc_arguments(f, arguments_brouillons.lignes("Référence"))
@@ -274,9 +278,9 @@ def onglet_design(wb, dp):
         ["Statut", "Actif", None],
     ])
     modeles = [
-        [p["nom"].replace("Billard ", ""), "Laqué", next((x["valeur"] for x in p["caracteristiques"] if x["nom"] == "Finition"), ""),
+        [p["nom"].replace("Billard ", ""), gp.DESIGN_PIETEMENT, gp.DESIGN[p["nom"].replace("Billard ", "")],
          p["prix_ttc_site"], "Actif", next((g["full"] for g in p["galerie"] if g.get("detouree")), ""), None, None, None,
-         "Prix et finition à vérifier sur la grille papier"]
+         gp.NOTE_VERIFIE]
         for p in dp if "/billard-design/" in p["url"]
     ]
     f.bloc("MODÈLES", ENTETES_MODELES, modeles, vides=8, formats={"Prix TTC": EURO},
@@ -284,16 +288,22 @@ def onglet_design(wb, dp):
     opts = tapis_inclus() + jeux_de_bandes() + [
         ["Finition", "Couleur RAL au choix", "Laque dans la couleur RAL de votre choix", 250, None, "Actif", "Tous",
          None, None, "Plusieurs possibles", None],
-        ["Finition", "Vernis brillant et polissage du billard", "Finition vernis brillant, polie à la main", 540,
+        ["Finition", "Vernis grand brillant et polissage du billard", "Vernis grand brillant, poli à la main", 540,
          None, "Actif", "Tous", None, None, "Plusieurs possibles", None],
-        ["Finition", "Vernis brillant et polissage du dessus de table", "Plateau en vernis brillant, poli à la main",
-         270, None, "Actif", "Tous", "Plateau table", None, "Plusieurs possibles", None],
-        ["Rangement", "Rangement des accessoires et des bandes", "Rangement intégré sous le billard", 400, None,
-         "Actif", "Tous", None, None, "Plusieurs possibles", "Photo de réassurance à venir"],
+        ["Finition", "Vernis grand brillant et polissage du dessus de table",
+         "Plateau en vernis grand brillant, poli à la main", 270, None, "Actif", "Tous", "Plateau table bois laqué",
+         None, "Plusieurs possibles", None],
+        ["Rangement", "Rangement des accessoires", "Queues, billes, boîte de craies et brosse rangées sous le billard",
+         400, None, "Actif", "Tous", None, None, "Plusieurs possibles", "Photo de réassurance à venir"],
         ["Allonge", "Allonge de plateau 45 cm", "Agrandit la table à manger de 45 cm", 500, None, "Actif", "Tous",
-         "Plateau table", None, "Plusieurs possibles", None],
-        ["Plateau table", None, None, None, None, None, None, None, None, "Un seul par groupe",
-         "À compléter d'après la grille papier (bois laqué, verre…)"],
+         "Plateau table bois laqué", None, "Plusieurs possibles",
+         "Une seule finition laquée. Déjà incluse avec le plateau vitré"],
+        ["Plateau table", "Plateau table bois laqué", "Plateau en 2 parties, laqué dans la finition du billard", 990,
+         None, "Actif", "Tous", None, None, "Un seul par groupe", None],
+        ["Plateau table", "Plateau 100 % verre Sécurit 8 mm", "Verre Sécurit 8 mm, motif décor à carré, en 2 parties",
+         1100, None, "Actif", "Tous", None, None, "Un seul par groupe", "Sans allonge"],
+        ["Plateau table", "Plateau vitré cadre bois", "Cadre bois et verre Sécurit 6 mm, en 2 parties, allonge 45 cm incluse",
+         1600, None, "Actif", "Tous", None, None, "Un seul par groupe", "Allonge incluse"],
     ]
     bloc_options(f, opts)
     bloc_arguments(f, arguments_brouillons.lignes("Design"))
@@ -317,23 +327,25 @@ def onglet_prestige(wb, dp):
         ["Statut", "Actif", None],
     ])
     modeles = [
-        [p["nom"].replace("Billard ", ""), "Bois massif verni",
-         next((x["valeur"] for x in p["caracteristiques"] if x["nom"] == "Finition"), ""),
-         p["prix_ttc_site"], "Actif", next((g["full"] for g in p["galerie"] if g.get("detouree")), ""), None, None,
-         None, "Prix et finition à vérifier sur la grille papier"]
+        [p["nom"].replace("Billard ", ""), gp.PRESTIGE[p["nom"].replace("Billard ", "")][0],
+         gp.PRESTIGE[p["nom"].replace("Billard ", "")][1], gp.PRESTIGE_PRIX[p["nom"].replace("Billard ", "")],
+         "Actif", next((g["full"] for g in p["galerie"] if g.get("detouree")), ""), None, None,
+         None, gp.NOTE_VERIFIE]
         for p in dp if "/billard-prestige-/" in p["url"]
     ]
     f.bloc("MODÈLES", ENTETES_MODELES, modeles, vides=8, formats={"Prix TTC": EURO},
            validations={"Statut": STATUTS})
     opts = tapis_inclus() + jeux_de_bandes() + [
-        ["Plateau table", "Plateau table bois", "Plateau en bois massif assorti", 990, None, "Actif", "Tous", None,
-         None, "Un seul par groupe", None],
-        ["Plateau table", "Plateau 100 % verre Sécurit 8 mm", "Verre de sécurité 8 mm", 1200, None, "Actif", "Tous",
-         None, None, "Un seul par groupe", None],
-        ["Plateau table", "Plateau verre et cadre couleur de rappel", "Plateau verre, cadre dans la couleur du billard",
-         1600, None, "Actif", "Tous", None, None, "Un seul par groupe", None],
-        ["Décor", "Motif décor à carré", "Motif décor à carré sur le plateau bois", 300, None, "Actif", "Tous",
-         "Plateau table bois", None, "Plusieurs possibles", None],
+        ["Plateau table", "Plateau table bois", "Plateau bois en 2 parties, dans la teinte du billard, allonge 45 cm incluse",
+         990, None, "Actif", "Tous", None, None, "Un seul par groupe", "Allonge incluse"],
+        ["Plateau table", "Plateau 100 % verre Sécurit 8 mm", "Verre Sécurit 8 mm, motif décor à carré, en 2 parties",
+         1200, None, "Actif", "Tous", None, None, "Un seul par groupe", "Sans allonge"],
+        ["Plateau table", "Plateau verre et cadre couleur de rappel",
+         "Cadre bois dans la couleur du billard et verre Sécurit 6 mm, en 2 parties, allonge 45 cm incluse",
+         1600, None, "Actif", "Tous", None, None, "Un seul par groupe", "Allonge incluse"],
+        ["Décor", "Motif décor à carré", "4 carrés peints sur le plateau bois (ex. marron foncé, aluminium)", 300,
+         None, "Actif", "Tous", "Plateau table bois", None, "Plusieurs possibles",
+         "Ex. dessus Athènes : 4 carrés marron foncé ; dessus Helsinki : 4 carrés aluminium"],
         ["Pieds", "Pieds métalliques", "Pieds métalliques à la place des pieds en bois massif", None, None,
          "Bientôt", "Tous", None, None, "Un seul par groupe", "Disponible dans environ 3 mois, prix à définir"],
     ]
@@ -390,11 +402,8 @@ COLORIS = [
     ("Simonis 760", "Camel", "B48A57"), ("Simonis 760", "Or", "C9A227"),
     ("Simonis 760", "Gris", "7D8285"), ("Simonis 760", "Gris requin", "5E6468"),
     ("Simonis 760", "Gris ardoise", "4A5157"), ("Simonis 760", "Noir", "1A1A1A"),
-    ("Strachan 777", "Bordeaux", "6E1A2A"), ("Strachan 777", "Rouge", "B3202A"),
-    ("Strachan 777", "Vert olive", "6B6B2A"), ("Strachan 777", "Bleu royal", "224C9C"),
-    ("Strachan 777", "Violet", "5B2C7A"), ("Strachan 777", "Gris", "7D8285"),
-    ("Strachan 777", "Noir", "1A1A1A"),
 ]
+COLORIS += [("Strachan 777", t, gp.STRACHAN_HEX[t]) for t in gp.STRACHAN]
 
 
 def onglet_coloris(wb):
@@ -419,7 +428,8 @@ def onglet_accessoires(wb):
         "ACCESSOIRES",
         ["Catégorie", "Article", "Détail imprimé sur le devis", "Prix TTC", "Gammes compatibles", "Statut", "Photo",
          "Note interne"],
-        [["Mobilier", "Banc laqué assorti", "Banc laqué assorti au billard", 740, "Référence, Design, Prestige",
+        [["Mobilier", "Banc laqué assorti", "Banc laqué : blanc, noir, gris clair, anthracite ou aluminium", 740,
+          "Référence, Design, Prestige",
           "Actif", None, None]],
         vides=25, formats={"Prix TTC": EURO}, validations={"Statut": STATUTS},
         note="Liste complète à reporter d'après la photo des accessoires.",

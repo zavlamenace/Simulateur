@@ -64,7 +64,7 @@ def test_decisions_du_17_11():
     assert all(m["Statut"] == "Masqué" for m in ref["MODÈLES"] if m["Modèle"] == "Panama")
     assert not any("PMMA" in str(o.get("Option")) for o in ref["OPTIONS"])
     ral = next(o for o in ref["OPTIONS"] if o.get("Option") == "Pieds couleur RAL au choix")
-    assert ral["Statut"] == "Bientôt"
+    assert ral["Statut"] == "Actif" and ral["Prix TTC"] == 0, "écart bois → métal déjà compris dans le modèle métal"
     for gamme in ("Référence", "Design", "Prestige", "Lafuge"):
         args = c[gamme]["ARGUMENTS & PHOTOS"]
         assert sum(1 for a in args if a["Valable pour"] == "Tous") >= 4, gamme
@@ -72,6 +72,45 @@ def test_decisions_du_17_11():
         assert ("Monaco" in textes) == (gamme == "Lafuge"), "références clients réservées à Lafuge"
     finitions = {a["Valable pour"] for a in ref["ARGUMENTS & PHOTOS"] if a["Valable pour"] != "Tous"}
     assert {"Santiago", "Rio", "Caracas", "Bogota", "Mendoza"} <= finitions
+
+
+def options(c, gamme):
+    return {o["Option"]: o for o in c[gamme]["OPTIONS"] if o.get("Option")}
+
+
+def test_grilles_papier_du_18_11():
+    with tempfile.TemporaryDirectory() as tmp:
+        c = lire_classeur(construire(tmp))
+    design = {m["Modèle"]: m for m in c["Design"]["MODÈLES"]}
+    assert set(design) == {"Boston", "Washington", "New-York", "Miami"}
+    assert all(m["Prix TTC"] == 4390 and "vernis mat" in m["Finition"] for m in design.values())
+    assert all(m["Version"] == "Pieds carrés hêtre 120 × 120" for m in design.values())
+    for gamme in ("Design", "Prestige"):
+        opts = options(c, gamme)
+        assert {opts[f"2e jeu de bandes {j}"]["Prix TTC"] for j in ("américain", "pool", "français")} == {700}, gamme
+    od = options(c, "Design")
+    assert od["Plateau table bois laqué"]["Prix TTC"] == 990
+    assert od["Plateau 100 % verre Sécurit 8 mm"]["Prix TTC"] == 1100
+    assert od["Plateau vitré cadre bois"]["Prix TTC"] == 1600 and "allonge" in od["Plateau vitré cadre bois"]["Détail imprimé sur le devis"]
+    assert od["Allonge de plateau 45 cm"]["Nécessite"] == "Plateau table bois laqué"
+    assert od["Rangement des accessoires"]["Prix TTC"] == 400
+    assert not any(o.get("Prix TTC") in (150, 50) for o in od.values()), "vernis brillant simple retiré"
+    assert not any("ncrustation" in str(o) or "peintes" in str(o) for o in od), "options retirées"
+    prestige = {m["Modèle"]: m["Prix TTC"] for m in c["Prestige"]["MODÈLES"]}
+    assert len(prestige) == 13 and prestige["Helsinki blanchi"] == 4600
+    assert prestige["Pekin"] == 5400 and prestige["Paris"] == 8800
+    assert set(v for k, v in prestige.items() if k not in ("Pekin", "Paris")) == {4600}
+    op = options(c, "Prestige")
+    assert "allonge 45 cm incluse" in op["Plateau table bois"]["Détail imprimé sur le devis"]
+    assert op["Motif décor à carré"]["Nécessite"] == "Plateau table bois"
+    oref = options(c, "Référence")
+    assert oref["Rangement Octopack"]["Statut"] == "Masqué"
+    assert oref["Rangement des accessoires"]["Prix TTC"] == 400 and oref["Rangement des accessoires"]["Statut"] == "Actif"
+    strachan = [l["Teinte"] for l in c["Coloris"]["COLORIS"] if l["Drap"] == "Strachan 777"]
+    assert strachan == ["Vert", "Bleu", "Rouge", "Gris", "Bordeaux", "Cherry", "Violet"]
+    tout = " ".join(str(v) for o in c.values() for b in o.values() for l in b for v in l.values() if v)
+    for interdit in ("Supplément teinte", "0 SAV", "Sous-traitant", "PayPlug", "PMMA"):
+        assert interdit not in tout, interdit
 
 
 def test_insertion_ligne_et_colonne_ne_change_rien():

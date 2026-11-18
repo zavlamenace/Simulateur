@@ -52,7 +52,7 @@
 - **Innovations non brevetées, sur Prestige** :
   - boîtes de roulement insonorisées (capitonnage en 3 épaisseurs de moquette) ;
   - **1 tiroir de chaque côté** pour récupérer les billes ;
-  - rangement Octopack des accessoires (de série sur Prestige, en option sur Référence et Design).
+  - rangement Octopack des accessoires et des bandes, de série sur Prestige. Référence et Design proposent à la place un rangement des accessoires en option (400 €).
 
 ## La famille Fitan
 - **Amédée** (1946) : ébéniste de meubles massifs ; choix du bois massif, gestes du ponçage et du lustrage à la main.
