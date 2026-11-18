@@ -1,0 +1,5244 @@
+[
+  {
+    "nom": "Billard Santiago",
+    "url": "https://www.billardsdefrance.fr/billard-reference-premium/378-589751-billard-santiago-premium.html",
+    "id_produit": 378,
+    "prix_ttc_site": 1995,
+    "prix_ht_site": 1662.5,
+    "delai_site": "Livraison sous 2 à 3 semaines",
+    "description_courte": "Élégant et affirmé, le billard Santiago se distingue par sa finition stratifiée noir brillant , pour une présence forte dans votre intérieur. Cette teinte sombre et profonde structure l'espace avec caractère , aussi bien dans un salon contemporain que dans un intérieur plus classique qu'elle vient réchauffer visuellement. Ce billard table à manger se joue en billard américain, billard anglais (pool/blackball) ou billard français grâce à l'ajout de plugs sur les bandes. Ses pieds massifs équipés de vérins de réglage et son ardoise monobloc 19 mm garantissent une parfaite planéité de jeu. En option, transformez-le en une table à manger conviviale pour 10 convives.",
+    "caracteristiques": [
+      {
+        "nom": "Dessus de table",
+        "valeur": "En option"
+      },
+      {
+        "nom": "Dimensions du billard",
+        "valeur": "2,11 x 1,20 m (7pieds)"
+      },
+      {
+        "nom": "Dimensions de jeu",
+        "valeur": "1,83 m x 0,915 m"
+      },
+      {
+        "nom": "Hauteur de table",
+        "valeur": "80 cm"
+      },
+      {
+        "nom": "Poids",
+        "valeur": "200 kg"
+      },
+      {
+        "nom": "Table billard convertible",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Accessoires billard",
+        "valeur": "Inclus"
+      },
+      {
+        "nom": "Finition",
+        "valeur": "Stratifié Noir Brillant"
+      },
+      {
+        "nom": "Made In France 🇫🇷",
+        "valeur": "Non"
+      },
+      {
+        "nom": "Billard américain",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Billard français",
+        "valeur": "Oui avec ajout de plugs"
+      },
+      {
+        "nom": "Billard anglais",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Longueur",
+        "valeur": "2,10m (7 pieds)"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Fabriqué à la main"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Garantie 2 ans"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Livraison gratuite"
+      },
+      {
+        "nom": "Ardoise",
+        "valeur": "19mm"
+      },
+      {
+        "nom": "Nombre de couverts",
+        "valeur": "8 à 10 personnes"
+      },
+      {
+        "nom": "Tapis",
+        "valeur": "Qualité Standard - En option Simonis 760 ou Strachan 777"
+      },
+      {
+        "nom": "Pieds",
+        "valeur": "Bois Massif Stratifié"
+      },
+      {
+        "nom": "Châssis",
+        "valeur": "Bois Massif + Renfort Métalliques"
+      },
+      {
+        "nom": "Système de réception",
+        "valeur": "6 boites en bois insonorisées"
+      },
+      {
+        "nom": "Rangement Accessoires",
+        "valeur": "Sous le billard (en option)"
+      },
+      {
+        "nom": "Rangement Plateau Table",
+        "valeur": "Non"
+      },
+      {
+        "nom": "Gamme",
+        "valeur": "Référence premium"
+      }
+    ],
+    "attributs": [
+      {
+        "groupe_id": "17",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "81",
+            "libelle": "Vert",
+            "libelle_site": "Vert",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "82",
+            "libelle": "Rouge",
+            "libelle_site": "Rouge",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "83",
+            "libelle": "Bleu",
+            "libelle_site": "Bleu",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "283",
+            "libelle": "Gris",
+            "libelle_site": "Gris",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "84",
+            "libelle": "Chocolat: Simonis 760",
+            "libelle_site": "Chocolat: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "85",
+            "libelle": "Orange: Simonis 760",
+            "libelle_site": "Orange: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "86",
+            "libelle": "Noir: Simonis 760",
+            "libelle_site": "Noir: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "88",
+            "libelle": "Violet : Simonis ou Strachan",
+            "libelle_site": "Violet : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "89",
+            "libelle": "Vert pomme: Simonis 760",
+            "libelle_site": "Vert pomme: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "90",
+            "libelle": "Rouge : Simonis ou Strachan",
+            "libelle_site": "Rouge : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "91",
+            "libelle": "Bordeaux : Simonis ou Strachan",
+            "libelle_site": "Bordeaux : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "92",
+            "libelle": "Bleu royal : Simonis ou Strachan",
+            "libelle_site": "Bleu royal : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "93",
+            "libelle": "Gold : Simonis 760",
+            "libelle_site": "Gold : Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "94",
+            "libelle": "Vert Jaune : Simonis ou Strachan",
+            "libelle_site": "Vert Jaune : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "97",
+            "libelle": "Bleu électrique : Simonis 760",
+            "libelle_site": "Bleu électrique : Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "142",
+            "libelle": "Rouge Pool : Strachan 777",
+            "libelle_site": "Rouge Pool : Strachan 777 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "311",
+            "libelle": "Gris Ardoise: Simonis ou Strachan",
+            "libelle_site": "Gris Ardoise: Simonis ou Strachan (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "312",
+            "libelle": "Vert Olive: Simonis 760",
+            "libelle_site": "Vert Olive: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "313",
+            "libelle": "Bleu Marine: Simonis 760",
+            "libelle_site": "Bleu Marine: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "314",
+            "libelle": "Bleu Poudré: Simonis 760",
+            "libelle_site": "Bleu Poudré: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "315",
+            "libelle": "Camel: Simonis 760",
+            "libelle_site": "Camel: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "316",
+            "libelle": "Fuchsia: Simonis 760",
+            "libelle_site": "Fuchsia: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "7",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "27",
+            "libelle": "Américain",
+            "libelle_site": "Américain",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "29",
+            "libelle": "Pool",
+            "libelle_site": "Pool",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "5",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "23",
+            "libelle": "Non",
+            "libelle_site": "Non",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "24",
+            "libelle": "OUI au rez-de-chaussée",
+            "libelle_site": "OUI au rez-de-chaussée (+725€)",
+            "supplement_ttc": 725.0,
+            "par_defaut": false
+          },
+          {
+            "id": "309",
+            "libelle": "OUI en sous-sol ou 1er étage",
+            "libelle_site": "OUI en sous-sol ou 1er étage (+875€)",
+            "supplement_ttc": 875.0,
+            "par_defaut": false
+          },
+          {
+            "id": "310",
+            "libelle": "Autre (sur devis complémentaire)",
+            "libelle_site": "Autre (sur devis complémentaire)",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "6",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "26",
+            "libelle": "Aucune",
+            "libelle_site": "Aucune",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "50",
+            "libelle": "100% bois en 2 parties",
+            "libelle_site": "100% bois en 2 parties (+330€)",
+            "supplement_ttc": 330.0,
+            "par_defaut": false
+          },
+          {
+            "id": "51",
+            "libelle": "100% Verre Sécurit en 2 parties",
+            "libelle_site": "100% Verre Sécurit en 2 parties (+1100€)",
+            "supplement_ttc": 1100.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "33",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "155",
+            "libelle": "Non",
+            "libelle_site": "Non",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "156",
+            "libelle": "Oui",
+            "libelle_site": "Oui (+640€)",
+            "supplement_ttc": 640.0,
+            "par_defaut": false
+          }
+        ]
+      }
+    ],
+    "images": [
+      {
+        "url": "https://www.billardsdefrance.fr/3697-full_default/billard-santiago-premium.jpg",
+        "legende": "Achat billard américain convertible Santiago"
+      }
+    ],
+    "galerie": [
+      {
+        "id": "3697",
+        "full": "https://www.billardsdefrance.fr/3697-full_default/billard-santiago-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3697-medium_default/billard-santiago-premium.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3700",
+        "full": "https://www.billardsdefrance.fr/3700-full_default/billard-santiago-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3700-medium_default/billard-santiago-premium.jpg",
+        "detouree": true
+      },
+      {
+        "id": "3694",
+        "full": "https://www.billardsdefrance.fr/3694-full_default/billard-santiago-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3694-medium_default/billard-santiago-premium.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3695",
+        "full": "https://www.billardsdefrance.fr/3695-full_default/billard-santiago-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3695-medium_default/billard-santiago-premium.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3680",
+        "full": "https://www.billardsdefrance.fr/3680-full_default/billard-santiago-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3680-medium_default/billard-santiago-premium.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3701",
+        "full": "https://www.billardsdefrance.fr/3701-full_default/billard-santiago-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3701-medium_default/billard-santiago-premium.jpg",
+        "detouree": true
+      },
+      {
+        "id": "3702",
+        "full": "https://www.billardsdefrance.fr/3702-full_default/billard-santiago-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3702-medium_default/billard-santiago-premium.jpg",
+        "detouree": true
+      }
+    ]
+  },
+  {
+    "nom": "Billard Rio",
+    "url": "https://www.billardsdefrance.fr/billard-reference-premium/381-585527-table-billard-convertible-rio-premium.html",
+    "id_produit": 381,
+    "prix_ttc_site": 1995,
+    "prix_ht_site": 1662.5,
+    "delai_site": "Livraison sous 2 à 3 semaines",
+    "description_courte": "Robuste et performant, le billard Rio se distingue par sa finition stratifiée blanc brillant , pour une touche très élégante dans votre intérieur. Le blanc brillant reflète la lumière naturelle et apporte une sensation d'espace , idéal dans un salon baigné de lumière ou une pièce plus sombre à réchauffer. Ce billard table à manger se joue en billard américain, billard anglais ou billard français grâce à l'ajout de plugs sur les bandes. Ses pieds massifs équipés de vérins de réglage et son ardoise monobloc 19 mm garantissent une parfaite planéité de jeu . Le tapis se décline en 25 coloris Simonis ou Strachan. En option, transformez-le en une table à manger conviviale pour 10 convives .",
+    "caracteristiques": [
+      {
+        "nom": "Dessus de table",
+        "valeur": "En option"
+      },
+      {
+        "nom": "Dimensions du billard",
+        "valeur": "2,11 x 1,20 m (7pieds)"
+      },
+      {
+        "nom": "Dimensions de jeu",
+        "valeur": "1,83 m x 0,915 m"
+      },
+      {
+        "nom": "Hauteur de table",
+        "valeur": "80 cm"
+      },
+      {
+        "nom": "Poids",
+        "valeur": "200 kg"
+      },
+      {
+        "nom": "Table billard convertible",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Accessoires billard",
+        "valeur": "Inclus"
+      },
+      {
+        "nom": "Finition",
+        "valeur": "Stratifié Blanc Brillant"
+      },
+      {
+        "nom": "Made In France 🇫🇷",
+        "valeur": "Non"
+      },
+      {
+        "nom": "Billard américain",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Billard français",
+        "valeur": "Oui avec ajout de plugs"
+      },
+      {
+        "nom": "Billard anglais",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Longueur",
+        "valeur": "2,10m (7 pieds)"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Fabriqué à la main"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Garantie 2 ans"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Livraison gratuite"
+      },
+      {
+        "nom": "Ardoise",
+        "valeur": "19mm"
+      },
+      {
+        "nom": "Nombre de couverts",
+        "valeur": "8 à 10 personnes"
+      },
+      {
+        "nom": "Tapis",
+        "valeur": "Qualité Standard - En option Simonis 760 ou Strachan 777"
+      },
+      {
+        "nom": "Pieds",
+        "valeur": "Bois Massif Stratifié"
+      },
+      {
+        "nom": "Châssis",
+        "valeur": "Bois Massif + Renfort Métalliques"
+      },
+      {
+        "nom": "Système de réception",
+        "valeur": "6 boites en bois insonorisées"
+      },
+      {
+        "nom": "Rangement Accessoires",
+        "valeur": "Sous le billard (en option)"
+      },
+      {
+        "nom": "Rangement Plateau Table",
+        "valeur": "Non"
+      },
+      {
+        "nom": "Gamme",
+        "valeur": "Référence premium"
+      }
+    ],
+    "attributs": [
+      {
+        "groupe_id": "17",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "81",
+            "libelle": "Vert",
+            "libelle_site": "Vert",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "82",
+            "libelle": "Rouge",
+            "libelle_site": "Rouge",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "83",
+            "libelle": "Bleu",
+            "libelle_site": "Bleu",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "283",
+            "libelle": "Gris",
+            "libelle_site": "Gris",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "84",
+            "libelle": "Chocolat: Simonis 760",
+            "libelle_site": "Chocolat: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "85",
+            "libelle": "Orange: Simonis 760",
+            "libelle_site": "Orange: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "86",
+            "libelle": "Noir: Simonis 760",
+            "libelle_site": "Noir: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "88",
+            "libelle": "Violet : Simonis ou Strachan",
+            "libelle_site": "Violet : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "89",
+            "libelle": "Vert pomme: Simonis 760",
+            "libelle_site": "Vert pomme: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "90",
+            "libelle": "Rouge : Simonis ou Strachan",
+            "libelle_site": "Rouge : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "91",
+            "libelle": "Bordeaux : Simonis ou Strachan",
+            "libelle_site": "Bordeaux : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "92",
+            "libelle": "Bleu royal : Simonis ou Strachan",
+            "libelle_site": "Bleu royal : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "93",
+            "libelle": "Gold : Simonis 760",
+            "libelle_site": "Gold : Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "94",
+            "libelle": "Vert Jaune : Simonis ou Strachan",
+            "libelle_site": "Vert Jaune : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "97",
+            "libelle": "Bleu électrique : Simonis 760",
+            "libelle_site": "Bleu électrique : Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "142",
+            "libelle": "Rouge Pool : Strachan 777",
+            "libelle_site": "Rouge Pool : Strachan 777 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "311",
+            "libelle": "Gris Ardoise: Simonis ou Strachan",
+            "libelle_site": "Gris Ardoise: Simonis ou Strachan (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "312",
+            "libelle": "Vert Olive: Simonis 760",
+            "libelle_site": "Vert Olive: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "313",
+            "libelle": "Bleu Marine: Simonis 760",
+            "libelle_site": "Bleu Marine: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "314",
+            "libelle": "Bleu Poudré: Simonis 760",
+            "libelle_site": "Bleu Poudré: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "315",
+            "libelle": "Camel: Simonis 760",
+            "libelle_site": "Camel: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "316",
+            "libelle": "Fuchsia: Simonis 760",
+            "libelle_site": "Fuchsia: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "7",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "27",
+            "libelle": "Américain",
+            "libelle_site": "Américain",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "29",
+            "libelle": "Pool",
+            "libelle_site": "Pool",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "5",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "23",
+            "libelle": "Non",
+            "libelle_site": "Non",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "24",
+            "libelle": "OUI au rez-de-chaussée",
+            "libelle_site": "OUI au rez-de-chaussée (+725€)",
+            "supplement_ttc": 725.0,
+            "par_defaut": false
+          },
+          {
+            "id": "309",
+            "libelle": "OUI en sous-sol ou 1er étage",
+            "libelle_site": "OUI en sous-sol ou 1er étage (+875€)",
+            "supplement_ttc": 875.0,
+            "par_defaut": false
+          },
+          {
+            "id": "310",
+            "libelle": "Autre (sur devis complémentaire)",
+            "libelle_site": "Autre (sur devis complémentaire)",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "6",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "26",
+            "libelle": "Aucune",
+            "libelle_site": "Aucune",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "50",
+            "libelle": "100% bois en 2 parties",
+            "libelle_site": "100% bois en 2 parties (+330€)",
+            "supplement_ttc": 330.0,
+            "par_defaut": false
+          },
+          {
+            "id": "51",
+            "libelle": "100% Verre Sécurit en 2 parties",
+            "libelle_site": "100% Verre Sécurit en 2 parties (+1100€)",
+            "supplement_ttc": 1100.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "33",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "155",
+            "libelle": "Non",
+            "libelle_site": "Non",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "156",
+            "libelle": "Oui",
+            "libelle_site": "Oui (+640€)",
+            "supplement_ttc": 640.0,
+            "par_defaut": false
+          }
+        ]
+      }
+    ],
+    "images": [
+      {
+        "url": "https://www.billardsdefrance.fr/3775-full_default/table-billard-convertible-rio-premium.jpg",
+        "legende": "Billard américain, Français et pool convertible : Rio"
+      }
+    ],
+    "galerie": [
+      {
+        "id": "3775",
+        "full": "https://www.billardsdefrance.fr/3775-full_default/table-billard-convertible-rio-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3775-medium_default/table-billard-convertible-rio-premium.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3779",
+        "full": "https://www.billardsdefrance.fr/3779-full_default/table-billard-convertible-rio-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3779-medium_default/table-billard-convertible-rio-premium.jpg",
+        "detouree": true
+      },
+      {
+        "id": "3766",
+        "full": "https://www.billardsdefrance.fr/3766-full_default/table-billard-convertible-rio-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3766-medium_default/table-billard-convertible-rio-premium.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3767",
+        "full": "https://www.billardsdefrance.fr/3767-full_default/table-billard-convertible-rio-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3767-medium_default/table-billard-convertible-rio-premium.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3780",
+        "full": "https://www.billardsdefrance.fr/3780-full_default/table-billard-convertible-rio-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3780-medium_default/table-billard-convertible-rio-premium.jpg",
+        "detouree": true
+      },
+      {
+        "id": "3781",
+        "full": "https://www.billardsdefrance.fr/3781-full_default/table-billard-convertible-rio-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3781-medium_default/table-billard-convertible-rio-premium.jpg",
+        "detouree": true
+      }
+    ]
+  },
+  {
+    "nom": "Billard Caracas",
+    "url": "https://www.billardsdefrance.fr/billard-reference-premium/382-586583-billard-convertible-caracas-premium.html",
+    "id_produit": 382,
+    "prix_ttc_site": 1995,
+    "prix_ht_site": 1662.5,
+    "delai_site": "",
+    "description_courte": "Performant et design, le billard Caracas séduit par sa finition stratifiée teck marron , qui s'accorde avec des intérieurs aux tonalités neutres , naturelles ou contemporaines. Sa teinte teck marron réchauffe instantanément une pièce. Ses matériaux garantissent une haute durabilité : pieds massifs avec vérins de réglage, renforts métalliques et ardoise monobloc 19 mm pour une planéité parfaite de la surface de jeu. En option, transformez-le en table à manger conviviale, pouvant accueillir jusqu'à 10 convives.",
+    "caracteristiques": [
+      {
+        "nom": "Dessus de table",
+        "valeur": "En option"
+      },
+      {
+        "nom": "Dimensions du billard",
+        "valeur": "2,11 x 1,20 m (7pieds)"
+      },
+      {
+        "nom": "Dimensions de jeu",
+        "valeur": "1,83 m x 0,915 m"
+      },
+      {
+        "nom": "Hauteur de table",
+        "valeur": "80 cm"
+      },
+      {
+        "nom": "Poids",
+        "valeur": "200 kg"
+      },
+      {
+        "nom": "Table billard convertible",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Accessoires billard",
+        "valeur": "Inclus"
+      },
+      {
+        "nom": "Finition",
+        "valeur": "Stratifié teak marron"
+      },
+      {
+        "nom": "Made In France 🇫🇷",
+        "valeur": "Non"
+      },
+      {
+        "nom": "Billard américain",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Billard français",
+        "valeur": "Oui avec ajout de plugs"
+      },
+      {
+        "nom": "Billard anglais",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Longueur",
+        "valeur": "2,10m (7 pieds)"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Fabriqué à la main"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Garantie 2 ans"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Livraison gratuite"
+      },
+      {
+        "nom": "Ardoise",
+        "valeur": "19mm"
+      },
+      {
+        "nom": "Nombre de couverts",
+        "valeur": "8 à 10 personnes"
+      },
+      {
+        "nom": "Tapis",
+        "valeur": "Qualité Standard - En option Simonis 760 ou Strachan 777"
+      },
+      {
+        "nom": "Pieds",
+        "valeur": "Bois Massif Stratifié"
+      },
+      {
+        "nom": "Châssis",
+        "valeur": "Bois Massif + Renfort Métalliques"
+      },
+      {
+        "nom": "Système de réception",
+        "valeur": "6 boites en bois insonorisées"
+      },
+      {
+        "nom": "Rangement Accessoires",
+        "valeur": "Sous le billard (en option)"
+      },
+      {
+        "nom": "Rangement Plateau Table",
+        "valeur": "Non"
+      },
+      {
+        "nom": "Gamme",
+        "valeur": "Référence premium"
+      }
+    ],
+    "attributs": [
+      {
+        "groupe_id": "17",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "81",
+            "libelle": "Vert",
+            "libelle_site": "Vert",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "82",
+            "libelle": "Rouge",
+            "libelle_site": "Rouge",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "83",
+            "libelle": "Bleu",
+            "libelle_site": "Bleu",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "283",
+            "libelle": "Gris",
+            "libelle_site": "Gris",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "84",
+            "libelle": "Chocolat: Simonis 760",
+            "libelle_site": "Chocolat: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "85",
+            "libelle": "Orange: Simonis 760",
+            "libelle_site": "Orange: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "86",
+            "libelle": "Noir: Simonis 760",
+            "libelle_site": "Noir: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "88",
+            "libelle": "Violet : Simonis ou Strachan",
+            "libelle_site": "Violet : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "89",
+            "libelle": "Vert pomme: Simonis 760",
+            "libelle_site": "Vert pomme: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "90",
+            "libelle": "Rouge : Simonis ou Strachan",
+            "libelle_site": "Rouge : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "91",
+            "libelle": "Bordeaux : Simonis ou Strachan",
+            "libelle_site": "Bordeaux : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "92",
+            "libelle": "Bleu royal : Simonis ou Strachan",
+            "libelle_site": "Bleu royal : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "93",
+            "libelle": "Gold : Simonis 760",
+            "libelle_site": "Gold : Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "94",
+            "libelle": "Vert Jaune : Simonis ou Strachan",
+            "libelle_site": "Vert Jaune : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "97",
+            "libelle": "Bleu électrique : Simonis 760",
+            "libelle_site": "Bleu électrique : Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "142",
+            "libelle": "Rouge Pool : Strachan 777",
+            "libelle_site": "Rouge Pool : Strachan 777 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "311",
+            "libelle": "Gris Ardoise: Simonis ou Strachan",
+            "libelle_site": "Gris Ardoise: Simonis ou Strachan (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "312",
+            "libelle": "Vert Olive: Simonis 760",
+            "libelle_site": "Vert Olive: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "313",
+            "libelle": "Bleu Marine: Simonis 760",
+            "libelle_site": "Bleu Marine: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "314",
+            "libelle": "Bleu Poudré: Simonis 760",
+            "libelle_site": "Bleu Poudré: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "315",
+            "libelle": "Camel: Simonis 760",
+            "libelle_site": "Camel: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "316",
+            "libelle": "Fuchsia: Simonis 760",
+            "libelle_site": "Fuchsia: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "7",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "27",
+            "libelle": "Américain",
+            "libelle_site": "Américain",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "29",
+            "libelle": "Pool",
+            "libelle_site": "Pool",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "5",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "23",
+            "libelle": "Non",
+            "libelle_site": "Non",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "24",
+            "libelle": "OUI au rez-de-chaussée",
+            "libelle_site": "OUI au rez-de-chaussée (+725€)",
+            "supplement_ttc": 725.0,
+            "par_defaut": false
+          },
+          {
+            "id": "309",
+            "libelle": "OUI en sous-sol ou 1er étage",
+            "libelle_site": "OUI en sous-sol ou 1er étage (+875€)",
+            "supplement_ttc": 875.0,
+            "par_defaut": false
+          },
+          {
+            "id": "310",
+            "libelle": "Autre (sur devis complémentaire)",
+            "libelle_site": "Autre (sur devis complémentaire)",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "6",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "26",
+            "libelle": "Aucune",
+            "libelle_site": "Aucune",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "51",
+            "libelle": "100% Verre Sécurit en 2 parties",
+            "libelle_site": "100% Verre Sécurit en 2 parties (+1100€)",
+            "supplement_ttc": 1100.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "33",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "155",
+            "libelle": "Non",
+            "libelle_site": "Non",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "156",
+            "libelle": "Oui",
+            "libelle_site": "Oui (+640€)",
+            "supplement_ttc": 640.0,
+            "par_defaut": false
+          }
+        ]
+      }
+    ],
+    "images": [
+      {
+        "url": "https://www.billardsdefrance.fr/3798-full_default/billard-convertible-caracas-premium.jpg",
+        "legende": "Achat billard : Table billard convertible américain Caracas Premium"
+      }
+    ],
+    "galerie": [
+      {
+        "id": "3798",
+        "full": "https://www.billardsdefrance.fr/3798-full_default/billard-convertible-caracas-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3798-medium_default/billard-convertible-caracas-premium.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3803",
+        "full": "https://www.billardsdefrance.fr/3803-full_default/billard-convertible-caracas-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3803-medium_default/billard-convertible-caracas-premium.jpg",
+        "detouree": true
+      },
+      {
+        "id": "3802",
+        "full": "https://www.billardsdefrance.fr/3802-full_default/billard-convertible-caracas-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3802-medium_default/billard-convertible-caracas-premium.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3794",
+        "full": "https://www.billardsdefrance.fr/3794-full_default/billard-convertible-caracas-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3794-medium_default/billard-convertible-caracas-premium.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3795",
+        "full": "https://www.billardsdefrance.fr/3795-full_default/billard-convertible-caracas-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3795-medium_default/billard-convertible-caracas-premium.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3783",
+        "full": "https://www.billardsdefrance.fr/3783-full_default/billard-convertible-caracas-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3783-medium_default/billard-convertible-caracas-premium.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3804",
+        "full": "https://www.billardsdefrance.fr/3804-full_default/billard-convertible-caracas-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3804-medium_default/billard-convertible-caracas-premium.jpg",
+        "detouree": true
+      },
+      {
+        "id": "3805",
+        "full": "https://www.billardsdefrance.fr/3805-full_default/billard-convertible-caracas-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3805-medium_default/billard-convertible-caracas-premium.jpg",
+        "detouree": true
+      }
+    ]
+  },
+  {
+    "nom": "Billard Bogota",
+    "url": "https://www.billardsdefrance.fr/billard-reference-premium/384-587639-billard-bogota-premium.html",
+    "id_produit": 384,
+    "prix_ttc_site": 1995,
+    "prix_ht_site": 1662.5,
+    "delai_site": "Livraison sous 2 à 3 semaines",
+    "description_courte": "Avec sa finition chêne gris anthracite , le billard Bogota apporte une touche résolument contemporaine à votre intérieur. Ce billard convertible allie robustesse et polyvalence : structure en bois massif renforcée , il se joue en billard américain, billard anglais (pool/blackball) ou billard français grâce à l'ajout de plugs sur les bandes. La table de billard mesure 2,11 m x 1,20 m pour une surface de jeu de 1,83 m x 0,915 m et une hauteur de 78 cm. En option, transformez cette table de billard convertible en une véritable table à manger, capable d'accueillir jusqu'à 10 convives .",
+    "caracteristiques": [
+      {
+        "nom": "Dessus de table",
+        "valeur": "En option"
+      },
+      {
+        "nom": "Dimensions du billard",
+        "valeur": "2,11 x 1,20 m (7pieds)"
+      },
+      {
+        "nom": "Dimensions de jeu",
+        "valeur": "1,83 m x 0,915 m"
+      },
+      {
+        "nom": "Hauteur de table",
+        "valeur": "80 cm"
+      },
+      {
+        "nom": "Poids",
+        "valeur": "200 kg"
+      },
+      {
+        "nom": "Table billard convertible",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Accessoires billard",
+        "valeur": "Inclus"
+      },
+      {
+        "nom": "Finition",
+        "valeur": "Stratifié Chêne gris Anthracite"
+      },
+      {
+        "nom": "Made In France 🇫🇷",
+        "valeur": "Non"
+      },
+      {
+        "nom": "Billard américain",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Billard français",
+        "valeur": "Oui avec ajout de plugs"
+      },
+      {
+        "nom": "Billard anglais",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Longueur",
+        "valeur": "2,10m (7 pieds)"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Fabriqué à la main"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Garantie 2 ans"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Livraison gratuite"
+      },
+      {
+        "nom": "Ardoise",
+        "valeur": "19mm"
+      },
+      {
+        "nom": "Nombre de couverts",
+        "valeur": "8 à 10 personnes"
+      },
+      {
+        "nom": "Tapis",
+        "valeur": "Qualité Standard - En option Simonis 760 ou Strachan 777"
+      },
+      {
+        "nom": "Pieds",
+        "valeur": "Bois Massif Stratifié"
+      },
+      {
+        "nom": "Châssis",
+        "valeur": "Bois Massif + Renfort Métalliques"
+      },
+      {
+        "nom": "Système de réception",
+        "valeur": "6 boites en bois insonorisées"
+      },
+      {
+        "nom": "Rangement Accessoires",
+        "valeur": "Sous le billard (en option)"
+      },
+      {
+        "nom": "Rangement Plateau Table",
+        "valeur": "Non"
+      },
+      {
+        "nom": "Gamme",
+        "valeur": "Référence premium"
+      }
+    ],
+    "attributs": [
+      {
+        "groupe_id": "17",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "81",
+            "libelle": "Vert",
+            "libelle_site": "Vert",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "82",
+            "libelle": "Rouge",
+            "libelle_site": "Rouge",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "83",
+            "libelle": "Bleu",
+            "libelle_site": "Bleu",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "283",
+            "libelle": "Gris",
+            "libelle_site": "Gris",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "84",
+            "libelle": "Chocolat: Simonis 760",
+            "libelle_site": "Chocolat: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "85",
+            "libelle": "Orange: Simonis 760",
+            "libelle_site": "Orange: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "86",
+            "libelle": "Noir: Simonis 760",
+            "libelle_site": "Noir: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "88",
+            "libelle": "Violet : Simonis ou Strachan",
+            "libelle_site": "Violet : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "89",
+            "libelle": "Vert pomme: Simonis 760",
+            "libelle_site": "Vert pomme: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "90",
+            "libelle": "Rouge : Simonis ou Strachan",
+            "libelle_site": "Rouge : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "91",
+            "libelle": "Bordeaux : Simonis ou Strachan",
+            "libelle_site": "Bordeaux : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "92",
+            "libelle": "Bleu royal : Simonis ou Strachan",
+            "libelle_site": "Bleu royal : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "93",
+            "libelle": "Gold : Simonis 760",
+            "libelle_site": "Gold : Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "94",
+            "libelle": "Vert Jaune : Simonis ou Strachan",
+            "libelle_site": "Vert Jaune : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "97",
+            "libelle": "Bleu électrique : Simonis 760",
+            "libelle_site": "Bleu électrique : Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "142",
+            "libelle": "Rouge Pool : Strachan 777",
+            "libelle_site": "Rouge Pool : Strachan 777 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "311",
+            "libelle": "Gris Ardoise: Simonis ou Strachan",
+            "libelle_site": "Gris Ardoise: Simonis ou Strachan (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "312",
+            "libelle": "Vert Olive: Simonis 760",
+            "libelle_site": "Vert Olive: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "313",
+            "libelle": "Bleu Marine: Simonis 760",
+            "libelle_site": "Bleu Marine: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "314",
+            "libelle": "Bleu Poudré: Simonis 760",
+            "libelle_site": "Bleu Poudré: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "315",
+            "libelle": "Camel: Simonis 760",
+            "libelle_site": "Camel: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "316",
+            "libelle": "Fuchsia: Simonis 760",
+            "libelle_site": "Fuchsia: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "7",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "27",
+            "libelle": "Américain",
+            "libelle_site": "Américain",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "29",
+            "libelle": "Pool",
+            "libelle_site": "Pool",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "5",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "23",
+            "libelle": "Non",
+            "libelle_site": "Non",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "24",
+            "libelle": "OUI au rez-de-chaussée",
+            "libelle_site": "OUI au rez-de-chaussée (+725€)",
+            "supplement_ttc": 725.0,
+            "par_defaut": false
+          },
+          {
+            "id": "309",
+            "libelle": "OUI en sous-sol ou 1er étage",
+            "libelle_site": "OUI en sous-sol ou 1er étage (+875€)",
+            "supplement_ttc": 875.0,
+            "par_defaut": false
+          },
+          {
+            "id": "310",
+            "libelle": "Autre (sur devis complémentaire)",
+            "libelle_site": "Autre (sur devis complémentaire)",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "6",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "26",
+            "libelle": "Aucune",
+            "libelle_site": "Aucune",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "50",
+            "libelle": "100% bois en 2 parties",
+            "libelle_site": "100% bois en 2 parties (+330€)",
+            "supplement_ttc": 330.0,
+            "par_defaut": false
+          },
+          {
+            "id": "51",
+            "libelle": "100% Verre Sécurit en 2 parties",
+            "libelle_site": "100% Verre Sécurit en 2 parties (+1100€)",
+            "supplement_ttc": 1100.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "33",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "155",
+            "libelle": "Non",
+            "libelle_site": "Non",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "156",
+            "libelle": "Oui",
+            "libelle_site": "Oui (+640€)",
+            "supplement_ttc": 640.0,
+            "par_defaut": false
+          }
+        ]
+      }
+    ],
+    "images": [
+      {
+        "url": "https://www.billardsdefrance.fr/3724-full_default/billard-bogota-premium.jpg",
+        "legende": "Table billard transformable américain et pool : Bogota"
+      }
+    ],
+    "galerie": [
+      {
+        "id": "3724",
+        "full": "https://www.billardsdefrance.fr/3724-full_default/billard-bogota-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3724-medium_default/billard-bogota-premium.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3730",
+        "full": "https://www.billardsdefrance.fr/3730-full_default/billard-bogota-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3730-medium_default/billard-bogota-premium.jpg",
+        "detouree": true
+      },
+      {
+        "id": "3728",
+        "full": "https://www.billardsdefrance.fr/3728-full_default/billard-bogota-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3728-medium_default/billard-bogota-premium.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3720",
+        "full": "https://www.billardsdefrance.fr/3720-full_default/billard-bogota-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3720-medium_default/billard-bogota-premium.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3721",
+        "full": "https://www.billardsdefrance.fr/3721-full_default/billard-bogota-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3721-medium_default/billard-bogota-premium.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3708",
+        "full": "https://www.billardsdefrance.fr/3708-full_default/billard-bogota-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3708-medium_default/billard-bogota-premium.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3729",
+        "full": "https://www.billardsdefrance.fr/3729-full_default/billard-bogota-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3729-medium_default/billard-bogota-premium.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3731",
+        "full": "https://www.billardsdefrance.fr/3731-full_default/billard-bogota-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3731-medium_default/billard-bogota-premium.jpg",
+        "detouree": true
+      },
+      {
+        "id": "3732",
+        "full": "https://www.billardsdefrance.fr/3732-full_default/billard-bogota-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3732-medium_default/billard-bogota-premium.jpg",
+        "detouree": true
+      }
+    ]
+  },
+  {
+    "nom": "Billard Rio pieds métalliques",
+    "url": "https://www.billardsdefrance.fr/billard-reference-premium/661-590807-table-billard-convertible-rio-pieds-metalliques.html",
+    "id_produit": 661,
+    "prix_ttc_site": 2395,
+    "prix_ht_site": 1995.833333,
+    "delai_site": "Livraison sous 2 à 3 semaines",
+    "description_courte": "Sa finition blanc brillant fait du Rio pieds métalliques une table de billard convertible particulièrement lumineuse , capable d'agrandir visuellement n'importe quelle pièce. Les pieds métalliques, réglables et personnalisables dans n'importe quelle couleur RAL , permettent d'ajuster précisément le style du billard à votre décoration. Que ce soit en billard américain, billard anglais (pool/blackball) ou billard français par simple ajout de plugs, la qualité de jeu reste constante grâce à son ardoise monobloc et ses bandes toilées . Un billard au meilleur rapport qualité-prix , qui se transforme en table à manger conviviale pour 10 personnes.",
+    "caracteristiques": [
+      {
+        "nom": "Dessus de table",
+        "valeur": "En option"
+      },
+      {
+        "nom": "Dimensions du billard",
+        "valeur": "2,11 x 1,20 m (7pieds)"
+      },
+      {
+        "nom": "Dimensions de jeu",
+        "valeur": "1,83 m x 0,915 m"
+      },
+      {
+        "nom": "Hauteur de table",
+        "valeur": "80 cm"
+      },
+      {
+        "nom": "Poids",
+        "valeur": "200 kg"
+      },
+      {
+        "nom": "Table billard convertible",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Accessoires billard",
+        "valeur": "Inclus"
+      },
+      {
+        "nom": "Finition",
+        "valeur": "Stratifié Blanc Brillant"
+      },
+      {
+        "nom": "Made In France 🇫🇷",
+        "valeur": "Non"
+      },
+      {
+        "nom": "Billard américain",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Billard français",
+        "valeur": "Oui avec ajout de plugs"
+      },
+      {
+        "nom": "Billard anglais",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Longueur",
+        "valeur": "2,10m (7 pieds)"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Fabriqué à la main"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Garantie 2 ans"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Livraison gratuite"
+      },
+      {
+        "nom": "Ardoise",
+        "valeur": "19mm"
+      },
+      {
+        "nom": "Nombre de couverts",
+        "valeur": "8 à 10 personnes"
+      },
+      {
+        "nom": "Tapis",
+        "valeur": "Qualité Standard - En option Simonis 760 ou Strachan 777"
+      },
+      {
+        "nom": "Pieds",
+        "valeur": "Métallique Laqué Époxy"
+      },
+      {
+        "nom": "Châssis",
+        "valeur": "Bois Massif + Renfort Métalliques"
+      },
+      {
+        "nom": "Système de réception",
+        "valeur": "6 boites en bois insonorisées"
+      },
+      {
+        "nom": "Rangement Accessoires",
+        "valeur": "Sous le billard (en option)"
+      },
+      {
+        "nom": "Rangement Plateau Table",
+        "valeur": "Non"
+      },
+      {
+        "nom": "Gamme",
+        "valeur": "Référence premium"
+      }
+    ],
+    "attributs": [
+      {
+        "groupe_id": "17",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "81",
+            "libelle": "Vert",
+            "libelle_site": "Vert",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "82",
+            "libelle": "Rouge",
+            "libelle_site": "Rouge",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "83",
+            "libelle": "Bleu",
+            "libelle_site": "Bleu",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "283",
+            "libelle": "Gris",
+            "libelle_site": "Gris",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "84",
+            "libelle": "Chocolat: Simonis 760",
+            "libelle_site": "Chocolat: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "85",
+            "libelle": "Orange: Simonis 760",
+            "libelle_site": "Orange: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "86",
+            "libelle": "Noir: Simonis 760",
+            "libelle_site": "Noir: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "88",
+            "libelle": "Violet : Simonis ou Strachan",
+            "libelle_site": "Violet : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "89",
+            "libelle": "Vert pomme: Simonis 760",
+            "libelle_site": "Vert pomme: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "90",
+            "libelle": "Rouge : Simonis ou Strachan",
+            "libelle_site": "Rouge : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "91",
+            "libelle": "Bordeaux : Simonis ou Strachan",
+            "libelle_site": "Bordeaux : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "92",
+            "libelle": "Bleu royal : Simonis ou Strachan",
+            "libelle_site": "Bleu royal : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "93",
+            "libelle": "Gold : Simonis 760",
+            "libelle_site": "Gold : Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "94",
+            "libelle": "Vert Jaune : Simonis ou Strachan",
+            "libelle_site": "Vert Jaune : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "97",
+            "libelle": "Bleu électrique : Simonis 760",
+            "libelle_site": "Bleu électrique : Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "142",
+            "libelle": "Rouge Pool : Strachan 777",
+            "libelle_site": "Rouge Pool : Strachan 777 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "311",
+            "libelle": "Gris Ardoise: Simonis ou Strachan",
+            "libelle_site": "Gris Ardoise: Simonis ou Strachan (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "312",
+            "libelle": "Vert Olive: Simonis 760",
+            "libelle_site": "Vert Olive: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "313",
+            "libelle": "Bleu Marine: Simonis 760",
+            "libelle_site": "Bleu Marine: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "314",
+            "libelle": "Bleu Poudré: Simonis 760",
+            "libelle_site": "Bleu Poudré: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "315",
+            "libelle": "Camel: Simonis 760",
+            "libelle_site": "Camel: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "316",
+            "libelle": "Fuchsia: Simonis 760",
+            "libelle_site": "Fuchsia: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "7",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "27",
+            "libelle": "Américain",
+            "libelle_site": "Américain",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "29",
+            "libelle": "Pool",
+            "libelle_site": "Pool",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "5",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "23",
+            "libelle": "Non",
+            "libelle_site": "Non",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "24",
+            "libelle": "OUI au rez-de-chaussée",
+            "libelle_site": "OUI au rez-de-chaussée (+725€)",
+            "supplement_ttc": 725.0,
+            "par_defaut": false
+          },
+          {
+            "id": "309",
+            "libelle": "OUI en sous-sol ou 1er étage",
+            "libelle_site": "OUI en sous-sol ou 1er étage (+875€)",
+            "supplement_ttc": 875.0,
+            "par_defaut": false
+          },
+          {
+            "id": "310",
+            "libelle": "Autre (sur devis complémentaire)",
+            "libelle_site": "Autre (sur devis complémentaire)",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "6",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "26",
+            "libelle": "Aucune",
+            "libelle_site": "Aucune",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "50",
+            "libelle": "100% bois en 2 parties",
+            "libelle_site": "100% bois en 2 parties (+330€)",
+            "supplement_ttc": 330.0,
+            "par_defaut": false
+          },
+          {
+            "id": "51",
+            "libelle": "100% Verre Sécurit en 2 parties",
+            "libelle_site": "100% Verre Sécurit en 2 parties (+1100€)",
+            "supplement_ttc": 1100.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "33",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "155",
+            "libelle": "Non",
+            "libelle_site": "Non",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "156",
+            "libelle": "Oui",
+            "libelle_site": "Oui (+640€)",
+            "supplement_ttc": 640.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "54",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "306",
+            "libelle": "Noir",
+            "libelle_site": "Noir",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "307",
+            "libelle": "Blanc",
+            "libelle_site": "Blanc",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "308",
+            "libelle": "Gris anthracite",
+            "libelle_site": "Gris anthracite",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "341",
+            "libelle": "Autre (nous vous contacterons)",
+            "libelle_site": "Autre (nous vous contacterons)",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          }
+        ]
+      }
+    ],
+    "images": [
+      {
+        "url": "https://www.billardsdefrance.fr/3845-full_default/table-billard-convertible-rio-pieds-metalliques.jpg",
+        "legende": "Table billard convertible avec pieds métalliques : Rio"
+      }
+    ],
+    "galerie": [
+      {
+        "id": "3845",
+        "full": "https://www.billardsdefrance.fr/3845-full_default/table-billard-convertible-rio-pieds-metalliques.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3845-medium_default/table-billard-convertible-rio-pieds-metalliques.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3850",
+        "full": "https://www.billardsdefrance.fr/3850-full_default/table-billard-convertible-rio-pieds-metalliques.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3850-medium_default/table-billard-convertible-rio-pieds-metalliques.jpg",
+        "detouree": true
+      },
+      {
+        "id": "3849",
+        "full": "https://www.billardsdefrance.fr/3849-full_default/table-billard-convertible-rio-pieds-metalliques.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3849-medium_default/table-billard-convertible-rio-pieds-metalliques.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3841",
+        "full": "https://www.billardsdefrance.fr/3841-full_default/table-billard-convertible-rio-pieds-metalliques.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3841-medium_default/table-billard-convertible-rio-pieds-metalliques.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3842",
+        "full": "https://www.billardsdefrance.fr/3842-full_default/table-billard-convertible-rio-pieds-metalliques.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3842-medium_default/table-billard-convertible-rio-pieds-metalliques.jpg",
+        "detouree": false
+      },
+      {
+        "id": "4215",
+        "full": "https://www.billardsdefrance.fr/4215-full_default/table-billard-convertible-rio-pieds-metalliques.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/4215-medium_default/table-billard-convertible-rio-pieds-metalliques.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3844",
+        "full": "https://www.billardsdefrance.fr/3844-full_default/table-billard-convertible-rio-pieds-metalliques.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3844-medium_default/table-billard-convertible-rio-pieds-metalliques.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3851",
+        "full": "https://www.billardsdefrance.fr/3851-full_default/table-billard-convertible-rio-pieds-metalliques.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3851-medium_default/table-billard-convertible-rio-pieds-metalliques.jpg",
+        "detouree": true
+      },
+      {
+        "id": "3852",
+        "full": "https://www.billardsdefrance.fr/3852-full_default/table-billard-convertible-rio-pieds-metalliques.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3852-medium_default/table-billard-convertible-rio-pieds-metalliques.jpg",
+        "detouree": true
+      }
+    ]
+  },
+  {
+    "nom": "Billard Santiago pieds métalliques",
+    "url": "https://www.billardsdefrance.fr/billard-reference-premium/664-595031-billard-convertible-santiago-pieds-metalliques.html",
+    "id_produit": 664,
+    "prix_ttc_site": 2395,
+    "prix_ht_site": 1995.833333,
+    "delai_site": "Livraison sous 2 à 3 semaines",
+    "description_courte": "Le Santiago pieds métalliques affiche une finition noir brillant qui donne du caractère à n'importe quel intérieur, du plus contemporain au plus classique. Grâce à ses pieds métalliques réglables, personnalisables dans n'importe quelle couleur RAL, ce billard s'accorde précisément avec votre décoration existante. Billard américain, billard anglais (pool/blackball) ou billard français par simple ajout de plugs : la qualité de jeu reste constante, portée par une ardoise monobloc et des bandes toilées de qualité. Un rapport qualité-prix parmi les meilleurs du marché, pour une table qui redevient table à manger en un instant, jusqu'à 10 convives.",
+    "caracteristiques": [
+      {
+        "nom": "Dessus de table",
+        "valeur": "En option"
+      },
+      {
+        "nom": "Dimensions du billard",
+        "valeur": "2,11 x 1,20 m (7pieds)"
+      },
+      {
+        "nom": "Dimensions de jeu",
+        "valeur": "1,83 m x 0,915 m"
+      },
+      {
+        "nom": "Hauteur de table",
+        "valeur": "80 cm"
+      },
+      {
+        "nom": "Poids",
+        "valeur": "200 kg"
+      },
+      {
+        "nom": "Table billard convertible",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Accessoires billard",
+        "valeur": "Inclus"
+      },
+      {
+        "nom": "Finition",
+        "valeur": "Stratifié Noir Brillant"
+      },
+      {
+        "nom": "Made In France 🇫🇷",
+        "valeur": "Non"
+      },
+      {
+        "nom": "Billard américain",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Billard français",
+        "valeur": "Oui avec ajout de plugs"
+      },
+      {
+        "nom": "Billard anglais",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Longueur",
+        "valeur": "2,10m (7 pieds)"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Fabriqué à la main"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Garantie 2 ans"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Livraison gratuite"
+      },
+      {
+        "nom": "Ardoise",
+        "valeur": "19mm"
+      },
+      {
+        "nom": "Nombre de couverts",
+        "valeur": "8 à 10 personnes"
+      },
+      {
+        "nom": "Tapis",
+        "valeur": "Qualité Standard - En option Simonis 760 ou Strachan 777"
+      },
+      {
+        "nom": "Pieds",
+        "valeur": "Métallique Laqué Époxy"
+      },
+      {
+        "nom": "Châssis",
+        "valeur": "Bois Massif + Renfort Métalliques"
+      },
+      {
+        "nom": "Système de réception",
+        "valeur": "6 boites en bois insonorisées"
+      },
+      {
+        "nom": "Rangement Accessoires",
+        "valeur": "Sous le billard (en option)"
+      },
+      {
+        "nom": "Rangement Plateau Table",
+        "valeur": "Non"
+      },
+      {
+        "nom": "Gamme",
+        "valeur": "Référence premium"
+      }
+    ],
+    "attributs": [
+      {
+        "groupe_id": "17",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "81",
+            "libelle": "Vert",
+            "libelle_site": "Vert",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "82",
+            "libelle": "Rouge",
+            "libelle_site": "Rouge",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "83",
+            "libelle": "Bleu",
+            "libelle_site": "Bleu",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "283",
+            "libelle": "Gris",
+            "libelle_site": "Gris",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "84",
+            "libelle": "Chocolat: Simonis 760",
+            "libelle_site": "Chocolat: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "85",
+            "libelle": "Orange: Simonis 760",
+            "libelle_site": "Orange: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "86",
+            "libelle": "Noir: Simonis 760",
+            "libelle_site": "Noir: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "88",
+            "libelle": "Violet : Simonis ou Strachan",
+            "libelle_site": "Violet : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "89",
+            "libelle": "Vert pomme: Simonis 760",
+            "libelle_site": "Vert pomme: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "90",
+            "libelle": "Rouge : Simonis ou Strachan",
+            "libelle_site": "Rouge : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "91",
+            "libelle": "Bordeaux : Simonis ou Strachan",
+            "libelle_site": "Bordeaux : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "92",
+            "libelle": "Bleu royal : Simonis ou Strachan",
+            "libelle_site": "Bleu royal : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "93",
+            "libelle": "Gold : Simonis 760",
+            "libelle_site": "Gold : Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "94",
+            "libelle": "Vert Jaune : Simonis ou Strachan",
+            "libelle_site": "Vert Jaune : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "97",
+            "libelle": "Bleu électrique : Simonis 760",
+            "libelle_site": "Bleu électrique : Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "142",
+            "libelle": "Rouge Pool : Strachan 777",
+            "libelle_site": "Rouge Pool : Strachan 777 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "311",
+            "libelle": "Gris Ardoise: Simonis ou Strachan",
+            "libelle_site": "Gris Ardoise: Simonis ou Strachan (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "312",
+            "libelle": "Vert Olive: Simonis 760",
+            "libelle_site": "Vert Olive: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "313",
+            "libelle": "Bleu Marine: Simonis 760",
+            "libelle_site": "Bleu Marine: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "314",
+            "libelle": "Bleu Poudré: Simonis 760",
+            "libelle_site": "Bleu Poudré: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "315",
+            "libelle": "Camel: Simonis 760",
+            "libelle_site": "Camel: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "316",
+            "libelle": "Fuchsia: Simonis 760",
+            "libelle_site": "Fuchsia: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "7",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "27",
+            "libelle": "Américain",
+            "libelle_site": "Américain",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "29",
+            "libelle": "Pool",
+            "libelle_site": "Pool",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "5",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "23",
+            "libelle": "Non",
+            "libelle_site": "Non",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "24",
+            "libelle": "OUI au rez-de-chaussée",
+            "libelle_site": "OUI au rez-de-chaussée (+725€)",
+            "supplement_ttc": 725.0,
+            "par_defaut": false
+          },
+          {
+            "id": "309",
+            "libelle": "OUI en sous-sol ou 1er étage",
+            "libelle_site": "OUI en sous-sol ou 1er étage (+875€)",
+            "supplement_ttc": 875.0,
+            "par_defaut": false
+          },
+          {
+            "id": "310",
+            "libelle": "Autre (sur devis complémentaire)",
+            "libelle_site": "Autre (sur devis complémentaire)",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "6",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "26",
+            "libelle": "Aucune",
+            "libelle_site": "Aucune",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "50",
+            "libelle": "100% bois en 2 parties",
+            "libelle_site": "100% bois en 2 parties (+330€)",
+            "supplement_ttc": 330.0,
+            "par_defaut": false
+          },
+          {
+            "id": "51",
+            "libelle": "100% Verre Sécurit en 2 parties",
+            "libelle_site": "100% Verre Sécurit en 2 parties (+1100€)",
+            "supplement_ttc": 1100.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "33",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "155",
+            "libelle": "Non",
+            "libelle_site": "Non",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "156",
+            "libelle": "Oui",
+            "libelle_site": "Oui (+640€)",
+            "supplement_ttc": 640.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "54",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "306",
+            "libelle": "Noir",
+            "libelle_site": "Noir",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "307",
+            "libelle": "Blanc",
+            "libelle_site": "Blanc",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "308",
+            "libelle": "Gris anthracite",
+            "libelle_site": "Gris anthracite",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "341",
+            "libelle": "Autre (nous vous contacterons)",
+            "libelle_site": "Autre (nous vous contacterons)",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          }
+        ]
+      }
+    ],
+    "images": [
+      {
+        "url": "https://www.billardsdefrance.fr/3869-full_default/billard-convertible-santiago-pieds-metalliques.jpg",
+        "legende": "Table billard convertible industriel avec pieds métalliques"
+      }
+    ],
+    "galerie": [
+      {
+        "id": "3869",
+        "full": "https://www.billardsdefrance.fr/3869-full_default/billard-convertible-santiago-pieds-metalliques.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3869-medium_default/billard-convertible-santiago-pieds-metalliques.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3874",
+        "full": "https://www.billardsdefrance.fr/3874-full_default/billard-convertible-santiago-pieds-metalliques.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3874-medium_default/billard-convertible-santiago-pieds-metalliques.jpg",
+        "detouree": true
+      },
+      {
+        "id": "3853",
+        "full": "https://www.billardsdefrance.fr/3853-full_default/billard-convertible-santiago-pieds-metalliques.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3853-medium_default/billard-convertible-santiago-pieds-metalliques.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3873",
+        "full": "https://www.billardsdefrance.fr/3873-full_default/billard-convertible-santiago-pieds-metalliques.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3873-medium_default/billard-convertible-santiago-pieds-metalliques.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3865",
+        "full": "https://www.billardsdefrance.fr/3865-full_default/billard-convertible-santiago-pieds-metalliques.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3865-medium_default/billard-convertible-santiago-pieds-metalliques.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3866",
+        "full": "https://www.billardsdefrance.fr/3866-full_default/billard-convertible-santiago-pieds-metalliques.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3866-medium_default/billard-convertible-santiago-pieds-metalliques.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3854",
+        "full": "https://www.billardsdefrance.fr/3854-full_default/billard-convertible-santiago-pieds-metalliques.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3854-medium_default/billard-convertible-santiago-pieds-metalliques.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3875",
+        "full": "https://www.billardsdefrance.fr/3875-full_default/billard-convertible-santiago-pieds-metalliques.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3875-medium_default/billard-convertible-santiago-pieds-metalliques.jpg",
+        "detouree": true
+      },
+      {
+        "id": "3876",
+        "full": "https://www.billardsdefrance.fr/3876-full_default/billard-convertible-santiago-pieds-metalliques.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3876-medium_default/billard-convertible-santiago-pieds-metalliques.jpg",
+        "detouree": true
+      }
+    ]
+  },
+  {
+    "nom": "Billard Caracas pieds métalliques",
+    "url": "https://www.billardsdefrance.fr/billard-reference-premium/667-599255-billard-convertible-caracas-metallique.html",
+    "id_produit": 667,
+    "prix_ttc_site": 2395,
+    "prix_ht_site": 1995.833333,
+    "delai_site": "",
+    "description_courte": "Cette table de billard convertible se distingue par sa finition teck marron , une teinte neutre et naturelle qui s'intègre à la majorité des intérieurs. Sur ce billard américain, billard anglais ou billard français par simple ajout de plugs, chaque partie profite d'une ardoise monobloc et de pieds métalliques réglables . Ces derniers se déclinent dans n'importe quelle couleur RAL , pour un rendu personnalisé jusque dans les moindres détails. Résultat : un billard robuste, au meilleur rapport qualité-prix du marché , qui redevient une table à manger conviviale pour 10 personnes en quelques instants.",
+    "caracteristiques": [
+      {
+        "nom": "Dessus de table",
+        "valeur": "En option"
+      },
+      {
+        "nom": "Dimensions du billard",
+        "valeur": "2,11 x 1,20 m (7pieds)"
+      },
+      {
+        "nom": "Dimensions de jeu",
+        "valeur": "1,83 m x 0,915 m"
+      },
+      {
+        "nom": "Hauteur de table",
+        "valeur": "80 cm"
+      },
+      {
+        "nom": "Poids",
+        "valeur": "200 kg"
+      },
+      {
+        "nom": "Table billard convertible",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Accessoires billard",
+        "valeur": "Inclus"
+      },
+      {
+        "nom": "Finition",
+        "valeur": "Stratifié teak marron"
+      },
+      {
+        "nom": "Made In France 🇫🇷",
+        "valeur": "Non"
+      },
+      {
+        "nom": "Billard américain",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Billard français",
+        "valeur": "Oui avec ajout de plugs"
+      },
+      {
+        "nom": "Billard anglais",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Longueur",
+        "valeur": "2,10m (7 pieds)"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Fabriqué à la main"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Garantie 2 ans"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Livraison gratuite"
+      },
+      {
+        "nom": "Ardoise",
+        "valeur": "19mm"
+      },
+      {
+        "nom": "Nombre de couverts",
+        "valeur": "8 à 10 personnes"
+      },
+      {
+        "nom": "Tapis",
+        "valeur": "Qualité Standard - En option Simonis 760 ou Strachan 777"
+      },
+      {
+        "nom": "Pieds",
+        "valeur": "Métallique Laqué Époxy"
+      },
+      {
+        "nom": "Châssis",
+        "valeur": "Bois Massif + Renfort Métalliques"
+      },
+      {
+        "nom": "Système de réception",
+        "valeur": "6 boites en bois insonorisées"
+      },
+      {
+        "nom": "Rangement Accessoires",
+        "valeur": "Sous le billard (en option)"
+      },
+      {
+        "nom": "Rangement Plateau Table",
+        "valeur": "Non"
+      },
+      {
+        "nom": "Gamme",
+        "valeur": "Référence premium"
+      }
+    ],
+    "attributs": [
+      {
+        "groupe_id": "17",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "81",
+            "libelle": "Vert",
+            "libelle_site": "Vert",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "82",
+            "libelle": "Rouge",
+            "libelle_site": "Rouge",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "83",
+            "libelle": "Bleu",
+            "libelle_site": "Bleu",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "283",
+            "libelle": "Gris",
+            "libelle_site": "Gris",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "84",
+            "libelle": "Chocolat: Simonis 760",
+            "libelle_site": "Chocolat: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "85",
+            "libelle": "Orange: Simonis 760",
+            "libelle_site": "Orange: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "86",
+            "libelle": "Noir: Simonis 760",
+            "libelle_site": "Noir: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "88",
+            "libelle": "Violet : Simonis ou Strachan",
+            "libelle_site": "Violet : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "89",
+            "libelle": "Vert pomme: Simonis 760",
+            "libelle_site": "Vert pomme: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "90",
+            "libelle": "Rouge : Simonis ou Strachan",
+            "libelle_site": "Rouge : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "91",
+            "libelle": "Bordeaux : Simonis ou Strachan",
+            "libelle_site": "Bordeaux : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "92",
+            "libelle": "Bleu royal : Simonis ou Strachan",
+            "libelle_site": "Bleu royal : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "93",
+            "libelle": "Gold : Simonis 760",
+            "libelle_site": "Gold : Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "94",
+            "libelle": "Vert Jaune : Simonis ou Strachan",
+            "libelle_site": "Vert Jaune : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "97",
+            "libelle": "Bleu électrique : Simonis 760",
+            "libelle_site": "Bleu électrique : Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "142",
+            "libelle": "Rouge Pool : Strachan 777",
+            "libelle_site": "Rouge Pool : Strachan 777 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "311",
+            "libelle": "Gris Ardoise: Simonis ou Strachan",
+            "libelle_site": "Gris Ardoise: Simonis ou Strachan (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "312",
+            "libelle": "Vert Olive: Simonis 760",
+            "libelle_site": "Vert Olive: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "313",
+            "libelle": "Bleu Marine: Simonis 760",
+            "libelle_site": "Bleu Marine: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "314",
+            "libelle": "Bleu Poudré: Simonis 760",
+            "libelle_site": "Bleu Poudré: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "315",
+            "libelle": "Camel: Simonis 760",
+            "libelle_site": "Camel: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "316",
+            "libelle": "Fuchsia: Simonis 760",
+            "libelle_site": "Fuchsia: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "7",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "27",
+            "libelle": "Américain",
+            "libelle_site": "Américain",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "29",
+            "libelle": "Pool",
+            "libelle_site": "Pool",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "5",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "23",
+            "libelle": "Non",
+            "libelle_site": "Non",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "24",
+            "libelle": "OUI au rez-de-chaussée",
+            "libelle_site": "OUI au rez-de-chaussée (+725€)",
+            "supplement_ttc": 725.0,
+            "par_defaut": false
+          },
+          {
+            "id": "309",
+            "libelle": "OUI en sous-sol ou 1er étage",
+            "libelle_site": "OUI en sous-sol ou 1er étage (+875€)",
+            "supplement_ttc": 875.0,
+            "par_defaut": false
+          },
+          {
+            "id": "310",
+            "libelle": "Autre (sur devis complémentaire)",
+            "libelle_site": "Autre (sur devis complémentaire)",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "6",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "26",
+            "libelle": "Aucune",
+            "libelle_site": "Aucune",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "50",
+            "libelle": "100% bois en 2 parties",
+            "libelle_site": "100% bois en 2 parties (+330€)",
+            "supplement_ttc": 330.0,
+            "par_defaut": false
+          },
+          {
+            "id": "51",
+            "libelle": "100% Verre Sécurit en 2 parties",
+            "libelle_site": "100% Verre Sécurit en 2 parties (+1100€)",
+            "supplement_ttc": 1100.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "33",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "155",
+            "libelle": "Non",
+            "libelle_site": "Non",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "156",
+            "libelle": "Oui",
+            "libelle_site": "Oui (+640€)",
+            "supplement_ttc": 640.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "54",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "306",
+            "libelle": "Noir",
+            "libelle_site": "Noir",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "307",
+            "libelle": "Blanc",
+            "libelle_site": "Blanc",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "308",
+            "libelle": "Gris anthracite",
+            "libelle_site": "Gris anthracite",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "341",
+            "libelle": "Autre (nous vous contacterons)",
+            "libelle_site": "Autre (nous vous contacterons)",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          }
+        ]
+      }
+    ],
+    "images": [
+      {
+        "url": "https://www.billardsdefrance.fr/3893-full_default/billard-convertible-caracas-metallique.jpg",
+        "legende": "Table billard convertible, pieds métalliques couleur aux choix"
+      }
+    ],
+    "galerie": [
+      {
+        "id": "3893",
+        "full": "https://www.billardsdefrance.fr/3893-full_default/billard-convertible-caracas-metallique.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3893-medium_default/billard-convertible-caracas-metallique.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3900",
+        "full": "https://www.billardsdefrance.fr/3900-full_default/billard-convertible-caracas-metallique.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3900-medium_default/billard-convertible-caracas-metallique.jpg",
+        "detouree": true
+      },
+      {
+        "id": "3897",
+        "full": "https://www.billardsdefrance.fr/3897-full_default/billard-convertible-caracas-metallique.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3897-medium_default/billard-convertible-caracas-metallique.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3889",
+        "full": "https://www.billardsdefrance.fr/3889-full_default/billard-convertible-caracas-metallique.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3889-medium_default/billard-convertible-caracas-metallique.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3890",
+        "full": "https://www.billardsdefrance.fr/3890-full_default/billard-convertible-caracas-metallique.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3890-medium_default/billard-convertible-caracas-metallique.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3878",
+        "full": "https://www.billardsdefrance.fr/3878-full_default/billard-convertible-caracas-metallique.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3878-medium_default/billard-convertible-caracas-metallique.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3894",
+        "full": "https://www.billardsdefrance.fr/3894-full_default/billard-convertible-caracas-metallique.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3894-medium_default/billard-convertible-caracas-metallique.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3898",
+        "full": "https://www.billardsdefrance.fr/3898-full_default/billard-convertible-caracas-metallique.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3898-medium_default/billard-convertible-caracas-metallique.jpg",
+        "detouree": true
+      },
+      {
+        "id": "3899",
+        "full": "https://www.billardsdefrance.fr/3899-full_default/billard-convertible-caracas-metallique.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3899-medium_default/billard-convertible-caracas-metallique.jpg",
+        "detouree": true
+      }
+    ]
+  },
+  {
+    "nom": "Billard Bogota pieds métalliques",
+    "url": "https://www.billardsdefrance.fr/billard-reference-premium/668-603479-table-billard-convertible-bogota-metallique.html",
+    "id_produit": 668,
+    "prix_ttc_site": 2395,
+    "prix_ht_site": 1995.833333,
+    "delai_site": "Livraison sous 2 à 3 semaines",
+    "description_courte": "Avec sa finition chêne gris anthracite , le billard Bogota pieds métalliques affirme un style résolument moderne. La personnalisation va plus loin grâce à ses pieds métalliques, disponibles dans n'importe quelle couleur du nuancier RAL , pour s'harmoniser précisément avec votre intérieur. Fiable et robuste , il se prête à tous les types de jeu : billard américain, billard anglais et billard français par simple ajout de plugs sur les bandes. Le meilleur rapport qualité-prix du marché , dans une table qui redevient à tout moment une table à manger conviviale pour 10 convives.",
+    "caracteristiques": [
+      {
+        "nom": "Dessus de table",
+        "valeur": "En option"
+      },
+      {
+        "nom": "Dimensions du billard",
+        "valeur": "2,11 x 1,20 m (7pieds)"
+      },
+      {
+        "nom": "Dimensions de jeu",
+        "valeur": "1,83 m x 0,915 m"
+      },
+      {
+        "nom": "Hauteur de table",
+        "valeur": "80 cm"
+      },
+      {
+        "nom": "Poids",
+        "valeur": "200 kg"
+      },
+      {
+        "nom": "Table billard convertible",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Accessoires billard",
+        "valeur": "Inclus"
+      },
+      {
+        "nom": "Finition",
+        "valeur": "Stratifié Chêne gris Anthracite"
+      },
+      {
+        "nom": "Made In France 🇫🇷",
+        "valeur": "Non"
+      },
+      {
+        "nom": "Billard américain",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Billard français",
+        "valeur": "Oui avec ajout de plugs"
+      },
+      {
+        "nom": "Billard anglais",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Longueur",
+        "valeur": "2,10m (7 pieds)"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Fabriqué à la main"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Garantie 2 ans"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Livraison gratuite"
+      },
+      {
+        "nom": "Ardoise",
+        "valeur": "19mm"
+      },
+      {
+        "nom": "Nombre de couverts",
+        "valeur": "8 à 10 personnes"
+      },
+      {
+        "nom": "Tapis",
+        "valeur": "Qualité Standard - En option Simonis 760 ou Strachan 777"
+      },
+      {
+        "nom": "Pieds",
+        "valeur": "Métallique Laqué Époxy"
+      },
+      {
+        "nom": "Châssis",
+        "valeur": "Bois Massif + Renfort Métalliques"
+      },
+      {
+        "nom": "Système de réception",
+        "valeur": "6 boites en bois insonorisées"
+      },
+      {
+        "nom": "Rangement Accessoires",
+        "valeur": "Sous le billard (en option)"
+      },
+      {
+        "nom": "Rangement Plateau Table",
+        "valeur": "Non"
+      },
+      {
+        "nom": "Gamme",
+        "valeur": "Référence premium"
+      }
+    ],
+    "attributs": [
+      {
+        "groupe_id": "17",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "81",
+            "libelle": "Vert",
+            "libelle_site": "Vert",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "82",
+            "libelle": "Rouge",
+            "libelle_site": "Rouge",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "83",
+            "libelle": "Bleu",
+            "libelle_site": "Bleu",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "283",
+            "libelle": "Gris",
+            "libelle_site": "Gris",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "84",
+            "libelle": "Chocolat: Simonis 760",
+            "libelle_site": "Chocolat: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "85",
+            "libelle": "Orange: Simonis 760",
+            "libelle_site": "Orange: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "86",
+            "libelle": "Noir: Simonis 760",
+            "libelle_site": "Noir: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "88",
+            "libelle": "Violet : Simonis ou Strachan",
+            "libelle_site": "Violet : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "89",
+            "libelle": "Vert pomme: Simonis 760",
+            "libelle_site": "Vert pomme: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "90",
+            "libelle": "Rouge : Simonis ou Strachan",
+            "libelle_site": "Rouge : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "91",
+            "libelle": "Bordeaux : Simonis ou Strachan",
+            "libelle_site": "Bordeaux : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "92",
+            "libelle": "Bleu royal : Simonis ou Strachan",
+            "libelle_site": "Bleu royal : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "93",
+            "libelle": "Gold : Simonis 760",
+            "libelle_site": "Gold : Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "94",
+            "libelle": "Vert Jaune : Simonis ou Strachan",
+            "libelle_site": "Vert Jaune : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "97",
+            "libelle": "Bleu électrique : Simonis 760",
+            "libelle_site": "Bleu électrique : Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "142",
+            "libelle": "Rouge Pool : Strachan 777",
+            "libelle_site": "Rouge Pool : Strachan 777 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "311",
+            "libelle": "Gris Ardoise: Simonis ou Strachan",
+            "libelle_site": "Gris Ardoise: Simonis ou Strachan (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "312",
+            "libelle": "Vert Olive: Simonis 760",
+            "libelle_site": "Vert Olive: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "313",
+            "libelle": "Bleu Marine: Simonis 760",
+            "libelle_site": "Bleu Marine: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "314",
+            "libelle": "Bleu Poudré: Simonis 760",
+            "libelle_site": "Bleu Poudré: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "315",
+            "libelle": "Camel: Simonis 760",
+            "libelle_site": "Camel: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "316",
+            "libelle": "Fuchsia: Simonis 760",
+            "libelle_site": "Fuchsia: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "7",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "27",
+            "libelle": "Américain",
+            "libelle_site": "Américain",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "29",
+            "libelle": "Pool",
+            "libelle_site": "Pool",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "5",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "23",
+            "libelle": "Non",
+            "libelle_site": "Non",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "24",
+            "libelle": "OUI au rez-de-chaussée",
+            "libelle_site": "OUI au rez-de-chaussée (+725€)",
+            "supplement_ttc": 725.0,
+            "par_defaut": false
+          },
+          {
+            "id": "309",
+            "libelle": "OUI en sous-sol ou 1er étage",
+            "libelle_site": "OUI en sous-sol ou 1er étage (+875€)",
+            "supplement_ttc": 875.0,
+            "par_defaut": false
+          },
+          {
+            "id": "310",
+            "libelle": "Autre (sur devis complémentaire)",
+            "libelle_site": "Autre (sur devis complémentaire)",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "6",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "26",
+            "libelle": "Aucune",
+            "libelle_site": "Aucune",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "50",
+            "libelle": "100% bois en 2 parties",
+            "libelle_site": "100% bois en 2 parties (+330€)",
+            "supplement_ttc": 330.0,
+            "par_defaut": false
+          },
+          {
+            "id": "51",
+            "libelle": "100% Verre Sécurit en 2 parties",
+            "libelle_site": "100% Verre Sécurit en 2 parties (+1100€)",
+            "supplement_ttc": 1100.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "33",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "155",
+            "libelle": "Non",
+            "libelle_site": "Non",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "156",
+            "libelle": "Oui",
+            "libelle_site": "Oui (+640€)",
+            "supplement_ttc": 640.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "54",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "306",
+            "libelle": "Noir",
+            "libelle_site": "Noir",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "307",
+            "libelle": "Blanc",
+            "libelle_site": "Blanc",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "308",
+            "libelle": "Gris anthracite",
+            "libelle_site": "Gris anthracite",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "341",
+            "libelle": "Autre (nous vous contacterons)",
+            "libelle_site": "Autre (nous vous contacterons)",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          }
+        ]
+      }
+    ],
+    "images": [
+      {
+        "url": "https://www.billardsdefrance.fr/3917-full_default/table-billard-convertible-bogota-metallique.jpg",
+        "legende": "Table billard convertible américain, anglais, français - Bogota métallique"
+      }
+    ],
+    "galerie": [
+      {
+        "id": "3917",
+        "full": "https://www.billardsdefrance.fr/3917-full_default/table-billard-convertible-bogota-metallique.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3917-medium_default/table-billard-convertible-bogota-metallique.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3922",
+        "full": "https://www.billardsdefrance.fr/3922-full_default/table-billard-convertible-bogota-metallique.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3922-medium_default/table-billard-convertible-bogota-metallique.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3904",
+        "full": "https://www.billardsdefrance.fr/3904-full_default/table-billard-convertible-bogota-metallique.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3904-medium_default/table-billard-convertible-bogota-metallique.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3901",
+        "full": "https://www.billardsdefrance.fr/3901-full_default/table-billard-convertible-bogota-metallique.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3901-medium_default/table-billard-convertible-bogota-metallique.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3903",
+        "full": "https://www.billardsdefrance.fr/3903-full_default/table-billard-convertible-bogota-metallique.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3903-medium_default/table-billard-convertible-bogota-metallique.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3902",
+        "full": "https://www.billardsdefrance.fr/3902-full_default/table-billard-convertible-bogota-metallique.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3902-medium_default/table-billard-convertible-bogota-metallique.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3923",
+        "full": "https://www.billardsdefrance.fr/3923-full_default/table-billard-convertible-bogota-metallique.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3923-medium_default/table-billard-convertible-bogota-metallique.jpg",
+        "detouree": true
+      },
+      {
+        "id": "3924",
+        "full": "https://www.billardsdefrance.fr/3924-full_default/table-billard-convertible-bogota-metallique.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3924-medium_default/table-billard-convertible-bogota-metallique.jpg",
+        "detouree": true
+      }
+    ]
+  },
+  {
+    "nom": "Billard Mendoza pieds métalliques",
+    "url": "https://www.billardsdefrance.fr/billard-reference-premium/670-607703-billard-convertible-mendoza-metal.html",
+    "id_produit": 670,
+    "prix_ttc_site": 2395,
+    "prix_ht_site": 1995.833333,
+    "delai_site": "Livraison sous 2 à 3 semaines",
+    "description_courte": "Le billard Mendoza pieds métalliques s'intègre parfaitement à votre intérieur grâce à ses pieds disponibles dans n'importe quelle couleur RAL, pour se fondre exactement à votre décoration. Sa finition plateau chêne naturel stratifié offre un rendu boisé chaleureux et lumineux. Ce billard convertible se transforme en une véritable table à manger conviviale, capable d'accueillir jusqu'à 10 convives , tout en offrant le meilleur rapport qualité-prix du marché . Robuste et fiable, il se joue en billard américain, billard anglais (pool/blackball) ou billard français grâce à l'ajout de plugs sur les bandes.",
+    "caracteristiques": [
+      {
+        "nom": "Dessus de table",
+        "valeur": "En option"
+      },
+      {
+        "nom": "Dimensions du billard",
+        "valeur": "2,11 x 1,20 m (7pieds)"
+      },
+      {
+        "nom": "Dimensions de jeu",
+        "valeur": "1,83 m x 0,915 m"
+      },
+      {
+        "nom": "Hauteur de table",
+        "valeur": "80 cm"
+      },
+      {
+        "nom": "Poids",
+        "valeur": "200 kg"
+      },
+      {
+        "nom": "Table billard convertible",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Accessoires billard",
+        "valeur": "Inclus"
+      },
+      {
+        "nom": "Finition",
+        "valeur": "Stratifié Chêne Naturel"
+      },
+      {
+        "nom": "Made In France 🇫🇷",
+        "valeur": "Non"
+      },
+      {
+        "nom": "Billard américain",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Billard français",
+        "valeur": "Oui avec ajout de plugs"
+      },
+      {
+        "nom": "Billard anglais",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Longueur",
+        "valeur": "2,10m (7 pieds)"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Fabriqué à la main"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Garantie 2 ans"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Livraison gratuite"
+      },
+      {
+        "nom": "Ardoise",
+        "valeur": "19mm"
+      },
+      {
+        "nom": "Nombre de couverts",
+        "valeur": "8 à 10 personnes"
+      },
+      {
+        "nom": "Tapis",
+        "valeur": "Qualité Standard - En option Simonis 760 ou Strachan 777"
+      },
+      {
+        "nom": "Pieds",
+        "valeur": "Métallique Laqué Époxy"
+      },
+      {
+        "nom": "Châssis",
+        "valeur": "Bois Massif + Renfort Métalliques"
+      },
+      {
+        "nom": "Système de réception",
+        "valeur": "6 boites en bois insonorisées"
+      },
+      {
+        "nom": "Rangement Accessoires",
+        "valeur": "Sous le billard (en option)"
+      },
+      {
+        "nom": "Rangement Plateau Table",
+        "valeur": "Non"
+      },
+      {
+        "nom": "Gamme",
+        "valeur": "Référence premium"
+      }
+    ],
+    "attributs": [
+      {
+        "groupe_id": "17",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "81",
+            "libelle": "Vert",
+            "libelle_site": "Vert",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "82",
+            "libelle": "Rouge",
+            "libelle_site": "Rouge",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "83",
+            "libelle": "Bleu",
+            "libelle_site": "Bleu",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "283",
+            "libelle": "Gris",
+            "libelle_site": "Gris",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "84",
+            "libelle": "Chocolat: Simonis 760",
+            "libelle_site": "Chocolat: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "85",
+            "libelle": "Orange: Simonis 760",
+            "libelle_site": "Orange: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "86",
+            "libelle": "Noir: Simonis 760",
+            "libelle_site": "Noir: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "88",
+            "libelle": "Violet : Simonis ou Strachan",
+            "libelle_site": "Violet : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "89",
+            "libelle": "Vert pomme: Simonis 760",
+            "libelle_site": "Vert pomme: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "90",
+            "libelle": "Rouge : Simonis ou Strachan",
+            "libelle_site": "Rouge : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "91",
+            "libelle": "Bordeaux : Simonis ou Strachan",
+            "libelle_site": "Bordeaux : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "92",
+            "libelle": "Bleu royal : Simonis ou Strachan",
+            "libelle_site": "Bleu royal : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "93",
+            "libelle": "Gold : Simonis 760",
+            "libelle_site": "Gold : Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "94",
+            "libelle": "Vert Jaune : Simonis ou Strachan",
+            "libelle_site": "Vert Jaune : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "97",
+            "libelle": "Bleu électrique : Simonis 760",
+            "libelle_site": "Bleu électrique : Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "142",
+            "libelle": "Rouge Pool : Strachan 777",
+            "libelle_site": "Rouge Pool : Strachan 777 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "311",
+            "libelle": "Gris Ardoise: Simonis ou Strachan",
+            "libelle_site": "Gris Ardoise: Simonis ou Strachan (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "312",
+            "libelle": "Vert Olive: Simonis 760",
+            "libelle_site": "Vert Olive: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "313",
+            "libelle": "Bleu Marine: Simonis 760",
+            "libelle_site": "Bleu Marine: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "314",
+            "libelle": "Bleu Poudré: Simonis 760",
+            "libelle_site": "Bleu Poudré: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "315",
+            "libelle": "Camel: Simonis 760",
+            "libelle_site": "Camel: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "316",
+            "libelle": "Fuchsia: Simonis 760",
+            "libelle_site": "Fuchsia: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "7",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "27",
+            "libelle": "Américain",
+            "libelle_site": "Américain",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "29",
+            "libelle": "Pool",
+            "libelle_site": "Pool",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "5",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "23",
+            "libelle": "Non",
+            "libelle_site": "Non",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "24",
+            "libelle": "OUI au rez-de-chaussée",
+            "libelle_site": "OUI au rez-de-chaussée (+725€)",
+            "supplement_ttc": 725.0,
+            "par_defaut": false
+          },
+          {
+            "id": "309",
+            "libelle": "OUI en sous-sol ou 1er étage",
+            "libelle_site": "OUI en sous-sol ou 1er étage (+875€)",
+            "supplement_ttc": 875.0,
+            "par_defaut": false
+          },
+          {
+            "id": "310",
+            "libelle": "Autre (sur devis complémentaire)",
+            "libelle_site": "Autre (sur devis complémentaire)",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "6",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "26",
+            "libelle": "Aucune",
+            "libelle_site": "Aucune",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "50",
+            "libelle": "100% bois en 2 parties",
+            "libelle_site": "100% bois en 2 parties (+330€)",
+            "supplement_ttc": 330.0,
+            "par_defaut": false
+          },
+          {
+            "id": "51",
+            "libelle": "100% Verre Sécurit en 2 parties",
+            "libelle_site": "100% Verre Sécurit en 2 parties (+1100€)",
+            "supplement_ttc": 1100.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "33",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "155",
+            "libelle": "Non",
+            "libelle_site": "Non",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "156",
+            "libelle": "Oui",
+            "libelle_site": "Oui (+640€)",
+            "supplement_ttc": 640.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "54",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "306",
+            "libelle": "Noir",
+            "libelle_site": "Noir",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "307",
+            "libelle": "Blanc",
+            "libelle_site": "Blanc",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "308",
+            "libelle": "Gris anthracite",
+            "libelle_site": "Gris anthracite",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "341",
+            "libelle": "Autre (nous vous contacterons)",
+            "libelle_site": "Autre (nous vous contacterons)",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          }
+        ]
+      }
+    ],
+    "images": [
+      {
+        "url": "https://www.billardsdefrance.fr/3941-full_default/billard-convertible-mendoza-metal.jpg",
+        "legende": "Table de billard convertible : Mendoza pieds métalliques"
+      }
+    ],
+    "galerie": [
+      {
+        "id": "3941",
+        "full": "https://www.billardsdefrance.fr/3941-full_default/billard-convertible-mendoza-metal.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3941-medium_default/billard-convertible-mendoza-metal.jpg",
+        "detouree": false
+      },
+      {
+        "id": "4200",
+        "full": "https://www.billardsdefrance.fr/4200-full_default/billard-convertible-mendoza-metal.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/4200-medium_default/billard-convertible-mendoza-metal.jpg",
+        "detouree": true
+      },
+      {
+        "id": "3945",
+        "full": "https://www.billardsdefrance.fr/3945-full_default/billard-convertible-mendoza-metal.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3945-medium_default/billard-convertible-mendoza-metal.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3937",
+        "full": "https://www.billardsdefrance.fr/3937-full_default/billard-convertible-mendoza-metal.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3937-medium_default/billard-convertible-mendoza-metal.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3938",
+        "full": "https://www.billardsdefrance.fr/3938-full_default/billard-convertible-mendoza-metal.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3938-medium_default/billard-convertible-mendoza-metal.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3931",
+        "full": "https://www.billardsdefrance.fr/3931-full_default/billard-convertible-mendoza-metal.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3931-medium_default/billard-convertible-mendoza-metal.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3940",
+        "full": "https://www.billardsdefrance.fr/3940-full_default/billard-convertible-mendoza-metal.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3940-medium_default/billard-convertible-mendoza-metal.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3926",
+        "full": "https://www.billardsdefrance.fr/3926-full_default/billard-convertible-mendoza-metal.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3926-medium_default/billard-convertible-mendoza-metal.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3948",
+        "full": "https://www.billardsdefrance.fr/3948-full_default/billard-convertible-mendoza-metal.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3948-medium_default/billard-convertible-mendoza-metal.jpg",
+        "detouree": true
+      },
+      {
+        "id": "3949",
+        "full": "https://www.billardsdefrance.fr/3949-full_default/billard-convertible-mendoza-metal.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3949-medium_default/billard-convertible-mendoza-metal.jpg",
+        "detouree": true
+      }
+    ]
+  },
+  {
+    "nom": "Billard Mendoza",
+    "url": "https://www.billardsdefrance.fr/billard-reference-premium/712-588695-billard-mendoza-premium.html",
+    "id_produit": 712,
+    "prix_ttc_site": 1995,
+    "prix_ht_site": 1662.5,
+    "delai_site": "Livraison sous 2 à 3 semaines",
+    "description_courte": "Le billard Mendoza vous offre le meilleur rapport qualité-prix du marché , sans rien sacrifier au plaisir de jeu. Sa finition en chêne naturel stratifié donne un rendu boisé chaleureux et lumineux, qui s'accorde avec tous les styles d'intérieur, du classique au contemporain. Robuste et fiable , il se prête à tous les types de jeu : billard américain, billard anglais (pool/blackball) et billard français grâce à l'ajout de plugs sur les bandes. La table mesure 2,11 m x 1,20 m pour une surface de jeu de 1,83 m x 0,915 m et une hauteur de 78 cm. En option, transformez le billard en une véritable table à manger conviviale, capable d'accueillir jusqu'à 10 convives , avec un plateau deux parties en bois ou en verre sécurit.",
+    "caracteristiques": [
+      {
+        "nom": "Dessus de table",
+        "valeur": "En option"
+      },
+      {
+        "nom": "Dimensions du billard",
+        "valeur": "2,11 x 1,20 m (7pieds)"
+      },
+      {
+        "nom": "Dimensions de jeu",
+        "valeur": "1,83 m x 0,915 m"
+      },
+      {
+        "nom": "Hauteur de table",
+        "valeur": "80 cm"
+      },
+      {
+        "nom": "Poids",
+        "valeur": "200 kg"
+      },
+      {
+        "nom": "Table billard convertible",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Accessoires billard",
+        "valeur": "Inclus"
+      },
+      {
+        "nom": "Finition",
+        "valeur": "Stratifié Chêne Naturel"
+      },
+      {
+        "nom": "Made In France 🇫🇷",
+        "valeur": "Non"
+      },
+      {
+        "nom": "Billard américain",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Billard français",
+        "valeur": "Oui avec ajout de plugs"
+      },
+      {
+        "nom": "Billard anglais",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Longueur",
+        "valeur": "2,10m (7 pieds)"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Fabriqué à la main"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Garantie 2 ans"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Livraison gratuite"
+      },
+      {
+        "nom": "Ardoise",
+        "valeur": "19mm"
+      },
+      {
+        "nom": "Nombre de couverts",
+        "valeur": "8 à 10 personnes"
+      },
+      {
+        "nom": "Tapis",
+        "valeur": "Qualité Standard - En option Simonis 760 ou Strachan 777"
+      },
+      {
+        "nom": "Pieds",
+        "valeur": "Bois Massif Stratifié"
+      },
+      {
+        "nom": "Châssis",
+        "valeur": "Bois Massif + Renfort Métalliques"
+      },
+      {
+        "nom": "Système de réception",
+        "valeur": "6 boites en bois insonorisées"
+      },
+      {
+        "nom": "Rangement Accessoires",
+        "valeur": "Sous le billard (en option)"
+      },
+      {
+        "nom": "Rangement Plateau Table",
+        "valeur": "Non"
+      },
+      {
+        "nom": "Gamme",
+        "valeur": "Référence premium"
+      }
+    ],
+    "attributs": [
+      {
+        "groupe_id": "17",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "81",
+            "libelle": "Vert",
+            "libelle_site": "Vert",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "82",
+            "libelle": "Rouge",
+            "libelle_site": "Rouge",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "83",
+            "libelle": "Bleu",
+            "libelle_site": "Bleu",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "283",
+            "libelle": "Gris",
+            "libelle_site": "Gris",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "84",
+            "libelle": "Chocolat: Simonis 760",
+            "libelle_site": "Chocolat: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "85",
+            "libelle": "Orange: Simonis 760",
+            "libelle_site": "Orange: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "86",
+            "libelle": "Noir: Simonis 760",
+            "libelle_site": "Noir: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "88",
+            "libelle": "Violet : Simonis ou Strachan",
+            "libelle_site": "Violet : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "89",
+            "libelle": "Vert pomme: Simonis 760",
+            "libelle_site": "Vert pomme: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "90",
+            "libelle": "Rouge : Simonis ou Strachan",
+            "libelle_site": "Rouge : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "91",
+            "libelle": "Bordeaux : Simonis ou Strachan",
+            "libelle_site": "Bordeaux : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "92",
+            "libelle": "Bleu royal : Simonis ou Strachan",
+            "libelle_site": "Bleu royal : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "93",
+            "libelle": "Gold : Simonis 760",
+            "libelle_site": "Gold : Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "94",
+            "libelle": "Vert Jaune : Simonis ou Strachan",
+            "libelle_site": "Vert Jaune : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "97",
+            "libelle": "Bleu électrique : Simonis 760",
+            "libelle_site": "Bleu électrique : Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "142",
+            "libelle": "Rouge Pool : Strachan 777",
+            "libelle_site": "Rouge Pool : Strachan 777 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "311",
+            "libelle": "Gris Ardoise: Simonis ou Strachan",
+            "libelle_site": "Gris Ardoise: Simonis ou Strachan (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "312",
+            "libelle": "Vert Olive: Simonis 760",
+            "libelle_site": "Vert Olive: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "313",
+            "libelle": "Bleu Marine: Simonis 760",
+            "libelle_site": "Bleu Marine: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "314",
+            "libelle": "Bleu Poudré: Simonis 760",
+            "libelle_site": "Bleu Poudré: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "315",
+            "libelle": "Camel: Simonis 760",
+            "libelle_site": "Camel: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "316",
+            "libelle": "Fuchsia: Simonis 760",
+            "libelle_site": "Fuchsia: Simonis 760 (+620€)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "7",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "27",
+            "libelle": "Américain",
+            "libelle_site": "Américain",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "29",
+            "libelle": "Pool",
+            "libelle_site": "Pool",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "5",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "23",
+            "libelle": "Non",
+            "libelle_site": "Non",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "24",
+            "libelle": "OUI au rez-de-chaussée",
+            "libelle_site": "OUI au rez-de-chaussée (+725€)",
+            "supplement_ttc": 725.0,
+            "par_defaut": false
+          },
+          {
+            "id": "309",
+            "libelle": "OUI en sous-sol ou 1er étage",
+            "libelle_site": "OUI en sous-sol ou 1er étage (+875€)",
+            "supplement_ttc": 875.0,
+            "par_defaut": false
+          },
+          {
+            "id": "310",
+            "libelle": "Autre (sur devis complémentaire)",
+            "libelle_site": "Autre (sur devis complémentaire)",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "6",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "26",
+            "libelle": "Aucune",
+            "libelle_site": "Aucune",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "50",
+            "libelle": "100% bois en 2 parties",
+            "libelle_site": "100% bois en 2 parties (+330€)",
+            "supplement_ttc": 330.0,
+            "par_defaut": false
+          },
+          {
+            "id": "51",
+            "libelle": "100% Verre Sécurit en 2 parties",
+            "libelle_site": "100% Verre Sécurit en 2 parties (+1100€)",
+            "supplement_ttc": 1100.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "33",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "155",
+            "libelle": "Non",
+            "libelle_site": "Non",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "156",
+            "libelle": "Oui",
+            "libelle_site": "Oui (+640€)",
+            "supplement_ttc": 640.0,
+            "par_defaut": false
+          }
+        ]
+      }
+    ],
+    "images": [
+      {
+        "url": "https://www.billardsdefrance.fr/3749-full_default/billard-mendoza-premium.jpg",
+        "legende": "Table billard convertible américain : Mendoza Premium"
+      }
+    ],
+    "galerie": [
+      {
+        "id": "3749",
+        "full": "https://www.billardsdefrance.fr/3749-full_default/billard-mendoza-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3749-medium_default/billard-mendoza-premium.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3754",
+        "full": "https://www.billardsdefrance.fr/3754-full_default/billard-mendoza-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3754-medium_default/billard-mendoza-premium.jpg",
+        "detouree": true
+      },
+      {
+        "id": "3753",
+        "full": "https://www.billardsdefrance.fr/3753-full_default/billard-mendoza-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3753-medium_default/billard-mendoza-premium.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3745",
+        "full": "https://www.billardsdefrance.fr/3745-full_default/billard-mendoza-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3745-medium_default/billard-mendoza-premium.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3746",
+        "full": "https://www.billardsdefrance.fr/3746-full_default/billard-mendoza-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3746-medium_default/billard-mendoza-premium.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3734",
+        "full": "https://www.billardsdefrance.fr/3734-full_default/billard-mendoza-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3734-medium_default/billard-mendoza-premium.jpg",
+        "detouree": false
+      },
+      {
+        "id": "3755",
+        "full": "https://www.billardsdefrance.fr/3755-full_default/billard-mendoza-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3755-medium_default/billard-mendoza-premium.jpg",
+        "detouree": true
+      },
+      {
+        "id": "3756",
+        "full": "https://www.billardsdefrance.fr/3756-full_default/billard-mendoza-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3756-medium_default/billard-mendoza-premium.jpg",
+        "detouree": true
+      }
+    ]
+  },
+  {
+    "nom": "Billard Panama",
+    "url": "https://www.billardsdefrance.fr/billard-convertible/383-567025-billard-transformable-panama-premium.html",
+    "id_produit": 383,
+    "prix_ttc_site": 1995,
+    "prix_ht_site": 1662.5,
+    "delai_site": "",
+    "description_courte": "Le billard Panama est un choix sûr pour qui veut la meilleure qualité de billard au meilleur prix du marché. Chic et élégant, il se distingue par sa finition stratifiée gris clair effet béton nuageux , qui s'intègre avec élégance dans un intérieur contemporain . Ce billard convertible table se joue en billard américain, billard anglais (pool/blackball) ou billard français grâce à l'ajout de plugs sur les bandes. Conçu et assemblé en France, ce billard bénéficie du savoir-faire de Billards Plaisance, reconnu depuis 1985 pour la qualité de ses billards convertibles. En option, transformez-le en table à manger conviviale, pouvant accueillir jusqu'à 10 convives.",
+    "caracteristiques": [
+      {
+        "nom": "Dessus de table",
+        "valeur": "En option"
+      },
+      {
+        "nom": "Dimensions du billard",
+        "valeur": "2,11 x 1,20 m (7pieds)"
+      },
+      {
+        "nom": "Dimensions de jeu",
+        "valeur": "1,83 m x 0,915 m"
+      },
+      {
+        "nom": "Hauteur de table",
+        "valeur": "80 cm"
+      },
+      {
+        "nom": "Poids",
+        "valeur": "200 kg"
+      },
+      {
+        "nom": "Table billard convertible",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Accessoires billard",
+        "valeur": "Inclus"
+      },
+      {
+        "nom": "Finition",
+        "valeur": "Stratifié gris clair effet béton nuageux"
+      },
+      {
+        "nom": "Made In France 🇫🇷",
+        "valeur": "Non"
+      },
+      {
+        "nom": "Billard américain",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Billard français",
+        "valeur": "Oui avec ajout de plugs"
+      },
+      {
+        "nom": "Billard anglais",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Longueur",
+        "valeur": "2,10m (7 pieds)"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Fabriqué à la main"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Garantie 2 ans"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Livraison gratuite"
+      },
+      {
+        "nom": "Ardoise",
+        "valeur": "19mm"
+      },
+      {
+        "nom": "Nombre de couverts",
+        "valeur": "8 à 10 personnes"
+      },
+      {
+        "nom": "Tapis",
+        "valeur": "Qualité Standard - En option Simonis 760 ou Strachan 777"
+      },
+      {
+        "nom": "Pieds",
+        "valeur": "Bois Massif Stratifié"
+      },
+      {
+        "nom": "Châssis",
+        "valeur": "Bois Massif + Renfort Métalliques"
+      },
+      {
+        "nom": "Système de réception",
+        "valeur": "6 boites en bois insonorisées"
+      },
+      {
+        "nom": "Rangement Accessoires",
+        "valeur": "Sous le billard (en option)"
+      },
+      {
+        "nom": "Rangement Plateau Table",
+        "valeur": "Non"
+      },
+      {
+        "nom": "Gamme",
+        "valeur": "Référence premium"
+      }
+    ],
+    "attributs": [
+      {
+        "groupe_id": "17",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "81",
+            "libelle": "Vert",
+            "libelle_site": "Vert",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "82",
+            "libelle": "Rouge",
+            "libelle_site": "Rouge",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "83",
+            "libelle": "Bleu",
+            "libelle_site": "Bleu",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "283",
+            "libelle": "Gris",
+            "libelle_site": "Gris",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "84",
+            "libelle": "Chocolat: Simonis 760",
+            "libelle_site": "Chocolat: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "85",
+            "libelle": "Orange: Simonis 760",
+            "libelle_site": "Orange: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "86",
+            "libelle": "Noir: Simonis 760",
+            "libelle_site": "Noir: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "88",
+            "libelle": "Violet : Simonis ou Strachan",
+            "libelle_site": "Violet : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "89",
+            "libelle": "Vert pomme: Simonis 760",
+            "libelle_site": "Vert pomme: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "90",
+            "libelle": "Rouge : Simonis ou Strachan",
+            "libelle_site": "Rouge : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "91",
+            "libelle": "Bordeaux : Simonis ou Strachan",
+            "libelle_site": "Bordeaux : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "92",
+            "libelle": "Bleu royal : Simonis ou Strachan",
+            "libelle_site": "Bleu royal : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "93",
+            "libelle": "Gold : Simonis 760",
+            "libelle_site": "Gold : Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "94",
+            "libelle": "Vert Jaune : Simonis ou Strachan",
+            "libelle_site": "Vert Jaune : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "97",
+            "libelle": "Bleu électrique : Simonis 760",
+            "libelle_site": "Bleu électrique : Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "142",
+            "libelle": "Rouge Pool : Strachan 777",
+            "libelle_site": "Rouge Pool : Strachan 777 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "7",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "27",
+            "libelle": "Américain",
+            "libelle_site": "Américain",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "29",
+            "libelle": "Pool",
+            "libelle_site": "Pool",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "5",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "23",
+            "libelle": "Non",
+            "libelle_site": "Non",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "24",
+            "libelle": "OUI au rez-de-chaussée",
+            "libelle_site": "OUI au rez-de-chaussée (+725€)",
+            "supplement_ttc": 725.0,
+            "par_defaut": false
+          },
+          {
+            "id": "309",
+            "libelle": "OUI en sous-sol ou 1er étage",
+            "libelle_site": "OUI en sous-sol ou 1er étage (+875€)",
+            "supplement_ttc": 875.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "6",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "26",
+            "libelle": "Aucune",
+            "libelle_site": "Aucune",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "50",
+            "libelle": "100% bois en 2 parties",
+            "libelle_site": "100% bois en 2 parties (+330€)",
+            "supplement_ttc": 330.0,
+            "par_defaut": false
+          },
+          {
+            "id": "51",
+            "libelle": "100% Verre Sécurit en 2 parties",
+            "libelle_site": "100% Verre Sécurit en 2 parties (+1100€)",
+            "supplement_ttc": 1100.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "32",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "151",
+            "libelle": "Normal",
+            "libelle_site": "Normal",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "154",
+            "libelle": "Transparents (PMMA)",
+            "libelle_site": "Transparents (PMMA) (+1800€)",
+            "supplement_ttc": 1800.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "33",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "155",
+            "libelle": "Non",
+            "libelle_site": "Non",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "156",
+            "libelle": "Oui",
+            "libelle_site": "Oui (+640€)",
+            "supplement_ttc": 640.0,
+            "par_defaut": false
+          }
+        ]
+      }
+    ],
+    "images": [
+      {
+        "url": "https://www.billardsdefrance.fr/3761-full_default/billard-transformable-panama-premium.jpg",
+        "legende": "Table billard convertible américain & pool : Panama"
+      },
+      {
+        "url": "https://www.billardsdefrance.fr/3762-full_default/billard-transformable-panama-premium.jpg",
+        "legende": "Table billard convertible américain & pool : Panama"
+      },
+      {
+        "url": "https://www.billardsdefrance.fr/3763-full_default/billard-transformable-panama-premium.jpg",
+        "legende": "Table billard convertible américain & pool : Panama"
+      }
+    ],
+    "galerie": [
+      {
+        "id": "3761",
+        "full": "https://www.billardsdefrance.fr/3761-full_default/billard-transformable-panama-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3761-medium_default/billard-transformable-panama-premium.jpg",
+        "detouree": true
+      },
+      {
+        "id": "3762",
+        "full": "https://www.billardsdefrance.fr/3762-full_default/billard-transformable-panama-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3762-medium_default/billard-transformable-panama-premium.jpg",
+        "detouree": true
+      },
+      {
+        "id": "3763",
+        "full": "https://www.billardsdefrance.fr/3763-full_default/billard-transformable-panama-premium.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3763-medium_default/billard-transformable-panama-premium.jpg",
+        "detouree": true
+      }
+    ]
+  },
+  {
+    "nom": "Billard Panama pieds métalliques",
+    "url": "https://www.billardsdefrance.fr/billard-convertible/669-billard-convertible-panama-metallique.html",
+    "id_produit": 669,
+    "prix_ttc_site": 2395,
+    "prix_ht_site": 1995.833333,
+    "delai_site": "",
+    "description_courte": "Chic et contemporain, le billard Panama pieds métalliques adopte une finition gris clair effet béton nuageux qui s'accorde avec de nombreux styles d'intérieur. Ses pieds métalliques, personnalisables dans n'importe quelle couleur RAL , s'adaptent à votre décoration jusque dans les moindres détails. Robuste et fiable, ce billard convertible se joue en billard américain, billard anglais ou billard français grâce à l'ajout de plugs sur les bandes, avant de redevenir une table à manger conviviale pour 10 convives . Un choix qui offre le meilleur rapport qualité-prix du marché.",
+    "caracteristiques": [
+      {
+        "nom": "Dessus de table",
+        "valeur": "En option"
+      },
+      {
+        "nom": "Dimensions du billard",
+        "valeur": "2,11 x 1,20 m (7pieds)"
+      },
+      {
+        "nom": "Dimensions de jeu",
+        "valeur": "1,83 m x 0,915 m"
+      },
+      {
+        "nom": "Hauteur de table",
+        "valeur": "80 cm"
+      },
+      {
+        "nom": "Poids",
+        "valeur": "200 kg"
+      },
+      {
+        "nom": "Table billard convertible",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Accessoires billard",
+        "valeur": "Inclus"
+      },
+      {
+        "nom": "Finition",
+        "valeur": "Stratifié gris clair effet béton nuageux"
+      },
+      {
+        "nom": "Made In France 🇫🇷",
+        "valeur": "Non"
+      },
+      {
+        "nom": "Billard américain",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Billard français",
+        "valeur": "Oui avec ajout de plugs"
+      },
+      {
+        "nom": "Billard anglais",
+        "valeur": "Oui"
+      },
+      {
+        "nom": "Longueur",
+        "valeur": "2,10m (7 pieds)"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Fabriqué à la main"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Garantie 2 ans"
+      },
+      {
+        "nom": "Pictogrammes produit",
+        "valeur": "Livraison gratuite"
+      },
+      {
+        "nom": "Ardoise",
+        "valeur": "19mm"
+      },
+      {
+        "nom": "Nombre de couverts",
+        "valeur": "8 à 10 personnes"
+      },
+      {
+        "nom": "Tapis",
+        "valeur": "Qualité Standard - En option Simonis 760 ou Strachan 777"
+      },
+      {
+        "nom": "Pieds",
+        "valeur": "Métallique Laqué Époxy"
+      },
+      {
+        "nom": "Châssis",
+        "valeur": "Bois Massif + Renfort Métalliques"
+      },
+      {
+        "nom": "Système de réception",
+        "valeur": "6 boites en bois insonorisées"
+      },
+      {
+        "nom": "Rangement Accessoires",
+        "valeur": "Sous le billard (en option)"
+      },
+      {
+        "nom": "Rangement Plateau Table",
+        "valeur": "Non"
+      }
+    ],
+    "attributs": [
+      {
+        "groupe_id": "17",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "81",
+            "libelle": "Vert",
+            "libelle_site": "Vert",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "82",
+            "libelle": "Rouge",
+            "libelle_site": "Rouge",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "83",
+            "libelle": "Bleu",
+            "libelle_site": "Bleu",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "283",
+            "libelle": "Gris",
+            "libelle_site": "Gris",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "84",
+            "libelle": "Chocolat: Simonis 760",
+            "libelle_site": "Chocolat: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "85",
+            "libelle": "Orange: Simonis 760",
+            "libelle_site": "Orange: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "86",
+            "libelle": "Noir: Simonis 760",
+            "libelle_site": "Noir: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "88",
+            "libelle": "Violet : Simonis ou Strachan",
+            "libelle_site": "Violet : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "89",
+            "libelle": "Vert pomme: Simonis 760",
+            "libelle_site": "Vert pomme: Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "90",
+            "libelle": "Rouge : Simonis ou Strachan",
+            "libelle_site": "Rouge : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "91",
+            "libelle": "Bordeaux : Simonis ou Strachan",
+            "libelle_site": "Bordeaux : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "92",
+            "libelle": "Bleu royal : Simonis ou Strachan",
+            "libelle_site": "Bleu royal : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "93",
+            "libelle": "Gold : Simonis 760",
+            "libelle_site": "Gold : Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "94",
+            "libelle": "Vert Jaune : Simonis ou Strachan",
+            "libelle_site": "Vert Jaune : Simonis ou Strachan (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "97",
+            "libelle": "Bleu électrique : Simonis 760",
+            "libelle_site": "Bleu électrique : Simonis 760 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          },
+          {
+            "id": "142",
+            "libelle": "Rouge Pool : Strachan 777",
+            "libelle_site": "Rouge Pool : Strachan 777 (+620 €)",
+            "supplement_ttc": 620.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "7",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "27",
+            "libelle": "Américain",
+            "libelle_site": "Américain",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "29",
+            "libelle": "Pool",
+            "libelle_site": "Pool",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "5",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "23",
+            "libelle": "Non",
+            "libelle_site": "Non",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "24",
+            "libelle": "OUI au rez-de-chaussée",
+            "libelle_site": "OUI au rez-de-chaussée (+725€)",
+            "supplement_ttc": 725.0,
+            "par_defaut": false
+          },
+          {
+            "id": "309",
+            "libelle": "OUI en sous-sol ou 1er étage",
+            "libelle_site": "OUI en sous-sol ou 1er étage (+875€)",
+            "supplement_ttc": 875.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "6",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "26",
+            "libelle": "Aucune",
+            "libelle_site": "Aucune",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "50",
+            "libelle": "100% bois en 2 parties",
+            "libelle_site": "100% bois en 2 parties (+330€)",
+            "supplement_ttc": 330.0,
+            "par_defaut": false
+          },
+          {
+            "id": "51",
+            "libelle": "100% Verre Sécurit en 2 parties",
+            "libelle_site": "100% Verre Sécurit en 2 parties (+1100€)",
+            "supplement_ttc": 1100.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "33",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "155",
+            "libelle": "Non",
+            "libelle_site": "Non",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "156",
+            "libelle": "Oui",
+            "libelle_site": "Oui (+640€)",
+            "supplement_ttc": 640.0,
+            "par_defaut": false
+          }
+        ]
+      },
+      {
+        "groupe_id": "54",
+        "groupe": "",
+        "valeurs": [
+          {
+            "id": "306",
+            "libelle": "Noir",
+            "libelle_site": "Noir",
+            "supplement_ttc": 0.0,
+            "par_defaut": true
+          },
+          {
+            "id": "307",
+            "libelle": "Blanc",
+            "libelle_site": "Blanc",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          },
+          {
+            "id": "308",
+            "libelle": "Gris anthracite",
+            "libelle_site": "Gris anthracite",
+            "supplement_ttc": 0.0,
+            "par_defaut": false
+          }
+        ]
+      }
+    ],
+    "images": [
+      {
+        "url": "https://www.billardsdefrance.fr/3092-full_default/billard-convertible-panama-metallique.jpg",
+        "legende": "Table billard convertible : Panama pieds métalliques"
+      },
+      {
+        "url": "https://www.billardsdefrance.fr/3093-full_default/billard-convertible-panama-metallique.jpg",
+        "legende": "Billard convertible : plateau billard table bois en 2 parties"
+      },
+      {
+        "url": "https://www.billardsdefrance.fr/3094-full_default/billard-convertible-panama-metallique.jpg",
+        "legende": "Billard table à manger : dessus de table en verre, billard Panama métallique"
+      }
+    ],
+    "galerie": [
+      {
+        "id": "3092",
+        "full": "https://www.billardsdefrance.fr/3092-full_default/billard-convertible-panama-metallique.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3092-medium_default/billard-convertible-panama-metallique.jpg",
+        "detouree": true
+      },
+      {
+        "id": "3093",
+        "full": "https://www.billardsdefrance.fr/3093-full_default/billard-convertible-panama-metallique.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3093-medium_default/billard-convertible-panama-metallique.jpg",
+        "detouree": true
+      },
+      {
+        "id": "3094",
+        "full": "https://www.billardsdefrance.fr/3094-full_default/billard-convertible-panama-metallique.jpg",
+        "moyenne": "https://www.billardsdefrance.fr/3094-medium_default/billard-convertible-panama-metallique.jpg",
+        "detouree": true
+      }
+    ]
+  }
+]

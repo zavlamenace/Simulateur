@@ -1,14 +1,12 @@
 # Points ouverts et contradictions entre sources
 
 ## À confirmer par la direction
-- **RCS** : « RCS Auch 997 739 107 » ?
 - **Adresses exactes des revendeurs** : L'Ébéno (région toulousaine) et L'Univers du Billard (région nantaise).
 - **Oney** : peut-on écrire « sans frais » ? Le site le dit, mais ce n'est pas confirmé à l'oral.
 - **Prix des pieds métalliques Prestige** : à définir (option « Bientôt »).
 - **Nouvelle grille livraison + montage** : sur papier, à transcrire.
 - **Grilles tarifaires papier** à transcrire : Design (correspondance modèle ↔ couleur, plateaux), Prestige (13 modèles), Lafuge (modèles × tailles × finitions), Accessoires.
-- **Pieds PMMA transparent** sur la Référence : le site les cite, la direction ne mentionne que 2 modèles de pieds métalliques et le bois massif. Encore proposés ?
-- **Liste exacte des modèles Référence** : 12 annoncés.
+- **Prix des pieds métalliques en couleur RAL** (Référence) : à fixer.
 - **Nombre de modèles Lafuge** : 19 sur le site, 17 annoncés.
 
 ## Contradictions tranchées
@@ -26,6 +24,10 @@
 | Finition brillante Design | Site : +100 € billard / +30 € dessus | **+540 € billard / +270 € dessus.** |
 | Échéancier | 30/30/30, 30/30/40 | Plaisance 30 % + solde avant livraison ; Lafuge 30/30/solde avant livraison. |
 | Magasins Paris, Lyon, Bordeaux | Sources de 2017 | Tous fermés. |
+| RCS | Non indiqué sur le site | RCS Auch 997 739 107. |
+| Panama (Référence) | Présent sur le site | Bonne affaire, hors catalogue. |
+| Pieds PMMA transparents | Proposés sur la fiche Panama (+1 800 €) | Plus fabriqués. |
+| Octopack | Option Référence et Design selon le comparatif | Inclus sur Prestige ; non proposé sur la Référence pour l'instant. |
 
 ## Risque relevé sur le site
 La page « savoir-faire Plaisance » affirme « une fabrication française dans nos ateliers du Gers » et « organisation en série sur l'atelier du Gers… modèles à partir de 1 995 € ». Or 1 995 € est le prix de la Référence, fabriquée en Chine. Le tableau comparatif et d'autres pages attribuent aussi la Référence à l'atelier du Gers. **Ce sont des allégations d'origine à corriger côté site** (risque de pratique commerciale trompeuse).

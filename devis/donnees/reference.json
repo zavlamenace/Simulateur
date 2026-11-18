@@ -1,0 +1,287 @@
+{
+  "modeles": [
+    {
+      "modele": "Santiago",
+      "version": "Pieds bois massif",
+      "finition": "Stratifié Noir Brillant",
+      "pieds": "Bois Massif Stratifié",
+      "prix_ttc": 1995,
+      "url": "https://www.billardsdefrance.fr/billard-reference-premium/378-589751-billard-santiago-premium.html",
+      "photo_detouree": "https://www.billardsdefrance.fr/3700-full_default/billard-santiago-premium.jpg",
+      "photo_plateau_bois": "https://www.billardsdefrance.fr/3701-full_default/billard-santiago-premium.jpg",
+      "photo_plateau_verre": "https://www.billardsdefrance.fr/3702-full_default/billard-santiago-premium.jpg",
+      "photos_detail": [],
+      "photos_ambiance": [
+        "https://www.billardsdefrance.fr/3697-full_default/billard-santiago-premium.jpg",
+        "https://www.billardsdefrance.fr/3694-full_default/billard-santiago-premium.jpg",
+        "https://www.billardsdefrance.fr/3695-full_default/billard-santiago-premium.jpg",
+        "https://www.billardsdefrance.fr/3680-full_default/billard-santiago-premium.jpg"
+      ]
+    },
+    {
+      "modele": "Rio",
+      "version": "Pieds bois massif",
+      "finition": "Stratifié Blanc Brillant",
+      "pieds": "Bois Massif Stratifié",
+      "prix_ttc": 1995,
+      "url": "https://www.billardsdefrance.fr/billard-reference-premium/381-585527-table-billard-convertible-rio-premium.html",
+      "photo_detouree": "https://www.billardsdefrance.fr/3779-full_default/table-billard-convertible-rio-premium.jpg",
+      "photo_plateau_bois": "https://www.billardsdefrance.fr/3780-full_default/table-billard-convertible-rio-premium.jpg",
+      "photo_plateau_verre": "https://www.billardsdefrance.fr/3781-full_default/table-billard-convertible-rio-premium.jpg",
+      "photos_detail": [],
+      "photos_ambiance": [
+        "https://www.billardsdefrance.fr/3775-full_default/table-billard-convertible-rio-premium.jpg",
+        "https://www.billardsdefrance.fr/3766-full_default/table-billard-convertible-rio-premium.jpg",
+        "https://www.billardsdefrance.fr/3767-full_default/table-billard-convertible-rio-premium.jpg"
+      ]
+    },
+    {
+      "modele": "Caracas",
+      "version": "Pieds bois massif",
+      "finition": "Stratifié teak marron",
+      "pieds": "Bois Massif Stratifié",
+      "prix_ttc": 1995,
+      "url": "https://www.billardsdefrance.fr/billard-reference-premium/382-586583-billard-convertible-caracas-premium.html",
+      "photo_detouree": "https://www.billardsdefrance.fr/3803-full_default/billard-convertible-caracas-premium.jpg",
+      "photo_plateau_bois": "https://www.billardsdefrance.fr/3804-full_default/billard-convertible-caracas-premium.jpg",
+      "photo_plateau_verre": "https://www.billardsdefrance.fr/3805-full_default/billard-convertible-caracas-premium.jpg",
+      "photos_detail": [
+        "https://www.billardsdefrance.fr/3802-full_default/billard-convertible-caracas-premium.jpg"
+      ],
+      "photos_ambiance": [
+        "https://www.billardsdefrance.fr/3798-full_default/billard-convertible-caracas-premium.jpg",
+        "https://www.billardsdefrance.fr/3794-full_default/billard-convertible-caracas-premium.jpg",
+        "https://www.billardsdefrance.fr/3795-full_default/billard-convertible-caracas-premium.jpg",
+        "https://www.billardsdefrance.fr/3783-full_default/billard-convertible-caracas-premium.jpg"
+      ]
+    },
+    {
+      "modele": "Bogota",
+      "version": "Pieds bois massif",
+      "finition": "Stratifié Chêne gris Anthracite",
+      "pieds": "Bois Massif Stratifié",
+      "prix_ttc": 1995,
+      "url": "https://www.billardsdefrance.fr/billard-reference-premium/384-587639-billard-bogota-premium.html",
+      "photo_detouree": "https://www.billardsdefrance.fr/3730-full_default/billard-bogota-premium.jpg",
+      "photo_plateau_bois": "https://www.billardsdefrance.fr/3731-full_default/billard-bogota-premium.jpg",
+      "photo_plateau_verre": "https://www.billardsdefrance.fr/3732-full_default/billard-bogota-premium.jpg",
+      "photos_detail": [
+        "https://www.billardsdefrance.fr/3728-full_default/billard-bogota-premium.jpg"
+      ],
+      "photos_ambiance": [
+        "https://www.billardsdefrance.fr/3724-full_default/billard-bogota-premium.jpg",
+        "https://www.billardsdefrance.fr/3720-full_default/billard-bogota-premium.jpg",
+        "https://www.billardsdefrance.fr/3721-full_default/billard-bogota-premium.jpg",
+        "https://www.billardsdefrance.fr/3708-full_default/billard-bogota-premium.jpg",
+        "https://www.billardsdefrance.fr/3729-full_default/billard-bogota-premium.jpg"
+      ]
+    },
+    {
+      "modele": "Rio",
+      "version": "Pieds métalliques",
+      "finition": "Stratifié Blanc Brillant",
+      "pieds": "Métallique Laqué Époxy",
+      "prix_ttc": 2395,
+      "url": "https://www.billardsdefrance.fr/billard-reference-premium/661-590807-table-billard-convertible-rio-pieds-metalliques.html",
+      "photo_detouree": "https://www.billardsdefrance.fr/3850-full_default/table-billard-convertible-rio-pieds-metalliques.jpg",
+      "photo_plateau_bois": "https://www.billardsdefrance.fr/3851-full_default/table-billard-convertible-rio-pieds-metalliques.jpg",
+      "photo_plateau_verre": "https://www.billardsdefrance.fr/3852-full_default/table-billard-convertible-rio-pieds-metalliques.jpg",
+      "photos_detail": [
+        "https://www.billardsdefrance.fr/3849-full_default/table-billard-convertible-rio-pieds-metalliques.jpg"
+      ],
+      "photos_ambiance": [
+        "https://www.billardsdefrance.fr/3845-full_default/table-billard-convertible-rio-pieds-metalliques.jpg",
+        "https://www.billardsdefrance.fr/3841-full_default/table-billard-convertible-rio-pieds-metalliques.jpg",
+        "https://www.billardsdefrance.fr/3842-full_default/table-billard-convertible-rio-pieds-metalliques.jpg",
+        "https://www.billardsdefrance.fr/4215-full_default/table-billard-convertible-rio-pieds-metalliques.jpg",
+        "https://www.billardsdefrance.fr/3844-full_default/table-billard-convertible-rio-pieds-metalliques.jpg"
+      ]
+    },
+    {
+      "modele": "Santiago",
+      "version": "Pieds métalliques",
+      "finition": "Stratifié Noir Brillant",
+      "pieds": "Métallique Laqué Époxy",
+      "prix_ttc": 2395,
+      "url": "https://www.billardsdefrance.fr/billard-reference-premium/664-595031-billard-convertible-santiago-pieds-metalliques.html",
+      "photo_detouree": "https://www.billardsdefrance.fr/3874-full_default/billard-convertible-santiago-pieds-metalliques.jpg",
+      "photo_plateau_bois": "https://www.billardsdefrance.fr/3875-full_default/billard-convertible-santiago-pieds-metalliques.jpg",
+      "photo_plateau_verre": "https://www.billardsdefrance.fr/3876-full_default/billard-convertible-santiago-pieds-metalliques.jpg",
+      "photos_detail": [
+        "https://www.billardsdefrance.fr/3873-full_default/billard-convertible-santiago-pieds-metalliques.jpg"
+      ],
+      "photos_ambiance": [
+        "https://www.billardsdefrance.fr/3869-full_default/billard-convertible-santiago-pieds-metalliques.jpg",
+        "https://www.billardsdefrance.fr/3853-full_default/billard-convertible-santiago-pieds-metalliques.jpg",
+        "https://www.billardsdefrance.fr/3865-full_default/billard-convertible-santiago-pieds-metalliques.jpg",
+        "https://www.billardsdefrance.fr/3866-full_default/billard-convertible-santiago-pieds-metalliques.jpg",
+        "https://www.billardsdefrance.fr/3854-full_default/billard-convertible-santiago-pieds-metalliques.jpg"
+      ]
+    },
+    {
+      "modele": "Caracas",
+      "version": "Pieds métalliques",
+      "finition": "Stratifié teak marron",
+      "pieds": "Métallique Laqué Époxy",
+      "prix_ttc": 2395,
+      "url": "https://www.billardsdefrance.fr/billard-reference-premium/667-599255-billard-convertible-caracas-metallique.html",
+      "photo_detouree": "https://www.billardsdefrance.fr/3900-full_default/billard-convertible-caracas-metallique.jpg",
+      "photo_plateau_bois": "https://www.billardsdefrance.fr/3898-full_default/billard-convertible-caracas-metallique.jpg",
+      "photo_plateau_verre": "https://www.billardsdefrance.fr/3899-full_default/billard-convertible-caracas-metallique.jpg",
+      "photos_detail": [
+        "https://www.billardsdefrance.fr/3897-full_default/billard-convertible-caracas-metallique.jpg"
+      ],
+      "photos_ambiance": [
+        "https://www.billardsdefrance.fr/3893-full_default/billard-convertible-caracas-metallique.jpg",
+        "https://www.billardsdefrance.fr/3889-full_default/billard-convertible-caracas-metallique.jpg",
+        "https://www.billardsdefrance.fr/3890-full_default/billard-convertible-caracas-metallique.jpg",
+        "https://www.billardsdefrance.fr/3878-full_default/billard-convertible-caracas-metallique.jpg",
+        "https://www.billardsdefrance.fr/3894-full_default/billard-convertible-caracas-metallique.jpg"
+      ]
+    },
+    {
+      "modele": "Bogota",
+      "version": "Pieds métalliques",
+      "finition": "Stratifié Chêne gris Anthracite",
+      "pieds": "Métallique Laqué Époxy",
+      "prix_ttc": 2395,
+      "url": "https://www.billardsdefrance.fr/billard-reference-premium/668-603479-table-billard-convertible-bogota-metallique.html",
+      "photo_detouree": "https://www.billardsdefrance.fr/3922-full_default/table-billard-convertible-bogota-metallique.jpg",
+      "photo_plateau_bois": "https://www.billardsdefrance.fr/3923-full_default/table-billard-convertible-bogota-metallique.jpg",
+      "photo_plateau_verre": "https://www.billardsdefrance.fr/3924-full_default/table-billard-convertible-bogota-metallique.jpg",
+      "photos_detail": [
+        "https://www.billardsdefrance.fr/3904-full_default/table-billard-convertible-bogota-metallique.jpg"
+      ],
+      "photos_ambiance": [
+        "https://www.billardsdefrance.fr/3917-full_default/table-billard-convertible-bogota-metallique.jpg",
+        "https://www.billardsdefrance.fr/3901-full_default/table-billard-convertible-bogota-metallique.jpg",
+        "https://www.billardsdefrance.fr/3903-full_default/table-billard-convertible-bogota-metallique.jpg",
+        "https://www.billardsdefrance.fr/3902-full_default/table-billard-convertible-bogota-metallique.jpg"
+      ]
+    },
+    {
+      "modele": "Mendoza",
+      "version": "Pieds métalliques",
+      "finition": "Stratifié Chêne Naturel",
+      "pieds": "Métallique Laqué Époxy",
+      "prix_ttc": 2395,
+      "url": "https://www.billardsdefrance.fr/billard-reference-premium/670-607703-billard-convertible-mendoza-metal.html",
+      "photo_detouree": "https://www.billardsdefrance.fr/4200-full_default/billard-convertible-mendoza-metal.jpg",
+      "photo_plateau_bois": "https://www.billardsdefrance.fr/3948-full_default/billard-convertible-mendoza-metal.jpg",
+      "photo_plateau_verre": "https://www.billardsdefrance.fr/3949-full_default/billard-convertible-mendoza-metal.jpg",
+      "photos_detail": [
+        "https://www.billardsdefrance.fr/3945-full_default/billard-convertible-mendoza-metal.jpg"
+      ],
+      "photos_ambiance": [
+        "https://www.billardsdefrance.fr/3941-full_default/billard-convertible-mendoza-metal.jpg",
+        "https://www.billardsdefrance.fr/3937-full_default/billard-convertible-mendoza-metal.jpg",
+        "https://www.billardsdefrance.fr/3938-full_default/billard-convertible-mendoza-metal.jpg",
+        "https://www.billardsdefrance.fr/3931-full_default/billard-convertible-mendoza-metal.jpg",
+        "https://www.billardsdefrance.fr/3940-full_default/billard-convertible-mendoza-metal.jpg",
+        "https://www.billardsdefrance.fr/3926-full_default/billard-convertible-mendoza-metal.jpg"
+      ]
+    },
+    {
+      "modele": "Mendoza",
+      "version": "Pieds bois massif",
+      "finition": "Stratifié Chêne Naturel",
+      "pieds": "Bois Massif Stratifié",
+      "prix_ttc": 1995,
+      "url": "https://www.billardsdefrance.fr/billard-reference-premium/712-588695-billard-mendoza-premium.html",
+      "photo_detouree": "https://www.billardsdefrance.fr/3754-full_default/billard-mendoza-premium.jpg",
+      "photo_plateau_bois": "https://www.billardsdefrance.fr/3755-full_default/billard-mendoza-premium.jpg",
+      "photo_plateau_verre": "https://www.billardsdefrance.fr/3756-full_default/billard-mendoza-premium.jpg",
+      "photos_detail": [
+        "https://www.billardsdefrance.fr/3753-full_default/billard-mendoza-premium.jpg"
+      ],
+      "photos_ambiance": [
+        "https://www.billardsdefrance.fr/3749-full_default/billard-mendoza-premium.jpg",
+        "https://www.billardsdefrance.fr/3745-full_default/billard-mendoza-premium.jpg",
+        "https://www.billardsdefrance.fr/3746-full_default/billard-mendoza-premium.jpg",
+        "https://www.billardsdefrance.fr/3734-full_default/billard-mendoza-premium.jpg"
+      ]
+    },
+    {
+      "modele": "Panama",
+      "version": "Pieds bois massif",
+      "finition": "Stratifié gris clair effet béton nuageux",
+      "pieds": "Bois Massif Stratifié",
+      "prix_ttc": 1995,
+      "url": "https://www.billardsdefrance.fr/billard-convertible/383-567025-billard-transformable-panama-premium.html",
+      "photo_detouree": "https://www.billardsdefrance.fr/3761-full_default/billard-transformable-panama-premium.jpg",
+      "photo_plateau_bois": "https://www.billardsdefrance.fr/3762-full_default/billard-transformable-panama-premium.jpg",
+      "photo_plateau_verre": "https://www.billardsdefrance.fr/3763-full_default/billard-transformable-panama-premium.jpg",
+      "photos_detail": [],
+      "photos_ambiance": []
+    },
+    {
+      "modele": "Panama",
+      "version": "Pieds métalliques",
+      "finition": "Stratifié gris clair effet béton nuageux",
+      "pieds": "Métallique Laqué Époxy",
+      "prix_ttc": 2395,
+      "url": "https://www.billardsdefrance.fr/billard-convertible/669-billard-convertible-panama-metallique.html",
+      "photo_detouree": "https://www.billardsdefrance.fr/3092-full_default/billard-convertible-panama-metallique.jpg",
+      "photo_plateau_bois": "https://www.billardsdefrance.fr/3093-full_default/billard-convertible-panama-metallique.jpg",
+      "photo_plateau_verre": "https://www.billardsdefrance.fr/3094-full_default/billard-convertible-panama-metallique.jpg",
+      "photos_detail": [],
+      "photos_ambiance": []
+    }
+  ],
+  "options_site": {
+    "Tapis": {
+      "Vert": 0.0,
+      "Rouge": 0.0,
+      "Bleu": 0.0,
+      "Gris": 0.0,
+      "Chocolat: Simonis 760": 620.0,
+      "Orange: Simonis 760": 620.0,
+      "Noir: Simonis 760": 620.0,
+      "Violet : Simonis ou Strachan": 620.0,
+      "Vert pomme: Simonis 760": 620.0,
+      "Rouge : Simonis ou Strachan": 620.0,
+      "Bordeaux : Simonis ou Strachan": 620.0,
+      "Bleu royal : Simonis ou Strachan": 620.0,
+      "Gold : Simonis 760": 620.0,
+      "Vert Jaune : Simonis ou Strachan": 620.0,
+      "Bleu électrique : Simonis 760": 620.0,
+      "Rouge Pool : Strachan 777": 620.0,
+      "Gris Ardoise: Simonis ou Strachan": 620.0,
+      "Vert Olive: Simonis 760": 620.0,
+      "Bleu Marine: Simonis 760": 620.0,
+      "Bleu Poudré: Simonis 760": 620.0,
+      "Camel: Simonis 760": 620.0,
+      "Fuchsia: Simonis 760": 620.0
+    },
+    "Jeu": {
+      "Américain": 0.0,
+      "Pool": 0.0
+    },
+    "Montage (ancienne grille)": {
+      "Non": 0.0,
+      "OUI au rez-de-chaussée": 725.0,
+      "OUI en sous-sol ou 1er étage": 875.0,
+      "Autre (sur devis complémentaire)": 0.0
+    },
+    "Dessus de table": {
+      "Aucune": 0.0,
+      "100% bois en 2 parties": 330.0,
+      "100% Verre Sécurit en 2 parties": 1100.0
+    },
+    "Plugs billard français": {
+      "Non": 0.0,
+      "Oui": 640.0
+    },
+    "Couleur des pieds métalliques": {
+      "Noir": 0.0,
+      "Blanc": 0.0,
+      "Gris anthracite": 0.0,
+      "Autre (nous vous contacterons)": 0.0
+    },
+    "32": {
+      "Normal": 0.0,
+      "Transparents (PMMA)": 1800.0
+    }
+  },
+  "ecarts": []
+}

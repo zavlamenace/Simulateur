@@ -5,7 +5,7 @@
 - **Capital social** : 406 875 €.
 - **SIRET** : 997 739 107 00016.
 - **TVA intracommunautaire** : FR63997739107.
-- **RCS** : à confirmer, probablement « RCS Auch 997 739 107 » (greffe du Gers).
+- **RCS** : RCS Auch 997 739 107 (confirmé le 17/11/2026).
 - **Siège et atelier historique** : Chemin de la Riberotte, 32160 Plaisance-du-Gers.
 - **Contact** : 05 62 69 30 20, contact@billardsdefrance.fr.
 - **Site** : https://www.billardsdefrance.fr/ (PrestaShop, thème `billardsdefrance2026`).

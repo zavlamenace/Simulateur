@@ -22,11 +22,11 @@ Entrée de gamme, **le meilleur rapport qualité-prix**. Production en série, e
 - **Châssis** : bois massif et renforts métalliques.
 - **Pieds** :
   - bois massif uni, de la même couleur que le cadre, avec vérins ;
-  - ou version **pieds métalliques**, avec 2 modèles de pieds métalliques ;
-  - le PMMA cité sur le site n'est pas confirmé.
-- **Finitions** : stratifié chêne naturel, noir, blanc brillant, teck mat.
+  - ou version **pieds métalliques**, laqués époxy, réglables : noir, blanc ou gris anthracite. Une couleur RAL au choix est prévue, mais son prix n'est pas encore fixé (statut « Bientôt ») ;
+  - les **pieds PMMA transparents ne sont plus fabriqués** : ne jamais les proposer.
+- **Finitions** : Formica, une par modèle (tableau « Modèles » ci-dessous).
 - **Récupération des billes** : 6 boîtes en bois insonorisées.
-- **Rangement Octopack** : en option.
+- **Rangement Octopack** : inclus de série sur Prestige ; pas proposé sur la Référence pour l'instant.
 - **Dessus de table** : bois en 2 parties (+330 €) ou verre Sécurit en 2 parties (+1 100 €). Pas d'allonge.
 - **Banc laqué** assorti : +740 € (onglet Accessoires & mobilier, le même que pour Design et Prestige).
 
@@ -41,11 +41,20 @@ Entrée de gamme, **le meilleur rapport qualité-prix**. Production en série, e
   - 1 porte-queue.
 
 ## Modèles (site, novembre 2026)
-- **Pieds bois** : Santiago, Rio, Caracas, Bogota, Mendoza(?).
-- **Pieds métalliques** : Santiago, Caracas, Bogota, Mendoza, Rio.
-- Le comparatif annonce 12 modèles (6 pieds bois + 6 pieds métalliques).
+Chaque modèle existe en pieds bois massif (1 995 €) et en pieds métalliques (2 395 €). La finition est en **Formica** (stratifié haute pression), le mot employé par la direction :
 
-Liste exacte, prix et photos : `devis/donnees/reference-site.json`, extrait du site.
+| Modèle | Finition |
+|---|---|
+| Santiago | Formica noir brillant |
+| Rio | Formica blanc brillant |
+| Caracas | Formica teck marron |
+| Bogota | Formica chêne gris anthracite |
+| Mendoza | Formica chêne naturel |
+
+- **Panama** (gris clair effet béton) : bonne affaire, **hors catalogue**. Masqué dans l'outil.
+- **Argument Formica** à décliner par finition : l'un des revêtements les plus durables, bien supérieur à un simple papier décor (chocs, rayures, taches, entretien facile).
+
+Liste exacte, prix et photos : `devis/donnees/reference.json`, extrait du site.
 
 ## Configurateur du site (attributs PrestaShop)
 | Attribut | Valeurs |

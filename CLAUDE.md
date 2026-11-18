@@ -43,6 +43,19 @@ Si une information nouvelle contredit ces fichiers, mettre le fichier à jour da
   - les photos portent le message.
 - **Le client se place au centre** : parler de son projet, pas de nos outils.
 
+## Google Sheet « BdF – Tarifs & contenus » (fait foi pour les prix)
+- **Lien** : https://docs.google.com/spreadsheets/d/1_MZBcXsz-DqXfk_hN1X1WY5_9wfMXTx9I52tOmSEooY/edit (propriétaire : le Gmail de Xavier Fitan).
+- **Lecture** :
+  - les blocs commencent par une cellule « ■ TITRE » en colonne A ;
+  - la ligne suivante porte les en-têtes ;
+  - les colonnes se lisent par leur nom, jamais par leur position (prototype : `devis/outils/lire_sheet.py`).
+- **Écriture** :
+  - toujours **relire l'onglet en ligne avant d'écrire** ;
+  - n'écrire que des cellules ciblées ;
+  - **ne jamais écraser une valeur modifiée par l'équipe** : en cas de doute, demander ;
+  - ne jamais régénérer ni réimporter le classeur entier. `devis/outils/construire_sheet.py` n'est qu'une trace de la structure d'origine.
+- **Arguments & photos** : colonne « Valable pour » = « Tous » (argument de gamme) ou un nom de modèle / de version (argument personnalisé, par exemple la finition Formica d'un modèle Référence). Au moins 3 à 4 arguments par gamme, chacun avec une photo ultra zoomée.
+
 ## Conventions
 - Langue : français.
 - Prix : TTC, clientèle de particuliers uniquement.
