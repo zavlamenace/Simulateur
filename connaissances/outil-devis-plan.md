@@ -366,6 +366,64 @@ Retirés : vernis brillant simple (+150 € / +50 €), bandes peintes, incrusta
      Les textes restent « À valider ».
 4. **En attente** : la photo des accessoires (vous la renvoyez), puis les grilles Lafuge et livraison + montage, puis les photos ultra zoomées.
 
+### État au 18/11 (interruption par redémarrage de session)
+**Fait et poussé** (commit 9c1a821) :
+- connaissances : design, prestige, reference, entreprise, a-verifier, `coloris.md`, sources ;
+- trace : `grilles_papier.py`, `arguments_brouillons.py`, `construire_sheet.py` ;
+- 6 tests verts.
+
+**Relecture du Sheet en ligne avant écriture** :
+- aucune modification de l'équipe sur les cellules visées ;
+- **une modification de l'équipe à préserver** : onglet Coloris, colonne « Note interne » des 4 teintes Standard, qui contient « Référence uniquement ». On n'y touche pas.
+
+**Écrit dans le Sheet et vérifié par relecture (18/11, terminé)** : toutes les écritures listées ci-dessous.
+- Design, Prestige, Référence, Coloris et Accessoires sont conformes.
+- Lignes vides réservées : 12 dans OPTIONS, 6 dans ARGUMENTS.
+- Note de l'équipe « Référence uniquement » préservée.
+
+**Méthode à partir de maintenant** : un seul appel d'écriture à la fois, jamais d'appels en parallèle (deux redémarrages de session sont survenus pendant des écritures parallèles). Relire après chaque groupe.
+
+**Reste à écrire** : relire chaque plage juste avant d'écrire, et n'écrire que si elle contient encore l'ancienne valeur. Les valeurs exactes viennent de `grilles_papier.py` et `arguments_brouillons.py`.
+
+1. **Design** :
+
+   | Plage | Valeur |
+   |---|---|
+   | B44:C46 | Vernis grand brillant billard / dessus, Rangement des accessoires |
+   | H45 | Plateau table bois laqué |
+   | H47:K47 | Nécessite plateau bois laqué + note allonge |
+   | A48:K50 | Les 3 plateaux : 990 / 1 100 / 1 600 € |
+   | A65:F74 | 10 arguments |
+
+   Mise en forme :
+   - fond blanc sur A49:K50 et A74:F74 ;
+   - insérer 1 ligne après la ligne 79 (index 79), puis 2 lignes après la ligne 60 (index 60), en héritant du format de la ligne précédente. Dans cet ordre, pour ne pas décaler les autres plages.
+2. **Prestige** :
+
+   | Plage | Valeur |
+   |---|---|
+   | B19:C31 | Piètement / finition, dans l'ordre Paris, Sydney, Venise, Athènes, Pekin, Helsinki Wengé, Helsinki blanchi, Rome, Florence, Rotterdam blanchi, Rotterdam Wengé, Cardiff, Douvres |
+   | J19:J31 | Note « Vérifié sur la grille papier (18/11) » |
+   | D49 | 700 |
+   | C52:C55 et K52:K55 | Détails et notes des plateaux et du motif |
+   | A73:F91 | 19 arguments |
+
+3. **Référence** :
+
+   | Plage | Valeur |
+   |---|---|
+   | D54:F54 | [0, "", "Actif"] |
+   | K54:K55 | Notes RAL et Octopack |
+   | A56:K56 | Nouvelle ligne « Rangement des accessoires », 400 € |
+
+   Mise en forme : fond blanc sur A56:K56, puis insérer 1 ligne à l'index 67.
+4. **Coloris** :
+   - B36:C42 : Strachan papier avec codes couleur ;
+   - fond de D36:D42 à la couleur de chaque teinte ;
+   - ne pas toucher à F6:F9.
+5. **Accessoires & mobilier** : C6 = « Banc laqué : blanc, noir, gris clair, anthracite ou aluminium ».
+6. **Contrôle final** : relire les 5 onglets, comparer au contenu attendu, puis rendre compte.
+
 ## Questions encore ouvertes
 1. **RCS** (confirmé le 17/11) : la mention légale prend la forme « RCS [ville du greffe] [SIREN] ». Pour une société du Gers, ce serait « RCS Auch 997 739 107 ». À confirmer, ou à corriger si le greffe est un autre.
 2. **Panama** (pieds bois et pieds métalliques) : rangé dans « Bonnes affaires » sur le site. Toujours au catalogue ?
