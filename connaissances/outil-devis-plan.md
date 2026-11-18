@@ -199,8 +199,76 @@ Objectif : améliorer la transformation entre la demande de devis et la commande
   - Je les dépose ensuite dans un dossier Drive « Photos devis », partagé en lecture et référencé dans le Sheet. Je passe par le connecteur Drive, ou à défaut je vous donne un zip à glisser dans Drive.
   - Les photos de grilles tarifaires servent seulement à la saisie dans le Sheet, elles ne sont pas publiées.
 
+## Avancement de la phase A (17/11)
+**Fait** :
+- **Base de connaissances** : `CLAUDE.md` et `connaissances/` sont commités et poussés (commit f91d124).
+- **Extraction du site** :
+  - Référence : 12 modèles (6 bois + 6 métal, Panama compris), prix, options chiffrées, photos détourées (billard ouvert, plateau bois, plateau verre) et gros plans ;
+  - Design : 4 modèles. Correspondance relevée sur le site : Boston gris clair, Washington gris anthracite, New-York blanc, Miami noir ;
+  - Prestige : 13 modèles et prix du site.
+- **Classeur généré** (`devis/outils/construire_sheet.py`), lu par `devis/outils/lire_sheet.py`. Les 4 tests de `devis/tests/test_sheet.py` passent : structure, prix Référence identiques au site, règles métier Référence, insertion de ligne et de colonne sans effet.
+- **Google Sheet créé dans le Drive** : « BdF – Tarifs & contenus », https://docs.google.com/spreadsheets/d/1_MZBcXsz-DqXfk_hN1X1WY5_9wfMXTx9I52tOmSEooY/edit. Les listes déroulantes et les en-têtes figés ont été conservés à la conversion.
+
+**À faire en premier en sortant du mode plan** : commiter et pousser `devis/` (outils, données extraites, tests, .xlsx). C'est du travail non sauvegardé.
+
+**Règle à partir de maintenant** : le Google Sheet en ligne fait foi. Les mises à jour se font directement dedans, via le connecteur Google Sheets et cellule par cellule. On ne régénère plus le classeur, ce qui écraserait les modifications faites à la main. Le générateur reste dans le dépôt comme trace de la structure.
+
+**Prochaines étapes** :
+1. Recevoir les photos des grilles **Design et Prestige**, poser les questions de compréhension, puis remplir les onglets.
+2. Faire de même avec les grilles Lafuge, Accessoires et Livraison & montage.
+3. Atelier réassurance : photos de détail et textes des blocs « Arguments & photos », aujourd'hui « À valider ».
+4. Partager le Sheet avec les éditeurs (comptes Google sur leur email pro).
+
+## Réponses du 17/11 et production à lancer
+**Réponses** :
+- **Photos Référence** : validées.
+- **Panama** : bonne affaire, hors catalogue. Ses 2 lignes passent en « Masqué ».
+- **Octopack** : inclus sur Prestige. Pour la Référence, la ligne reste masquée.
+- **Pieds en couleur RAL** (Référence) : prix pas encore fixé, statut « Bientôt ».
+- **Pieds PMMA** : la ligne est supprimée, on ne les fait plus.
+- **RCS Auch 997 739 107** : confirmé.
+
+**Réassurance personnalisée par billard** :
+- Le bloc « ARGUMENTS & PHOTOS » de chaque onglet de gamme reçoit une colonne **« Valable pour »** :
+  - « Tous » pour un argument de gamme ;
+  - un nom de modèle ou de finition pour un argument personnalisé. Exemple : « Finition Formica chêne naturel » pour Mendoza, « Formica teck marron » pour Caracas.
+- Chaque argument a sa **photo ultra zoomée** (lien) et son ordre.
+- Il faut **au moins 3 à 4 arguments par gamme**, plus les arguments propres à chaque modèle ou finition.
+- Le PDF prend les arguments « Tous » de la gamme, puis ceux du modèle choisi.
+
+**Comment la page web lira le Sheet sans formule** :
+1. Elle ouvre l'onglet de la gamme, par exemple « Prestige ».
+2. Elle cherche la ligne qui commence par « ■ OPTIONS ».
+3. La ligne suivante donne les noms des colonnes. L'outil y repère la colonne qui s'appelle « Prix TTC », où qu'elle se trouve.
+4. Il lit chaque ligne jusqu'au prochain « ■ » et retient celle dont la colonne « Option » vaut « Plateau table bois ».
+
+Si une colonne est insérée, « Prix TTC » change de place mais garde son nom, donc on la retrouve. C'est déjà codé et testé dans `devis/outils/lire_sheet.py`. Le futur lecteur de la page web applique les mêmes règles.
+
+**Ne jamais écraser vos modifications dans le Sheet** :
+- Avant chaque écriture, je relis l'onglet en ligne.
+- J'écris uniquement les cellules visées, jamais un bloc entier.
+- Si une cellule que je veux changer a été modifiée par vous depuis ma dernière lecture, je ne l'écrase pas et je vous demande.
+- L'historique des versions de Google Sheets permet de toute façon de revenir en arrière.
+
+**Production (sortie du mode plan)** :
+1. Commiter et pousser `devis/`, et mettre à jour `connaissances/` (RCS, Panama, PMMA, Octopack, règle de réassurance par modèle).
+2. Ajuster le générateur, le lecteur et les tests pour la colonne « Valable pour » des arguments.
+3. **Mettre à jour le Google Sheet en ligne, par écritures ciblées après relecture** :
+   - Panama → Masqué ;
+   - suppression de la ligne PMMA ;
+   - pieds RAL → Bientôt ;
+   - RCS confirmé ;
+   - ajout de la colonne « Valable pour » ;
+   - brouillons d'arguments, au moins 4 par gamme, plus un argument par finition Référence : Formica noir brillant, blanc brillant, teck marron, chêne gris anthracite, chêne naturel. Statut « À valider », photos à fournir.
+4. Attendre les photos des grilles Design et Prestige, puis les photos ultra zoomées.
+
 ## Questions encore ouvertes
-1. **RCS** : la mention légale prend la forme « RCS [ville du greffe] [SIREN] ». Pour une société du Gers, ce serait « RCS Auch 997 739 107 ». À confirmer, ou à corriger si le greffe est un autre.
+1. **RCS** (confirmé le 17/11) : la mention légale prend la forme « RCS [ville du greffe] [SIREN] ». Pour une société du Gers, ce serait « RCS Auch 997 739 107 ». À confirmer, ou à corriger si le greffe est un autre.
+2. **Panama** (pieds bois et pieds métalliques) : rangé dans « Bonnes affaires » sur le site. Toujours au catalogue ?
+3. **Référence** :
+   - prix de l'Octopack (option selon le comparatif) ;
+   - prix des pieds en couleur RAL au choix ;
+   - les pieds PMMA transparents (+1 800 €, vus uniquement sur Panama) sont-ils encore proposés ?
 
 ## Vérification
 - **Phase A** :
