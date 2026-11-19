@@ -13,13 +13,14 @@ Les décisions détaillées (gammes, prix, conditions, charte, équipe) sont con
 - base de connaissances ;
 - extraction du site ;
 - grilles Design et Prestige ;
-- Sheet en ligne à jour (Référence, Design, Prestige, Coloris, Accessoires partiel) ;
-- 6 tests verts.
+- accessoires (grille p. 11) et arguments du 19/11 ;
+- Sheet en ligne à jour (Référence, Design, Prestige, Lafuge, Coloris, Accessoires, Mode d'emploi), relu le 19/11 ;
+- 8 tests verts.
 
 **Reste** :
-1. **L'étape en cours** (accessoires et arguments, détaillée plus bas).
-2. **Les grilles papier Lafuge et livraison + montage.**
-3. **Les photos ultra zoomées des arguments.**
+1. **Les grilles papier Lafuge et livraison + montage.**
+2. **Les photos ultra zoomées des arguments** (colonne Photo = « À fournir »).
+3. **La relecture des arguments par l'équipe** : statut « À valider » → « Actif ».
 
 Viennent ensuite la phase B (maquette du PDF), la phase C (page de saisie) et la phase D (installation et recette).
 
@@ -44,7 +45,7 @@ Viennent ensuite la phase B (maquette du PDF), la phase C (page de saisie) et la
   - requêtes atomiques par onglet, un appel à la fois ;
   - ne jamais écraser une modification de l'équipe. Exemple à préserver : « Référence uniquement » dans Coloris.
 
-## Étape en cours : accessoires + arguments (corrigée le 19/11)
+## Étape faite : accessoires + arguments (19/11)
 
 ### Nouvelle logique des arguments dans l'outil
 1. On choisit le produit. L'outil affiche la **liste des arguments de sa gamme** : ceux « Tous », plus ceux de la version, par exemple « Pieds métalliques ».
@@ -182,6 +183,8 @@ Une ligne par référence, avec une nouvelle colonne « Réf. ».
    - réécriture des 4 blocs ARGUMENTS : colonne « Proposé par défaut », lignes par produit retirées, 6 lignes vides conservées ;
    - onglet Accessoires.
 4. **Contrôle** : relecture complète et compte rendu.
+
+**Fait le 19/11** : les 4 étapes. En ligne, la règle de mise en forme « Masqué » des blocs Arguments pointait sur la colonne Photo au lieu de Statut : corrigée. Le mode d'emploi en ligne reprend la nouvelle logique des arguments.
 
 ## Vérification
 - **Phase A** :

@@ -6,8 +6,8 @@
 - **Prix des pieds métalliques Prestige** : à définir (option « Bientôt »).
 - **Nouvelle grille livraison + montage** : sur papier, à transcrire.
 - **Grilles tarifaires papier** :
-  - Design et Prestige : transcrites le 18/11 ;
-  - reste à transcrire : Lafuge (modèles × tailles × finitions) et Accessoires (photo à renvoyer : les plus commandés).
+  - Design et Prestige : transcrites le 18/11 ; Accessoires (p. 11) : transcrits le 19/11 ;
+  - reste à transcrire : Lafuge (modèles × tailles × finitions).
 - **Nombre de modèles Lafuge** : 19 sur le site, 17 annoncés.
 
 ## Contradictions tranchées
