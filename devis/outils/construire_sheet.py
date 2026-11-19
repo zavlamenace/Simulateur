@@ -143,7 +143,7 @@ ENTETES_OPTIONS = [
     "Groupe", "Option", "Détail imprimé sur le devis", "Prix TTC", "Valeur si offert", "Statut",
     "Valable pour", "Nécessite", "Exclut", "Choix", "Note interne",
 ]
-ENTETES_ARGS = ["Ordre", "Valable pour", "Titre", "Texte", "Photo", "Statut"]
+ENTETES_ARGS = ["Ordre", "Valable pour", "Titre", "Texte", "Photo", "Statut", "Proposé par défaut"]
 LARGEURS_GAMME = [30, 30, 46, 12, 12, 16, 22, 26, 26, 24, 34]
 
 
@@ -161,9 +161,10 @@ def bloc_options(f, lignes, vides=12):
 def bloc_arguments(f, lignes, vides=6):
     f.bloc(
         "ARGUMENTS & PHOTOS", ENTETES_ARGS, lignes, vides,
-        validations={"Statut": STATUTS_ARG},
-        note="Valable pour : « Tous » (toute la gamme) ou nom exact d'un modèle / d'une version. "
-             "Photo : lien vers une photo ultra zoomée. Le devis affiche les arguments « Tous » puis ceux du modèle.",
+        validations={"Statut": STATUTS_ARG, "Proposé par défaut": OUI_NON},
+        note="Dans l'outil, on coche 4 arguments au maximum par devis ; « Proposé par défaut = Oui » les pré-coche. "
+             "Valable pour : « Tous » ou une version (ex. « Pieds métalliques »). Photo : lien vers la photo ultra zoomée "
+             "(« À fournir » = photo attendue).",
     )
 
 
@@ -422,17 +423,17 @@ def onglet_coloris(wb):
 
 def onglet_accessoires(wb):
     f = Feuille(wb, "Accessoires & mobilier", "Accessoires & mobilier",
-                "Articles ajoutables à n'importe quel devis compatible.", [20, 34, 40, 12, 30, 12, 26, 34],
+                "Articles ajoutables à n'importe quel devis compatible.", [22, 40, 44, 12, 30, 12, 26, 30, 12],
                 onglet="B48A57")
+    lignes = [["Mobilier", "Banc laqué assorti", "Banc laqué : blanc, noir, gris clair, anthracite ou aluminium", 740,
+               "Référence, Design, Prestige", "Actif", None, None, None]]
+    lignes += [[c, a, d, prix, g, "Actif", None, None, ref] for c, a, d, prix, g, ref in gp.ACCESSOIRES]
     f.bloc(
         "ACCESSOIRES",
         ["Catégorie", "Article", "Détail imprimé sur le devis", "Prix TTC", "Gammes compatibles", "Statut", "Photo",
-         "Note interne"],
-        [["Mobilier", "Banc laqué assorti", "Banc laqué : blanc, noir, gris clair, anthracite ou aluminium", 740,
-          "Référence, Design, Prestige",
-          "Actif", None, None]],
-        vides=25, formats={"Prix TTC": EURO}, validations={"Statut": STATUTS},
-        note="Liste complète à reporter d'après la photo des accessoires.",
+         "Note interne", "Réf."],
+        lignes, vides=10, formats={"Prix TTC": EURO}, validations={"Statut": STATUTS},
+        note="Une ligne par référence. Grille papier p. 11 (19/11).",
     )
 
 
@@ -557,9 +558,10 @@ def onglet_mode_emploi(wb):
         ("texte", "Valable pour : « Tous », une version (ex. « Pieds métalliques ») ou des modèles séparés par des virgules."),
         ("texte", "Prix TTC en euros. Prix vide = sur devis. Valeur si offert : montant affiché barré à côté de « Offert »."),
         ("section", "Arguments & photos (réassurance)"),
-        ("texte", "Valable pour : « Tous » pour un argument de toute la gamme, ou le nom exact d'un modèle (ex. « Caracas ») "
-                  "ou d'une version (ex. « Pieds métalliques ») pour un argument personnalisé. Le devis affiche les arguments "
-                  "« Tous » puis ceux du billard choisi. Photo : lien vers une photo ultra zoomée du détail."),
+        ("texte", "Dans l'outil, après le choix du produit, on coche au maximum 4 arguments selon le client. "
+                  "« Proposé par défaut = Oui » les pré-coche (4 au maximum par gamme et par version)."),
+        ("texte", "Valable pour : « Tous » pour toute la gamme, ou une version (ex. « Pieds métalliques »). "
+                  "Photo : lien vers la photo ultra zoomée ; « À fournir » = photo attendue ; vide = argument en texte seul."),
         ("section", "Photos"),
         ("texte", "Collez un lien : photo du site billardsdefrance.fr (clic droit sur l'image > copier l'adresse) "
                   "ou fichier Google Drive partagé en lecture."),

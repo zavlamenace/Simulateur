@@ -48,7 +48,7 @@
   - on change de jeu en quelques minutes, sans outil ;
   - même qualité de caoutchouc sur les deux jeux, ce qui est unique sur le marché ;
   - la concurrence utilise des « plugs » qui dégradent le jeu français ;
-  - présent sur Design et Prestige, offert sur les projets Lafuge multi-jeux. La Référence fonctionne avec des plugs.
+  - présent sur Design et Prestige, disponible sur Lafuge (pas offert). La Référence fonctionne avec des plugs.
 - **Innovations non brevetées, sur Prestige** :
   - boîtes de roulement insonorisées (capitonnage en 3 épaisseurs de moquette) ;
   - **1 tiroir de chaque côté** pour récupérer les billes ;

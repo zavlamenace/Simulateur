@@ -53,10 +53,5 @@ La fiche Boston du site précise : RAL 7036, cadres de bandes et ceintures de 40
 
 **Écart avec le site** : la fiche Boston indique une finition brillante à +100 € / +30 €. La grille papier fait foi.
 
-## Arguments de réassurance (à valider)
-- Fabriqué et laqué à la main dans nos ateliers du Gers.
-- Bandes interchangeables brevetées : un vrai billard français et un vrai pool, sans compromis.
-- 33 teintes de drap Simonis ou Strachan incluses : les références mondiales.
-- Ardoise italienne de 19 mm, rectifiée.
-- Pieds carrés en hêtre massif de 120 mm : une assise robuste.
-- Personnalisation : RAL au choix, vernis grand brillant poli à la main.
+## Arguments de réassurance
+Voir `connaissances/arguments.md` (logique de sélection, règles de rédaction, liste validée le 19/11). Les textes en vigueur sont dans le Sheet.

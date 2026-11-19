@@ -70,8 +70,6 @@ def test_decisions_du_17_11():
         assert sum(1 for a in args if a["Valable pour"] == "Tous") >= 4, gamme
         textes = " ".join(str(a["Texte"]) for a in args)
         assert ("Monaco" in textes) == (gamme == "Lafuge"), "références clients réservées à Lafuge"
-    finitions = {a["Valable pour"] for a in ref["ARGUMENTS & PHOTOS"] if a["Valable pour"] != "Tous"}
-    assert {"Santiago", "Rio", "Caracas", "Bogota", "Mendoza"} <= finitions
 
 
 def options(c, gamme):
@@ -111,6 +109,45 @@ def test_grilles_papier_du_18_11():
     tout = " ".join(str(v) for o in c.values() for b in o.values() for l in b for v in l.values() if v)
     for interdit in ("Supplément teinte", "0 SAV", "Sous-traitant", "PayPlug", "PMMA"):
         assert interdit not in tout, interdit
+
+
+REMPLISSAGE = ("partie après partie", "tard le soir", "dès la livraison", "effet surprise", "en famille",
+               "rectifi", "exclusivit", "33 teintes", "0 SAV")
+
+
+def test_arguments_du_19_11():
+    with tempfile.TemporaryDirectory() as tmp:
+        c = lire_classeur(construire(tmp))
+    for gamme in ("Référence", "Design", "Prestige", "Lafuge"):
+        args = c[gamme]["ARGUMENTS & PHOTOS"]
+        versions = {a["Valable pour"] for a in args} - {"Tous"}
+        for version in versions or {None}:
+            defaut = [a for a in args if a["Proposé par défaut"] == "Oui" and a["Valable pour"] in ("Tous", version)]
+            assert 1 <= len(defaut) <= 4, (gamme, version, len(defaut))
+        assert any(a["Photo"] == "À fournir" for a in args), gamme
+        assert any(not a.get("Photo") for a in args), f"{gamme} : au moins un argument en texte seul"
+        modeles = {m["Modèle"] for m in c[gamme]["MODÈLES"]}
+        assert not ({a["Valable pour"] for a in args} & modeles), "plus d'arguments par produit"
+        textes = " ".join(f"{a['Titre']} {a['Texte']}" for a in args).lower()
+        for formule in REMPLISSAGE:
+            assert formule.lower() not in textes, (gamme, formule)
+        if gamme == "Lafuge":
+            assert "offert" not in textes
+        if gamme != "Référence":
+            assert "26 couleurs" in textes or gamme == "Lafuge"
+
+
+def test_accessoires_du_19_11():
+    with tempfile.TemporaryDirectory() as tmp:
+        c = lire_classeur(construire(tmp))
+    acc = c["Accessoires & mobilier"]["ACCESSOIRES"]
+    assert len(acc) == 29
+    assert all(isinstance(a["Prix TTC"], (int, float)) for a in acc)
+    refs = [a["Réf."] for a in acc if a["Article"] != "Banc laqué assorti"]
+    assert all(refs) and len(set(refs)) == len(refs)
+    prix = {a["Réf."]: a["Prix TTC"] for a in acc if a.get("Réf.")}
+    assert prix["0193400"] + prix["0191570"] == 330, "valeur du kit Référence"
+    assert prix["0192060"] == 150 and prix["0192070"] == 200
 
 
 def test_insertion_ligne_et_colonne_ne_change_rien():

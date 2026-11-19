@@ -7,4 +7,5 @@
 | **Strachan 777** (pool) | Mêmes règles que Simonis | Voir gamme | 7, **liste de la grille papier** : Vert, Bleu, Rouge, Gris, Bordeaux, Cherry, Violet |
 
 - Les grilles papier annoncent « 25 couleurs » Simonis : la direction en compte 26, c'est cette liste qui fait foi.
+- **Côté client, on annonce 26 couleurs** au total : Simonis et Strachan proposent les mêmes couleurs (décision du 19/11). Ne jamais écrire « 33 teintes ».
 - Les codes couleur de l'onglet « Coloris » du Sheet ne servent qu'à la pastille du devis. Ils sont indicatifs.

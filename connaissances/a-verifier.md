@@ -39,6 +39,13 @@
 | Ligne « Cardiff wengé » (grille p. 8) | Sans nom de modèle | Obsolète. |
 | Supplément teinte Prestige (+300 / +600) | Grille papier | Ne pas reprendre. |
 | Réception des billes Prestige | « Tiroir centralisé » / « 1 tiroir de chaque côté » | Goulottes insonorisées et un tiroir abattant de chaque côté : réception centralisée. |
+| Bandes interchangeables Lafuge | Résumé d'entreprise : « offertes pour les projets multi-jeux » | **Pas offertes** (19/11). |
+| Nombre de couleurs annoncé | 26 Simonis + 7 Strachan = « 33 teintes » | **26 couleurs** annoncées (19/11). |
+| Vernis Design, page 11 | 130 € / 50 € et 730 € / 150 € | **540 € / 270 €** (grille p. 5) font foi. |
+
+## Points à corriger sur le site
+- **Fiche Panama** : « Conçu et assemblé en France », alors que c'est une Référence, fabriquée en Chine.
+- **Fiche New-York** : vernis « Brillant +130 € » et « Grand brillant +730 € ». La grille fait foi : grand brillant 540 € / 270 €.
 
 ## Risque relevé sur le site
 La page « savoir-faire Plaisance » affirme « une fabrication française dans nos ateliers du Gers » et « organisation en série sur l'atelier du Gers… modèles à partir de 1 995 € ». Or 1 995 € est le prix de la Référence, fabriquée en Chine. Le tableau comparatif et d'autres pages attribuent aussi la Référence à l'atelier du Gers. **Ce sont des allégations d'origine à corriger côté site** (risque de pratique commerciale trompeuse).

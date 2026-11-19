@@ -1,110 +1,102 @@
-"""Brouillons d'arguments de réassurance (statut « À valider »), par gamme.
+"""Arguments de réassurance validés le 19/11/2026 (statut « À valider » jusqu'à relecture finale).
 
-Chaque entrée : (Valable pour, Titre, Texte). « Tous » = argument de gamme ;
-sinon nom exact d'un modèle (bloc MODÈLES) ou d'une version (« Pieds métalliques »).
-Les photos ultra zoomées seront ajoutées quand l'équipe les aura fournies.
-Règles : jamais d'origine ni « italienne » pour la Référence (voir CLAUDE.md).
+Une entrée : (Valable pour, Titre, Texte, photo prévue, proposé par défaut).
+- « Valable pour » : « Tous » ou une version (« Pieds bois massif », « Pieds métalliques »).
+- Photo prévue : la colonne Photo affiche « À fournir » en attendant la photo ultra zoomée.
+- Proposé par défaut : pré-coché dans l'outil (4 au maximum par gamme et par version).
+Règles de rédaction : connaissances/arguments.md.
 """
 
-FORMICA = (
-    "Le Formica est l'un des revêtements les plus durables : il résiste aux chocs, aux rayures et aux taches, "
-    "là où un simple papier décor s'use vite."
-)
+PHOTO_A_FOURNIR = "À fournir"
+
+DRAP = ("Tous", "Drap Simonis 760 ou Strachan 777 inclus",
+        "Les draps des grandes compétitions internationales, en 26 couleurs, sans supplément.")
+BANDES_INTERCHANGEABLES = ("Tous", "Bandes interchangeables brevetées",
+                           "Plusieurs jeux sur un même billard : français, américain ou pool, à vous de choisir.")
+BANDES_FRANCAISES = ("Tous", "Bandes en caoutchouc français", "Un rebond précis, calibré pour chaque jeu.")
+CHASSIS = ("Tous", "Châssis bois massif renforcé", "Bois massif et renforts métalliques pour une stabilité maximale.")
+BOITES = ("Tous", "6 boîtes insonorisées", "Les billes tombent sans bruit.")
 
 ARGUMENTS = {
     "Référence": [
+        ("Tous", "Le meilleur rapport qualité-prix du marché",
+         "Ardoise monobloc, structure en bois massif et pack accessoires inclus.", False, True),
         ("Tous", "Ardoise monobloc de 19 mm",
-         "D'une seule pièce, elle offre une surface de jeu parfaitement plane et une grande solidité dans le temps."),
-        ("Tous", "Structure en bois massif",
-         "Cadre et pieds en bois massif, châssis renforcé de métal. Les vérins sous chaque pied assurent une mise "
-         "à niveau parfaite, même sur un sol irrégulier."),
-        ("Tous", "Bandes en caoutchouc toilé", "Un rebond vif et régulier, partie après partie."),
-        ("Tous", "Prêt à jouer dès la livraison",
-         "Kit offert : 16 billes, 4 queues de 120 cm, triangle, craies, brosse et porte-queue."),
-        ("Tous", "Billard et table à manger",
-         "Avec son plateau en 2 parties, il devient en quelques secondes une table pour 8 à 10 personnes."),
-        ("Santiago", "Formica noir brillant", f"{FORMICA} Son noir brillant profond donne au billard une vraie présence."),
-        ("Rio", "Formica blanc brillant", f"{FORMICA} Son blanc brillant illumine la pièce et l'agrandit visuellement."),
-        ("Caracas", "Formica teck marron", f"{FORMICA} Le teck apporte la chaleur du bois, sans son entretien."),
-        ("Bogota", "Formica chêne gris anthracite",
-         f"{FORMICA} Un chêne grisé contemporain, qui s'accorde avec les intérieurs actuels."),
-        ("Mendoza", "Formica chêne naturel", f"{FORMICA} Un chêne clair et naturel, lumineux et intemporel."),
-        ("Pieds métalliques", "Pieds métalliques réglables",
-         "Laqués époxy, ils dessinent une ligne contemporaine et se règlent pour une planéité parfaite."),
+         "Une pierre naturelle d'un seul tenant : elle ne gonfle pas et ne se déforme pas avec l'humidité, "
+         "contrairement au MDF. La bille roule droit, durablement.", True, True),
+        ("Tous", "Pack accessoires offert",
+         "16 billes, 4 queues, triangle, craies, brosse et porte-queue inclus (valeur 330 €).", True, True),
+        ("Pieds bois massif", "Pieds bois massif et Formica",
+         "Le Formica, le matériau des plans de travail de cuisine : il résiste aux chocs, aux rayures et aux taches, "
+         "là où le papier décor courant s'abîme.", True, True),
+        ("Pieds métalliques", "Pieds métalliques de 5 mm",
+         "Acier de 5 mm d'épaisseur, laqué époxy : une rigidité à toute épreuve.", True, True),
+        CHASSIS + (True, False),
+        BOITES + (True, False),
+        ("Tous", "Vérins de réglage", "Une planéité parfaite, même sur un sol irrégulier.", True, False),
+        ("Tous", "Bandes en caoutchouc toilé", "Un rebond vif et régulier.", True, False),
+        ("Tous", "Billard et table à manger", "Avec le plateau en 2 parties, une table pour 8 à 10 personnes.",
+         False, False),
     ],
     "Design": [
-        ("Tous", "Fabriqué dans le Gers", "Fabriqué et laqué à la main dans nos ateliers de Plaisance-du-Gers."),
-        ("Tous", "Deux billards en un",
-         "Notre système breveté de bandes interchangeables : un vrai billard français et un vrai pool, "
-         "sans compromis sur le rebond."),
-        ("Tous", "Drap de compétition inclus",
-         "26 teintes Simonis 760 ou 7 teintes Strachan 777, les références mondiales, sans supplément."),
-        ("Tous", "Ardoise italienne de 19 mm", "Rectifiée pour une planéité parfaite."),
-        ("Tous", "Pieds en hêtre massif", "Pieds carrés de 120 mm en hêtre massif : une assise robuste et stable."),
-        ("Tous", "Votre couleur",
-         "Laque dans la couleur RAL de votre choix ; vernis grand brillant poli à la main en option."),
-        ("Boston", "Laqué gris clair, vernis mat", "Un gris clair doux, laqué à la main puis protégé par un vernis mat."),
-        ("Washington", "Laqué gris anthracite, vernis mat",
-         "Un anthracite profond et élégant, laqué à la main puis protégé par un vernis mat."),
-        ("New-York", "Laqué blanc, vernis mat", "Un blanc lumineux, laqué à la main puis protégé par un vernis mat."),
-        ("Miami", "Laqué noir, vernis mat", "Un noir intense, laqué à la main puis protégé par un vernis mat."),
+        ("Tous", "Le meilleur rapport qualité-prix en fabrication française",
+         "Un billard laqué, fabriqué à la main dans nos ateliers du Gers.", False, True),
+        DRAP + (True, True),
+        ("Tous", "Ardoise italienne monobloc de 19 mm",
+         "Une pierre naturelle d'un seul tenant, dans un schiste italien réputé pour sa densité : elle ne se déforme "
+         "pas avec l'humidité, contrairement au MDF.", True, True),
+        BANDES_INTERCHANGEABLES + (True, True),
+        BANDES_FRANCAISES + (True, False),
+        CHASSIS + (True, False),
+        ("Tous", "Pieds en hêtre massif", "Pieds carrés de 120 mm.", True, False),
+        ("Tous", "Finition laquée à la main", "Mate, satinée ou brillante.", True, False),
+        BOITES + (True, False),
+        ("Tous", "Votre couleur", "Laque dans la couleur RAL de votre choix.", False, False),
     ],
     "Prestige": [
-        ("Tous", "Fabriqué dans le Gers",
-         "Bois massif teinté et verni à la main dans nos ateliers de Plaisance-du-Gers."),
-        ("Tous", "Réception centralisée et silencieuse",
-         "Goulottes capitonnées en 3 épaisseurs : les billes roulent sans bruit jusqu'à un tiroir abattant, "
-         "de chaque côté du billard."),
-        ("Tous", "Tout se range",
-         "Porte-queues, rangement des bandes et des accessoires intégrés (Octopack), support du plateau sous le billard."),
-        ("Tous", "Deux billards en un",
-         "Système breveté de bandes interchangeables : un vrai billard français et un vrai pool, "
-         "sans compromis sur le rebond."),
-        ("Tous", "Jusqu'à 12 couverts", "Avec le plateau bois, l'allonge de 45 cm est incluse."),
+        ("Tous", "Le billard convertible le plus fonctionnel du marché",
+         "Rangements intégrés, réception centralisée des billes, allonge incluse.", False, True),
+        ("Tous", "12 couverts, allonge incluse", "Avec le plateau bois, l'allonge de 45 cm est fournie.", False, True),
         ("Tous", "Châssis Woodstone",
          "Un bois haute densité aux fibres serrées : il absorbe le poids de l'ardoise sans fléchir et ne travaille "
-         "ni avec l'humidité ni avec la température. Votre surface de jeu reste parfaitement plane, année après année."),
-        ("Paris", "Cuir noir et chêne naturel",
-         "Pieds gainés de cuir, inserts en chêne naturel n°23 : une pièce de caractère, au style moderne."),
-        ("Sydney", "Chêne naturel mat",
-         "Chêne massif teinte n°23 en finition mate, sur pieds carrés en chêne de 100 mm. Un style moderne et épuré."),
-        ("Venise", "Chêne n°1, style campagnard",
-         "Chêne massif teinte n°1, pieds carrés en chêne de 100 mm : la chaleur d'un style campagnard."),
-        ("Athènes", "Chêne blanc n°21",
-         "Chêne massif teinte blanc n°21, sur pieds carrés en chêne de 100 mm. Un style moderne et lumineux."),
-        ("Pekin", "Chêne naturel et rechampi noir",
-         "Chêne naturel mat n°23 rehaussé d'un rechampi noir, sur pieds galbés en chêne : un modèle signature."),
-        ("Helsinki Wengé", "Wengé n°17, rechampi aluminium",
-         "Chêne massif teinté wengé, rehaussé d'un rechampi aluminium, sur pieds carrés en chêne."),
-        ("Helsinki blanchi", "Blanchi n°19, rechampi wengé",
-         "Chêne massif blanchi, rehaussé d'un rechampi wengé, sur pieds carrés en chêne."),
-        ("Rome", "Style Louis XIV",
-         "Chêne massif teinte n°1, pieds tournés en chêne de 100 mm : l'élégance d'un style Louis XIV."),
-        ("Florence", "Chêne vieilli ciré",
-         "Chêne massif vieilli et ciré (n°7), pieds carrés en chêne : le charme d'un style campagnard authentique."),
-        ("Rotterdam blanchi", "Blanchi n°19, pieds tournés",
-         "Chêne massif blanchi, pieds tournés en chêne de 100 mm. Un style moderne et clair."),
-        ("Rotterdam Wengé", "Wengé n°17, pieds tournés",
-         "Chêne massif teinté wengé, pieds tournés en chêne de 100 mm. Un style moderne et profond."),
-        ("Cardiff", "Chêne n°1, pieds en tauari",
-         "Chêne massif teinte n°1, pieds carrés en tauari de 100 mm : un style campagnard robuste."),
-        ("Douvres", "Style rustique",
-         "Chêne massif teinte n°1, pieds tournés en hêtre de 100 mm : le charme d'un style rustique."),
+         "ni avec l'humidité ni avec la température.", True, True),
+        ("Tous", "Réception centralisée et insonorisée",
+         "Goulottes capitonnées en 3 épaisseurs, un tiroir abattant de chaque côté.", True, True),
+        ("Tous", "Système de rangement Octopack",
+         "Un système intégré sous le billard pour ranger queues, bandes, billes et craies.", True, False),
+        ("Tous", "Rangement des plateaux intégré", "Pendant la partie, les plateaux se rangent sous le billard.",
+         True, False),
+        BANDES_INTERCHANGEABLES + (True, False),
+        ("Tous", "Ardoise italienne monobloc de 19 mm",
+         "Une pierre naturelle d'un seul tenant, sur longerons métalliques : elle ne se déforme pas avec "
+         "l'humidité, contrairement au MDF.", True, False),
+        DRAP + (True, False),
+        BANDES_FRANCAISES + (True, False),
+        ("Tous", "Pieds en bois massif", "Chêne, hêtre ou tauari selon le modèle, teintés et vernis à la main.",
+         True, False),
+        ("Tous", "Fabriqué dans le Gers",
+         "Bois massif teinté et verni à la main dans nos ateliers de Plaisance-du-Gers.", False, False),
     ],
     "Lafuge": [
-        ("Tous", "Une pièce unique",
-         "Conçue avec vous et fabriquée à la main par un seul ébéniste, du début à la fin."),
-        ("Tous", "Essences nobles",
-         "Chêne, érable, noyer, mélèze, kotibé ; laque dans toute couleur RAL, patine, incrustations."),
-        ("Tous", "Ardoise italienne rectifiée", "De 19 à 50 mm selon la taille."),
+        ("Tous", "Le billard le plus personnalisable",
+         "Essence, teinte, laque RAL, dimensions, incrustations : chaque détail est à votre choix.", False, True),
+        ("Tous", "Une pièce unique, faite à la main",
+         "Fabriquée à l'unité par un seul ébéniste, du début à la fin, à Miribel-les-Échelles.", False, True),
+        ("Tous", "Essences nobles massives", "Chêne, érable, noyer, mélèze ou kotibé.", True, True),
         ("Tous", "Ils nous ont choisis",
-         "Yacht Club de Monaco, Sheraton Paris, villas prestigieuses de la Côte d'Azur et de la côte atlantique."),
-        ("Tous", "Deux jeux, un seul billard",
-         "Le système breveté de bandes interchangeables est offert pour les projets multi-jeux."),
+         "Yacht Club de Monaco, Sheraton Paris, villas prestigieuses de la Côte d'Azur et de la côte atlantique.",
+         False, True),
+        ("Tous", "Ardoise italienne jusqu'à 50 mm",
+         "Une pierre naturelle épaisse : elle ne se déforme pas avec l'humidité, contrairement au MDF.", True, False),
+        BANDES_INTERCHANGEABLES + (True, False),
+        ("Tous", "Toutes les dimensions", "Du 7 pieds au snooker 12 pieds, jusqu'au billard russe.", False, False),
     ],
 }
 
 
 def lignes(gamme):
-    """Lignes du bloc ARGUMENTS & PHOTOS : Ordre, Valable pour, Titre, Texte, Photo, Statut."""
-    return [[i, v, t, x, None, "À valider"] for i, (v, t, x) in enumerate(ARGUMENTS[gamme], start=1)]
+    """Lignes du bloc : Ordre, Valable pour, Titre, Texte, Photo, Statut, Proposé par défaut."""
+    return [
+        [i, v, t, x, PHOTO_A_FOURNIR if photo else "", "À valider", "Oui" if defaut else "Non"]
+        for i, (v, t, x, photo, defaut) in enumerate(ARGUMENTS[gamme], start=1)
+    ]

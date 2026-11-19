@@ -68,10 +68,5 @@ Liste exacte, prix et photos : `devis/donnees/reference.json`, extrait du site.
 | 6 plugs pour jouer au français (groupe 33) | Non / Oui +640 € |
 | Couleur des pieds (groupe 306…, version pieds métalliques) | Noir, etc. |
 
-## Arguments de réassurance (à valider)
-- Ardoise monobloc de 19 mm : planéité et grande solidité.
-- Châssis en bois massif renforcé de métal, pieds à vérins pour une mise à niveau parfaite.
-- Kit complet offert (valeur 330 €) : on joue dès la livraison.
-- Convertible : le billard devient table à manger en quelques secondes.
-- Expédition rapide : 2 à 3 semaines.
-- Garantie 2 ans.
+## Arguments de réassurance
+Voir `connaissances/arguments.md` (logique de sélection, règles de rédaction, liste validée le 19/11). Les textes en vigueur sont dans le Sheet.

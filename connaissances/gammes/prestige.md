@@ -62,10 +62,5 @@ Source principale : grilles tarifaires papier « Gamme Prestige », pages 8/13 e
 - **« Supplément teinte »** (échantillon client +600 €, usine +300 €) : figure sur la grille, mais **ne doit pas être repris**, ni dans l'outil ni dans le devis.
 - **Décor du verre** : réglé à la commande, absent du devis.
 
-## Arguments de réassurance (à valider)
-- Fabriqué à la main dans nos ateliers du Gers, en bois massif teinté et verni.
-- Réception centralisée et silencieuse : goulottes capitonnées, un tiroir de chaque côté.
-- Tout se range : porte-queues, bandes, accessoires et plateau intégrés.
-- Bandes interchangeables brevetées.
-- Jusqu'à 12 couverts : allonge incluse avec le plateau bois.
-- Châssis Woodstone : une surface parfaitement plane, durablement.
+## Arguments de réassurance
+Voir `connaissances/arguments.md` (logique de sélection, règles de rédaction, liste validée le 19/11). Les textes en vigueur sont dans le Sheet.

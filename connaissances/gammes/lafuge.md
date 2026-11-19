@@ -20,7 +20,7 @@ Haut de gamme et luxe. **Fait main, à l'unité, par un seul artisan du début �
 ## Matériaux
 - **Ardoise italienne rectifiée** de 19 à 50 mm selon la taille.
 - **Drap** : Simonis 760 (26 teintes) ou Strachan 777 (7 teintes), inclus.
-- **Bandes** : caoutchouc français de haute qualité. Bandes interchangeables brevetées **offertes** pour les projets multi-jeux.
+- **Bandes** : caoutchouc français de haute qualité. Le système de bandes interchangeables brevetées est **disponible** (il n'est **pas offert** : correction du 19/11 ; le résumé d'entreprise d'origine disait « offert pour les projets multi-jeux », c'est faux).
 - **Bois** : chêne, érable, noyer, mélèze, kotibé, et autres essences nobles sur demande.
 - **Châssis** : bois massif intégral ou métallique selon la taille. Longerons métalliques sur les grands formats.
 - **Finitions** : bois naturel, vernis mat, satiné ou brillant, laque (tout RAL), patine, incrustations, marqueterie.
@@ -43,9 +43,5 @@ Yacht Club de Monaco ; Sheraton Paris ; villas prestigieuses de la Côte d'Azur 
 ## Avis
 Google 4,8/5 (21 avis).
 
-## Arguments de réassurance (à valider)
-- Une pièce unique, conçue avec vous et fabriquée par un seul ébéniste.
-- Essences nobles, finitions entièrement sur mesure (tout RAL, patine, incrustations).
-- Ardoise italienne rectifiée, jusqu'à 50 mm.
-- Choisi par le Yacht Club de Monaco, des hôtels 5 étoiles et des villas d'exception.
-- Logo Lafuge et mention « Billard Lafuge, maison du groupe Billards de France ».
+## Arguments de réassurance
+Voir `connaissances/arguments.md` (logique de sélection, règles de rédaction, liste validée le 19/11). Les textes en vigueur sont dans le Sheet.

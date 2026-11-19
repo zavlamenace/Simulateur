@@ -15,6 +15,8 @@ Le dossier `connaissances/` fait foi sur l'entreprise. Les informations transmis
 | `connaissances/entreprise.md` | Histoire, chiffres, ateliers, showrooms, revendeurs, mentions légales |
 | `connaissances/gammes/reference.md`, `design.md`, `prestige.md`, `lafuge.md` | Une fiche par gamme |
 | `connaissances/conditions.md` | Paiement, échéancier, livraison, montage, garantie, validité, délais |
+| `connaissances/arguments.md` | Arguments de réassurance : sélection de 4 arguments au maximum par devis, règles de rédaction, liste validée |
+| `connaissances/accessoires.md` | Accessoires et options annexes (références, prix), caractéristiques techniques du 2,10 m |
 | `connaissances/coloris.md` | Listes officielles des teintes de tapis (Standard, Simonis 760, Strachan 777) |
 | `connaissances/charte.md` | Charte graphique du site (fait foi pour le PDF) |
 | `connaissances/equipe.md` | Personnes qui font les devis |
