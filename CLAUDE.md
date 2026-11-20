@@ -20,7 +20,8 @@ Le dossier `connaissances/` fait foi sur l'entreprise. Les informations transmis
 | `connaissances/coloris.md` | Listes officielles des teintes de tapis (Standard, Simonis 760, Strachan 777) |
 | `connaissances/charte.md` | Charte graphique du site (fait foi pour le PDF) |
 | `connaissances/equipe.md` | Personnes qui font les devis |
-| `connaissances/a-verifier.md` | Points ouverts et contradictions entre sources |
+| `connaissances/storytelling.md` | Idée de bloc histoire et réassurance par gamme (à développer après le Sheet tarifaire) |
+| `connaissances/a-verifier.md` | Points ouverts, contradictions entre sources, chantier Lafuge et tarification |
 | `connaissances/sources/` | Documents bruts fournis : tableau comparatif, PDF « Différences selon les gammes », grilles tarifaires papier, logo. Le PDF contient des mentions internes à ne jamais reprendre côté client (« Sous-traitant », « 0 SAV ») |
 
 Si une information nouvelle contredit ces fichiers, mettre le fichier à jour dans le même commit que le travail concerné.

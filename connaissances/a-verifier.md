@@ -7,8 +7,22 @@
 - **Nouvelle grille livraison + montage** : sur papier, à transcrire.
 - **Grilles tarifaires papier** :
   - Design et Prestige : transcrites le 18/11 ; Accessoires (p. 11) : transcrits le 19/11 ;
-  - reste à transcrire : Lafuge (modèles × tailles × finitions).
-- **Nombre de modèles Lafuge** : 19 sur le site, 17 annoncés.
+  - Lafuge : grilles 2027 reçues le 20/11, consignées dans `gammes/lafuge.md`, à intégrer lors du chantier Lafuge.
+
+## Chantier Lafuge et tarification (à traiter à part)
+Décidé le 20/11 : la tarification n'est centralisée nulle part aujourd'hui (nombreuses variantes, options liées entre elles). On reprend tout dans un second temps, en commençant par une liste complète de questions.
+- **Centraliser toute la tarification** dans un seul classeur, utile à la fois à l'outil de devis et à l'équipe.
+- **Prix revendeur HT** : une colonne ou un classeur dédié, à décider. Il ne doit **jamais** apparaître côté client.
+- **Onglet équivalent en HT pour les professionnels.**
+- **4 documents à recevoir** : prix d'achat HT revendeurs et prix de vente TTC (fixés aux revendeurs et à nos clients).
+- **Présentation des options** : essences, tailles, options qui dépendent les unes des autres.
+- **Points déjà relevés** :
+  - plateau table : en 2 parties ? allonge incluse ou non (ce n'est écrit nulle part) ? plateaux verre ou céramique encore proposés ?
+  - bandes initiales possibles en 10 et 12 pieds (snooker, russe) ;
+  - suppléments par essence ;
+  - laque du billard français (« autre règle ») ;
+  - finitions hors laque (vernis, patine, incrustations, marqueterie) ;
+  - grille livraison + montage, Lafuge compris.
 
 ## Contradictions tranchées
 | Sujet | Sources en conflit | Décision |
@@ -42,6 +56,13 @@
 | Bandes interchangeables Lafuge | Résumé d'entreprise : « offertes pour les projets multi-jeux » | **Pas offertes** (19/11). |
 | Nombre de couleurs annoncé | 26 Simonis + 7 Strachan = « 33 teintes » | **26 couleurs** annoncées (19/11). |
 | Vernis Design, page 11 | 130 € / 50 € et 730 € / 150 € | **540 € / 270 €** (grille p. 5) font foi. |
+| Nombre de modèles Lafuge | 19 sur le site, 17 annoncés | **19** : Eiffel et Alpha sont deux modèles, sur une seule ligne de grille (même prix). |
+| Millésime de la grille Lafuge « français » | Titrée « 2026 » | **2027**, comme la grille mixte. |
+| Lafuge français 2,30 m, Élégance | Grille : 6 020 € | **6 230 €**, comme le Loft. |
+| Lafuge français 2,30 m, Beaubourg | Grille : 6 500 € | **6 670 €.** |
+| Lafuge mixte, Compétition et Chambord | 2,10 m = 2,30 m | Voulu. |
+| Lafuge 12 pieds hors tout | Site : 3,86 m | **3,83 × 2,04 m** (grille). |
+| Lafuge « à partir de » | Grille | Prix fixes par taille. |
 
 ## Points à corriger sur le site
 - **Fiche Panama** : « Conçu et assemblé en France », alors que c'est une Référence, fabriquée en Chine.
