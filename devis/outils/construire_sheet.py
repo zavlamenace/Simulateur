@@ -1,6 +1,6 @@
 """Génère le classeur « BdF – Tarifs & contenus » (.xlsx importable dans Google Sheets).
 
-Usage : python3 -I construire_sheet.py <dossier devis/donnees> <sortie.xlsx>
+Usage : python3 -I construire_sheet.py <dossier devis/donnees> <sortie.xlsx> [<revendeurs-ht.xlsx>]
 
 Organisation lue par l'outil de devis :
 - chaque onglet de gamme contient des blocs dont la première cellule commence
@@ -22,6 +22,7 @@ from openpyxl.worksheet.datavalidation import DataValidation
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import arguments_brouillons  # noqa: E402
+import lafuge_tarifs as lt  # noqa: E402
 import grilles_papier as gp  # noqa: E402
 
 ENCRE, ROUGE, CREME, SABLE_CLAIR, SABLE, ANTHRACITE = "151515", "B01C2E", "F6F3EE", "EFE9E3", "D9CFBF", "3D4248"
@@ -354,37 +355,132 @@ def onglet_prestige(wb, dp):
     bloc_arguments(f, arguments_brouillons.lignes("Prestige"))
 
 
-def onglet_lafuge(wb):
-    tailles = ["2,10 m", "2,30 m", "2,40 m", "2,60 m", "2,80 m", "3,10 m", "3,22 m", "3,86 m"]
-    entetes = ["Modèle", "Description"] + [f"Prix {t}" for t in tailles] + ["Statut", "Photo détourée", "Note interne"]
-    f = Feuille(
-        wb, "Lafuge", "Billard Lafuge · sur-mesure",
-        "Prix TTC par taille. Case vide = taille non proposée ou sur devis. "
-        "Ne renommez pas les titres ■ ni les en-têtes.", [24, 34] + [11] * 8 + [12, 26, 30], onglet="1E4F4A",
+GRIS_IMPOSSIBLE, AMBRE = "9A9D9F", "F6E7C8"
+CONVENTION = ("Case vide = pas encore chiffrée ; « — » = taille non proposée pour ce modèle ; « Sur demande » = prix "
+              "saisi à la main dans l'outil ; « Impossible » ; « Inclus ».")
+
+
+def styliser_prix(f, premiere, derniere, c0, c1, col_libelle):
+    """Lecture rapide : « Impossible » et « — » en gris, « Sur demande » en italique, case à chiffrer en ambre."""
+    plage = f"{get_column_letter(c0)}{premiere}:{get_column_letter(c1)}{derniere}"
+    haut = f"{get_column_letter(c0)}{premiere}"
+    lib = f"${get_column_letter(col_libelle)}{premiere}"
+    f.ws.conditional_formatting.add(plage, FormulaRule(formula=[f'OR({haut}="Impossible",{haut}="—")'],
+                                                       font=Font(color=GRIS_IMPOSSIBLE)))
+    f.ws.conditional_formatting.add(plage, FormulaRule(formula=[f'{haut}="Sur demande"'],
+                                                       font=Font(color=ANTHRACITE, italic=True)))
+    f.ws.conditional_formatting.add(plage, FormulaRule(formula=[f'AND({lib}<>"",ISBLANK({haut}))'],
+                                                       fill=PatternFill("solid", fgColor=AMBRE)))
+    for r in range(premiere, derniere + 1):
+        for c in range(c0, c1 + 1):
+            f.ws.cell(r, c).alignment = Alignment(horizontal="right", vertical="top")
+
+
+def onglets_lafuge(wb, ht=False):
+    """Onglets « Lafuge mixte » et « Lafuge bandes françaises » (TTC) ou leurs équivalents HT revendeur.
+
+    Les colonnes de prix sont au même endroit dans tous les blocs (D et suivantes) pour une lecture verticale.
+    """
+    conv = lt.ht if ht else (lambda v: v)
+    for jeu, nom, titre in (("mixte", "Lafuge mixte", "Billard Lafuge · mixte"),
+                            ("français", "Lafuge bandes françaises", "Billard Lafuge · bandes françaises")):
+        tailles = lt.TAILLES[jeu]
+        prix = [f"Prix {t}" for t in tailles]
+        n = len(tailles)
+        formats = {c: EURO for c in prix}
+        consigne = (("CONFIDENTIEL : prix d'achat revendeur HT départ, à ne jamais transmettre à un client. "
+                     if ht else "Prix de vente TTC public, par taille. ") + CONVENTION
+                    + " Ne renommez pas les titres ■ ni les en-têtes.")
+        f = Feuille(wb, nom + (" HT" if ht else ""), titre + (" — prix revendeur HT" if ht else ""), consigne,
+                    [16, 46, 24] + [11] * n + [36, 30, 40, 18, 11, 46, 34], onglet="1E4F4A")
+        f.ws.freeze_panes = "C3"
+        fiches = lt.fiches_mixte() if jeu == "mixte" else lt.fiches_francais()
+        if not ht:
+            bloc_gamme(f, [
+                ["Nom affiché", "Billard Lafuge", None],
+                ["Marque", "Billard Lafuge", "Logo Lafuge, échéancier en 3 versements"],
+                ["Jeu", "Billard mixte : pool, américain, anglais, snooker, russe" if jeu == "mixte"
+                 else "Billard français à bandes fixes", None],
+                ["Accroche", "Une pièce unique, fabriquée à la main par un seul ébéniste", None],
+                ["Délai de fabrication", lt.GAMME["Délai de fabrication"], None],
+                ["Atelier affiché sur le devis", "Fabriqué à la main dans notre atelier de Miribel-les-Échelles", None],
+                ["Drap", lt.DRAP[jeu], None],
+                ["Mention accessoires", lt.GAMME["Accessoires"], "Imprimée sur le devis"],
+                ["Échéancier", lt.GAMME["Échéancier"], None],
+                ["Kit accessoires inclus", "Non", None],
+                ["Statut", "Actif", None],
+            ])
+        colonne_ardoise = 2 if jeu == "mixte" else 3
+        f.bloc("TAILLES", ["Taille", "Dimensions hors tout (m)", "Surface de jeu (m)", "Ardoise italienne", "Statut"],
+               [[t, *lt.DIMENSIONS[t][:2], lt.DIMENSIONS[t][colonne_ardoise], "Actif"] for t in tailles],
+               validations={"Statut": STATUTS})
+        lignes = [[m, fiche.nom, fiche.base, *[conv(v[t]) for t in tailles], "Oui" if fiche.table else "Non",
+                   "Actif", None, None] for fiche in fiches for m, v in fiche.modeles.items()]
+        p0, d0 = f.bloc("MODÈLES", ["Modèle", "Fiche", "Matière de base", *prix, "Version table", "Statut",
+                                    "Photo détourée", "Note interne"], lignes, vides=4, formats=formats,
+                        validations={"Statut": STATUTS, "Version table": OUI_NON},
+                        note="Recherche rapide du prix d'un billard ; ses options sont dans le bloc de sa fiche, plus bas.")
+        styliser_prix(f, p0, d0, 4, 3 + n, 1)
+        entetes = ["Groupe", "Option", "Valable pour", *prix, "Conditions", "Nécessite", "Exclut", "Choix", "Statut",
+                   "Détail imprimé sur le devis", "Note interne"]
+        for fiche in fiches:
+            lignes = [["Billard", m, m, *[conv(v[t]) for t in tailles], fiche.base, None, None, "Un seul par groupe",
+                       "Actif", None, None] for m, v in fiche.modeles.items()]
+            lignes += [[o.groupe, o.nom, o.valable_pour, *[conv(o.prix[t]) for t in tailles], o.conditions or None,
+                        o.necessite or None, o.exclut or None, o.choix, "Actif", o.detail or None, o.note or None]
+                       for o in fiche.options]
+            p0, d0 = f.bloc(fiche.nom, entetes, lignes, vides=2, formats=formats,
+                            validations={"Statut": STATUTS, "Choix": CHOIX})
+            styliser_prix(f, p0, d0, 4, 3 + n, 2)
+            for r in range(p0, p0 + len(fiche.modeles)):
+                for c in range(1, len(entetes) + 1):
+                    f.ws.cell(r, c).font = Font(name="DM Sans", size=10, bold=True, color=ENCRE)
+        lignes = [[g, nom_p, "Tous", *[conv(v[t]) for t in tailles], cond, nec or None, None, choix, "Actif",
+                   det or None, None] for g, nom_p, v, cond, det, nec, choix in lt.plateaux(jeu)]
+        p0, d0 = f.bloc("PLATEAUX", entetes, lignes, vides=4, formats=formats,
+                        validations={"Statut": STATUTS, "Choix": CHOIX},
+                        note="Plateau au choix, indépendant de la finition du billard. Pas de plateau sur Compétition et Chambord.")
+        styliser_prix(f, p0, d0, 4, 3 + n, 2)
+
+
+def onglet_lafuge_contenus(wb):
+    """Textes Lafuge : fiches techniques (imprimées sur le devis selon les options) et arguments, par jeu."""
+    f = Feuille(wb, "Lafuge contenus", "Billard Lafuge · fiches techniques et arguments",
+                "Fiche technique : la version imprimée suit les options (laque, bois massif). "
+                "Ne renommez pas les titres ■ ni les en-têtes.", [10, 24, 18, 56, 36, 40, 14], onglet="1E4F4A")
+    for jeu, suffixe in (("mixte", "MIXTE"), ("français", "BANDES FRANÇAISES")):
+        fiches = lt.fiches_mixte() if jeu == "mixte" else lt.fiches_francais()
+        lignes = [[i, fiche.nom, el, base, laquee or None, massif or None]
+                  for i, (fiche, (el, base, laquee, massif)) in
+                  enumerate(((fi, e) for fi in fiches for e in fi.technique), start=1)]
+        f.bloc(f"FICHES TECHNIQUES · {suffixe}", ["Ordre", "Fiche", "Élément", "Version de base", "Version laquée",
+                                                   "Version bois massif"], lignes, vides=4,
+               note="Bois massif : cadre, pieds, traverses et châssis en bois massif ; le métal (châssis acier, pieds acier) reste.")
+        bloc_arguments_lafuge(f, suffixe, arguments_brouillons.lignes("Lafuge" if jeu == "mixte" else "Lafuge français"))
+
+
+def bloc_arguments_lafuge(f, suffixe, lignes, vides=4):
+    f.bloc(
+        f"ARGUMENTS & PHOTOS · {suffixe}", ENTETES_ARGS, lignes, vides,
+        validations={"Statut": STATUTS_ARG, "Proposé par défaut": OUI_NON},
+        note="On coche 4 arguments au maximum par devis ; « Proposé par défaut = Oui » les pré-coche.",
     )
-    bloc_gamme(f, [
-        ["Nom affiché", "Billard Lafuge", None],
-        ["Marque", "Billard Lafuge", "Logo Lafuge et échéancier en 3 versements"],
-        ["Accroche", "Une pièce unique, fabriquée à la main par un seul ébéniste", None],
-        ["Délai de fabrication", "8 semaines minimum", "Hors organisation de la livraison"],
-        ["Atelier affiché sur le devis", "Fabriqué à la main dans notre atelier de Miribel-les-Échelles", None],
-        ["Kit accessoires inclus", "Non", None],
-        ["Valeur du kit accessoires", None, None],
-        ["Contenu du kit accessoires", None, None],
-        ["Statut", "Actif", None],
-    ])
-    noms = ["Éos", "Trocadéro", "Eiffel", "Beaubourg", "Arcade", "City", "Loft", "Soho", "Élégance", "Rustic",
-            "Compétition", "Chambord", "Louis-Philippe", "Manoir", "Castel", "Mont Blanc", "Alpha",
-            "Harmonie Noyer", "Harmonie Érable"]
-    lignes = [[n, None] + [None] * 8 + ["Actif", None, "Prix à reporter depuis la grille papier"] for n in noms]
-    f.bloc("MODÈLES", entetes, lignes, vides=8, formats={f"Prix {t}": EURO for t in tailles},
-           validations={"Statut": STATUTS})
-    bloc_options(f, [
-        ["Essence", None, None, None, None, None, None, None, None, "Un seul par groupe", "D'après la grille papier"],
-        ["Finition", None, None, None, None, None, None, None, None, "Un seul par groupe", "D'après la grille papier"],
-        ["Plateau table", None, None, None, None, None, None, None, None, "Un seul par groupe", "D'après la grille papier"],
-    ])
-    bloc_arguments(f, arguments_brouillons.lignes("Lafuge"))
+
+
+def classeur_revendeurs(sortie):
+    """Classeur séparé et confidentiel des prix revendeur HT (Lafuge). Jamais lu par l'outil de devis."""
+    wb = Workbook()
+    wb.remove(wb.active)
+    onglets_lafuge(wb, ht=True)
+    f = Feuille(wb, "Accessoires Lafuge HT", "Accessoires Lafuge — prix revendeur HT",
+                "CONFIDENTIEL : prix d'achat revendeur HT départ, à ne jamais transmettre à un client.",
+                [26, 56, 44, 12, 12, 30], onglet="1E4F4A")
+    f.bloc("ACCESSOIRES", ["Catégorie", "Article", "Détail", "Prix HT", "Statut", "Note interne"],
+           [[c, a, d, lt.ht(p), "Actif", None] for c, a, d, p in lt.accessoires()], vides=6,
+           formats={"Prix HT": EURO}, validations={"Statut": STATUTS})
+    wb.active = 0
+    wb.save(sortie)
+    return wb.sheetnames
 
 
 COLORIS = [
@@ -428,6 +524,7 @@ def onglet_accessoires(wb):
     lignes = [["Mobilier", "Banc laqué assorti", "Banc laqué : blanc, noir, gris clair, anthracite ou aluminium", 740,
                "Référence, Design, Prestige", "Actif", None, None, None]]
     lignes += [[c, a, d, prix, g, "Actif", None, None, ref] for c, a, d, prix, g, ref in gp.ACCESSOIRES]
+    lignes += [[c, a, d, prix, "Lafuge", "Actif", None, None, None] for c, a, d, prix in lt.accessoires()]
     f.bloc(
         "ACCESSOIRES",
         ["Catégorie", "Article", "Détail imprimé sur le devis", "Prix TTC", "Gammes compatibles", "Statut", "Photo",
@@ -562,6 +659,12 @@ def onglet_mode_emploi(wb):
                   "« Proposé par défaut = Oui » les pré-coche (4 au maximum par gamme et par version)."),
         ("texte", "Valable pour : « Tous » pour toute la gamme, ou une version (ex. « Pieds métalliques »). "
                   "Photo : lien vers la photo ultra zoomée ; « À fournir » = photo attendue ; vide = argument en texte seul."),
+        ("section", "Lafuge (onglets « Lafuge mixte » et « Lafuge bandes françaises »)"),
+        ("texte", "Un bloc par fiche papier (ex. « ■ LOFT · ÉLÉGANCE ») : le prix du billard puis toutes ses options, "
+                  "une colonne par taille. Le bloc MODÈLES sert à retrouver vite le prix d'un billard."),
+        ("texte", "Cases de prix : nombre = prix ; « Inclus » ; « Impossible » ; « Sur demande » = prix saisi à la main "
+                  "dans l'outil ; « — » = taille non proposée pour ce modèle ; case vide (surlignée) = pas encore chiffrée."),
+        ("texte", "Les prix revendeur HT sont dans un classeur séparé et confidentiel, jamais lu par l'outil de devis."),
         ("section", "Photos"),
         ("texte", "Collez un lien : photo du site billardsdefrance.fr (clic droit sur l'image > copier l'adresse) "
                   "ou fichier Google Drive partagé en lecture."),
@@ -591,7 +694,8 @@ def main():
     onglet_reference(wb, ref)
     onglet_design(wb, dp)
     onglet_prestige(wb, dp)
-    onglet_lafuge(wb)
+    onglets_lafuge(wb)
+    onglet_lafuge_contenus(wb)
     onglet_coloris(wb)
     onglet_accessoires(wb)
     onglet_livraison(wb)
@@ -603,6 +707,8 @@ def main():
     wb.active = 0
     wb.save(sortie)
     print(f"Classeur écrit : {sortie} ({', '.join(wb.sheetnames)})")
+    if len(sys.argv) > 3:
+        print(f"Classeur revendeurs écrit : {sys.argv[3]} ({', '.join(classeur_revendeurs(Path(sys.argv[3])))})")
 
 
 if __name__ == "__main__":

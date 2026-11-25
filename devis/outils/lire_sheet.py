@@ -35,6 +35,9 @@ def lire_classeur(chemin):
     return {ws.title: lire_onglet(ws) for ws in wb.worksheets if ws.title != "Mode d'emploi"}
 
 
+MOTS_PRIX = {"Inclus", "Impossible", "Sur demande", "—"}
+
+
 def controler(classeur):
     """Contrôles de cohérence : renvoie la liste des anomalies trouvées."""
     anomalies = []
@@ -61,6 +64,12 @@ def controler(classeur):
             prix = m.get("Prix TTC")
             if prix is not None and not isinstance(prix, (int, float)):
                 anomalies.append(f"{onglet} : prix non numérique pour le modèle « {m.get('Modèle')} »")
+        for bloc, lignes in blocs.items():
+            for ligne in lignes:
+                for col, v in ligne.items():
+                    if col.startswith("Prix ") and v is not None and not isinstance(v, (int, float)) \
+                            and v not in MOTS_PRIX:
+                        anomalies.append(f"{onglet} / {bloc} : « {v} » dans {col} ({ligne.get('Option') or ligne.get('Modèle')})")
     return anomalies
 
 

@@ -19,6 +19,15 @@ from lire_sheet import controler, lire_classeur, lire_onglet  # noqa: E402
 DONNEES = RACINE / "devis" / "donnees"
 
 
+GAMMES = ("Référence", "Design", "Prestige", "Lafuge mixte", "Lafuge bandes françaises")
+ARGS_LAFUGE = {"Lafuge mixte": "ARGUMENTS & PHOTOS · MIXTE", "Lafuge bandes françaises": "ARGUMENTS & PHOTOS · BANDES FRANÇAISES"}
+
+
+def arguments(c, gamme):
+    if gamme in ARGS_LAFUGE:
+        return c["Lafuge contenus"][ARGS_LAFUGE[gamme]]
+    return c[gamme]["ARGUMENTS & PHOTOS"]
+
 def construire(tmp):
     sortie = Path(tmp) / "classeur.xlsx"
     sys.argv = ["construire_sheet.py", str(DONNEES), str(sortie)]
@@ -29,8 +38,13 @@ def construire(tmp):
 def test_structure_et_coherence():
     with tempfile.TemporaryDirectory() as tmp:
         c = lire_classeur(construire(tmp))
-    for gamme in ("Référence", "Design", "Prestige", "Lafuge"):
+    for gamme in ("Référence", "Design", "Prestige"):
         assert {"GAMME", "MODÈLES", "OPTIONS", "ARGUMENTS & PHOTOS"} <= set(c[gamme]), gamme
+    for onglet in ("Lafuge mixte", "Lafuge bandes françaises"):
+        assert {"GAMME", "TAILLES", "MODÈLES", "PLATEAUX"} <= set(c[onglet])
+        assert len(c[onglet]["MODÈLES"]) == 19
+    assert {"FICHES TECHNIQUES · MIXTE", "ARGUMENTS & PHOTOS · MIXTE", "FICHES TECHNIQUES · BANDES FRANÇAISES",
+            "ARGUMENTS & PHOTOS · BANDES FRANÇAISES"} == set(c["Lafuge contenus"])
     assert len(c["Référence"]["MODÈLES"]) == 12
     assert len(c["Design"]["MODÈLES"]) == 4
     assert len(c["Prestige"]["MODÈLES"]) == 13
@@ -65,11 +79,11 @@ def test_decisions_du_17_11():
     assert not any("PMMA" in str(o.get("Option")) for o in ref["OPTIONS"])
     ral = next(o for o in ref["OPTIONS"] if o.get("Option") == "Pieds couleur RAL au choix")
     assert ral["Statut"] == "Actif" and ral["Prix TTC"] == 0, "écart bois → métal déjà compris dans le modèle métal"
-    for gamme in ("Référence", "Design", "Prestige", "Lafuge"):
-        args = c[gamme]["ARGUMENTS & PHOTOS"]
+    for gamme in GAMMES:
+        args = arguments(c, gamme)
         assert sum(1 for a in args if a["Valable pour"] == "Tous") >= 4, gamme
         textes = " ".join(str(a["Texte"]) for a in args)
-        assert ("Monaco" in textes) == (gamme == "Lafuge"), "références clients réservées à Lafuge"
+        assert ("Monaco" in textes) == gamme.startswith("Lafuge"), "références clients réservées à Lafuge"
 
 
 def options(c, gamme):
@@ -118,8 +132,8 @@ REMPLISSAGE = ("partie après partie", "tard le soir", "dès la livraison", "eff
 def test_arguments_du_19_11():
     with tempfile.TemporaryDirectory() as tmp:
         c = lire_classeur(construire(tmp))
-    for gamme in ("Référence", "Design", "Prestige", "Lafuge"):
-        args = c[gamme]["ARGUMENTS & PHOTOS"]
+    for gamme in GAMMES:
+        args = arguments(c, gamme)
         versions = {a["Valable pour"] for a in args} - {"Tous"}
         for version in versions or {None}:
             defaut = [a for a in args if a["Proposé par défaut"] == "Oui" and a["Valable pour"] in ("Tous", version)]
@@ -131,16 +145,16 @@ def test_arguments_du_19_11():
         textes = " ".join(f"{a['Titre']} {a['Texte']}" for a in args).lower()
         for formule in REMPLISSAGE:
             assert formule.lower() not in textes, (gamme, formule)
-        if gamme == "Lafuge":
-            assert "offert" not in textes
+        if gamme.startswith("Lafuge"):
+            assert "offert" not in textes and "MDF" not in textes
         if gamme != "Référence":
-            assert "26 couleurs" in textes or gamme == "Lafuge"
+            assert "26 couleurs" in textes or gamme.startswith("Lafuge")
 
 
 def test_accessoires_du_19_11():
     with tempfile.TemporaryDirectory() as tmp:
         c = lire_classeur(construire(tmp))
-    acc = c["Accessoires & mobilier"]["ACCESSOIRES"]
+    acc = [a for a in c["Accessoires & mobilier"]["ACCESSOIRES"] if a["Gammes compatibles"] != "Lafuge"]
     assert len(acc) == 29
     assert all(isinstance(a["Prix TTC"], (int, float)) for a in acc)
     refs = [a["Réf."] for a in acc if a["Article"] != "Banc laqué assorti"]
