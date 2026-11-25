@@ -192,7 +192,8 @@ def communs(f, tailles, liseré=True, repères=True, cuir=True, sofic=True, cadr
     if jeu == "mixte":
         if jeu2 is not None:
             opts.append(Option("Bandes", JEU2, colonnes(jeu, tailles, jeu2, IMP),
-                               conditions="Change de jeu sur le même billard ; impossible en 10 et 12 pieds", doc=JEU2))
+                               conditions="Jeu d'un autre type que les bandes initiales ; impossible en 10 et 12 pieds",
+                               doc=JEU2))
         if cuir is not None:
             opts.append(Option("Poches", CUIR, colonnes(jeu, tailles, [cuir if cuir != INC else INC],
                                                         grands if cuir != INC else INC),
@@ -227,15 +228,20 @@ def communs(f, tailles, liseré=True, repères=True, cuir=True, sofic=True, cadr
     return opts
 
 
+BANDES_INIT = "Bandes initiales (une incluse)"
+
+
 def jeux_mixte(f, tailles, grands_formats):
-    """Bandes initiales (comprises dans le prix) et jeu des grands formats."""
+    """Bandes initiales : une seule au choix, comprise dans le prix ; le 2e jeu de bandes est une option."""
     opts = []
+    cond = "Une seule au choix, incluse dans le prix ; le 2e jeu de bandes est en option (dès 860 €)"
     for nom in ("Bandes initiales américaines", "Bandes initiales anglaises", "Bandes initiales françaises"):
-        opts.append(Option("Jeu", nom, colonnes("mixte", tailles, [INC], IMP), choix="Un seul par groupe"))
+        opts.append(Option(BANDES_INIT, nom, colonnes("mixte", tailles, [INC], IMP), choix="Un seul par groupe",
+                           conditions=cond))
     if grands_formats:
         for nom in ("Snooker", "Russe"):
-            opts.append(Option("Jeu", nom, colonnes("mixte", tailles, [IMP], INC), choix="Un seul par groupe",
-                               conditions="10 et 12 pieds ; même prix en russe et en snooker"))
+            opts.append(Option(BANDES_INIT, nom, colonnes("mixte", tailles, [IMP], INC), choix="Un seul par groupe",
+                               conditions="10 et 12 pieds : snooker ou russe au choix, inclus, au même prix"))
     return opts
 
 
@@ -246,6 +252,35 @@ def renommer_laque(f, nom="Laque du cadre"):
             refs = [r.strip() for r in getattr(o, champ).split(";") if r.strip()]
             setattr(o, champ, " ; ".join(nom if r == LAQUE else r for r in refs))
     return f
+
+
+def option_bois(fiche, element):
+    """Colonne « En option » d'une fiche technique : les essences massives proposées sur la fiche."""
+    nom, base, laquee, massif = element
+    if not massif and not laquee:
+        return None
+    if massif == base and any(m in base.lower() for m in ("acier", "métallique")) and "bois" not in base.lower():
+        return "Inchangé (acier)"
+    if massif != "Bois massif de l'essence choisie":
+        return "Identique" if massif == base else massif
+    chiffrees, demande = [], []
+    for o in fiche.options:
+        if o.groupe != "Essence":
+            continue
+        valeurs = set(o.prix.values()) - {NP, IMP}
+        essence = o.nom.replace("Cadre en ", "")
+        if any(isinstance(v, (int, float)) for v in valeurs):
+            chiffrees.append(essence)
+        elif SD in valeurs:
+            demande.append(essence)
+    ordre = {CHENE: 0, MELEZE: 1, NOYER: 2}
+    chiffrees.sort(key=lambda e: ordre.get(e, 9))
+    if not chiffrees and not demande:
+        return None
+    texte = " ou ".join([chiffrees[0][0].upper() + chiffrees[0][1:]] + [e.lower() for e in chiffrees[1:]]) if chiffrees else ""
+    if demande:
+        texte += (" ; " if texte else "") + " ou ".join(e.lower().replace(" massif", "") for e in demande) + " sur demande"
+    return texte[0].upper() + texte[1:]
 
 
 # --- Fiches techniques ---------------------------------------------------------------------------------------
@@ -274,9 +309,9 @@ def fiches_mixte():
                  + teinte(f, T) + [laque(f, T, [1600, 1700, 1800])]
                  + communs(f, T, jeu2=[860, 920, 990], cuir=480))
     f.technique = [("Mention", "Billard 100 % bois massif", "", ""),
-                   ("Cadre", *tech_massif("Érable ou chêne massif", "MDF")),
-                   ("Pieds", *tech_massif("Érable ou chêne massif", "MDF")),
-                   ("Traverses", *tech_massif("Érable ou chêne massif", "Érable massif"))]
+                   ("Cadre", *tech_massif("Érable sycomore massif", "MDF")),
+                   ("Pieds", *tech_massif("Érable sycomore massif", "MDF")),
+                   ("Traverses", *tech_massif("Érable sycomore massif", "Érable massif"))]
     out.append(f)
 
     f = Fiche("SOHO", J, {}, "MDF plaqué chêne")
@@ -452,9 +487,9 @@ def fiches_mixte():
                  + grands(f, TG, six_pieds={"2,60 m": 1370, "2,80 m": INC, "doc": True},
                           retour=[1220, 1320, 1420, 1520]))
     f.technique = [("Mention", "Billard 100 % bois massif", "", ""),
-                   ("Cadre", *tech_massif("Érable ou chêne massif", "MDF")),
-                   ("Pieds", *tech_massif("Érable ou chêne massif", "Érable massif")),
-                   ("Traverses", *tech_massif("Érable ou chêne massif", "Érable massif")),
+                   ("Cadre", *tech_massif("Érable sycomore massif", "MDF")),
+                   ("Pieds", *tech_massif("Érable sycomore massif", "Érable massif")),
+                   ("Traverses", *tech_massif("Érable sycomore massif", "Érable massif")),
                    ("Piètement", "2,80 m : 6 pieds", "2,80 m : 6 pieds", "2,80 m : 6 pieds")]
     out.append(f)
 
@@ -467,9 +502,9 @@ def fiches_mixte():
                  + teinte(f, T) + [laque(f, T, [1800, 1900, 2000], conditions="sur érable sycomore uniquement")]
                  + communs(f, T, jeu2=[860, 920, 990], cuir=480, liseré_doc=False))
     f.technique = [("Mention", "Billard 100 % bois massif", "", ""),
-                   ("Cadre", *tech_massif("Érable ou chêne massif", "Érable massif laqué")),
-                   ("Pieds", *tech_massif("Érable ou chêne massif", "Érable massif laqué")),
-                   ("Traverses", *tech_massif("Érable ou chêne massif", "Érable massif laqué"))]
+                   ("Cadre", *tech_massif("Érable sycomore massif", "Érable massif laqué")),
+                   ("Pieds", *tech_massif("Érable sycomore massif", "Érable massif laqué")),
+                   ("Traverses", *tech_massif("Érable sycomore massif", "Érable massif laqué"))]
     out.append(f)
 
     f = Fiche("LOUIS-PHILIPPE · MANOIR", J, {}, "Érable sycomore massif")
@@ -480,14 +515,14 @@ def fiches_mixte():
                  + teinte(f, T) + [laque(f, T, [1800, 1900, 2000], conditions="sur érable sycomore uniquement")]
                  + communs(f, T, jeu2=[860, 920, 990], cuir=480))
     f.technique = [("Mention", "Billard 100 % bois massif", "", ""),
-                   ("Cadre", *tech_massif("Érable ou chêne massif", "Érable massif laqué")),
-                   ("Pieds", *tech_massif("Érable ou chêne massif", "Érable massif laqué")),
-                   ("Traverses", *tech_massif("Érable ou chêne massif", "Érable massif laqué"))]
+                   ("Cadre", *tech_massif("Érable sycomore massif", "Érable massif laqué")),
+                   ("Pieds", *tech_massif("Érable sycomore massif", "Érable massif laqué")),
+                   ("Traverses", *tech_massif("Érable sycomore massif", "Érable massif laqué"))]
     out.append(f)
 
-    for nom, prix, princ, inserts in (("HARMONIE NOYER", {"2,10 m": 9900, "2,30 m": 10600}, "Noyer", "érable"),
-                                      ("HARMONIE ÉRABLE", {"2,10 m": 7590, "2,30 m": 8290}, "Érable", "noyer")):
-        f = Fiche(nom, J, {}, f"{princ} massif, incrustations de {inserts} massif, poches en cuir noir")
+    for nom, prix, princ, inserts in (("HARMONIE NOYER", {"2,10 m": 9900, "2,30 m": 10600}, "Noyer", "d'érable"),
+                                      ("HARMONIE ÉRABLE", {"2,10 m": 7590, "2,30 m": 8290}, "Érable", "de noyer")):
+        f = Fiche(nom, J, {}, f"{princ} massif, incrustations {inserts} massif, poches en cuir noir")
         f.modeles = {nom.title().replace("Érable", "Érable"): prix_modele(J, prix)}
         f.options = (jeux_mixte(f, T2, False)
                      + [Option("Finition", BICOLORE, colonnes(J, T2, [IMP], IMP)),
@@ -497,7 +532,7 @@ def fiches_mixte():
                      + communs(f, T2, liseré=None, jeu2=[860], cuir=INC))
         f.technique = [("Mention", "Billard 100 % bois massif", "", ""),
                        ("Cadre", f"{princ} massif", "", ""), ("Pieds", f"{princ} massif", "", ""),
-                       ("Traverses", f"{princ} massif", "", ""), ("Décor", f"Incrustations de {inserts} massif", "", "")]
+                       ("Traverses", f"{princ} massif", "", ""), ("Décor", f"Incrustations {inserts} massif", "", "")]
         out.append(f)
 
     f = Fiche("CHAMBORD", J, {}, "Érable sycomore massif", table=False)
@@ -514,9 +549,9 @@ def fiches_mixte():
                  + grands(f, TG, six_pieds={"2,60 m": 1800, "2,80 m": INC, "doc": True},
                           retour=[1220, 1320, 1420, 1520]))
     f.technique = [("Mention", "Billard 100 % bois massif", "", ""),
-                   ("Cadre", *tech_massif("Érable, chêne ou noyer massif", "Érable massif laqué")),
-                   ("Pieds", *tech_massif("Érable, chêne ou noyer massif", "Érable massif laqué")),
-                   ("Traverses", *tech_massif("Érable, chêne ou noyer massif", "Érable massif laqué")),
+                   ("Cadre", *tech_massif("Érable sycomore massif", "Érable massif laqué")),
+                   ("Pieds", *tech_massif("Érable sycomore massif", "Érable massif laqué")),
+                   ("Traverses", *tech_massif("Érable sycomore massif", "Érable massif laqué")),
                    ("Piètement", "2,80 m : 6 pieds", "2,80 m : 6 pieds", "2,80 m : 6 pieds")]
     out.append(f)
     return out
@@ -541,9 +576,9 @@ def fiches_francais():
                  + communs(f, T234, a37="doc", chauffage=[IMP, 1800]))
     f.technique = [("Mention", "Billard 100 % bois massif", "", ""),
                    ("Châssis", "Bois, renforcé en 2,40 m", "Bois, renforcé en 2,40 m", "Bois massif, renforcé en 2,40 m"),
-                   ("Cadre", *tech_massif("Érable ou chêne massif", "MDF")),
-                   ("Pieds", *tech_massif("Érable ou chêne massif", "MDF")),
-                   ("Traverses", *tech_massif("Érable ou chêne massif", "Érable massif"))]
+                   ("Cadre", *tech_massif("Érable sycomore massif", "MDF")),
+                   ("Pieds", *tech_massif("Érable sycomore massif", "MDF")),
+                   ("Traverses", *tech_massif("Érable sycomore massif", "Érable massif"))]
     out.append(f)
 
     f = Fiche("SOHO", J, {}, "MDF plaqué chêne")
@@ -703,9 +738,9 @@ def fiches_francais():
                "2,80 et 3,10 m : acier UPN de 80 mm, 6 pieds")
     f.technique = [("Mention", "Billard 100 % bois massif", "", ""),
                    ("Châssis", chassis, chassis, chassis),
-                   ("Cadre", *tech_massif("Érable ou chêne massif", "MDF")),
-                   ("Pieds", *tech_massif("Érable ou chêne massif", "Érable massif")),
-                   ("Traverses", *tech_massif("Érable ou chêne massif", "Érable massif")),
+                   ("Cadre", *tech_massif("Érable sycomore massif", "MDF")),
+                   ("Pieds", *tech_massif("Érable sycomore massif", "Érable massif")),
+                   ("Traverses", *tech_massif("Érable sycomore massif", "Érable massif")),
                    ("Dimensions", "2,80 m : demi-match ; 3,10 m : match", "2,80 m : demi-match ; 3,10 m : match",
                     "2,80 m : demi-match ; 3,10 m : match")]
     out.append(f)
@@ -721,9 +756,9 @@ def fiches_francais():
     f.technique = [("Mention", "Billard 100 % bois massif", "", ""),
                    ("Châssis", "Bois massif, renforcé en 2,40 m", "Bois massif, renforcé en 2,40 m",
                     "Bois massif, renforcé en 2,40 m"),
-                   ("Cadre", *tech_massif("Érable ou chêne massif", "Érable massif laqué")),
-                   ("Pieds", *tech_massif("Érable ou chêne massif", "Érable massif laqué")),
-                   ("Traverses", *tech_massif("Érable ou chêne massif", "Érable massif laqué"))]
+                   ("Cadre", *tech_massif("Érable sycomore massif", "Érable massif laqué")),
+                   ("Pieds", *tech_massif("Érable sycomore massif", "Érable massif laqué")),
+                   ("Traverses", *tech_massif("Érable sycomore massif", "Érable massif laqué"))]
     out.append(f)
 
     f = Fiche("LOUIS-PHILIPPE · MANOIR", J, {}, "Érable sycomore massif")
@@ -736,14 +771,14 @@ def fiches_francais():
     f.technique = [("Mention", "Billard 100 % bois massif", "", ""),
                    ("Châssis", "Bois massif, renforcé en 2,40 m", "Bois massif, renforcé en 2,40 m",
                     "Bois massif, renforcé en 2,40 m"),
-                   ("Cadre", *tech_massif("Érable ou chêne massif", "Érable massif laqué")),
-                   ("Pieds", *tech_massif("Érable ou chêne massif", "Érable massif laqué")),
-                   ("Traverses", *tech_massif("Érable ou chêne massif", "Érable massif laqué"))]
+                   ("Cadre", *tech_massif("Érable sycomore massif", "Érable massif laqué")),
+                   ("Pieds", *tech_massif("Érable sycomore massif", "Érable massif laqué")),
+                   ("Traverses", *tech_massif("Érable sycomore massif", "Érable massif laqué"))]
     out.append(f)
 
-    for nom, prix, princ, inserts in (("HARMONIE NOYER", {"2,30 m": 10600}, "Noyer", "érable"),
-                                      ("HARMONIE ÉRABLE", {"2,30 m": 8250}, "Érable", "noyer")):
-        f = Fiche(nom, J, {}, f"{princ} massif, incrustations de {inserts} massif")
+    for nom, prix, princ, inserts in (("HARMONIE NOYER", {"2,30 m": 10600}, "Noyer", "d'érable"),
+                                      ("HARMONIE ÉRABLE", {"2,30 m": 8250}, "Érable", "de noyer")):
+        f = Fiche(nom, J, {}, f"{princ} massif, incrustations {inserts} massif")
         f.modeles = {nom.title(): prix_modele(J, prix)}
         f.options = ([Option("Finition", BICOLORE, colonnes(J, T23, [IMP], IMP)),
                       Option("Teinte", TEINTE_INCLUSE, colonnes(J, T23, [INC], INC), choix="Un seul par groupe"),
@@ -754,7 +789,7 @@ def fiches_francais():
         f.technique = [("Mention", "Billard 100 % bois massif", "", ""),
                        ("Châssis", ACIER_60_60, "", ""),
                        ("Cadre", f"{princ} massif", "", ""), ("Pieds", f"{princ} massif", "", ""),
-                       ("Traverses", f"{princ} massif", "", ""), ("Décor", f"Incrustations de {inserts} massif", "", "")]
+                       ("Traverses", f"{princ} massif", "", ""), ("Décor", f"Incrustations {inserts} massif", "", "")]
         out.append(f)
 
     f = Fiche("CHAMBORD", J, {}, "Érable sycomore massif", table=False)
@@ -774,9 +809,9 @@ def fiches_francais():
                "2,80 et 3,10 m : acier UPN de 80 mm, 6 pieds")
     f.technique = [("Mention", "Billard 100 % bois massif", "", ""),
                    ("Châssis", chassis, chassis, chassis),
-                   ("Cadre", *tech_massif("Érable, chêne ou noyer massif", "Érable massif laqué")),
-                   ("Pieds", *tech_massif("Érable, chêne ou noyer massif", "Érable massif laqué")),
-                   ("Traverses", *tech_massif("Érable, chêne ou noyer massif", "Érable massif laqué")),
+                   ("Cadre", *tech_massif("Érable sycomore massif", "Érable massif laqué")),
+                   ("Pieds", *tech_massif("Érable sycomore massif", "Érable massif laqué")),
+                   ("Traverses", *tech_massif("Érable sycomore massif", "Érable massif laqué")),
                    ("Dimensions", "2,80 m : demi-match ; 3,10 m : match", "2,80 m : demi-match ; 3,10 m : match",
                     "2,80 m : demi-match ; 3,10 m : match")]
     out.append(f)
@@ -796,13 +831,14 @@ def plateaux(jeu):
 
     encastre = "Creusé à l'endroit des poches, il s'emboîte dans le cadre et ne fait plus qu'un avec le billard."
     un, plus = "Un seul par groupe", "Plusieurs possibles"
+    petites = "2,10 et 2,30 m uniquement" if jeu == "mixte" else "2,30 m uniquement"
     sup = "S'ajoute au prix d'un plateau encastré"
     enc = ("Plateau encastré, chêne ou érable ; Plateau encastré, finition parchemin, patine antiquaire, brossée ou "
            "cérusée ; Plateau encastré laqué ; Plateau encastré mélèze ; Plateau encastré noyer plaqué")
     # (groupe, plateau, prix par taille, conditions, détail imprimé, nécessite (l'un de), choix)
     return [
         ("Plateau", "Plateau simple, érable ou chêne, toutes teintes", grille(990, grand=IMP),
-         "En 2 parties ; 2,10 et 2,30 m uniquement", "", "", un),
+         "En 2 parties ; " + petites, "", "", un),
         ("Plateau", "Plateau encastré, chêne ou érable", grille(1190, 1600, 1770, 1960), "En 3 parties dès 2,40 m",
          encastre, "", un),
         ("Plateau", "Plateau encastré, finition parchemin, patine antiquaire, brossée ou cérusée",
@@ -810,10 +846,10 @@ def plateaux(jeu):
         ("Plateau", "Plateau encastré laqué", grille(1720, 2250, 2420, 2810), "En 3 parties dès 2,40 m", encastre, "", un),
         ("Plateau", "Plateau encastré mélèze", grille(1900, 2300, 2500, 2900), "En 3 parties dès 2,40 m", encastre, "",
          un),
-        ("Plateau", "Plateau encastré noyer plaqué", grille(2540, grand=IMP), "2,10 et 2,30 m uniquement", encastre, "",
+        ("Plateau", "Plateau encastré noyer plaqué", grille(2540, grand=IMP), petites[0].upper() + petites[1:], encastre, "",
          un),
         ("Plateau", "Dessus 100 % verre", {**grille(1160, grand=IMP), **({"2,30 m": 1260} if "2,30 m" in t else {})},
-         "Non encastré ; 2,10 m : 1 160 €, 2,30 m : 1 260 €", "", "", un),
+         "Non encastré" + (" ; 2,10 m : 1 160 €, 2,30 m : 1 260 €" if jeu == "mixte" else ""), "", "", un),
         ("Parties", "Plateau en 3 parties", grille(420, INC, INC, INC), "De série dès 2,40 m", "", "", plus),
         ("Supplément verre", "Verre Sécurit 8 mm transparent et bois", grille(1400, grand=IMP), sup, "", enc, un),
         ("Supplément verre", "Verre Sécurit 8 mm dépoli et bois", grille(1600, grand=IMP), sup, "", enc, un),
@@ -876,7 +912,7 @@ GAMME = {
     "Accessoires": "Billard vendu hors accessoires (rien n'est offert)",
     "Échéancier": "30 % à la commande, 30 % au lancement en fabrication, solde avant livraison",
 }
-DRAP = {"mixte": "Simonis 760 ou Strachan 777 inclus", "français": "Simonis 330 inclus (référence à confirmer : Simonis 300 ?)"}
+DRAP = {"mixte": "Simonis 760 ou Strachan 777 inclus", "français": "Simonis 330 inclus"}
 
 # Corrections des documents validées les 20 et 25/11 : (jeu, fiche, option, document, valeur des documents, valeur retenue).
 # Valeurs = colonnes du document (mixte : 2,10–2,30 / 2,40 / 2,60 / 2,80 ; français : 2,30 / 2,40 / 2,60 / 2,80 / 3,10).

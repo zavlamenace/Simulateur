@@ -60,6 +60,11 @@ Si une information nouvelle contredit ces fichiers, mettre le fichier à jour da
   - ne jamais régénérer ni réimporter le classeur entier. `devis/outils/construire_sheet.py` n'est qu'une trace de la structure d'origine.
 - **Arguments & photos** : colonne « Valable pour » = « Tous » (argument de gamme) ou un nom de modèle / de version (argument personnalisé, par exemple la finition Formica d'un modèle Référence). Au moins 3 à 4 arguments par gamme, chacun avec une photo ultra zoomée.
 
+## Classeur « BdF – Tarifs revendeurs HT (confidentiel) »
+- **Lien** : https://docs.google.com/spreadsheets/d/1b2Q7TEO6G6YFLZ75z_Wvvss-LggABT79Qy-uZqfOvWo/edit (propriétaire seul, non partagé).
+- Prix d'achat revendeur HT départ (Lafuge) = prix TTC public ÷ 2.
+- **Jamais lu par l'outil de devis, jamais transmis à un client.**
+
 ## Conventions
 - Langue : français.
 - Prix : TTC, clientèle de particuliers uniquement.

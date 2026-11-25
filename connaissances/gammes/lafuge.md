@@ -46,56 +46,36 @@ Google 4,8/5 (21 avis).
 ## Arguments de réassurance
 Voir `connaissances/arguments.md` (logique de sélection, règles de rédaction, liste validée le 19/11). Les textes en vigueur sont dans le Sheet.
 
-## Informations reçues le 20/11 (à intégrer lors du chantier Lafuge)
-Rien de ceci n'est encore dans le Sheet : la tarification Lafuge sera reprise à part (voir `a-verifier.md`, « Chantier Lafuge et tarification »).
+## Tarifs 2027 (publiés le 25/11 dans le Sheet)
+**Le Sheet fait foi pour les prix** : onglets « Lafuge mixte », « Lafuge bandes françaises » et « Lafuge contenus » (fiches techniques, arguments). Les prix revendeur HT sont dans le classeur confidentiel « BdF – Tarifs revendeurs HT (confidentiel) » (lien dans `CLAUDE.md`).
 
-### Grilles
-- Deux grilles, **toutes deux pour 2027** : `sources/grille-lafuge-mixte-2027.png` (titrée « Billards américains ») et `sources/grille-lafuge-francais-2027.png` (titrée « 2026 » par erreur).
-- **19 modèles** : Eiffel et Alpha sont deux modèles distincts, réunis sur une seule ligne de la grille car ils ont le même prix.
-- Les « à partir de » de la grille sont des **prix fixes par taille**.
+- **Sources** : `sources/lafuge-2027/` (4 documents Word : pool et français, vente TTC et achat HT revendeur), transcrits dans `devis/outils/lafuge_tarifs.py`. Les corrections validées les 20 et 25/11 y sont listées (`CORRECTIONS_TTC`, `CORRECTIONS_HT`) et le test `devis/tests/test_lafuge.py` vérifie que ce sont les seuls écarts avec les documents.
+- **Prix revendeur HT = prix TTC ÷ 2** (règle confirmée ; les écarts des documents étaient des erreurs).
+- **Les grilles récapitulatives du 20/11 ne servent plus** : les documents détaillés font foi, modèle par modèle et taille par taille (laque, retour centralisé…).
 
 ### Deux types de billard
-- **Billard mixte** (grille « américains ») : billard à poches.
-  - Sur le devis : « Billard mixte », suivi des **bandes initiales** choisies (américaines, françaises ou anglaises).
-  - 95 % des clients prennent les bandes américaines et ajoutent un 2e jeu de bandes interchangeables (françaises ou anglaises).
-- **Billard français à bandes fixes** (grille « français ») : sans poches, donc sans 2e jeu de bandes.
+- **Billard mixte** (document « pool et US », billard à poches) : **bandes initiales** américaines, anglaises ou françaises, **une seule au choix, incluse** ; le **2e jeu de bandes** est en option (dès 860 €). En 10 et 12 pieds : snooker ou russe, au même prix. Drap Simonis 760 ou Strachan 777 inclus.
+- **Billard français à bandes fixes** : sans poches. Drap **Simonis 330** inclus. Bandes A37 toilées en option jusqu'à 2,40 m (750 €), incluses au-delà ; chauffage de l'ardoise dès 2,40 m.
+- **19 modèles** dans chaque onglet. Loft / Élégance, Rustic / Castel, Louis-Philippe / Manoir, City / Éos et Eiffel / Alpha sont des billards distincts partageant une fiche papier.
 
-### Tailles
-| Taille | Hors tout | Surface de jeu | Billard mixte | Billard français |
-|---|---|---|---|---|
-| 2,10 m | 2,10 × 1,20 | 1,80 × 0,90 | Oui | Non |
-| 2,30 m | 2,30 × 1,30 | 2,00 × 1,00 | Oui | Oui |
-| 2,40 m | 2,44 × 1,37 | 2,14 × 1,07 | Oui | Oui |
-| 2,60 m | 2,64 × 1,47 | 2,34 × 1,17 | Oui | Oui |
-| 2,80 m | 2,84 × 1,57 | 2,54 × 1,27 | Oui | Oui |
-| 3,10 m | 3,14 × 1,72 | 2,84 × 1,42 | Non | Oui |
-| Snooker 10 pieds | 3,22 × 1,74 | 2,95 × 1,475 | Oui | Non |
-| Russe / snooker 12 pieds | 3,83 × 2,04 | 3,57 × 1,78 | Oui | Non |
+### Ardoise italienne
+- Mixte : 19 mm jusqu'à 2,30 m ; 30 mm de 2,40 à 2,80 m ; 38 mm en 10 pieds ; 45 mm en 12 pieds.
+- Français : 19 / 30 / 40 / 50 / 50 mm (2,30 → 3,10 m).
 
-### Corrections et confirmations de la grille
-- **Billard français 2,30 m** :
-  - Loft et Élégance : **6 230 €** (la grille indique 6 020 € pour Élégance) ;
-  - Beaubourg : **6 670 €** (la grille indique 6 500 €).
-- **Billard mixte** : Compétition (7 500 €) et Chambord (8 700 €) coûtent bien le même prix en 2,10 m et en 2,30 m.
+### Règles produit (codées dans le Sheet, colonnes « Nécessite » / « Exclut »)
+- **Laque** : exclut les essences massives, les repères de bandes, la finition bicolore et la teinte spéciale ; seul le liseré de couleur reste possible. Jamais de laque sur les Harmonie.
+- **Finitions parchemin, patine antiquaire, cérusée, brossée** : sur chêne uniquement (sur un modèle en érable, il faut prendre « chêne massif » ; les deux s'additionnent).
+- **Essences** : mélèze seulement sur Rustic (pas Castel), impossible sur Louis-Philippe, Manoir et Chambord ; noyer chiffré sur Eiffel-Alpha et Chambord, « sur demande » ailleurs.
+- **Option bois massif** : cadre, pieds, traverses et châssis en bois massif ; le métal (châssis acier, pieds acier) reste.
+- **Retour centralisé des billes** : Compétition et Chambord uniquement.
+- **Cadre snooker** (1 000 €) : modèles snooker et russe (Arcade, Mont Blanc, Compétition, Chambord), toutes tailles ; le cadre est découpé aux poches pour laisser le cuir apparent.
+- **Plots Altuglas** (Arcade) : plots transparents à la place des plots inox.
+- **Liseré de couleur** (400 €) : tous les billards sauf Harmonie. Liseré aluminium ou bois gainé du drap : City, Éos, Eiffel, Alpha, Soho, Arcade, Trocadéro, Mont Blanc.
+- **Teinte** : « teinte incluse » ou « teinte spéciale » (+600 €, dessus +250 €) ; pas de teinte spéciale sur Harmonie.
+- **Harmonie** : configuration unique (essence principale + incrustations de l'autre), entrées de poche cuir incluses, ni laque ni bicolore.
+- **Plateau** : au choix, indépendant du billard. Simple (990 €, toutes teintes) en 2,10 et 2,30 m ; encastré (creusé à l'endroit des poches) en chêne ou érable, finitions, laqué, mélèze, noyer plaqué ; 3 parties de série dès 2,40 m ; verre et bois ou céramique et bois toujours sur un encastré ; rallonge 50 cm jamais incluse, 2,10 et 2,30 m seulement. Pas de plateau sur Compétition et Chambord.
+- **Démontage** (cadre, piètement : 410 €) : pour les pièces d'accès difficile.
+- **Rien d'offert** : le devis Lafuge indique « hors accessoires ».
 
-### Options (prix par taille : voir la grille mixte)
-- **Plateau table bois** : 990 € en 2,10 m et 2,30 m. Impossible au-delà, car il faut alors le plateau encastré.
-- **Plateau table encastré** : nom validé, à la place de « défoncé ».
-  - Principe : un renfort en cuir autour des 6 poches dépasse de 3 mm du cadre. Le plateau est creusé à cet endroit ; il s'emboîte dans le cadre et ne fait plus qu'un avec le billard.
-  - Texte du devis : « Creusé à l'endroit des poches, il s'emboîte dans le cadre et ne fait plus qu'un avec le billard. »
-- **Retour centralisé des billes** : nom validé, à la place de « descente centralisée ». Non proposé en 10 et 12 pieds.
-- **Repères de bandes** : repères en nacre sur le cadre, **400 € à toutes les tailles**.
-- **2e jeu de bandes** et **laque** : prix par taille (grille mixte).
-- **Billard français** :
-  - plateau table bois aux prix du billard mixte (990 € en 2,30 m ; prix du plateau encastré en 2,40, 2,60 et 2,80 m ; sur demande en 3,10 m) ;
-  - repères de bandes en nacre ;
-  - laque selon une autre règle, à préciser.
-
-### Essences
-- **Harmonie Érable** : configuration unique, environ 80 % érable et du noyer en incrustations. **Harmonie Noyer** : l'inverse.
-  - Aucun choix d'essence : l'essence principale est comprise dans le prix.
-  - (Le 20/11, l'utilisateur a d'abord dit 90 %, puis 80 % : à reconfirmer avant tout texte client.)
-- **Autres modèles** : un supplément par essence, prix à venir.
-
-### Drap
-Simonis 760 ou Strachan 777 inclus.
+### Fiche technique imprimée sur le devis
+Onglet « Lafuge contenus » : pour chaque fiche, élément par élément, la version **de base** (matière écrite sous le titre de la fiche), **en option** (essences massives proposées) et **laquée**. « Placage » = MDF plaqué chêne ou érable ; le multiplis est mis en avant (plus résistant que le bois massif). On ne parle jamais des hauteurs.

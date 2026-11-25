@@ -7,22 +7,14 @@
 - **Nouvelle grille livraison + montage** : sur papier, à transcrire.
 - **Grilles tarifaires papier** :
   - Design et Prestige : transcrites le 18/11 ; Accessoires (p. 11) : transcrits le 19/11 ;
-  - Lafuge : grilles 2027 reçues le 20/11, consignées dans `gammes/lafuge.md`, à intégrer lors du chantier Lafuge.
+  - Lafuge : documents 2027 transcrits et publiés le 25/11 (`gammes/lafuge.md`).
 
-## Chantier Lafuge et tarification (à traiter à part)
-Décidé le 20/11 : la tarification n'est centralisée nulle part aujourd'hui (nombreuses variantes, options liées entre elles). On reprend tout dans un second temps, en commençant par une liste complète de questions.
-- **Centraliser toute la tarification** dans un seul classeur, utile à la fois à l'outil de devis et à l'équipe.
-- **Prix revendeur HT** : une colonne ou un classeur dédié, à décider. Il ne doit **jamais** apparaître côté client.
-- **Onglet équivalent en HT pour les professionnels.**
-- **4 documents à recevoir** : prix d'achat HT revendeurs et prix de vente TTC (fixés aux revendeurs et à nos clients).
-- **Présentation des options** : essences, tailles, options qui dépendent les unes des autres.
-- **Points déjà relevés** :
-  - plateau table : en 2 parties ? allonge incluse ou non (ce n'est écrit nulle part) ? plateaux verre ou céramique encore proposés ?
-  - bandes initiales possibles en 10 et 12 pieds (snooker, russe) ;
-  - suppléments par essence ;
-  - laque du billard français (« autre règle ») ;
-  - finitions hors laque (vernis, patine, incrustations, marqueterie) ;
-  - grille livraison + montage, Lafuge compris.
+## Lafuge : publié le 25/11, reste à compléter
+- **Couleurs du drap Simonis 330** (billard français) : liste à recevoir ; en attendant, la couleur se saisit en texte libre.
+- **Boîtes élasthanne** (jupe du cadre affinée de 20 mm) : prix à fixer ; impossibles sur City, Éos, Eiffel, Alpha, Beaubourg.
+- **Piètement démontable** de City, Éos, Eiffel, Alpha et Beaubourg : prix à fixer (case vide dans le Sheet).
+- **Mont Blanc français 2,80 m** : options à saisir par l'utilisateur dans le Sheet.
+- **Grille livraison + montage** (toutes gammes) : à recevoir ; l'outil propose une saisie manuelle en attendant.
 
 ## Contradictions tranchées
 | Sujet | Sources en conflit | Décision |
@@ -63,6 +55,8 @@ Décidé le 20/11 : la tarification n'est centralisée nulle part aujourd'hui (n
 | Lafuge mixte, Compétition et Chambord | 2,10 m = 2,30 m | Voulu. |
 | Lafuge 12 pieds hors tout | Site : 3,86 m | **3,83 × 2,04 m** (grille). |
 | Lafuge « à partir de » | Grille | Prix fixes par taille. |
+| Lafuge : prix des documents de novembre 2026 | Pool et français, TTC et HT | Corrections validées les 20 et 25/11 : liste dans `devis/outils/lafuge_tarifs.py` (`CORRECTIONS_TTC`, `CORRECTIONS_HT`). |
+| Lafuge : drap du billard français | Simonis 300 ou 330 | **Simonis 330** (25/11). |
 
 ## Points à corriger sur le site
 - **Fiche Panama** : « Conçu et assemblé en France », alors que c'est une Référence, fabriquée en Chine.

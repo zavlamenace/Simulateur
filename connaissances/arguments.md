@@ -93,3 +93,10 @@ Légende : ★ = proposé par défaut ; 📷 = photo ultra zoomée à fournir.
 - 📷 Ardoise italienne jusqu'à 50 mm
 - 📷 Bandes interchangeables brevetées
 - Toutes les dimensions
+
+## Lafuge (25/11)
+- Deux listes : billard mixte et billard français (onglet « Lafuge contenus »).
+- Ardoise : « jusqu'à 45 mm » en mixte, « jusqu'à 50 mm » en français.
+- « Kotibé » retiré (absent des tarifs). L'ardoise n'est plus opposée au MDF sur Lafuge, car la fiche technique imprimée mentionne « MDF plaqué chêne » sur certains modèles.
+- Français : « Bandes A37 toilées incluses dès 2,60 m » et « Chauffage de l'ardoise » (texte à valider).
+- À mettre en avant à l'oral et dans les détails : multiplis plus résistant que le bois massif, plots Altuglas (effet de lévitation), cadre snooker (poches en cuir apparentes).

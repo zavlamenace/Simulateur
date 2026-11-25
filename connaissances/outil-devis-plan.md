@@ -1,195 +1,146 @@
-# Outil de devis Billards de France — plan (v5, 19/11)
+# Outil de devis Billards de France — plan (v8, 26/11) : publication Lafuge + page de création de devis
 
 ## Contexte
-Aujourd'hui, chaque devis billard se monte à la main alors que la combinatoire est forte. On construit trois éléments :
-1. un Google Sheet de tarifs et de contenus, qui fait foi ;
-2. une page web de saisie, protégée par un mot de passe commun ;
-3. un PDF épuré et premium, qui pousse le client à valider.
+**Lafuge** :
+- Les tarifs sont transcrits et contrôlés (commit poussé) : seuls écarts avec les 4 documents, les corrections validées ; HT = TTC ÷ 2.
+- L'aperçu a été vu. L'utilisateur demande de publier, avec trois retouches :
+  1. lisibilité des bandes initiales ;
+  2. fiches techniques ;
+  3. drap Simonis 330 inclus pour le billard français.
 
-Les décisions détaillées (gammes, prix, conditions, charte, équipe) sont consignées dans `connaissances/` et `CLAUDE.md`. Ce plan ne garde que l'état d'avancement, les règles et l'étape en cours.
+**Phase C** : la page de création de devis des commerciaux, « la plus simple et la plus intuitive possible ».
+- Le PDF reste provisoire (propre et sobre). La mise en page premium (storytelling, photos) viendra ensuite.
 
-## Où on en est (phase A — données)
-**Fait et poussé** :
-- base de connaissances ;
-- extraction du site ;
-- grilles Design et Prestige ;
-- accessoires (grille p. 11) et arguments du 19/11 ;
-- Sheet en ligne à jour (Référence, Design, Prestige, Lafuge, Coloris, Accessoires, Mode d'emploi), relu le 19/11 ;
-- 8 tests verts.
+**Lien du Sheet** : https://docs.google.com/spreadsheets/d/1_MZBcXsz-DqXfk_hN1X1WY5_9wfMXTx9I52tOmSEooY/edit
+- Les onglets Lafuge ne sont pas encore en ligne : c'est l'étape 1.
 
-**Reste** :
-1. **Les grilles papier Lafuge et livraison + montage.**
-2. **Les photos ultra zoomées des arguments** (colonne Photo = « À fournir »).
-3. **La relecture des arguments par l'équipe** : statut « À valider » → « Actif ».
+## Partie 1 — Publication Lafuge
 
-Viennent ensuite la phase B (maquette du PDF), la phase C (page de saisie) et la phase D (installation et recette).
+### Retouches avant publication
+- **Bandes initiales** (`devis/outils/lafuge_tarifs.py`, `jeux_mixte`) :
+  - groupe renommé « Bandes initiales (une au choix, incluse) » ;
+  - condition : « Une seule au choix, incluse dans le prix ; le 2e jeu de bandes est en option (dès 860 €) » ;
+  - sur le 2e jeu de bandes : « Jeu d'un autre type que les bandes initiales ».
+- **Fiches techniques** (onglet « Lafuge contenus ») : colonnes Ordre | Fiche | Élément | De base | En option | Version laquée.
+  - « De base » : uniquement la matière affichée sous le titre de la fiche. Exemples : Loft = érable sycomore massif ; Soho = MDF plaqué chêne.
+  - « En option » : les essences massives proposées sur la fiche, déduites de ses options. Exemples :
+    - Loft : « Chêne massif ou mélèze massif ; noyer sur demande » ;
+    - Soho : « Chêne massif ou mélèze massif ».
+  - Un élément en métal porte la mention « Inchangé (acier) ».
+- **Drap du billard français** : « Simonis 330 inclus » (Gamme et `connaissances/coloris.md`).
+- **Tests** : vérifier que « De base » ne contient jamais « ou » entre deux essences, et que « En option » liste les essences de la fiche.
+- Retour centralisé des billes : déjà réservé à Compétition et Chambord (inchangé).
 
-## Architecture (rappel, inchangée)
-- **Application web Apps Script** liée au Sheet :
-  - accès par mot de passe commun, sans compte Google ;
-  - deux autorisations seulement : « ce tableur » et « images de billardsdefrance.fr / Drive » ;
-  - aucun accès au Gmail.
-- **PDF généré par le code** (pdfmake) : téléchargement en un clic.
-- **Journal** des devis tenu dans le Sheet.
-- **Boutons après génération** : email pré-rempli vers contact@, copie du récap CRM, copie de l'email client.
-- **Sécurité** :
-  - mot de passe haché et salé dans les propriétés du script ;
-  - session de 8 h ;
-  - blocage après 10 échecs ;
-  - aucune donnée envoyée avant authentification.
+### Écriture en ligne
+Étapes, après relecture des onglets existants :
+1. Importer le xlsx dans un classeur temporaire et copier les 3 onglets dans le Sheet. Repli : écriture par blocs.
+2. Reporter les arguments.
+3. Supprimer l'ancien onglet squelette « Lafuge », après comparaison.
+4. Ajouter les 47 accessoires Lafuge dans « Accessoires & mobilier » (insertion de lignes).
+5. Mettre à jour le mode d'emploi (convention des cases ; « Nécessite » avec plusieurs noms = l'un d'eux).
+6. Créer le classeur « BdF – Tarifs revendeurs HT (confidentiel) », non partagé.
+7. Mettre à jour les connaissances : `lafuge.md`, `a-verifier.md`, `conditions.md`, `arguments.md`, `coloris.md`, `CLAUDE.md` (lien du classeur HT, règle de confidentialité).
+8. Commit et push.
 
-## Règles du Sheet
-- **Lecture** : par titre de bloc « ■ » et par nom de colonne, jamais par position.
-- **Écriture** :
-  - relire avant d'écrire ;
-  - requêtes atomiques par onglet, un appel à la fois ;
-  - ne jamais écraser une modification de l'équipe. Exemple à préserver : « Référence uniquement » dans Coloris.
+## Partie 2 — Page de création de devis (phase C)
 
-## Étape faite : accessoires + arguments (19/11)
+### Décisions de l'utilisateur
+- **Appareils** :
+  - ordinateur de bureau ;
+  - téléphone (devis pendant l'appel ou après, moins de 10 par semaine).
+- **Une seule page**, avec des **sections qui s'ouvrent au fur et à mesure**. Le **total se met à jour en direct** : panneau à droite sur ordinateur, barre fixe en bas sur téléphone.
+- **Client** :
+  - nom, prénom, téléphone, email ;
+  - adresse complète (code postal et ville en premier, rue facultative au stade du devis) ;
+  - origine du contact.
+- **Un seul billard par devis**, plus des accessoires.
+- **Prix de chaque option entre parenthèses**, partout.
+- **Remises** :
+  - par ligne et globale ;
+  - en % ou en € ;
+  - prix d'origine barré ;
+  - rien n'apparaît s'il n'y a pas de remise.
+- **Lignes libres** : libellé + prix unitaire (positif ou négatif) + **quantité**.
+- **Livraison** : offerte au pied de la porte par défaut ; « Livraison et montage » avec un prix saisi à la main. Branchement sur l'onglet montage quand la grille existera.
+- **Numérotation** : BDF-2026-0001. Une nouvelle version devient BDF-2026-0001-2. Le n° du logiciel de facturation reste un champ facultatif.
+- **Bouton « Enregistrer »** : brouillon dans le Journal, repris depuis n'importe quel appareil.
+- **Rouvrir un devis** depuis le Journal : il repart en nouvelle version.
+- **Après génération** :
+  - télécharger le PDF ;
+  - copier le récap CRM.
+- **Pas de photo dans la page**, pour qu'elle reste légère.
+- **Ordre** : la page d'abord, avec un PDF provisoire ; la maquette premium ensuite.
 
-### Nouvelle logique des arguments dans l'outil
-1. On choisit le produit. L'outil affiche la **liste des arguments de sa gamme** : ceux « Tous », plus ceux de la version, par exemple « Pieds métalliques ».
-2. On **coche au maximum 4 arguments**, choisis selon ce qui parle à ce client. Les 4 arguments « proposés par défaut » sont pré-cochés, et on peut les changer.
-3. **Arguments avec photo** : la photo ultra zoomée apparaît dans le PDF. **Arguments sans photo** : le texte seul, par exemple un positionnement de gamme.
-4. Le PDF affiche exactement les 4 arguments cochés.
+### Déroulé de la page (sections)
+1. **Devis réalisé par** : liste des 4 personnes, mémorisée sur l'appareil. Puis le client, l'origine du contact et le n° de facturation (facultatif).
+2. **Billard** :
+   - gamme : Référence, Design, Prestige, Lafuge mixte, Lafuge bandes françaises ;
+   - modèle ;
+   - version ou taille, seules les tailles proposées étant cliquables ;
+   - pour Lafuge mixte, bandes initiales.
+3. **Options** :
+   - par groupe, avec le prix entre parenthèses pour la taille choisie ;
+   - règles « Un seul par groupe », « Nécessite » et « Exclut » appliquées en direct (option grisée avec la raison) ;
+   - « Inclus » affiché sans prix ;
+   - « Sur demande » ou case vide : champ de prix à saisir, obligatoire avant le PDF.
+4. **Tapis** : couleur selon la gamme (onglet Coloris). Billard français : Simonis 330, couleur en texte libre en attendant la liste.
+5. **Plateau** (si le modèle existe en version table), puis suppléments verre et rallonge selon les règles.
+6. **Accessoires** : catalogue de la gamme, avec quantités.
+7. **Lignes libres** : libellé, prix, quantité.
+8. **Livraison** : offerte, ou livraison et montage (prix saisi).
+9. **Remises** : par ligne (dans chaque ligne du récapitulatif) et globale.
+10. **Arguments** : 4 au maximum, les « proposés par défaut » pré-cochés.
+11. **Récapitulatif** :
+    - lignes, remises, total TTC, TVA (TTC ÷ 6) ;
+    - échéancier (Plaisance 30 % puis solde ; Lafuge 30 / 30 / solde) ;
+    - encadré Oney si le total ≤ 3 000 € ;
+    - validité 30 jours ;
+    - boutons « Enregistrer » et « Générer le PDF ».
 
-**Conséquences pour le Sheet** :
-- nouvelle colonne **« Proposé par défaut »** (Oui / Non) dans chaque bloc ARGUMENTS & PHOTOS ;
-- les **arguments par produit sont retirés**, car trop faibles : il ne reste que des arguments de gamme et de version ;
-- la colonne « Valable pour » reste disponible pour personnaliser plus tard.
+### Architecture (déjà validée, rappel)
+- **Application web Apps Script** liée au Sheet, exécutée avec le compte propriétaire.
+  - Mot de passe commun haché et salé dans les propriétés du script ; session de 8 h ; blocage après 10 échecs.
+  - Aucune donnée avant authentification ; autorisations : ce tableur seulement.
+- **Serveur** (`Code.gs`) :
+  - lecture du Sheet par blocs « ■ » et noms de colonnes : portage de `devis/outils/lire_sheet.py`, catalogue JSON mis en cache 5 minutes ;
+  - compteur de références protégé par LockService ;
+  - écriture du Journal : statut Brouillon ou Généré, version, configuration complète en JSON pour la reprise.
+- **Calcul des prix** dans un module JavaScript pur (`calcul.js`), commun à la page et aux tests : options, règles, remises, échéancier, TVA.
+- **PDF provisoire** généré dans le navigateur (pdfmake, EB Garamond / DM Sans) :
+  - logos selon la gamme : BdF seul pour Plaisance ; BdF + Lafuge, avec la mention de groupe, pour Lafuge ;
+  - lignes, remises, total, échéancier, arguments cochés ;
+  - fiche technique Lafuge selon les options ;
+  - « hors accessoires » pour Lafuge ;
+  - lien « Je valide mon devis » (email pré-rempli vers contact@) et « Appeler mon conseiller » ;
+  - mention « CGV sur billardsdefrance.fr ».
+- Toutes les règles de `CLAUDE.md` s'appliquent (Référence sans origine, références clients seulement sur Lafuge, aucune mention qui rend frileux, etc.).
+- **Interface** : charte du site (EB Garamond, DM Sans, encre, crème, sable), rouge réservé à « Générer le PDF », aucun gadget.
 
-### Règles de rédaction
-- **Concis et puissant**, sur le modèle « Bandes en caoutchouc toilé : un rebond vif et régulier ».
-- **Aucune formule de remplissage** : ni « partie après partie », ni « même tard le soir », ni « dès la livraison », ni « effet surprise ».
-- **Couleurs de tapis** : on annonce **26 couleurs** (Simonis et Strachan ont les mêmes couleurs).
-- **Mots supprimés** : « rectifié pour une planéité parfaite » et « exclusivité ».
-- **Bandes interchangeables** : écrire « plusieurs jeux sur un même billard : français, américain ou pool, à vous de choisir ».
-- **Octopack** : c'est le **système** de rangement qui est inclus, pas les accessoires.
+### Fichiers
+- **`devis/appscript/`** :
+  - `Code.gs` : serveur ;
+  - `Index.html` (structure), `Styles.html`, `App.html` (interface) ;
+  - `calcul.js` (moteur de prix, inclus aussi dans `App.html`) ;
+  - `Pdf.html` (PDF provisoire) ;
+  - `appsscript.json` (autorisations minimales) ;
+  - `INSTALLATION.md` : copier les fichiers dans Extensions > Apps Script du Sheet, définir le mot de passe, déployer en application web.
+- **`devis/banc/`** : banc d'essai local.
+  - Il sert la page avec un faux `google.script.run` alimenté par le xlsx de trace, lu par `lire_sheet.py` puis exporté en JSON.
+  - Tests Playwright, 5 scénarios :
+    1. Référence simple ;
+    2. Design avec RAL et plateau ;
+    3. Prestige avec remise par ligne et remise globale ;
+    4. Lafuge mixte Chambord 12 pieds avec une option sur demande et une ligne libre en quantité 2 ;
+    5. Lafuge français avec A37 et chauffage.
+  - Vérifié pour chacun : totaux, règles, 4 arguments au maximum, brouillon puis reprise en V2, PDF généré, récap CRM, affichage téléphone (390 px).
+- **Tests unitaires** de `calcul.js` (Node).
 
-### Recherches faites
-**Ardoise contre MDF** (sources multiples, surtout des fabricants et revendeurs) :
-- l'ardoise est une pierre naturelle stable ;
-- le MDF (panneau de fibres) gonfle et se déforme avec l'humidité et le temps ;
-- une surface qui ondule fait dévier ou ralentir la bille ;
-- l'ardoise garde sa planéité pendant des décennies, et toutes les tables professionnelles en sont équipées.
-
-**Formica** :
-- c'est un stratifié haute pression (norme EN 438), le matériau historique des plans de travail de cuisine ;
-- le papier décor (mélaminé) n'est qu'une feuille collée ;
-- Formica indique lui-même une résistance nettement inférieure du papier décor aux rayures, à l'usure et aux chocs.
-
-### Arguments proposés
-Légende : 📷 = avec photo zoomée à venir ; — = texte seul ; ★ = proposé par défaut.
-
-**Référence**
-| | Valable pour | Titre | Texte |
-|---|---|---|---|
-| — ★ | Tous | Le meilleur rapport qualité-prix du marché | Ardoise monobloc, structure en bois massif et pack accessoires inclus. |
-| 📷 ★ | Tous | Ardoise monobloc de 19 mm | Une pierre naturelle d'un seul tenant : elle ne gonfle pas et ne se déforme pas avec l'humidité, contrairement au MDF. La bille roule droit, durablement. |
-| 📷 ★ | Tous | Pack accessoires offert | 16 billes, 4 queues, triangle, craies, brosse et porte-queue inclus (valeur 330 €). |
-| 📷 ★ | Pieds bois massif | Pieds bois massif et Formica | Le Formica, le matériau des plans de travail de cuisine : il résiste aux chocs, aux rayures et aux taches, là où le papier décor courant s'abîme. |
-| 📷 ★ | Pieds métalliques | Pieds métalliques de 5 mm | Acier de 5 mm d'épaisseur, laqué époxy : une rigidité à toute épreuve. |
-| 📷 | Tous | Châssis bois massif renforcé | Bois massif et renforts métalliques pour une stabilité maximale. |
-| 📷 | Tous | 6 boîtes insonorisées | Les billes tombent sans bruit. |
-| 📷 | Tous | Vérins de réglage | Une planéité parfaite, même sur un sol irrégulier. |
-| 📷 | Tous | Bandes en caoutchouc toilé | Un rebond vif et régulier. |
-| — | Tous | Billard et table à manger | Avec le plateau en 2 parties, une table pour 8 à 10 personnes. |
-
-**Design**
-| | Valable pour | Titre | Texte |
-|---|---|---|---|
-| — ★ | Tous | Le meilleur rapport qualité-prix en fabrication française | Un billard laqué, fabriqué à la main dans nos ateliers du Gers. |
-| 📷 ★ | Tous | Drap Simonis 760 ou Strachan 777 inclus | Les draps des grandes compétitions internationales, en 26 couleurs, sans supplément. |
-| 📷 ★ | Tous | Ardoise italienne monobloc de 19 mm | Une pierre naturelle d'un seul tenant, dans un schiste italien réputé pour sa densité : elle ne se déforme pas avec l'humidité, contrairement au MDF. |
-| 📷 ★ | Tous | Bandes interchangeables brevetées | Plusieurs jeux sur un même billard : français, américain ou pool, à vous de choisir. |
-| 📷 | Tous | Bandes en caoutchouc français | Un rebond précis, calibré pour chaque jeu. |
-| 📷 | Tous | Châssis bois massif renforcé | Bois massif et renforts métalliques pour une stabilité maximale. |
-| 📷 | Tous | Pieds en hêtre massif | Pieds carrés de 120 mm. |
-| 📷 | Tous | Finition laquée à la main | Mate, satinée ou brillante. |
-| 📷 | Tous | 6 boîtes insonorisées | Les billes tombent sans bruit. |
-| — | Tous | Votre couleur | Laque dans la couleur RAL de votre choix. |
-
-**Prestige**
-| | Valable pour | Titre | Texte |
-|---|---|---|---|
-| — ★ | Tous | Le billard convertible le plus fonctionnel du marché | Rangements intégrés, réception centralisée des billes, allonge incluse. |
-| — ★ | Tous | 12 couverts, allonge incluse | Avec le plateau bois, l'allonge de 45 cm est fournie. |
-| 📷 ★ | Tous | Châssis Woodstone | Un bois haute densité aux fibres serrées : il absorbe le poids de l'ardoise sans fléchir et ne travaille ni avec l'humidité ni avec la température. |
-| 📷 ★ | Tous | Réception centralisée et insonorisée | Goulottes capitonnées en 3 épaisseurs, un tiroir abattant de chaque côté. |
-| 📷 | Tous | Système de rangement Octopack | Un système intégré sous le billard pour ranger queues, bandes, billes et craies. |
-| 📷 | Tous | Rangement des plateaux intégré | Pendant la partie, les plateaux se rangent sous le billard. |
-| 📷 | Tous | Bandes interchangeables brevetées | Plusieurs jeux sur un même billard : français, américain ou pool, à vous de choisir. |
-| 📷 | Tous | Ardoise italienne monobloc de 19 mm | Une pierre naturelle d'un seul tenant, sur longerons métalliques : elle ne se déforme pas avec l'humidité, contrairement au MDF. |
-| 📷 | Tous | Drap Simonis 760 ou Strachan 777 inclus | Les draps des grandes compétitions internationales, en 26 couleurs, sans supplément. |
-| 📷 | Tous | Bandes en caoutchouc français | Un rebond précis, calibré pour chaque jeu. |
-| 📷 | Tous | Pieds en bois massif | Chêne, hêtre ou tauari selon le modèle, teintés et vernis à la main. |
-| — | Tous | Fabriqué dans le Gers | Bois massif teinté et verni à la main dans nos ateliers de Plaisance-du-Gers. |
-
-**Lafuge**
-| | Valable pour | Titre | Texte |
-|---|---|---|---|
-| — ★ | Tous | Le billard le plus personnalisable | Essence, teinte, laque RAL, dimensions, incrustations : chaque détail est à votre choix. |
-| — ★ | Tous | Une pièce unique, faite à la main | Fabriquée à l'unité par un seul ébéniste, du début à la fin, à Miribel-les-Échelles. |
-| 📷 ★ | Tous | Essences nobles massives | Chêne, érable, noyer, mélèze ou kotibé. |
-| — ★ | Tous | Ils nous ont choisis | Yacht Club de Monaco, Sheraton Paris, villas prestigieuses de la Côte d'Azur et de la côte atlantique. |
-| 📷 | Tous | Ardoise italienne jusqu'à 50 mm | Une pierre naturelle épaisse : elle ne se déforme pas avec l'humidité, contrairement au MDF. |
-| 📷 | Tous | Bandes interchangeables brevetées | Plusieurs jeux sur un même billard : français, américain ou pool, à vous de choisir. |
-| — | Tous | Toutes les dimensions | Du 7 pieds au snooker 12 pieds, jusqu'au billard russe. |
-
-**Correction** : « bandes interchangeables offertes » est supprimé. L'information venait du résumé d'entreprise fourni au départ (« offert pour les projets multi-jeux »). Il faut aussi la corriger dans `lafuge.md` et `entreprise.md`.
-
-### Accessoires & mobilier (page 11)
-Une ligne par référence, avec une nouvelle colonne « Réf. ».
-- **Toutes gammes, Actif** :
-  - jeu de 7 éléments 250 € ;
-  - 16 billes US ou pool + triangle + règle 80 € ;
-  - 3 billes françaises + règle 35 € ;
-  - 16 billes US ou pool seules 60 € ;
-  - triangles 20 € ;
-  - boîtes de 12 craies (4 couleurs) 8 € ;
-  - brosse 22 € ;
-  - clé 6 pans 20 € ;
-  - règle de jeux 20 € ;
-  - porte-queue simple 20 € ;
-  - porte-queues avec horloge 189 € ;
-  - queues classiques 100 / 120 / 140 cm 50 € ;
-  - queue luxe américaine 95 € ;
-  - queue luxe pool frêne 50 € ;
-  - queue luxe française 70 € ;
-  - queues fibre de verre 120 cm 60 € et 140 cm 65 € ;
-  - protection PVC des dessus 80 € ;
-  - équerre de rangement des dessus et de l'allonge 150 €.
-- **Design et Prestige** : rehausse de pieds carrés 200 €.
-- **Inchangé** : banc laqué 740 €.
-- **Non repris** :
-  - grand dessus MDF ;
-  - tissu au mètre ;
-  - poches en cuir ;
-  - finition brut ;
-  - laque Prestige ;
-  - billard de 1,90 m ;
-  - supplément teinte.
-
-### Production (après validation)
-1. **Connaissances** :
-   - nouveau `accessoires.md` ;
-   - nouveau `arguments.md` : la liste ci-dessus et les règles de rédaction ;
-   - corrections : Lafuge « offert », 26 couleurs, caractéristiques 2,10 m, points du site à corriger (fiche Panama « assemblé en France », vernis de la fiche New-York).
-2. **Trace** :
-   - `arguments_brouillons.py` et `construire_sheet.py` : colonne « Proposé par défaut », plus d'arguments par produit, onglet Accessoires ;
-   - tests : au plus 4 arguments par défaut par gamme et par version ; aucune formule de remplissage ; aucun « offert » côté Lafuge ; au moins 1 argument avec photo prévue par gamme.
-   - commit et push.
-3. **Sheet en ligne**, un appel atomique par onglet, après relecture :
-   - réécriture des 4 blocs ARGUMENTS : colonne « Proposé par défaut », lignes par produit retirées, 6 lignes vides conservées ;
-   - onglet Accessoires.
-4. **Contrôle** : relecture complète et compte rendu.
-
-**Fait le 19/11** : les 4 étapes. En ligne, la règle de mise en forme « Masqué » des blocs Arguments pointait sur la colonne Photo au lieu de Statut : corrigée. Le mode d'emploi en ligne reprend la nouvelle logique des arguments.
+### Hors de cette étape
+- Grille montage (saisie manuelle en attendant) et liste des couleurs Simonis 330.
+- PDF premium (phase B) et photos zoomées.
+- Installation dans Apps Script (phase D), avec l'utilisateur : le code ne peut pas être déployé depuis cette session ; guide pas à pas fourni.
 
 ## Vérification
-- **Phase A** :
-  - `devis/tests/test_sheet.py` vert ;
-  - relecture du Sheet en ligne après chaque requête ;
-  - aucune valeur de l'équipe écrasée.
-- **Phases B et C** : banc Playwright avec 5 scénarios, contrôles des totaux, de l'échéancier, de la règle Oney, des règles Référence et Lafuge, de **la sélection de 4 arguments au maximum** et des liens cliquables.
-- **Apps Script** : mot de passe, blocage, Journal, autorisations limitées.
+- `devis/tests/test_sheet.py` et `test_lafuge.py` verts après les retouches Lafuge ; relecture en ligne de chaque bloc publié.
+- Tests unitaires du moteur de calcul et les 5 scénarios Playwright verts.
+- Captures ordinateur et téléphone envoyées à l'utilisateur pour validation de l'ergonomie.

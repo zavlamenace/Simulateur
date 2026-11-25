@@ -447,15 +447,15 @@ def onglet_lafuge_contenus(wb):
     """Textes Lafuge : fiches techniques (imprimées sur le devis selon les options) et arguments, par jeu."""
     f = Feuille(wb, "Lafuge contenus", "Billard Lafuge · fiches techniques et arguments",
                 "Fiche technique : la version imprimée suit les options (laque, bois massif). "
-                "Ne renommez pas les titres ■ ni les en-têtes.", [10, 24, 18, 56, 36, 40, 14], onglet="1E4F4A")
+                "Ne renommez pas les titres ■ ni les en-têtes.", [10, 24, 16, 52, 44, 30, 14], onglet="1E4F4A")
     for jeu, suffixe in (("mixte", "MIXTE"), ("français", "BANDES FRANÇAISES")):
         fiches = lt.fiches_mixte() if jeu == "mixte" else lt.fiches_francais()
-        lignes = [[i, fiche.nom, el, base, laquee or None, massif or None]
-                  for i, (fiche, (el, base, laquee, massif)) in
-                  enumerate(((fi, e) for fi in fiches for e in fi.technique), start=1)]
-        f.bloc(f"FICHES TECHNIQUES · {suffixe}", ["Ordre", "Fiche", "Élément", "Version de base", "Version laquée",
-                                                   "Version bois massif"], lignes, vides=4,
-               note="Bois massif : cadre, pieds, traverses et châssis en bois massif ; le métal (châssis acier, pieds acier) reste.")
+        lignes = [[i, fiche.nom, el[0], el[1], lt.option_bois(fiche, el), el[2] or None]
+                  for i, (fiche, el) in enumerate(((fi, e) for fi in fiches for e in fi.technique), start=1)]
+        f.bloc(f"FICHES TECHNIQUES · {suffixe}", ["Ordre", "Fiche", "Élément", "De base", "En option",
+                                                   "Version laquée"], lignes, vides=4,
+               note="De base : la matière indiquée sous le titre de la fiche. En option (bois massif) : cadre, pieds, "
+                    "traverses et châssis passent en bois massif ; le métal (châssis acier, pieds acier) reste.")
         bloc_arguments_lafuge(f, suffixe, arguments_brouillons.lignes("Lafuge" if jeu == "mixte" else "Lafuge français"))
 
 

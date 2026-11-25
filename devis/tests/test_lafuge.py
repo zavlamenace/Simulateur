@@ -199,6 +199,29 @@ def test_prix_pivots():
     assert a37.prix["2,40 m"] == 750 and a37.prix["2,60 m"] == L.INC
 
 
+def test_fiches_techniques():
+    for jeu in ("mixte", "français"):
+        for f in fiches(jeu):
+            for el in f.technique:
+                assert "Érable ou chêne" not in el[1] and "chêne ou noyer" not in el[1], (f.nom, el)
+            essences = {o.nom.replace("Cadre en ", "") for o in f.options if o.groupe == "Essence"
+                        and set(o.prix.values()) - {L.NP, L.IMP}}
+            for el in f.technique:
+                texte = L.option_bois(f, el) or ""
+                if el[3] == "Bois massif de l'essence choisie":
+                    for e in essences:
+                        assert e.lower().replace(" massif", "") in texte.lower(), (f.nom, el[0], e, texte)
+    loft = next(f for f in L.fiches_mixte() if f.nom == "LOFT · ÉLÉGANCE")
+    cadre = next(e for e in loft.technique if e[0] == "Cadre")
+    assert cadre[1] == "Érable sycomore massif"
+    assert L.option_bois(loft, cadre) == "Chêne massif ou mélèze massif ; noyer sur demande"
+    soho = next(f for f in L.fiches_mixte() if f.nom == "SOHO")
+    assert L.option_bois(soho, next(e for e in soho.technique if e[0] == "Cadre")) == "Chêne massif ou mélèze massif"
+    bandes = [o for o in loft.options if o.groupe == L.BANDES_INIT]
+    assert len(bandes) == 3 and all(o.choix == "Un seul par groupe" for o in bandes)
+    assert L.DRAP["français"] == "Simonis 330 inclus"
+
+
 if __name__ == "__main__":
     for nom, f in list(globals().items()):
         if nom.startswith("test_"):
