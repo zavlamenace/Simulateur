@@ -11,6 +11,16 @@
   <?!= include('Styles'); ?>
 </head>
 <body>
+  <div id="erreur-demarrage" hidden style="max-width:640px;margin:48px auto;padding:20px;border:1px solid #b01c2e;background:#fff;font:15px/1.5 sans-serif"></div>
+  <script>
+    window.addEventListener("error", function (e) {
+      var el = document.getElementById("erreur-demarrage");
+      if (!el || !el.hidden) return;
+      el.hidden = false;
+      el.textContent = "La page n'a pas pu démarrer (" + (e.message || "erreur inconnue") +
+        "). Vérifiez que les fichiers Code et Index de l'éditeur Apps Script sont ceux du dossier « a-copier », enregistrés avant le déploiement.";
+    });
+  </script>
   <div id="connexion" class="connexion" hidden>
     <form id="form-connexion" class="connexion-carte" autocomplete="off">
       <img class="logo" alt="Billards de France" id="logo-connexion">

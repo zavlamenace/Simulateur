@@ -7,24 +7,22 @@ Les commerciaux n'ont pas besoin d'accès au Sheet : seule la page le lit, avec 
 1. Ouvrir le Sheet, puis **Extensions > Apps Script**.
 2. Renommer le projet « Devis Billards de France ».
 
-## 2. Copier les fichiers
-Les fichiers sont dans `devis/appscript/` du dépôt. Pour un fichier HTML : bouton **+** > **HTML**, puis nommer le fichier sans « .html ».
+## 2. Copier les 3 fichiers
+Les fichiers à coller sont dans `devis/appscript/a-copier/`. Ne collez rien d'autre : `Index.html` contient déjà les styles, le moteur de calcul, les logos, le PDF et l'interface.
 
-| Fichier du dépôt | Dans l'éditeur |
+| Fichier de `a-copier/` | Dans l'éditeur |
 |---|---|
-| `Code.gs` | `Code.gs` (remplacer le contenu existant) |
-| `Index.html` | `Index` |
-| `Styles.html` | `Styles` |
-| `Calcul.html` | `Calcul` |
-| `Logos.html` | `Logos` |
-| `Pdf.html` | `Pdf` |
-| `App.html` | `App` |
+| `Code.gs` | `Code.gs` : tout sélectionner, puis coller par-dessus |
+| `Index.html` | `Index` : tout sélectionner, puis coller par-dessus. S'il n'existe pas : bouton **+** > **HTML**, nommé `Index` |
+| `appsscript.json` | voir l'étape 3 |
 
-Ne pas copier `calcul.js` : son contenu est déjà dans `Calcul.html`.
+Si l'éditeur contient d'anciens fichiers `Styles`, `Calcul`, `Logos`, `Pdf` ou `App`, supprimez-les (menu ⋮ à côté du nom > Supprimer). Ils ne servent plus.
+
+**Enregistrez** (icône disquette, ou Cmd+S / Ctrl+S) après chaque collage. Un fichier non enregistré n'entre pas dans le déploiement.
 
 ## 3. Manifeste
 1. **Paramètres du projet** (roue dentée) : cocher « Afficher le fichier manifeste "appsscript.json" dans l'éditeur ».
-2. Ouvrir `appsscript.json` dans l'éditeur et remplacer son contenu par celui de `devis/appscript/appsscript.json`.
+2. Ouvrir `appsscript.json` dans l'éditeur, coller le contenu de `a-copier/appsscript.json` par-dessus, puis enregistrer.
 
 Autorisations demandées :
 - ce tableur seulement ;
@@ -82,10 +80,11 @@ La page est protégée par le mot de passe, et non par le secret de son adresse.
 
 ## Mettre à jour la page
 - **Code** :
-  1. remplacer le contenu des fichiers modifiés ;
+  1. recoller `Code.gs` et `Index.html` depuis `a-copier/` et enregistrer ;
   2. **Déployer > Gérer les déploiements**, crayon, Version « Nouvelle version », **Déployer** ;
   3. l'URL ne change pas.
 - **Contenus** : prix, options, arguments, équipe et paramètres se modifient dans le Sheet. Rien à redéployer : la page relit le Sheet à chaque ouverture.
+- **Si la page reste blanche ou affiche « La page n'a pas pu démarrer »** : un fichier n'est pas le bon, ou n'a pas été enregistré avant le déploiement.
 
 ## Sécurité
 - Session de 8 heures. Après 10 mots de passe erronés, les connexions sont bloquées 30 minutes.
@@ -94,7 +93,7 @@ La page est protégée par le mot de passe, et non par le secret de son adresse.
 - Le classeur « Tarifs revendeurs HT » n'est jamais lu par l'outil.
 
 ## Pour les développeurs
-- **Fichiers produits** : `Calcul.html` et `Logos.html` viennent de `python3 devis/outils/assembler_appscript.py`. Le relancer après une modification de `calcul.js` ou de `devis/logos/`.
+- **Fichiers produits** : `python3 devis/outils/assembler_appscript.py` produit `Calcul.html`, `Logos.html` et le dossier `a-copier/` (Index assemblé, copies de `Code.gs` et du manifeste). Le relancer après toute modification de `devis/appscript/` ou de `devis/logos/`. Le banc d'essai sert l'Index assemblé : c'est ce fichier exact qui est testé.
 - **Banc d'essai** :
   - lancement : `cd devis/banc && npm install && node serveur.js` ;
   - adresse : http://127.0.0.1:8787, mot de passe `banc-essai-2026` ;

@@ -42,6 +42,7 @@ async function nouvellePage(options) {
   await page.fill("#mdp", banc.motDePasse);
   await page.click("#form-connexion button");
   await page.waitForSelector("#app:not([hidden])");
+  assert.equal(await page.isHidden("#erreur-demarrage"), true);
   return page;
 }
 
@@ -93,6 +94,17 @@ async function sansDebordement(page) {
 
 // ---------------------------------------------------------------------------------------------------------
 // Parcours
+
+test("0. Démarrage impossible : message visible au lieu d'une page blanche", async () => {
+  const contexte = await navigateur.newContext();
+  const page = await contexte.newPage();
+  await page.route("**/rpc/**", (r) => r.abort());
+  await page.addInitScript(() => { Object.defineProperty(window, "LOGOS", { get() { throw new Error("Logos absent"); } }); });
+  await page.goto(`http://127.0.0.1:${banc.port}/`);
+  await page.waitForSelector("#erreur-demarrage:not([hidden])");
+  assert.match(await page.textContent("#erreur-demarrage"), /n'a pas pu démarrer/);
+  await contexte.close();
+});
 
 test("1. Référence simple : kit inclus, Oney, aucune mention d'origine, récap CRM", async () => {
   const page = await nouvellePage();
