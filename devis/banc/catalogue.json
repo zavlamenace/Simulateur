@@ -14578,8 +14578,8 @@
 "Livraison & montage": {
 "FORMULES": [
 {
-"Formule": "Livraison offerte",
-"Détail imprimé sur le devis": "Livraison au pied de la porte par messagerie, sur palette fabriquée sur mesure",
+"Formule": "Livraison par messagerie au pied de la porte",
+"Détail imprimé sur le devis": "Sur une palette fabriquée sur mesure pour protéger le billard",
 "Prix TTC": 0,
 "Valeur si offert": 300,
 "Gammes compatibles": "Toutes",

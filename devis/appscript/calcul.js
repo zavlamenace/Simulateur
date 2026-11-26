@@ -404,11 +404,13 @@
       .map(function (a) { return a.id; });
   }
 
+  /** Formule de livraison offerte : la formule active à 0 € (son nom est le libellé imprimé, le prix s'affiche « Offerte »). */
   function livraisonOfferte(cat) {
-    var f = (cat["Livraison & montage"] && cat["Livraison & montage"].FORMULES) || [];
-    var o = f.filter(function (l) { return /offerte/i.test(texte(l.Formule)) && texte(l.Statut) === "Actif"; })[0];
+    var f = ((cat["Livraison & montage"] && cat["Livraison & montage"].FORMULES) || [])
+      .filter(function (l) { return texte(l.Statut) === "Actif"; });
+    var o = f.filter(function (l) { return nombre(l["Prix TTC"]) === 0 || /offerte/i.test(texte(l.Formule)); })[0];
     return o ? { libelle: texte(o.Formule), detail: texte(o["Détail imprimé sur le devis"]),
-                 valeur: nombre(o["Valeur si offert"]) || 0 } : { libelle: "Livraison offerte", detail: "", valeur: 0 };
+                 valeur: nombre(o["Valeur si offert"]) || 0 } : { libelle: "Livraison par messagerie au pied de la porte", detail: "", valeur: 0 };
   }
 
   // ---------------------------------------------------------------------------------------------------------
@@ -449,6 +451,13 @@
   // ---------------------------------------------------------------------------------------------------------
   // Lignes du devis et totaux
 
+  /** Remise telle que saisie : « 10 % » ou « 100 € ». */
+  function texteRemise(remise) {
+    var v = remise ? nombre(remise.valeur) : null;
+    if (!v) return "";
+    return remise.type === "%" ? v.toLocaleString("fr-FR", { maximumFractionDigits: 2 }) + "\u00a0%" : euros(v);
+  }
+
   function remiseDe(remise, montant) {
     if (!remise || nombre(remise.valeur) === null || nombre(remise.valeur) === 0) return 0;
     var v = nombre(remise.valeur);
@@ -481,6 +490,7 @@
     var pousser = function (l) {
       l.brut = arrondi((l.prixUnitaire || 0) * (l.quantite || 1));
       l.remise = l.inclus ? 0 : remiseDe(r[l.id], l.brut);
+      l.remiseTexte = l.remise ? texteRemise(r[l.id]) : "";
       l.net = arrondi(l.brut - l.remise);
       out.push(l);
     };
@@ -561,6 +571,7 @@
     echeances.push({ libelle: "Solde avant livraison", taux: null, montant: arrondi(total - deja) });
     var seuilOney = nombre(p["Seuil Oney 3x / 4x (€)"]) || 3000;
     return { brut: brut, remisesLignes: remisesLignes, remiseGlobale: remiseGlobale, remiseTotale: arrondi(remisesLignes + remiseGlobale),
+             remiseGlobaleTexte: remiseGlobale ? texteRemise(cfg.remiseGlobale) : "",
              total: total, tva: tva, ht: arrondi(total - tva), echeances: echeances, oney: total > 0 && total <= seuilOney };
   }
 
@@ -610,9 +621,10 @@
     l.push("Gamme : " + g.nom);
     lgn.forEach(function (x) {
       var prix = x.inclus ? (x.section === "livraison" ? "offerte" : x.id === "kit" ? "offert" : "inclus") : euros(x.net);
-      l.push("- " + (x.quantite > 1 ? x.quantite + " × " : "") + x.libelle + " : " + prix + (x.remise ? " (remise " + euros(x.remise) + ")" : ""));
+      l.push("- " + (x.quantite > 1 ? x.quantite + " × " : "") + x.libelle + " : " + prix +
+        (x.remise ? " (remise " + x.remiseTexte + (/%/.test(x.remiseTexte) ? " = " + euros(x.remise) : "") + ")" : ""));
     });
-    if (t.remiseGlobale) l.push("Remise sur le total : " + euros(t.remiseGlobale));
+    if (t.remiseGlobale) l.push("Remise sur le total" + (/%/.test(t.remiseGlobaleTexte) ? " (" + t.remiseGlobaleTexte + ")" : "") + " : " + euros(t.remiseGlobale));
     l.push("Total TTC : " + euros(t.total));
     t.echeances.forEach(function (e) { l.push(e.libelle + " : " + euros(e.montant)); });
     return l.join("\n").replace(/\u00a0/g, " ");
@@ -627,6 +639,6 @@
     dimensions: dimensions, texteDimensions: texteDimensions, dateDevis: dateDevis, validite: validite,
     draps: draps, teintes: teintes, accessoires: accessoires, argumentsGamme: argumentsGamme,
     argumentsParDefaut: argumentsParDefaut, livraisonOfferte: livraisonOfferte, ficheTechnique: ficheTechnique,
-    lignes: lignes, totaux: totaux, problemes: problemes, recapCRM: recapCRM, remiseDe: remiseDe,
+    lignes: lignes, totaux: totaux, problemes: problemes, recapCRM: recapCRM, remiseDe: remiseDe, texteRemise: texteRemise,
   };
 });

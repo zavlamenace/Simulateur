@@ -80,19 +80,30 @@ test("Journal : références, brouillon mis à jour, devis généré jamais modi
   const g = gas.appeler("enregistrer", [jeton, JSON.stringify(Object.assign({}, cfg, b2)), "Généré", { total: 4500, remise: 0 }]);
   assert.equal(g.ref, b.ref);
   assert.equal(g.statut, "Généré");
+  const j0 = gas.feuilles.find((f) => f.getName() === "Journal");
+  const colonne = (h) => j0.getRange(5, 1, 1, j0.getLastColumn()).getValues()[0].indexOf(h) + 1;
+  assert.equal(j0.lire(6, colonne("Suivi")), "Envoyé", "suivi posé à la génération");
+  assert.ok(j0.validations[colonne("Suivi")].regle.liste.includes("Validé (bon pour accord)"));
   const v2 = gas.appeler("enregistrer", [jeton, JSON.stringify(Object.assign({}, cfg, g)), "Brouillon", { total: 4600, remise: 0 }]);
+  assert.equal(j0.lire(6, colonne("Suivi")), "Envoyé", "un brouillon V2 ne change pas le suivi de la V1");
+  gas.appeler("enregistrer", [jeton, JSON.stringify(Object.assign({}, cfg, v2)), "Généré", { total: 4600, remise: 0 }]);
+  assert.equal(j0.lire(6, colonne("Suivi")), "Remplacé par une nouvelle version");
+  assert.equal(j0.lire(7, colonne("Suivi")), "Envoyé");
   assert.equal(v2.ref, `${b.ref}-2`);
   assert.equal(v2.version, 2);
   const autre = gas.appeler("enregistrer", [jeton, JSON.stringify({ client: { nom: "Durand" } }), "Brouillon", {}]);
   assert.equal(autre.ref, `BDF-${annee}-0002`);
   const liste = gas.appeler("listeDevis", [jeton, "martin"]);
-  assert.deepEqual(liste.map((d) => [d.ref, d.statut, d.total]), [[`${b.ref}-2`, "Brouillon", 4600], [b.ref, "Généré", 4500]]);
+  assert.deepEqual(liste.map((d) => [d.ref, d.statut, d.total, d.suivi]),
+    [[`${b.ref}-2`, "Généré", 4600, "Envoyé"], [b.ref, "Généré", 4500, "Remplacé par une nouvelle version"]]);
   const ouvert = JSON.parse(gas.appeler("ouvrir", [jeton, b.ref]));
   assert.equal(ouvert.statut, "Généré");
   assert.equal(ouvert.config.modele, "Boston");
   const j = gas.feuilles.find((f) => f.getName() === "Journal");
   const entetes = j.getRange(5, 1, 1, j.getLastColumn()).getValues()[0];
-  for (const h of ["Statut", "Version", "Téléphone", "Email", "Origine du contact", "Mis à jour"]) assert.ok(entetes.includes(h), h);
+  for (const h of ["Statut", "Version", "Téléphone", "Email", "Origine du contact", "Mis à jour", "Suivi", "Prochaine relance", "Note de suivi"]) {
+    assert.ok(entetes.includes(h), h);
+  }
 });
 
 test("Mot de passe saisi dans les propriétés du script : haché à la connexion suivante, puis effacé", () => {

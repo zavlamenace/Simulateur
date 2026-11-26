@@ -32,6 +32,15 @@ La page de création de devis est **écrite et testée**, avec les décisions de
   - Correction : le mot de passe se saisit désormais dans Paramètres du projet > Propriétés du script (`MOT_DE_PASSE`), sans modifier le code.
   - Ajout d'un diagnostic, `verifierInstallation`.
 - **Adresse courte** `devis.billardsdefrance.fr` (validée le 26/11) : redirection Cloudflare vers l'adresse `/exec`, décrite dans INSTALLATION.md.
+- **Journal, suivi commercial (26/11)** : trois colonnes ajoutées automatiquement par l'outil.
+  - « Suivi », liste déroulante : Envoyé, En réflexion, À relancer, Relancé, En négociation, Validé (bon pour accord), Acompte reçu, Perdu, Sans suite, Remplacé par une nouvelle version.
+  - « Prochaine relance », une date.
+  - « Note de suivi ».
+  - Règles automatiques : « Envoyé » à la génération ; une version précédente encore en cours passe à « Remplacé par une nouvelle version » quand la suivante est générée.
+- **Retours du 26/11** :
+  - champ de précision (RAL, teinte) élargi ;
+  - remise affichée en % ou en € ;
+  - livraison « par messagerie au pied de la porte » (Sheet mis à jour).
 - **Simonis 330** : mêmes couleurs que le Simonis 760 (26/11). Le renvoi est dans le bloc « DRAPS » de l'onglet Coloris, en ligne et dans la trace.
 - **Retours de l'équipe** sur l'ergonomie et sur le PDF provisoire (captures envoyées le 26/11).
 - **Ensuite** :

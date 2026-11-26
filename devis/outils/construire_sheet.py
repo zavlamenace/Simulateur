@@ -546,7 +546,7 @@ def onglet_livraison(wb):
         ["Formule", "Détail imprimé sur le devis", "Prix TTC", "Valeur si offert", "Gammes compatibles", "Statut",
          "Note interne"],
         [
-            ["Livraison offerte", "Livraison au pied de la porte par messagerie, sur palette fabriquée sur mesure",
+            ["Livraison par messagerie au pied de la porte", "Sur une palette fabriquée sur mesure pour protéger le billard",
              0, 300, "Toutes", "Actif", None],
             ["Livraison et montage — rez-de-chaussée", "Livraison et montage complet par nos techniciens", 725, None,
              "Toutes", "Masqué", "Ancienne grille du site : à remplacer par la nouvelle grille"],

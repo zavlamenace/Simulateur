@@ -131,7 +131,7 @@ test("1. Référence simple : kit inclus, Oney, aucune mention d'origine, récap
   const ref = pdf.texte.match(/BDF-\d{4}-\d{4}/)[0];
   assert.equal(pdf.nomPropose, `Devis ${ref} Martin.pdf`);
   for (const attendu of ["Billard Référence Premium Santiago", "Tapis standard, couleur Rouge", "Kit accessoires inclus", "330 €",
-    "Rangement des accessoires", "2 395 €", "Livraison offerte", "Oney", "Je valide mon devis", "Bon pour accord",
+    "Rangement des accessoires", "2 395 €", "Livraison par messagerie au pied de la porte", "Sur une palette fabriquée sur mesure", "Offerte", "Oney", "Je valide mon devis", "Bon pour accord",
     "Conditions générales de vente sur billardsdefrance.fr", "Xavier Fitan", "Claire Martin"]) {
     assert.ok(pdf.texte.includes(attendu), attendu);
   }
@@ -204,11 +204,13 @@ test("3. Prestige : remises par ligne (% et €) et globale, prix barrés, nouve
   await page.fill(`input[data-remise="${idDecor}"]`, "100");
   await page.fill('input[data-remise="global"]', "5");
   assert.equal(await total(page), "8 654,50 €");
-  assert.match(await texte(page, "#recap"), /8 800 €\s*7 920 €/);
+  assert.match(await texte(page, "#recap"), /\(remise 10 %\)8 800 €\s*7 920 €/);
+  assert.match(await texte(page, "#recap"), /Remise sur le total \(5 %\)− 455,50 €/);
 
   const pdf = await generer(page, "3-prestige");
   const ref = pdf.texte.match(/BDF-\d{4}-\d{4}/)[0];
-  for (const attendu of ["Prix catalogue", "10 090 €", "Remise", "1 435,50 €", "8 654,50 €", "7 920 €", "8 800 €"]) {
+  for (const attendu of ["Prix catalogue", "10 090 €", "Remise 10 %", "Remise 100 €", "Remises sur les articles", "980 €",
+    "Remise sur le total (5 %)", "455,50 €", "8 654,50 €", "7 920 €", "8 800 €"]) {
     assert.ok(pdf.texte.includes(attendu), attendu);
   }
   sansMentionsInterdites(pdf.texte, false);

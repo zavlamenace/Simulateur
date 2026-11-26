@@ -16,7 +16,11 @@ var ITERATIONS = 2000;
 var ONGLETS_IGNORES = { "Mode d'emploi": true, "Journal": true };
 var ENTETES_JOURNAL = ["Référence", "Date", "Réalisé par", "N° facturation", "Client", "Ville", "Gamme", "Modèle",
   "Total TTC", "Remise", "Configuration complète", "Statut", "Version", "Téléphone", "Email", "Origine du contact",
-  "Mis à jour"];
+  "Mis à jour", "Suivi", "Prochaine relance", "Note de suivi"];
+/** Étapes du suivi commercial (liste déroulante de la colonne « Suivi » du Journal). */
+var SUIVI = ["Envoyé", "En réflexion", "À relancer", "Relancé", "En négociation", "Validé (bon pour accord)", "Acompte reçu",
+  "Perdu", "Sans suite", "Remplacé par une nouvelle version"];
+var SUIVI_FINAL = { "Validé (bon pour accord)": true, "Acompte reçu": true, "Perdu": true, "Sans suite": true };
 
 // --------------------------------------------------------------------------------------------------------------
 // Page
@@ -219,6 +223,12 @@ function journal_() {
   });
   var colonnes = {};
   entetes.forEach(function (h, i) { if (h) colonnes[h] = i + 1; });
+  var debut = ligneEntetes + 1, hauteur = Math.max(feuille.getMaxRows() - ligneEntetes, 1);
+  if (!feuille.getRange(debut, colonnes["Suivi"]).getDataValidation()) {
+    feuille.getRange(debut, colonnes["Suivi"], hauteur, 1).setDataValidation(
+      SpreadsheetApp.newDataValidation().requireValueInList(SUIVI, true).setAllowInvalid(true).build());
+    feuille.getRange(debut, colonnes["Prochaine relance"], hauteur, 1).setNumberFormat("dd/mm/yyyy");
+  }
   return { feuille: feuille, ligneEntetes: ligneEntetes, colonnes: colonnes };
 }
 
@@ -298,9 +308,19 @@ function enregistrer(jeton, configJson, statut, resume) {
       "Origine du contact": c.origine || "", "Mis à jour": new Date(),
     };
     var numero = existante ? existante.ligne : Math.max(j.feuille.getLastRow() + 1, j.ligneEntetes + 1);
+    if (statut === "Généré" && !(existante && existante.Suivi)) valeurs.Suivi = "Envoyé";
     Object.keys(valeurs).forEach(function (h) {
       if (j.colonnes[h]) j.feuille.getRange(numero, j.colonnes[h]).setValue(valeurs[h]);
     });
+    if (statut === "Généré" && cfg.version > 1) {
+      // Les versions précédentes encore en cours sont marquées remplacées : le suivi ne compte qu'une fois le projet.
+      var base = cfg.refBase || cfg.ref;
+      lignes.forEach(function (o) {
+        var r = String(o["Référence"]);
+        if (r === cfg.ref || (r !== base && r.indexOf(base + "-") !== 0) || o.Statut !== "Généré" || SUIVI_FINAL[o.Suivi]) return;
+        j.feuille.getRange(o.ligne, j.colonnes.Suivi).setValue("Remplacé par une nouvelle version");
+      });
+    }
     return { ref: cfg.ref, version: cfg.version, refBase: cfg.refBase, date: cfg.date, statut: statut };
   } finally {
     verrou.releaseLock();
@@ -316,7 +336,7 @@ function listeDevis(jeton, recherche) {
   }).slice(0, 50).map(function (o) {
     return { ref: o["Référence"], date: o.Date instanceof Date ? Utilities.formatDate(o.Date, "Europe/Paris", "dd/MM/yyyy") : String(o.Date || ""),
              client: o.Client, ville: o.Ville, gamme: o.Gamme, modele: o["Modèle"], total: o["Total TTC"],
-             statut: o.Statut || "Généré", realisePar: o["Réalisé par"] };
+             statut: o.Statut || "Généré", suivi: o.Suivi || "", realisePar: o["Réalisé par"] };
   });
 }
 

@@ -16,7 +16,9 @@ class Feuille {
     this.nom = nom;
     this.cachee = !!cachee;
     this.cellules = valeurs.map((l) => l.slice());
+    this.validations = {};
   }
+  getMaxRows() { return Math.max(this.cellules.length, 1000); }
   getName() { return this.nom; }
   isSheetHidden() { return this.cachee; }
   getLastRow() {
@@ -52,6 +54,9 @@ class Plage {
   }
   setValue(v) { this.f.ecrire(this.r, this.c, v); return this; }
   setFontWeight() { return this; }
+  setNumberFormat() { return this; }
+  getDataValidation() { return (this.f.validations[this.c] && this.r >= this.f.validations[this.c].debut) ? this.f.validations[this.c].regle : null; }
+  setDataValidation(regle) { this.f.validations[this.c] = { debut: this.r, regle }; return this; }
 }
 
 function octetsSignes(buffer) {
@@ -71,6 +76,11 @@ function creerAppsScript(o) {
   const contexte = {
     console,
     SpreadsheetApp: {
+      newDataValidation: () => {
+        const r = {};
+        const b = { requireValueInList: (l) => { r.liste = l; return b; }, setAllowInvalid: () => b, build: () => r };
+        return b;
+      },
       getActive: () => ({
         getName: () => "BdF – Tarifs & contenus (banc)",
         getSheets: () => feuilles.slice(),

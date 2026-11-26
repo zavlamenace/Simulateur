@@ -19,6 +19,7 @@ Clientèle : particuliers uniquement. Prix **TTC**, TVA 20 % détaillée (TVA = 
 - **Validité** : 30 jours, avec la date affichée (« Offre valable jusqu'au … »).
 
 ## Livraison
+- Libellé sur le devis (26/11) : « Livraison par messagerie au pied de la porte », détail « Sur une palette fabriquée sur mesure pour protéger le billard », prix « Offerte » avec la valeur de 300 € barrée.
 - **Offerte** au pied de la porte, par messagerie, sur une palette fabriquée sur mesure pour protéger le billard. **Valeur affichée : 300 €**.
 - France métropolitaine, hors Corse. Hors France continentale : sur devis.
 - Il n'existe pas de « livraison seule » supplémentaire : c'est soit la livraison offerte, soit la livraison + montage.
@@ -50,6 +51,9 @@ Clientèle : particuliers uniquement. Prix **TTC**, TVA 20 % détaillée (TVA = 
 ## Remises
 - Par ligne et sur le total, en € ou en % : prix barré et ligne « Remise » en déduction.
 - **Rien n'apparaît s'il n'y a pas de remise.**
+- **Affichage, depuis le 26/11** :
+  - chaque ligne remisée montre le prix barré, la remise telle que saisie (« Remise 10 % » ou « Remise 100 € ») et le prix net ;
+  - les totaux détaillent le prix catalogue, les remises sur les articles et la remise sur le total (avec son % s'il y a lieu).
 
 ## Mentions sensibles — à ne pas mettre dans le PDF
 - Droit de rétractation et son exclusion. Les CGV l'excluent pour les billards personnalisés ; il suffit d'une ligne discrète « CGV sur billardsdefrance.fr ».

@@ -103,7 +103,10 @@
       if (l.valeurOfferte) return { text: [{ text: C.euros(l.valeurOfferte), decoration: "lineThrough", color: GRIS }, "  " + mot], alignment: "right" };
       return { text: mot, alignment: "right" };
     }
-    if (l.remise) return { stack: [{ text: C.euros(l.brut), decoration: "lineThrough", color: GRIS, fontSize: 8 }, { text: C.euros(l.net) }], alignment: "right" };
+    if (l.remise) {
+      return { stack: [{ text: C.euros(l.brut), decoration: "lineThrough", color: GRIS, fontSize: 8 },
+        { text: "Remise " + l.remiseTexte, color: ANTHRACITE, fontSize: 8 }, { text: C.euros(l.net), bold: true }], alignment: "right" };
+    }
     return { text: C.euros(l.net), alignment: "right" };
   }
 
@@ -123,7 +126,11 @@
     var lignes = [];
     if (tot.remiseTotale) {
       lignes.push([{ text: "Prix catalogue" }, { text: C.euros(tot.brut), alignment: "right" }]);
-      lignes.push([{ text: "Remise" }, { text: "− " + C.euros(tot.remiseTotale), alignment: "right" }]);
+      if (tot.remisesLignes) lignes.push([{ text: "Remises sur les articles" }, { text: "− " + C.euros(tot.remisesLignes), alignment: "right" }]);
+      if (tot.remiseGlobale) {
+        lignes.push([{ text: "Remise sur le total" + (/%/.test(tot.remiseGlobaleTexte) ? " (" + tot.remiseGlobaleTexte + ")" : "") },
+          { text: "− " + C.euros(tot.remiseGlobale), alignment: "right" }]);
+      }
     }
     lignes.push([{ text: "Total TTC", style: "total" }, { text: C.euros(tot.total), style: "total", alignment: "right" }]);
     lignes.push([{ text: "Dont TVA 20 %", style: "petit" }, { text: C.euros(tot.tva), style: "petit", alignment: "right" }]);

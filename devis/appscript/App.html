@@ -483,7 +483,7 @@
   function corpsLivraison() {
     var liv = etat.cfg.livraison, lo = C.livraisonOfferte(etat.cat), montage = liv.formule === "montage";
     var html = '<div class="cartes deux">' +
-      carte("choisir-livraison", "offerte", lo.libelle, lo.detail, !montage) +
+      carte("choisir-livraison", "offerte", lo.libelle, ["Offerte", lo.detail].filter(Boolean).join(" · "), !montage) +
       carte("choisir-livraison", "montage", "Livraison et montage", "Installation dans la pièce, mise à niveau et réglages par nos techniciens", montage) +
       '</div>';
     if (montage) {
@@ -552,9 +552,11 @@
         var prix = l.aSaisir ? '<span class="aide">à saisir</span>'
           : l.inclus ? (l.section === "livraison" ? "offerte" : "inclus")
           : (l.remise ? '<span class="barre">' + h(C.euros(l.brut)) + '</span>' : "") + h(C.euros(l.net));
-        return '<div class="recap-ligne"><span>' + h((l.quantite > 1 ? l.quantite + " × " : "") + l.libelle) + '</span><span class="prix">' + prix + '</span></div>';
+        return '<div class="recap-ligne"><span>' + h((l.quantite > 1 ? l.quantite + " × " : "") + l.libelle) +
+          (l.remise ? ' <span class="remise-texte">(remise ' + h(l.remiseTexte) + ')</span>' : "") + '</span><span class="prix">' + prix + '</span></div>';
       }).join("") + '</div>';
-      if (t.remiseGlobale) html += '<div class="recap-ligne"><span>Remise sur le total</span><span class="prix">− ' + h(C.euros(t.remiseGlobale)) + '</span></div>';
+      if (t.remiseGlobale) html += '<div class="recap-ligne"><span>Remise sur le total' + (/%/.test(t.remiseGlobaleTexte) ? " (" + h(t.remiseGlobaleTexte) + ")" : "") +
+        '</span><span class="prix">− ' + h(C.euros(t.remiseGlobale)) + '</span></div>';
       html += '<div class="recap-total"><span>Total TTC</span><span class="montant" id="recap-total">' + h(C.euros(t.total)) + '</span></div>';
       html += '<div class="recap-petit"><span>Dont TVA : ' + h(C.euros(t.tva)) + '</span>' +
         (t.remiseTotale ? '<span>Remise accordée : ' + h(C.euros(t.remiseTotale)) + '</span>' : "") + '</div>';
@@ -679,7 +681,7 @@
       $("#liste-devis").innerHTML = l.length ? l.map(function (d) {
         return '<button type="button" class="devis-ligne" data-action="ouvrir-devis" data-ref="' + h(d.ref) + '">' +
           '<strong>' + h(d.ref) + '</strong><span>' + h(C.euros(C.nombre(d.total) || 0)) + '</span>' +
-          '<small>' + h([d.client, d.ville].filter(Boolean).join(" · ")) + '</small><small>' + h(d.statut + " · " + d.date) + '</small>' +
+          '<small>' + h([d.client, d.ville].filter(Boolean).join(" · ")) + '</small><small>' + h([d.statut, d.suivi, d.date].filter(Boolean).join(" · ")) + '</small>' +
           '<small>' + h([d.gamme, d.modele].filter(Boolean).join(" · ")) + '</small><small>' + h(d.realisePar || "") + '</small></button>';
       }).join("") : '<p class="aide">Aucun devis trouvé.</p>';
     }).catch(function (e) { $("#liste-devis").innerHTML = '<p class="erreur">' + h(e.message) + '</p>'; });

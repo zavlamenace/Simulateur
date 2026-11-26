@@ -100,14 +100,16 @@
   .option { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; gap: 4px 10px; align-items: start;
     padding: 10px 12px; border: 1px solid var(--sable-clair); background: var(--blanc); cursor: pointer; }
   .option:hover { border-color: var(--sable); }
-  .option input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--encre); }
+  .option > input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--encre); }
   .option.choisie { border-color: var(--encre); }
   .option.indisponible { cursor: not-allowed; opacity: .55; }
   .option-nom { min-width: 0; }
   .option-prix { color: var(--anthracite); white-space: nowrap; }
   .option-note { grid-column: 2 / -1; font-size: 12px; color: var(--gris); }
   .option-saisie { grid-column: 2 / -1; display: flex; gap: 8px; align-items: center; }
-  .option-saisie input { max-width: 160px; }
+  .option-saisie input { width: 100%; min-height: 40px; }
+  .option-saisie input[type=number] { max-width: 180px; }
+  .remise-texte { color: var(--anthracite); font-size: 12px; white-space: nowrap; }
 
   /* Listes (accessoires, lignes libres, remises) */
   .ligne { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center;
