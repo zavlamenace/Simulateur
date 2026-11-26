@@ -16,6 +16,17 @@
 - **Mont Blanc français 2,80 m** : options à saisir par l'utilisateur dans le Sheet.
 - **Grille livraison + montage** (toutes gammes) : à recevoir ; l'outil propose une saisie manuelle en attendant.
 
+## Page de devis (26/11) : à valider par l'équipe
+- **Origines du contact** : la page propose « Site internet », « Appel téléphonique », « Showroom », « Salon », « Recommandation », « Revendeur » et « Réseaux sociaux ». La saisie libre reste possible.
+- **Règlement imprimé sur le PDF** :
+  - moyens de paiement : « Carte bancaire (Visa, Mastercard), American Express, Apple Pay ou PayPal » ;
+  - encadré Oney : « Réglez votre billard en plusieurs fois par carte bancaire », sans « sans frais » tant que ce n'est pas confirmé.
+- **Bandes initiales 10 et 12 pieds** : les lignes s'impriment « Snooker » et « Russe », comme dans le Sheet.
+- **Fiche technique** :
+  - une ligne propre à une taille (« 2,80 m : 6 pieds ») ne s'imprime que pour cette taille ;
+  - Chambord et Compétition en 10 et 12 pieds : nombre de pieds à confirmer.
+- **Équipements inclus du modèle** (piètement démontable du Chambord, par exemple) : cochés d'office, le commercial peut les décocher.
+
 ## Contradictions tranchées
 | Sujet | Sources en conflit | Décision |
 |---|---|---|

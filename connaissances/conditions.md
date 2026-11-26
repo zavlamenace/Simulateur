@@ -45,7 +45,7 @@ Clientèle : particuliers uniquement. Prix **TTC**, TVA 20 % détaillée (TVA = 
 2 ans, défaut de fabrication, sur tous les billards. Lafuge : certificat de garantie en plus.
 
 ## Accessoires
-- Lafuge : billard vendu **hors accessoires** (rien n'est offert ; la mention est imprimée sur le devis). Les accessoires peuvent faire partie de la négociation.
+- Lafuge : billard vendu **hors accessoires**. Le devis imprime « Billard vendu hors accessoires » ; la précision « rien n'est offert » reste orale, pour ne pas refroidir le client (corrigé le 25/11). Les accessoires peuvent faire partie de la négociation.
 
 ## Remises
 - Par ligne et sur le total, en € ou en % : prix barré et ligne « Remise » en déduction.

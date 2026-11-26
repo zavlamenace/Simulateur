@@ -1,0 +1,13 @@
+{
+  "name": "banc-devis-bdf",
+  "private": true,
+  "description": "Banc d'essai local de la page de création de devis (hors production).",
+  "scripts": {
+    "test": "node --test tests/*.test.js"
+  },
+  "dependencies": {
+    "@fontsource/dm-sans": "5.2.8",
+    "@fontsource/eb-garamond": "5.2.7",
+    "pdfmake": "0.2.23"
+  }
+}

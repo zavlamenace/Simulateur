@@ -344,7 +344,7 @@ def fiches_mixte():
                    ("Pieds", *tech_massif("MDF plaqué chêne, 120 × 120 mm", "MDF")),
                    ("Traverses", *tech_massif("Multiplis 40 mm plaqué chêne (plus résistant que le bois massif)",
                                               "Érable massif")),
-                   ("Pieds (City)", "Pieds biseautés", "Pieds biseautés", "Pieds biseautés")]
+                   ("Forme des pieds (City)", "Biseautés", "Biseautés", "Biseautés")]
     out.append(f)
 
     f = Fiche("EIFFEL · ALPHA", J, {}, "MDF plaqué chêne, pieds en acier")
@@ -676,7 +676,7 @@ def fiches_francais():
                    ("Pieds", *tech_massif("MDF plaqué chêne, 120 × 120 mm", "MDF")),
                    ("Traverses", *tech_massif("Multiplis 40 mm plaqué chêne (plus résistant que le bois massif)",
                                               "Érable massif")),
-                   ("Pieds (City)", "Pieds biseautés", "Pieds biseautés", "Pieds biseautés")]
+                   ("Forme des pieds (City)", "Biseautés", "Biseautés", "Biseautés")]
     out.append(f)
 
     f = Fiche("EIFFEL · ALPHA", J, {}, "MDF plaqué chêne, pieds en acier")
@@ -909,7 +909,7 @@ def ht(valeur):
 
 GAMME = {
     "Délai de fabrication": "8 semaines minimum, hors organisation de la livraison",
-    "Accessoires": "Billard vendu hors accessoires (rien n'est offert)",
+    "Accessoires": "Billard vendu hors accessoires",
     "Échéancier": "30 % à la commande, 30 % au lancement en fabrication, solde avant livraison",
 }
 DRAP = {"mixte": "Simonis 760 ou Strachan 777 inclus", "français": "Simonis 330 inclus"}

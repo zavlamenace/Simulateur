@@ -1,0 +1,290 @@
+<script>
+/**
+ * PDF provisoire du devis (pdfmake, dans le navigateur). Sobre : la mise en page premium viendra ensuite.
+ * Règles de CLAUDE.md : aucune origine pour la Référence (le Sheet laisse l'atelier vide), références clients
+ * seulement dans les arguments Lafuge, rien qui rende le client frileux, rouge réservé à la validation.
+ */
+(function () {
+  "use strict";
+  var C = window.Calcul;
+  var NPM = "https://cdn.jsdelivr.net/npm/";
+  var DM = NPM + "@fontsource/dm-sans@5.2.8/files/dm-sans-latin-";
+  var GA = NPM + "@fontsource/eb-garamond@5.2.7/files/eb-garamond-latin-";
+  var POLICES = {
+    DMSans: { normal: DM + "400-normal.woff", bold: DM + "700-normal.woff", italics: DM + "400-normal.woff", bolditalics: DM + "700-normal.woff" },
+    Garamond: { normal: GA + "500-normal.woff", bold: GA + "700-normal.woff", italics: GA + "500-normal.woff", bolditalics: GA + "700-normal.woff" },
+  };
+  var ENCRE = "#151515", ANTHRACITE = "#3d4248", GRIS = "#8a8f94", SABLE = "#d9cfbf", CREME = "#f6f3ee", ROUGE = "#b01c2e";
+  var LARGEUR = 515;
+
+  function t(v) { return v === null || v === undefined ? "" : String(v).trim(); }
+
+  function insecable(v) { return t(v).replace(/ /g, "\u00a0"); }
+
+  function phrase(v) { v = t(v); return v && !/[.!?]$/.test(v) ? v + "." : v; }
+
+  function telephoneInternational(n) {
+    var c = t(n).replace(/\D/g, "");
+    return c.charAt(0) === "0" ? "+33" + c.slice(1) : "+" + c;
+  }
+
+  function trait(epaisseur, couleur) {
+    return { canvas: [{ type: "line", x1: 0, y1: 0, x2: LARGEUR, y2: 0, lineWidth: epaisseur || 0.5, lineColor: couleur || SABLE }], margin: [0, 8, 0, 8] };
+  }
+
+  function titre(texte, marge) {
+    return { text: texte, style: "titreSection", margin: marge || [0, 18, 0, 8] };
+  }
+
+  var lignesFines = {
+    hLineWidth: function (i, node) { return i === 0 ? 0 : (i === 1 ? 0.8 : 0.4); },
+    vLineWidth: function () { return 0; },
+    hLineColor: function (i) { return i === 1 ? ENCRE : SABLE; },
+    paddingLeft: function (i) { return i === 0 ? 0 : 6; },
+    paddingRight: function (i, node) { return i === node.table.widths.length - 1 ? 0 : 6; },
+    paddingTop: function () { return 6; },
+    paddingBottom: function () { return 6; },
+  };
+
+  var sansLignes = {
+    hLineWidth: function () { return 0; }, vLineWidth: function () { return 0; },
+    paddingLeft: function (i) { return i === 0 ? 0 : 6; }, paddingRight: function () { return 0; },
+    paddingTop: function () { return 2; }, paddingBottom: function () { return 2; },
+  };
+
+  function conseiller(cat, nom) {
+    var e = (cat["Équipe"] && cat["Équipe"]["ÉQUIPE"]) || [];
+    return e.filter(function (l) { return t(l.Nom) === nom; })[0] || { Nom: nom };
+  }
+
+  function enTete(g, cfg, cat) {
+    var lafuge = g.famille === "Lafuge";
+    var logos = lafuge
+      ? { stack: [{ columns: [{ image: LOGOS.bdf, width: 120 }, { svg: LOGOS.lafugeSvg, width: 76, margin: [14, 0, 0, 0] }], columnGap: 0 },
+          { text: "Billard Lafuge, maison du groupe Billards de France", style: "petit", margin: [0, 6, 0, 0] }] }
+      : { image: LOGOS.bdf, width: 150 };
+    return {
+      columns: [
+        { width: "*", stack: [logos] },
+        { width: "auto", stack: [
+          { text: "Devis", style: "titreDevis", alignment: "right" },
+          { text: cfg.ref, bold: true, alignment: "right" },
+          { text: "Établi le " + C.dateDevis(cfg).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" }), style: "petit", alignment: "right" },
+          { text: "Offre valable jusqu'au " + C.validite(cat, cfg), style: "petit", alignment: "right" },
+        ] },
+      ],
+    };
+  }
+
+  function blocClient(cfg, cat, p) {
+    var c = cfg.client, cons = conseiller(cat, cfg.realisePar);
+    var client = [{ text: [t(c.prenom), t(c.nom)].join(" ").trim(), bold: true }];
+    if (t(c.adresse)) client.push(t(c.adresse));
+    client.push([t(c.codePostal), t(c.ville)].join(" ").trim());
+    if (t(c.telephone)) client.push(t(c.telephone));
+    if (t(c.email)) client.push(t(c.email));
+    var tel = t(p["Téléphone « Appeler mon conseiller »"]);
+    var cons2 = [{ text: t(cons.Nom), bold: true }];
+    if (t(cons["Fonction imprimée sur le devis"])) cons2.push({ text: t(cons["Fonction imprimée sur le devis"]), style: "petit" });
+    if (tel) cons2.push({ text: insecable(tel), link: "tel:" + telephoneInternational(tel) });
+    if (t(p["Email de validation client"])) cons2.push(t(p["Email de validation client"]));
+    return {
+      columns: [
+        { width: "*", stack: [{ text: "Votre projet", style: "etiquette" }].concat(client) },
+        { width: "*", stack: [{ text: "Votre conseiller", style: "etiquette" }].concat(cons2) },
+      ],
+      columnGap: 24, margin: [0, 4, 0, 0],
+    };
+  }
+
+  function cellulePrix(l) {
+    if (l.inclus) {
+      var mot = l.section === "livraison" ? "Offerte" : (l.id === "kit" ? "Offert" : "Inclus");
+      if (l.valeurOfferte) return { text: [{ text: C.euros(l.valeurOfferte), decoration: "lineThrough", color: GRIS }, "  " + mot], alignment: "right" };
+      return { text: mot, alignment: "right" };
+    }
+    if (l.remise) return { stack: [{ text: C.euros(l.brut), decoration: "lineThrough", color: GRIS, fontSize: 8 }, { text: C.euros(l.net) }], alignment: "right" };
+    return { text: C.euros(l.net), alignment: "right" };
+  }
+
+  function tableau(lgn) {
+    var corps = [[
+      { text: "Désignation", style: "entete" }, { text: "Qté", style: "entete", alignment: "center" }, { text: "Prix TTC", style: "entete", alignment: "right" },
+    ]];
+    lgn.forEach(function (l) {
+      var designation = [{ text: l.libelle, bold: l.id === "billard" }];
+      if (l.detail) designation.push({ text: l.detail, style: "detail" });
+      corps.push([{ stack: designation }, { text: String(l.quantite), alignment: "center" }, cellulePrix(l)]);
+    });
+    return { table: { headerRows: 1, widths: ["*", 30, 90], body: corps }, layout: lignesFines };
+  }
+
+  function blocTotaux(tot) {
+    var lignes = [];
+    if (tot.remiseTotale) {
+      lignes.push([{ text: "Prix catalogue" }, { text: C.euros(tot.brut), alignment: "right" }]);
+      lignes.push([{ text: "Remise" }, { text: "− " + C.euros(tot.remiseTotale), alignment: "right" }]);
+    }
+    lignes.push([{ text: "Total TTC", style: "total" }, { text: C.euros(tot.total), style: "total", alignment: "right" }]);
+    lignes.push([{ text: "Dont TVA 20 %", style: "petit" }, { text: C.euros(tot.tva), style: "petit", alignment: "right" }]);
+    return { columns: [{ width: "*", text: "" }, { width: 230, table: { widths: ["*", "auto"], body: lignes }, layout: sansLignes }], margin: [0, 10, 0, 0] };
+  }
+
+  function ficheTechnique(cat, cfg) {
+    var g = C.gamme(cat, cfg.gamme);
+    var fiche = C.ficheTechnique(cat, cfg);
+    var mentions = fiche.filter(function (l) { return l.element === "Mention"; }).map(function (l) { return { text: phrase(l.valeur), bold: true, margin: [0, 0, 0, 6] }; });
+    var lignes = fiche.filter(function (l) { return l.element !== "Mention"; }).map(function (l) { return [{ text: l.element, color: ANTHRACITE }, l.valeur]; });
+    var d = C.dimensions(cat, g.id, cfg.taille);
+    if (d) {
+      if (d.horsTout) lignes.push([{ text: "Dimensions hors tout", color: ANTHRACITE }, d.horsTout + " m"]);
+      if (d.surface) lignes.push([{ text: "Surface de jeu", color: ANTHRACITE }, d.surface + " m"]);
+      if (d.ardoise) lignes.push([{ text: d.ardoiseLibelle, color: ANTHRACITE }, d.ardoise]);
+    }
+    if (cfg.tapis && cfg.tapis.drap) lignes.push([{ text: "Drap", color: ANTHRACITE }, cfg.tapis.drap + (cfg.tapis.teinte ? ", " + cfg.tapis.teinte : "")]);
+    if (!lignes.length) return [];
+    return [{ unbreakable: true, stack: [titre("Caractéristiques de votre billard")].concat(mentions).concat([
+      { table: { widths: [150, "*"], body: lignes }, layout: { hLineWidth: function (i) { return i === 0 ? 0 : 0.4; }, vLineWidth: function () { return 0; },
+        hLineColor: function () { return SABLE; }, paddingLeft: function (i) { return i === 0 ? 0 : 6; }, paddingTop: function () { return 4; }, paddingBottom: function () { return 4; } } }]) }];
+  }
+
+  function blocArguments(cat, cfg) {
+    var choisis = C.argumentsGamme(cat, cfg).filter(function (a) { return (cfg.arguments || []).indexOf(a.id) >= 0; }).slice(0, C.MAX_ARGUMENTS);
+    if (!choisis.length) return [];
+    var cellules = choisis.map(function (a) {
+      return { stack: [{ text: a.titre, bold: true, margin: [0, 0, 0, 2] }, { text: a.texte, color: ANTHRACITE }], margin: [0, 0, 0, 10] };
+    });
+    var rangs = [];
+    for (var i = 0; i < cellules.length; i += 2) rangs.push({ columns: [cellules[i], cellules[i + 1] || { text: "" }], columnGap: 24 });
+    return [{ unbreakable: true, stack: [titre("Les points forts de votre billard")].concat(rangs) }];
+  }
+
+  function blocConditions(g, tot, p) {
+    var paiement = tot.echeances.map(function (e) {
+      return [{ text: e.libelle + (e.taux ? " (" + Math.round(e.taux * 100) + " %)" : "") }, { text: C.euros(e.montant), alignment: "right" }];
+    });
+    var gauche = [{ text: "Règlement", style: "etiquette" }, { table: { widths: ["*", "auto"], body: paiement }, layout: sansLignes },
+      { text: "Carte bancaire (Visa, Mastercard), American Express, Apple Pay ou PayPal.", style: "petit", margin: [0, 4, 0, 0] }];
+    if (tot.oney) {
+      gauche.push({ table: { widths: ["*"], body: [[{ stack: [{ text: "Paiement en 3 ou 4 fois avec Oney", bold: true },
+        { text: "Réglez votre billard en plusieurs fois par carte bancaire.", style: "petit" }], fillColor: CREME, margin: [8, 6, 8, 6] }]] },
+        layout: { hLineWidth: function () { return 0; }, vLineWidth: function () { return 0; } }, margin: [0, 8, 0, 0] });
+    }
+    var delai = t(g.parametres["Délai de fabrication"]);
+    if (delai && !/hors organisation/i.test(delai)) delai += ", hors organisation de la livraison";
+    var annees = C.nombre(p["Garantie (années)"]) || 2;
+    var droite = [{ text: "Fabrication et garantie", style: "etiquette" }];
+    if (t(g.parametres["Atelier affiché sur le devis"])) droite.push(phrase(g.parametres["Atelier affiché sur le devis"]));
+    if (delai) droite.push("Délai de fabrication : " + delai + ".");
+    droite.push("Garantie " + annees + " ans" + (g.famille === "Lafuge" ? ", avec certificat de garantie." : "."));
+    return { columns: [{ width: "*", stack: gauche }, { width: "*", stack: droite }], columnGap: 24, margin: [0, 18, 0, 0], unbreakable: true };
+  }
+
+  function emailValidation(cat, cfg, lgn, tot, p) {
+    var c = cfg.client;
+    var corps = ["Bonjour,", "", "Je valide mon devis " + cfg.ref + " du " + cfg.date + ".", ""];
+    lgn.forEach(function (l) { corps.push("- " + (l.quantite > 1 ? l.quantite + " × " : "") + l.libelle); });
+    corps.push("", "Total TTC : " + C.euros(tot.total));
+    corps.push(tot.echeances[0].libelle + " : " + C.euros(tot.echeances[0].montant));
+    corps.push("", "Merci de m'envoyer le lien de paiement de l'acompte.", "", "Mes commentaires :", "", "", [t(c.prenom), t(c.nom)].join(" ").trim());
+    if (t(c.telephone)) corps.push(t(c.telephone));
+    var texte = corps.join("\n");
+    if (texte.length > 1500) texte = texte.slice(0, 1500);
+    return "mailto:" + t(p["Email de validation client"]) + "?subject=" + encodeURIComponent("Je valide mon devis " + cfg.ref) +
+      "&body=" + encodeURIComponent(texte);
+  }
+
+  function blocValidation(cat, cfg, lgn, tot, p) {
+    var tel = t(p["Téléphone « Appeler mon conseiller »"]);
+    var bouton = { table: { widths: ["*"], body: [[{ text: "Je valide mon devis", link: emailValidation(cat, cfg, lgn, tot, p), color: "#ffffff", bold: true,
+      fillColor: ROUGE, alignment: "center", margin: [0, 8, 0, 8] }]] }, layout: { hLineWidth: function () { return 0; }, vLineWidth: function () { return 0; } } };
+    var gauche = [{ text: "Votre accord", style: "etiquette" }, bouton,
+      { text: "Un email déjà rédigé s'ouvre : il suffit de l'envoyer. Nous vous adressons ensuite le lien de paiement de l'acompte.", style: "petit", margin: [0, 6, 0, 0] }];
+    if (tel) gauche.push({ text: [{ text: "Une question ? Appelez votre conseiller au " }, { text: insecable(tel), link: "tel:" + telephoneInternational(tel), bold: true }], margin: [0, 6, 0, 0] });
+    var accord = { table: { widths: ["*"], heights: [92], body: [[{ stack: [{ text: "Bon pour accord", bold: true },
+      { text: "Date, signature et mention « Bon pour accord »", style: "petit" }], margin: [8, 6, 8, 6] }]] },
+      layout: { hLineColor: function () { return SABLE; }, vLineColor: function () { return SABLE; }, hLineWidth: function () { return 0.6; }, vLineWidth: function () { return 0.6; } } };
+    return { columns: [{ width: "*", stack: gauche }, { width: "*", stack: [{ text: "Si vous imprimez ce devis", style: "etiquette" }, accord] }],
+      columnGap: 24, margin: [0, 22, 0, 0], unbreakable: true };
+  }
+
+  function piedDePage(p) {
+    var legal = [t(p["Raison sociale"]) + (t(p["Capital social"]) ? " au capital de " + t(p["Capital social"]) : ""), t(p["Adresse du siège"]),
+      t(p.SIRET) ? "SIRET " + t(p.SIRET) : "", t(p.RCS), t(p["TVA intracommunautaire"]) ? "TVA " + t(p["TVA intracommunautaire"]) : ""]
+      .filter(Boolean).join(" · ");
+    return function (page, total) {
+      return { margin: [40, 10, 40, 0], columns: [
+        { width: "*", stack: [{ text: legal, style: "legal" }, { text: "Conditions générales de vente sur billardsdefrance.fr", style: "legal" }] },
+        { width: "auto", text: page + " / " + total, style: "legal", alignment: "right" },
+      ] };
+    };
+  }
+
+  function definition(cat, cfg) {
+    var g = C.gamme(cat, cfg.gamme), p = C.parametres((cat["Paramètres"] || {})["PARAMÈTRES"]);
+    var lgn = C.lignes(cat, cfg), tot = C.totaux(cat, cfg, lgn);
+    var sousTitre = [t(g.parametres.Accroche)].filter(Boolean).join(" · ");
+    var contenu = [
+      enTete(g, cfg, cat),
+      trait(0.8, ENCRE),
+      blocClient(cfg, cat, p),
+      { text: lgn[0].libelle, style: "titreBillard", margin: [0, 20, 0, 2] },
+    ];
+    if (sousTitre) contenu.push({ text: sousTitre, color: ANTHRACITE, margin: [0, 0, 0, 10] });
+    contenu.push(tableau(lgn));
+    contenu.push(blocTotaux(tot));
+    if (g.famille === "Lafuge" && t(g.parametres["Mention accessoires"])) {
+      contenu.push({ text: phrase(g.parametres["Mention accessoires"]), style: "petit", margin: [0, 6, 0, 0] });
+    }
+    if (g.famille === "Lafuge") contenu = contenu.concat(ficheTechnique(cat, cfg));
+    contenu = contenu.concat(blocArguments(cat, cfg));
+    contenu.push(blocConditions(g, tot, p));
+    contenu.push(blocValidation(cat, cfg, lgn, tot, p));
+    return {
+      pageSize: "A4", pageMargins: [40, 40, 40, 56],
+      info: { title: "Devis " + cfg.ref, author: "Billards de France", subject: lgn[0].libelle },
+      content: contenu,
+      footer: piedDePage(p),
+      defaultStyle: { font: "DMSans", fontSize: 9.5, lineHeight: 1.2, color: ENCRE },
+      styles: {
+        titreDevis: { font: "Garamond", fontSize: 26, bold: true },
+        titreBillard: { font: "Garamond", fontSize: 20, bold: true },
+        titreSection: { font: "Garamond", fontSize: 15, bold: true },
+        etiquette: { fontSize: 8, color: GRIS, margin: [0, 0, 0, 3] },
+        entete: { fontSize: 8, color: ANTHRACITE, bold: true },
+        detail: { fontSize: 8, color: ANTHRACITE, margin: [0, 1, 0, 0] },
+        petit: { fontSize: 8, color: ANTHRACITE },
+        total: { font: "Garamond", fontSize: 16, bold: true },
+        legal: { fontSize: 6.5, color: GRIS },
+      },
+    };
+  }
+
+  function creer(cat, cfg) { return pdfMake.createPdf(definition(cat, cfg), null, POLICES); }
+
+  function nomFichier(cfg) {
+    return "Devis " + cfg.ref + (t(cfg.client.nom) ? " " + t(cfg.client.nom) : "") + ".pdf";
+  }
+
+  /** pdfmake ne signale pas toujours ses erreurs (polices non chargées) : délai de garde de 30 secondes. */
+  function avecDelai(fn) {
+    return new Promise(function (ok, ko) {
+      var fini = false;
+      var garde = setTimeout(function () { if (!fini) ko(new Error("le PDF n'a pas pu être créé (connexion lente ou polices indisponibles)")); }, 30000);
+      try {
+        fn(function (r) { fini = true; clearTimeout(garde); ok(r); });
+      } catch (e) { clearTimeout(garde); ko(e); }
+    });
+  }
+
+  window.Pdf = {
+    definition: definition,
+    nomFichier: nomFichier,
+    telecharger: function (cat, cfg) {
+      return avecDelai(function (fin) { creer(cat, cfg).download(nomFichier(cfg), fin); });
+    },
+    ouvrir: function (cat, cfg) { creer(cat, cfg).open(); },
+    blob: function (cat, cfg) { return avecDelai(function (fin) { creer(cat, cfg).getBlob(fin); }); },
+  };
+})();
+</script>

@@ -1,5 +1,39 @@
 # Outil de devis Billards de France — plan (v8, 26/11) : publication Lafuge + page de création de devis
 
+## Avancement au 26/11
+La page de création de devis est **écrite et testée**, avec les décisions de l'utilisateur (questions déjà posées et tranchées).
+
+**Fait :**
+- `devis/appscript/` :
+  - `Code.gs` : connexion, sessions, journal, versions ; fonctions d'administration réservées au propriétaire depuis l'éditeur ;
+  - `calcul.js` (moteur) ;
+  - `Index`, `Styles`, `App`, `Pdf` ;
+  - `Calcul` et `Logos` produits par `devis/outils/assembler_appscript.py` ;
+  - `appsscript.json` (droits : ce tableur seulement, plus l'email de l'utilisateur pour le contrôle propriétaire).
+- `devis/logos/` : logos BdF (PNG) et Lafuge (SVG).
+- **Banc d'essai `devis/banc/`** :
+  - le vrai Code.gs tourne dans Node (`appsscript-simule.js`) ;
+  - `serveur.js` sert la page ;
+  - `exporter_catalogue.py` produit `catalogue.json` et `feuilles.json`.
+- **Tests verts** :
+  - 24 tests JS, dont les 5 parcours Playwright : Référence, Design RAL + plateau, Prestige remises + V2, Chambord 12 pieds, Lafuge français sur téléphone 390 px ;
+  - 15 tests Python.
+- **Corrections** :
+  - mention Lafuge « Billard vendu hors accessoires », sans « rien n'est offert » (trace et `conditions.md`) ;
+  - fiche technique : lignes propres à une taille filtrées ;
+  - « Mention » affichée en tête de fiche.
+- **Sheet en ligne, 26/11** :
+  - « Lafuge contenus » : « Forme des pieds (City) | Biseautés » (mixte et bandes françaises) ;
+  - « Mention accessoires » des deux onglets Lafuge : « Billard vendu hors accessoires ».
+
+## Reste à faire
+- **Installation dans Apps Script** (phase D), avec l'utilisateur : `devis/appscript/INSTALLATION.md`.
+- **Retours de l'équipe** sur l'ergonomie et sur le PDF provisoire (captures envoyées le 26/11).
+- **Ensuite** :
+  - grille montage ;
+  - couleurs Simonis 330 ;
+  - PDF premium (phase B) : storytelling, photos.
+
 ## Contexte
 **Lafuge** :
 - Les tarifs sont transcrits et contrôlés (commit poussé) : seuls écarts avec les 4 documents, les corrections validées ; HT = TTC ÷ 2.
@@ -12,7 +46,7 @@
 - Le PDF reste provisoire (propre et sobre). La mise en page premium (storytelling, photos) viendra ensuite.
 
 **Lien du Sheet** : https://docs.google.com/spreadsheets/d/1_MZBcXsz-DqXfk_hN1X1WY5_9wfMXTx9I52tOmSEooY/edit
-- Les onglets Lafuge ne sont pas encore en ligne : c'est l'étape 1.
+- Les onglets Lafuge sont en ligne depuis le 25/11.
 
 ## Partie 1 — Publication Lafuge
 
@@ -102,7 +136,7 @@
   - Mot de passe commun haché et salé dans les propriétés du script ; session de 8 h ; blocage après 10 échecs.
   - Aucune donnée avant authentification ; autorisations : ce tableur seulement.
 - **Serveur** (`Code.gs`) :
-  - lecture du Sheet par blocs « ■ » et noms de colonnes : portage de `devis/outils/lire_sheet.py`, catalogue JSON mis en cache 5 minutes ;
+  - lecture du Sheet par blocs « ■ » et noms de colonnes : portage de `devis/outils/lire_sheet.py`, relu à chaque ouverture de la page (pas de cache : une modification du Sheet est visible immédiatement) ;
   - compteur de références protégé par LockService ;
   - écriture du Journal : statut Brouillon ou Généré, version, configuration complète en JSON pour la reprise.
 - **Calcul des prix** dans un module JavaScript pur (`calcul.js`), commun à la page et aux tests : options, règles, remises, échéancier, TVA.

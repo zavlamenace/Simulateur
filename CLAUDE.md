@@ -3,7 +3,7 @@
 Ce dépôt contient deux projets de Billards de France (FITAN et FILS SAS) :
 
 1. **Configurateur « Quelle taille de billard pour ma pièce »** (`configurateur-billard.html`, `README.md`). Il est livré et ne sert pas de référence de charte.
-2. **Outil interne de devis** (en cours). Le plan validé est dans `connaissances/outil-devis-plan.md`.
+2. **Outil interne de devis** (en cours). Le plan validé est dans `connaissances/outil-devis-plan.md`. Code de la page : `devis/appscript/` (installation : `INSTALLATION.md`) ; banc d'essai et tests : `devis/banc/` (`npm test`).
 
 **Le dépôt est privé et doit le rester.** Il contient des informations internes : origine de fabrication, grilles tarifaires, échanges commerciaux.
 
