@@ -1,0 +1,634 @@
+<script>
+/**
+ * Moteur du devis Billards de France : catalogue, options, règles, prix, remises, échéancier.
+ * Pur JavaScript, sans dépendance : utilisé par la page (navigateur) et par les tests (Node).
+ *
+ * Le catalogue est la lecture du Google Sheet : { "<onglet>": { "<bloc>": [ { "<en-tête>": valeur } ] } }.
+ * Les colonnes sont lues par leur nom, jamais par leur position (même règle que devis/outils/lire_sheet.py).
+ */
+(function (racine, fabrique) {
+  if (typeof module === "object" && module.exports) module.exports = fabrique();
+  else racine.Calcul = fabrique();
+})(typeof self !== "undefined" ? self : this, function () {
+  "use strict";
+
+  var INCLUS = "Inclus", IMPOSSIBLE = "Impossible", SUR_DEMANDE = "Sur demande", ABSENT = "—";
+  var UN_SEUL = "Un seul par groupe";
+  var GROUPES_TECHNIQUES = { Billard: true };
+
+  // ---------------------------------------------------------------------------------------------------------
+  // Outils
+
+  function vide(v) {
+    return v === null || v === undefined || (typeof v === "string" && v.trim() === "");
+  }
+
+  function texte(v) {
+    return vide(v) ? "" : String(v).trim();
+  }
+
+  function nombre(v) {
+    if (typeof v === "number" && isFinite(v)) return v;
+    if (typeof v === "string") {
+      var t = v.replace(/[\s  €]/g, "").replace(",", ".");
+      if (/^-?\d+(\.\d+)?$/.test(t)) return parseFloat(t);
+    }
+    return null;
+  }
+
+  function liste(v) {
+    return texte(v).split(";").map(function (x) { return x.trim(); }).filter(Boolean);
+  }
+
+  function centimes(euros) {
+    return Math.round(euros * 100);
+  }
+
+  function arrondi(euros) {
+    return Math.round(euros * 100) / 100;
+  }
+
+  /** « 12 600 € » ou « 12 600,50 € », avec des espaces insécables compatibles avec les polices du PDF. */
+  function euros(v) {
+    var n = arrondi(v || 0);
+    var entier = Math.abs(n % 1) < 0.005;
+    var s = n.toLocaleString("fr-FR", { minimumFractionDigits: entier ? 0 : 2, maximumFractionDigits: 2 });
+    return s.replace(/[ \s]/g, " ") + " €";
+  }
+
+  function statutVisible(s) {
+    var t = texte(s);
+    return t === "" || t === "Actif" || t === "À valider";
+  }
+
+  function idOption(bloc, groupe, nom) {
+    return bloc + "|" + groupe + "|" + nom;
+  }
+
+  // ---------------------------------------------------------------------------------------------------------
+  // Catalogue
+
+  /** Paramètres d'un bloc « Paramètre | Valeur » sous forme d'objet. */
+  function parametres(lignes) {
+    var p = {};
+    (lignes || []).forEach(function (l) {
+      if (!vide(l["Paramètre"])) p[texte(l["Paramètre"])] = l["Valeur"];
+    });
+    return p;
+  }
+
+  /** Les gammes proposées : onglets avec un bloc GAMME actif. Un onglet avec un bloc TAILLES a des prix par taille. */
+  function gammes(cat) {
+    var out = [];
+    Object.keys(cat).forEach(function (onglet) {
+      var blocs = cat[onglet];
+      if (!blocs.GAMME || !blocs["MODÈLES"]) return;
+      var g = parametres(blocs.GAMME);
+      if (texte(g.Statut) === "Masqué") return;
+      var parTaille = !!blocs.TAILLES;
+      out.push({
+        id: onglet,
+        nom: texte(g["Nom affiché"]) || onglet,
+        marque: texte(g.Marque) || "Billard Plaisance",
+        famille: /^Lafuge/.test(onglet) ? "Lafuge" : onglet,
+        parTaille: parTaille,
+        jeu: parTaille ? (/français/i.test(onglet) ? "français" : "mixte") : null,
+        parametres: g,
+      });
+    });
+    return out;
+  }
+
+  function gamme(cat, id) {
+    return gammes(cat).filter(function (g) { return g.id === id; })[0] || null;
+  }
+
+  function tailles(cat, gId) {
+    var t = (cat[gId] && cat[gId].TAILLES) || [];
+    return t.filter(function (l) { return statutVisible(l.Statut); }).map(function (l) { return texte(l.Taille); });
+  }
+
+  /** Modèles : Plaisance = une ligne par modèle et version ; Lafuge = un modèle avec un prix par taille. */
+  function modeles(cat, gId) {
+    var g = gamme(cat, gId);
+    if (!g) return [];
+    var lignes = (cat[gId]["MODÈLES"] || []).filter(function (m) { return !vide(m["Modèle"]) && statutVisible(m.Statut); });
+    if (g.parTaille) {
+      return lignes.map(function (m) {
+        var prix = {};
+        tailles(cat, gId).forEach(function (t) { prix[t] = m["Prix " + t]; });
+        return { nom: texte(m["Modèle"]), fiche: texte(m.Fiche), base: texte(m["Matière de base"]),
+                 table: texte(m["Version table"]) !== "Non", prix: prix };
+      });
+    }
+    var parNom = {}, ordre = [];
+    lignes.forEach(function (m) {
+      var nom = texte(m["Modèle"]);
+      if (!parNom[nom]) { parNom[nom] = { nom: nom, versions: [] }; ordre.push(nom); }
+      parNom[nom].versions.push({ nom: texte(m.Version), finition: texte(m.Finition), prix: nombre(m["Prix TTC"]) });
+    });
+    return ordre.map(function (n) { return parNom[n]; });
+  }
+
+  function modele(cat, gId, nom) {
+    return modeles(cat, gId).filter(function (m) { return m.nom === nom; })[0] || null;
+  }
+
+  /** Tailles proposées pour un modèle Lafuge (prix différent de « — » et de « Impossible »). */
+  function taillesModele(cat, gId, nom) {
+    var m = modele(cat, gId, nom);
+    if (!m || !m.prix) return [];
+    return Object.keys(m.prix).filter(function (t) {
+      var v = m.prix[t];
+      return texte(v) !== ABSENT && texte(v) !== IMPOSSIBLE;
+    });
+  }
+
+  /** Dimensions d'une taille Lafuge (onglet TAILLES). Jamais de hauteur. */
+  function dimensions(cat, gId, taille) {
+    var l = ((cat[gId] && cat[gId].TAILLES) || []).filter(function (x) { return texte(x.Taille) === taille; })[0];
+    if (!l) return null;
+    var ardoise = Object.keys(l).filter(function (k) { return /^Ardoise/.test(k); })[0];
+    return { horsTout: texte(l["Dimensions hors tout (m)"]), surface: texte(l["Surface de jeu (m)"]),
+             ardoise: ardoise ? texte(l[ardoise]) : "", ardoiseLibelle: ardoise || "Ardoise" };
+  }
+
+  function texteDimensions(d) {
+    if (!d) return "";
+    return [d.horsTout ? "Hors tout " + d.horsTout + " m" : "", d.surface ? "surface de jeu " + d.surface + " m" : ""]
+      .filter(Boolean).join(", ");
+  }
+
+  /** Date du devis (jj/mm/aaaa) et date de fin de validité, en toutes lettres. */
+  function dateDevis(cfg) {
+    var m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(texte(cfg && cfg.date));
+    return m ? new Date(+m[3], +m[2] - 1, +m[1]) : new Date();
+  }
+
+  function validite(cat, cfg) {
+    var p = parametres((cat["Paramètres"] || {})["PARAMÈTRES"]);
+    var d = dateDevis(cfg);
+    d.setDate(d.getDate() + (nombre(p["Validité du devis (jours)"]) || 30));
+    return d.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+  }
+
+  /** Lit une case de prix : { etat: prix | inclus | impossible | absent | sur_demande | a_chiffrer, prix }. */
+  function lirePrix(v) {
+    var n = nombre(v);
+    if (n !== null) return { etat: "prix", prix: n };
+    var t = texte(v);
+    if (t === INCLUS) return { etat: "inclus", prix: 0 };
+    if (t === IMPOSSIBLE) return { etat: "impossible", prix: null };
+    if (t === ABSENT) return { etat: "absent", prix: null };
+    if (t === SUR_DEMANDE) return { etat: "sur_demande", prix: null };
+    return { etat: "a_chiffrer", prix: null };
+  }
+
+  function valablePour(valeur, cfg) {
+    var v = texte(valeur);
+    if (v === "" || v === "Tous") return true;
+    return v.split(",").map(function (x) { return x.trim(); }).some(function (x) {
+      return x === cfg.modele || x === cfg.versionModele;
+    });
+  }
+
+  /**
+   * Options proposées pour la configuration (gamme, modèle, version ou taille), dans l'ordre du Sheet.
+   * Chaque option : { id, section, groupe, nom, etat, prix, choix, necessite[], exclut[], conditions, detail }.
+   * Les options impossibles ou absentes à cette taille ne sont pas proposées.
+   */
+  function options(cat, cfg) {
+    var g = gamme(cat, cfg.gamme);
+    if (!g || !cfg.modele) return [];
+    var out = [];
+    if (g.parTaille) {
+      var m = modele(cat, cfg.gamme, cfg.modele);
+      if (!m || !cfg.taille) return [];
+      var ajouter = function (bloc, section) {
+        (cat[cfg.gamme][bloc] || []).forEach(function (l) {
+          var groupe = texte(l.Groupe), nom = texte(l.Option);
+          if (!nom || GROUPES_TECHNIQUES[groupe] || !statutVisible(l.Statut) || !valablePour(l["Valable pour"], cfg)) return;
+          var p = lirePrix(l["Prix " + cfg.taille]);
+          if (p.etat === "impossible" || p.etat === "absent") return;
+          out.push({ id: idOption(bloc, groupe, nom), section: section, groupe: groupe, nom: nom, etat: p.etat,
+                     prix: p.prix, choix: texte(l.Choix) || "Plusieurs possibles", necessite: liste(l["Nécessite"]),
+                     exclut: liste(l.Exclut), conditions: texte(l.Conditions),
+                     detail: texte(l["Détail imprimé sur le devis"]) });
+        });
+      };
+      ajouter(m.fiche, "options");
+      if (m.table) ajouter("PLATEAUX", "plateau");
+      return out;
+    }
+    (cat[cfg.gamme].OPTIONS || []).forEach(function (l) {
+      var groupe = texte(l.Groupe), nom = texte(l.Option);
+      if (!nom || texte(l.Statut) !== "Actif" || !valablePour(l["Valable pour"], cfg)) return;
+      var p = lirePrix(l["Prix TTC"]);
+      if (p.etat === "a_chiffrer") p = { etat: "sur_demande", prix: null };
+      if (p.etat === "prix" && p.prix === 0) p.etat = "inclus";
+      out.push({ id: idOption("OPTIONS", groupe, nom), section: /^Tapis$/i.test(groupe) ? "tapis"
+                 : /plateau|dessus|allonge|décor/i.test(groupe) ? "plateau" : "options",
+                 groupe: groupe, nom: nom, etat: p.etat, prix: p.prix, choix: texte(l.Choix) || "Plusieurs possibles",
+                 necessite: liste(l["Nécessite"]), exclut: liste(l.Exclut), conditions: "",
+                 detail: texte(l["Détail imprimé sur le devis"]) });
+    });
+    return out;
+  }
+
+  /** Options dont le choix appelle une précision imprimée sur le devis (couleur RAL, teinte, laque, liseré…). */
+  function demandePrecision(o) {
+    return /RAL|teinte|laque|liseré de couleur|cuir de couleur|bicolore|parchemin/i.test(o.nom);
+  }
+
+  /** Groupes « un seul » obligatoires : au moins une option incluse (tapis, jeu, bandes initiales, teinte…). */
+  function groupesObligatoires(opts) {
+    var g = {};
+    opts.forEach(function (o) {
+      if (o.choix === UN_SEUL && o.etat === "inclus") g[o.groupe] = g[o.groupe] || o.id;
+    });
+    return g;
+  }
+
+  // ---------------------------------------------------------------------------------------------------------
+  // Règles (Choix, Nécessite, Exclut)
+
+  function choisies(cfg) {
+    var s = {};
+    Object.keys(cfg.options || {}).forEach(function (id) { if (cfg.options[id] && cfg.options[id].choisi) s[id] = true; });
+    return s;
+  }
+
+  function correspond(o, nom) {
+    return o.nom === nom || o.groupe === nom;
+  }
+
+  /**
+   * État de chaque option : { disponible, raison }. Une option est indisponible si une option choisie l'exclut
+   * (ou si elle exclut une option choisie), ou si aucune des options qu'elle nécessite n'est choisie.
+   */
+  function etats(opts, cfg) {
+    var sel = choisies(cfg);
+    var choisis = opts.filter(function (o) { return sel[o.id]; });
+    var res = {};
+    opts.forEach(function (o) {
+      var raison = "";
+      choisis.forEach(function (c) {
+        if (raison || c.id === o.id || (c.groupe === o.groupe && o.choix === UN_SEUL)) return;
+        if (c.exclut.some(function (n) { return correspond(o, n); }) || o.exclut.some(function (n) { return correspond(c, n); })) {
+          raison = "Incompatible avec « " + c.nom + " »";
+        }
+      });
+      if (!raison && o.necessite.length) {
+        var ok = o.necessite.some(function (n) { return choisis.some(function (c) { return correspond(c, n); }); });
+        if (!ok) raison = "Nécessite « " + o.necessite.join(" » ou « ") + " »";
+      }
+      res[o.id] = { disponible: !raison, raison: raison };
+    });
+    return res;
+  }
+
+  /**
+   * Choisit ou retire une option en respectant « Un seul par groupe », puis retire en cascade les options
+   * devenues incompatibles. Renvoie la liste des options retirées automatiquement (pour l'afficher).
+   */
+  function basculer(opts, cfg, id, choisir) {
+    cfg.options = cfg.options || {};
+    var o = opts.filter(function (x) { return x.id === id; })[0];
+    if (!o) return [];
+    if (choisir) {
+      if (o.choix === UN_SEUL) {
+        opts.forEach(function (x) { if (x.groupe === o.groupe && x.id !== id && cfg.options[x.id]) cfg.options[x.id].choisi = false; });
+      }
+      cfg.options[id] = cfg.options[id] || {};
+      cfg.options[id].choisi = true;
+    } else {
+      var obligatoire = groupesObligatoires(opts)[o.groupe];
+      if (obligatoire) return [];
+      if (cfg.options[id]) cfg.options[id].choisi = false;
+    }
+    return nettoyer(opts, cfg);
+  }
+
+  /** Retire les options choisies devenues indisponibles et complète les groupes obligatoires. */
+  function nettoyer(opts, cfg) {
+    cfg.options = cfg.options || {};
+    var retirees = [];
+    var connues = {};
+    opts.forEach(function (o) { connues[o.id] = true; });
+    Object.keys(cfg.options).forEach(function (id) {
+      if (cfg.options[id].choisi && !connues[id]) { cfg.options[id].choisi = false; }
+    });
+    for (var tour = 0; tour < 10; tour++) {
+      var e = etats(opts, cfg), change = false;
+      opts.forEach(function (o) {
+        if (cfg.options[o.id] && cfg.options[o.id].choisi && !e[o.id].disponible) {
+          cfg.options[o.id].choisi = false;
+          retirees.push(o.nom);
+          change = true;
+        }
+      });
+      if (!change) break;
+    }
+    var oblig = groupesObligatoires(opts);
+    Object.keys(oblig).forEach(function (groupe) {
+      var dejà = opts.some(function (o) { return o.groupe === groupe && cfg.options[o.id] && cfg.options[o.id].choisi; });
+      if (!dejà) { cfg.options[oblig[groupe]] = cfg.options[oblig[groupe]] || {}; cfg.options[oblig[groupe]].choisi = true; }
+    });
+    return retirees;
+  }
+
+  // ---------------------------------------------------------------------------------------------------------
+  // Tapis, accessoires, arguments, livraison
+
+  /** Draps proposés : groupe « Tapis » des options (Plaisance), sinon le paramètre « Drap » de la gamme (Lafuge). */
+  function draps(cat, cfg, opts) {
+    var tapis = (opts || options(cat, cfg)).filter(function (o) { return o.section === "tapis"; });
+    if (tapis.length) {
+      return tapis.map(function (o) {
+        var m = o.nom.match(/Standard|Simonis \d+|Strachan \d+/i);
+        var nom = m ? m[0].charAt(0).toUpperCase() + m[0].slice(1) : o.nom;
+        return { nom: nom, option: o.id };
+      });
+    }
+    var g = gamme(cat, cfg.gamme);
+    var d = texte(g && g.parametres.Drap).replace(/\s*inclus\s*$/i, "");
+    return d ? d.split(/\s+ou\s+/).map(function (n) { return { nom: n.trim(), option: null }; }) : [];
+  }
+
+  /** Couleurs d'un drap (onglet Coloris). Un drap sans liste propre peut renvoyer à celle d'un autre (bloc DRAPS). */
+  function teintes(cat, drap, profondeur) {
+    var co = cat.Coloris || {};
+    var propres = (co.COLORIS || []).filter(function (l) { return texte(l.Drap) === drap && statutVisible(l.Statut); })
+      .map(function (l) { return { nom: texte(l.Teinte), code: texte(l["Code couleur"]) }; });
+    if (propres.length || (profondeur || 0) > 2) return propres;
+    var renvoi = (co.DRAPS || []).filter(function (l) { return texte(l.Drap) === drap; })[0];
+    var autre = renvoi ? texte(renvoi["Mêmes couleurs que"]) : "";
+    return autre && autre !== drap ? teintes(cat, autre, (profondeur || 0) + 1) : propres;
+  }
+
+  function accessoires(cat, cfg) {
+    var g = gamme(cat, cfg.gamme);
+    if (!g) return [];
+    var a = (cat["Accessoires & mobilier"] && cat["Accessoires & mobilier"].ACCESSOIRES) || [];
+    return a.filter(function (l) {
+      if (texte(l.Statut) !== "Actif" || vide(l.Article)) return false;
+      var compat = texte(l["Gammes compatibles"]);
+      return compat === "" || compat === "Toutes" || compat.split(",").some(function (x) { return x.trim() === g.famille; });
+    }).map(function (l) {
+      return { article: texte(l.Article), categorie: texte(l["Catégorie"]), detail: texte(l["Détail imprimé sur le devis"]),
+               prix: nombre(l["Prix TTC"]) };
+    });
+  }
+
+  /** Arguments de la gamme (onglet de la gamme ou « Lafuge contenus »), filtrés sur la version ou le modèle. */
+  function argumentsGamme(cat, cfg) {
+    var g = gamme(cat, cfg.gamme);
+    if (!g) return [];
+    var lignes;
+    if (cat[cfg.gamme]["ARGUMENTS & PHOTOS"]) lignes = cat[cfg.gamme]["ARGUMENTS & PHOTOS"];
+    else {
+      var c = cat["Lafuge contenus"] || {};
+      lignes = c["ARGUMENTS & PHOTOS · " + (g.jeu === "français" ? "BANDES FRANÇAISES" : "MIXTE")] || [];
+    }
+    return lignes.filter(function (l) {
+      return !vide(l.Titre) && texte(l.Statut) !== "Masqué" && valablePour(l["Valable pour"], cfg);
+    }).map(function (l) {
+      return { id: texte(l.Titre), titre: texte(l.Titre), texte: texte(l.Texte), photo: texte(l.Photo),
+               parDefaut: texte(l["Proposé par défaut"]) === "Oui" };
+    });
+  }
+
+  var MAX_ARGUMENTS = 4;
+
+  function argumentsParDefaut(cat, cfg) {
+    return argumentsGamme(cat, cfg).filter(function (a) { return a.parDefaut; }).slice(0, MAX_ARGUMENTS)
+      .map(function (a) { return a.id; });
+  }
+
+  function livraisonOfferte(cat) {
+    var f = (cat["Livraison & montage"] && cat["Livraison & montage"].FORMULES) || [];
+    var o = f.filter(function (l) { return /offerte/i.test(texte(l.Formule)) && texte(l.Statut) === "Actif"; })[0];
+    return o ? { libelle: texte(o.Formule), detail: texte(o["Détail imprimé sur le devis"]),
+                 valeur: nombre(o["Valeur si offert"]) || 0 } : { libelle: "Livraison offerte", detail: "", valeur: 0 };
+  }
+
+  // ---------------------------------------------------------------------------------------------------------
+  // Fiche technique Lafuge
+
+  function ficheTechnique(cat, cfg, opts) {
+    var g = gamme(cat, cfg.gamme);
+    if (!g || !g.parTaille) return [];
+    var m = modele(cat, cfg.gamme, cfg.modele);
+    var c = cat["Lafuge contenus"] || {};
+    var lignes = c["FICHES TECHNIQUES · " + (g.jeu === "français" ? "BANDES FRANÇAISES" : "MIXTE")] || [];
+    var sel = choisies(cfg);
+    opts = opts || options(cat, cfg);
+    var laque = opts.some(function (o) { return o.groupe === "Laque" && sel[o.id]; });
+    var essence = opts.filter(function (o) { return o.groupe === "Essence" && sel[o.id]; })[0];
+    var essenceNom = essence ? essence.nom.replace(/^Cadre en /, "").replace(/^./, function (x) { return x.toUpperCase(); }) : "";
+    return lignes.filter(function (l) {
+      if (!m || texte(l.Fiche) !== m.fiche) return false;
+      var propre = texte(l["Élément"]).match(/\((.*)\)$/);
+      return !propre || propre[1] === cfg.modele;
+    })
+      .map(function (l) {
+        var base = texte(l["De base"]), opt = texte(l["En option"]), laquee = texte(l["Version laquée"]);
+        var element = texte(l["Élément"]).replace(/\s*\(.*\)$/, "");
+        var valeur = base;
+        if (laque && laquee) valeur = laquee;
+        else if (essence && opt && opt !== "Identique" && !/^Inchangé/.test(opt)) {
+          var cadreSeul = /^Cadre en /.test(essence.nom);
+          if (!cadreSeul || element === "Cadre") valeur = essenceNom;
+        }
+        var taille = valeur.match(/^(\d+(?:,\d+)? m|\d+ pieds) : (.*)$/);
+        if (taille) valeur = taille[1] === cfg.taille ? taille[2] : "";
+        return { element: element, valeur: valeur };
+      })
+      .filter(function (l) { return l.valeur; });
+  }
+
+  // ---------------------------------------------------------------------------------------------------------
+  // Lignes du devis et totaux
+
+  function remiseDe(remise, montant) {
+    if (!remise || nombre(remise.valeur) === null || nombre(remise.valeur) === 0) return 0;
+    var v = nombre(remise.valeur);
+    var r = remise.type === "%" ? montant * v / 100 : v;
+    return arrondi(Math.min(Math.max(r, 0), Math.max(montant, 0)));
+  }
+
+  /**
+   * Lignes du devis : billard, options, tapis, plateau, accessoires, lignes libres, livraison.
+   * Chaque ligne : { id, section, libelle, detail, quantite, prixUnitaire, brut, remise, net, inclus, valeurOfferte }.
+   */
+  function lignes(cat, cfg) {
+    var g = gamme(cat, cfg.gamme);
+    var out = [];
+    if (!g || !cfg.modele) return out;
+    var m = modele(cat, cfg.gamme, cfg.modele);
+    var prixBillard = null, libelleBillard = "";
+    if (g.parTaille) {
+      var p = m && cfg.taille ? lirePrix(m.prix[cfg.taille]) : { etat: "absent" };
+      prixBillard = p.etat === "prix" ? p.prix : (cfg.prixManuelBillard !== undefined ? nombre(cfg.prixManuelBillard) : null);
+      libelleBillard = g.nom + " " + cfg.modele + (cfg.taille ? ", " + cfg.taille : "");
+      if (g.jeu === "mixte") libelleBillard = "Billard mixte " + cfg.modele + (cfg.taille ? ", " + cfg.taille : "");
+      if (g.jeu === "français") libelleBillard = "Billard français à bandes fixes " + cfg.modele + (cfg.taille ? ", " + cfg.taille : "");
+    } else {
+      var v = m && m.versions.filter(function (x) { return x.nom === cfg.versionModele; })[0];
+      prixBillard = v ? v.prix : null;
+      libelleBillard = "Billard " + g.nom + " " + cfg.modele + (v && v.nom ? ", " + v.nom.toLowerCase() : "");
+    }
+    var r = cfg.remises || {};
+    var pousser = function (l) {
+      l.brut = arrondi((l.prixUnitaire || 0) * (l.quantite || 1));
+      l.remise = l.inclus ? 0 : remiseDe(r[l.id], l.brut);
+      l.net = arrondi(l.brut - l.remise);
+      out.push(l);
+    };
+    pousser({ id: "billard", section: "billard", libelle: libelleBillard,
+              detail: g.parTaille ? texteDimensions(dimensions(cat, cfg.gamme, cfg.taille)) : (m && m.versions.filter(function (x) { return x.nom === cfg.versionModele; })[0] || {}).finition || "",
+              quantite: 1, prixUnitaire: prixBillard || 0, aSaisir: prixBillard === null });
+
+    var opts = options(cat, cfg);
+    var sel = choisies(cfg);
+    var tapisChoisi = cfg.tapis || {};
+    opts.forEach(function (o) {
+      if (!sel[o.id]) return;
+      var precision = texte((cfg.options[o.id] || {}).precision);
+      if (/^Teinte incluse$/.test(o.nom) && !precision) return;
+      var prix = o.etat === "prix" ? o.prix : (o.etat === "inclus" ? 0 : nombre((cfg.options[o.id] || {}).prixManuel));
+      var libelle = /^Teinte incluse$/.test(o.nom) ? "Teinte" : o.nom;
+      if (precision) libelle += " : " + precision;
+      if (o.section === "tapis") libelle = libelle.replace(/\s*\(\d+ teintes\)/, "") + (tapisChoisi.teinte ? ", couleur " + tapisChoisi.teinte : "");
+      pousser({ id: o.id, section: o.section, libelle: libelle, detail: o.detail, quantite: 1, prixUnitaire: prix || 0,
+                inclus: o.etat === "inclus", aSaisir: prix === null || prix === undefined, surDemande: o.etat === "sur_demande" || o.etat === "a_chiffrer" });
+    });
+    if (g.parTaille && tapisChoisi.drap) {
+      pousser({ id: "tapis", section: "tapis", libelle: "Drap " + tapisChoisi.drap + (tapisChoisi.teinte ? ", couleur " + tapisChoisi.teinte : ""),
+                detail: "", quantite: 1, prixUnitaire: 0, inclus: true });
+    }
+    if (texte(g.parametres["Kit accessoires inclus"]) === "Oui") {
+      pousser({ id: "kit", section: "accessoires", libelle: "Kit accessoires inclus", detail: texte(g.parametres["Contenu du kit accessoires"]),
+                quantite: 1, prixUnitaire: 0, inclus: true, valeurOfferte: nombre(g.parametres["Valeur du kit accessoires"]) || 0 });
+    }
+    var acc = accessoires(cat, cfg);
+    Object.keys(cfg.accessoires || {}).forEach(function (article) {
+      var q = nombre(cfg.accessoires[article]) || 0;
+      var a = acc.filter(function (x) { return x.article === article; })[0];
+      if (!a || q <= 0) return;
+      pousser({ id: "acc|" + article, section: "accessoires", libelle: a.article, detail: a.detail, quantite: q,
+                prixUnitaire: a.prix || 0 });
+    });
+    (cfg.lignesLibres || []).forEach(function (l, i) {
+      if (vide(l.libelle)) return;
+      pousser({ id: "libre|" + i, section: "libres", libelle: texte(l.libelle), detail: "", quantite: nombre(l.quantite) || 1,
+                prixUnitaire: nombre(l.prix) || 0 });
+    });
+    var liv = cfg.livraison || { formule: "offerte" };
+    if (liv.formule === "montage") {
+      var pm = nombre(liv.prix);
+      pousser({ id: "livraison", section: "livraison", libelle: "Livraison et montage", detail: texte(liv.detail) ||
+                "Livraison, installation dans la pièce, mise à niveau et réglages par nos techniciens",
+                quantite: 1, prixUnitaire: pm || 0, aSaisir: pm === null });
+    } else {
+      var lo = livraisonOfferte(cat);
+      pousser({ id: "livraison", section: "livraison", libelle: lo.libelle, detail: lo.detail, quantite: 1, prixUnitaire: 0,
+                inclus: true, valeurOfferte: lo.valeur });
+    }
+    return out;
+  }
+
+  /** Totaux, TVA (TTC ÷ 6), échéancier selon la marque, encadré Oney. */
+  function totaux(cat, cfg, lgn) {
+    lgn = lgn || lignes(cat, cfg);
+    var g = gamme(cat, cfg.gamme);
+    var p = parametres((cat["Paramètres"] || {})["PARAMÈTRES"]);
+    var brut = 0, remisesLignes = 0;
+    lgn.forEach(function (l) { brut += l.brut; remisesLignes += l.remise; });
+    brut = arrondi(brut); remisesLignes = arrondi(remisesLignes);
+    var apresLignes = arrondi(brut - remisesLignes);
+    var remiseGlobale = remiseDe(cfg.remiseGlobale, apresLignes);
+    var total = arrondi(apresLignes - remiseGlobale);
+    var taux = nombre(p["Taux de TVA"]) || 0.2;
+    var tva = arrondi(total * taux / (1 + taux));
+    var lafuge = g && g.famille === "Lafuge";
+    var acompte = nombre(p[lafuge ? "Acompte à la validation — Lafuge" : "Acompte à la validation — Plaisance"]) || 0.3;
+    var echeances = [{ libelle: "À la validation du devis", taux: acompte, montant: arrondi(total * acompte) }];
+    if (lafuge) {
+      var lancement = nombre(p["Versement au lancement en production — Lafuge"]) || 0.3;
+      echeances.push({ libelle: "Au lancement en fabrication", taux: lancement, montant: arrondi(total * lancement) });
+    }
+    var deja = echeances.reduce(function (s, e) { return s + e.montant; }, 0);
+    echeances.push({ libelle: "Solde avant livraison", taux: null, montant: arrondi(total - deja) });
+    var seuilOney = nombre(p["Seuil Oney 3x / 4x (€)"]) || 3000;
+    return { brut: brut, remisesLignes: remisesLignes, remiseGlobale: remiseGlobale, remiseTotale: arrondi(remisesLignes + remiseGlobale),
+             total: total, tva: tva, ht: arrondi(total - tva), echeances: echeances, oney: total > 0 && total <= seuilOney };
+  }
+
+  // ---------------------------------------------------------------------------------------------------------
+  // Contrôles avant PDF, récapitulatif CRM
+
+  function problemes(cat, cfg) {
+    var p = [];
+    var g = gamme(cat, cfg.gamme);
+    if (!texte(cfg.realisePar)) p.push("Choisir qui réalise le devis");
+    var c = cfg.client || {};
+    if (!texte(c.nom)) p.push("Nom du client");
+    if (!texte(c.telephone) && !texte(c.email)) p.push("Téléphone ou email du client");
+    if (!texte(c.codePostal) || !texte(c.ville)) p.push("Code postal et ville du client");
+    if (!g) { p.push("Choisir une gamme"); return p; }
+    if (!cfg.modele) { p.push("Choisir un modèle"); return p; }
+    if (g.parTaille && !cfg.taille) p.push("Choisir une taille");
+    if (!g.parTaille && !cfg.versionModele) p.push("Choisir une version");
+    var opts = options(cat, cfg);
+    var sel = choisies(cfg);
+    var oblig = groupesObligatoires(opts);
+    Object.keys(oblig).forEach(function (groupe) {
+      if (!opts.some(function (o) { return o.groupe === groupe && sel[o.id]; })) p.push("Choisir : " + groupe);
+    });
+    var lgn = lignes(cat, cfg);
+    lgn.forEach(function (l) { if (l.aSaisir) p.push("Saisir le prix : " + l.libelle); });
+    var t = cfg.tapis || {};
+    if (draps(cat, cfg, opts).length && !t.teinte) p.push("Choisir la couleur du drap");
+    var e = etats(opts, cfg);
+    opts.forEach(function (o) { if (sel[o.id] && !e[o.id].disponible) p.push(o.nom + " : " + e[o.id].raison); });
+    if ((cfg.arguments || []).length > MAX_ARGUMENTS) p.push("4 arguments au maximum");
+    return p;
+  }
+
+  function recapCRM(cat, cfg, ref) {
+    var g = gamme(cat, cfg.gamme) || { nom: cfg.gamme };
+    var lgn = lignes(cat, cfg), t = totaux(cat, cfg, lgn);
+    var c = cfg.client || {};
+    var l = [];
+    l.push("Devis " + (ref || "(non enregistré)") + " du " + (cfg.date || new Date().toLocaleDateString("fr-FR")));
+    l.push("Réalisé par : " + texte(cfg.realisePar));
+    l.push("Client : " + [texte(c.prenom) + " " + texte(c.nom), texte(c.telephone), texte(c.email)].filter(function (x) { return x.trim(); }).join(" · "));
+    l.push("Adresse : " + [texte(c.adresse), [texte(c.codePostal), texte(c.ville)].join(" ").trim()].filter(Boolean).join(", "));
+    if (texte(c.origine)) l.push("Origine du contact : " + texte(c.origine));
+    if (texte(cfg.numeroFacturation)) l.push("N° facturation : " + texte(cfg.numeroFacturation));
+    l.push("");
+    l.push("Gamme : " + g.nom);
+    lgn.forEach(function (x) {
+      var prix = x.inclus ? (x.section === "livraison" ? "offerte" : x.id === "kit" ? "offert" : "inclus") : euros(x.net);
+      l.push("- " + (x.quantite > 1 ? x.quantite + " × " : "") + x.libelle + " : " + prix + (x.remise ? " (remise " + euros(x.remise) + ")" : ""));
+    });
+    if (t.remiseGlobale) l.push("Remise sur le total : " + euros(t.remiseGlobale));
+    l.push("Total TTC : " + euros(t.total));
+    t.echeances.forEach(function (e) { l.push(e.libelle + " : " + euros(e.montant)); });
+    return l.join("\n").replace(/\u00a0/g, " ");
+  }
+
+  return {
+    INCLUS: INCLUS, IMPOSSIBLE: IMPOSSIBLE, SUR_DEMANDE: SUR_DEMANDE, ABSENT: ABSENT, UN_SEUL: UN_SEUL,
+    MAX_ARGUMENTS: MAX_ARGUMENTS,
+    nombre: nombre, euros: euros, parametres: parametres, lirePrix: lirePrix,
+    gammes: gammes, gamme: gamme, tailles: tailles, modeles: modeles, modele: modele, taillesModele: taillesModele,
+    options: options, demandePrecision: demandePrecision, groupesObligatoires: groupesObligatoires, etats: etats, basculer: basculer, nettoyer: nettoyer,
+    dimensions: dimensions, texteDimensions: texteDimensions, dateDevis: dateDevis, validite: validite,
+    draps: draps, teintes: teintes, accessoires: accessoires, argumentsGamme: argumentsGamme,
+    argumentsParDefaut: argumentsParDefaut, livraisonOfferte: livraisonOfferte, ficheTechnique: ficheTechnique,
+    lignes: lignes, totaux: totaux, problemes: problemes, recapCRM: recapCRM, remiseDe: remiseDe,
+  };
+});
+</script>

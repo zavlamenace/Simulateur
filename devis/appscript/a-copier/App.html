@@ -1,0 +1,910 @@
+<script>
+/**
+ * Page de création de devis : une seule page, sections qui s'ouvrent au fur et à mesure, total en direct.
+ * Les prix et les règles viennent de Calcul (calcul.js) ; le PDF de Pdf (Pdf.html).
+ */
+(function () {
+  "use strict";
+  var C = window.Calcul;
+  var CLE_JETON = "devis-jeton", CLE_EN_COURS = "devis-en-cours", CLE_AUTEUR = "devis-realise-par";
+  var ORIGINES = ["Site internet", "Appel téléphonique", "Showroom", "Salon", "Recommandation", "Revendeur", "Réseaux sociaux"];
+  var SECTIONS = [
+    { id: "client", titre: "Client" },
+    { id: "billard", titre: "Billard" },
+    { id: "tapis", titre: "Tapis", apresBillard: true },
+    { id: "options", titre: "Options", apresBillard: true },
+    { id: "plateau", titre: "Plateau", apresBillard: true },
+    { id: "accessoires", titre: "Accessoires", apresBillard: true },
+    { id: "libres", titre: "Lignes libres", apresBillard: true },
+    { id: "livraison", titre: "Livraison", apresBillard: true },
+    { id: "remises", titre: "Remises", apresBillard: true },
+    { id: "arguments", titre: "Arguments", apresBillard: true },
+  ];
+
+  var etat = {
+    jeton: null, cat: null, cfg: null, statut: null, modifie: false,
+    ouvertes: { client: true }, recherche: "", categories: {}, confirmation: null, occupe: false,
+  };
+
+  // -------------------------------------------------------------------------------------------------------
+  // Outils
+
+  function $(s) { return document.querySelector(s); }
+
+  function h(v) {
+    return String(v === null || v === undefined ? "" : v).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  function lire(cle) { try { return window.localStorage.getItem(cle); } catch (e) { return null; } }
+
+  function ecrire(cle, v) {
+    try { if (v === null) window.localStorage.removeItem(cle); else window.localStorage.setItem(cle, v); } catch (e) { /* stockage indisponible */ }
+  }
+
+  function normaliser(t) {
+    return String(t || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+  }
+
+  function prixEntreParentheses(o) {
+    if (o.etat === "inclus") return "(inclus)";
+    if (o.etat === "prix") return "(" + C.euros(o.prix) + ")";
+    return "(prix à saisir)";
+  }
+
+  function idElement(prefixe, cle) { return prefixe + "-" + String(cle).replace(/\s+/g, "_"); }
+
+  var minuterieMessage = null;
+  function message(texte) {
+    var el = $("#message");
+    el.textContent = texte;
+    el.hidden = false;
+    clearTimeout(minuterieMessage);
+    minuterieMessage = setTimeout(function () { el.hidden = true; }, 5000);
+  }
+
+  function serveur(nom) {
+    var args = Array.prototype.slice.call(arguments, 1);
+    return new Promise(function (ok, ko) {
+      var r = google.script.run.withSuccessHandler(ok).withFailureHandler(function (e) {
+        var m = (e && e.message) || String(e);
+        if (/SESSION_EXPIREE/.test(m)) sessionExpiree();
+        ko(new Error(m));
+      });
+      r[nom].apply(r, args);
+    });
+  }
+
+  // -------------------------------------------------------------------------------------------------------
+  // Configuration
+
+  function nouvelleConfig() {
+    return {
+      realisePar: lire(CLE_AUTEUR) || "", numeroFacturation: "",
+      client: { prenom: "", nom: "", telephone: "", email: "", adresse: "", codePostal: "", ville: "", origine: "" },
+      gamme: null, modele: null, versionModele: null, taille: null, prixManuelBillard: undefined,
+      options: {}, tapis: { drap: "", teinte: "" }, accessoires: {}, lignesLibres: [],
+      livraison: { formule: "offerte", prix: "" }, remises: {}, remiseGlobale: { type: "%", valeur: "" },
+      arguments: [], argumentsManuels: false, ref: null, refBase: null, version: null, date: null,
+    };
+  }
+
+  function completer(cfg) {
+    var base = nouvelleConfig();
+    Object.keys(base).forEach(function (k) { if (cfg[k] === undefined || cfg[k] === null && base[k] !== null) cfg[k] = base[k]; });
+    Object.keys(base.client).forEach(function (k) { if (cfg.client[k] === undefined) cfg.client[k] = ""; });
+    return cfg;
+  }
+
+  function gammeChoisie() { return etat.cfg.gamme ? C.gamme(etat.cat, etat.cfg.gamme) : null; }
+
+  function billardChoisi() {
+    var cfg = etat.cfg, g = gammeChoisie();
+    return !!(g && cfg.modele && (g.parTaille ? cfg.taille : cfg.versionModele));
+  }
+
+  function optionsCourantes() { return billardChoisi() ? C.options(etat.cat, etat.cfg) : []; }
+
+  /** Groupes « jeu » obligatoires (jeu, bandes incluses) : affichés avec le billard. */
+  function groupeDuBillard(o, tous) {
+    return !!C.groupesObligatoires(tous)[o.groupe] && /bande|jeu/i.test(o.groupe);
+  }
+
+  function choisie(id) { return !!(etat.cfg.options[id] && etat.cfg.options[id].choisi); }
+
+  function equipe() {
+    var e = (etat.cat["Équipe"] && etat.cat["Équipe"]["ÉQUIPE"]) || [];
+    return e.filter(function (l) { return l.Nom && (!l.Statut || l.Statut === "Actif"); }).map(function (l) { return String(l.Nom).trim(); });
+  }
+
+  function valeur(chemin) {
+    var v = chemin.split(".").reduce(function (o, k) { return o === null || o === undefined ? undefined : o[k]; }, etat.cfg);
+    return v === null || v === undefined ? "" : v;
+  }
+
+  function poser(chemin, v) {
+    var k = chemin.split("."), o = etat.cfg;
+    for (var i = 0; i < k.length - 1; i++) o = o[k[i]] = o[k[i]] || {};
+    o[k[k.length - 1]] = v;
+  }
+
+  /** Remet la configuration en cohérence : règles des options, drap, arguments par défaut. */
+  function harmoniser() {
+    var cfg = etat.cfg, retirees = [];
+    if (!billardChoisi()) return retirees;
+    var tous = C.options(etat.cat, cfg);
+    // Équipements inclus du modèle (ex. piètement démontable) : cochés d'office, le commercial peut les décocher.
+    tous.forEach(function (o) {
+      if (o.section === "options" && o.etat === "inclus" && o.choix !== C.UN_SEUL && cfg.options[o.id] === undefined) cfg.options[o.id] = { choisi: true };
+    });
+    retirees = C.nettoyer(tous, cfg);
+    var d = C.draps(etat.cat, cfg, tous);
+    if (!d.length) cfg.tapis.drap = "";
+    else {
+      var actuel = d.filter(function (x) { return x.option && choisie(x.option); })[0] ||
+        d.filter(function (x) { return x.nom === cfg.tapis.drap; })[0] || d[0];
+      if (actuel.nom !== cfg.tapis.drap) { cfg.tapis.drap = actuel.nom; cfg.tapis.teinte = ""; }
+    }
+    var valables = C.argumentsGamme(etat.cat, cfg).map(function (a) { return a.id; });
+    if (!cfg.argumentsManuels) cfg.arguments = C.argumentsParDefaut(etat.cat, cfg);
+    else cfg.arguments = cfg.arguments.filter(function (a) { return valables.indexOf(a) >= 0; });
+    var acc = C.accessoires(etat.cat, cfg).map(function (a) { return a.article; });
+    Object.keys(cfg.accessoires).forEach(function (a) { if (acc.indexOf(a) < 0) delete cfg.accessoires[a]; });
+    return retirees;
+  }
+
+  function marquerModifie() {
+    etat.modifie = true;
+    ecrire(CLE_EN_COURS, JSON.stringify({ cfg: etat.cfg, statut: etat.statut, modifie: true }));
+    rendreEntete();
+  }
+
+  function apresChangement(retirees) {
+    retirees = (retirees || []).concat(harmoniser());
+    marquerModifie();
+    rendre();
+    if (retirees.length) message("Retiré automatiquement : " + retirees.join(", "));
+  }
+
+  // -------------------------------------------------------------------------------------------------------
+  // Rendu
+
+  function rendre() {
+    var actif = document.activeElement && document.activeElement.id;
+    rendreEntete();
+    rendreSections();
+    rendreRecap();
+    if (actif && document.getElementById(actif)) document.getElementById(actif).focus({ preventScroll: true });
+  }
+
+  function rendreEntete() {
+    var cfg = etat.cfg, t;
+    if (!cfg) return;
+    if (!cfg.ref) t = "Nouveau devis";
+    else if (etat.statut === "Généré" && etat.modifie) t = cfg.ref + " · repris : les modifications créeront une nouvelle version";
+    else if (etat.statut === "Généré") t = cfg.ref + " · généré le " + cfg.date;
+    else t = cfg.ref + " · brouillon" + (etat.modifie ? ", modifications non enregistrées" : " enregistré");
+    $("#entete-ref").textContent = t;
+  }
+
+  function sectionsVisibles() {
+    var tous = optionsCourantes(), ok = billardChoisi();
+    return SECTIONS.filter(function (s) {
+      if (!ok) return s.id !== "plateau";
+      if (s.id === "plateau") return tous.some(function (o) { return o.section === "plateau"; });
+      if (s.id === "options") return tous.some(function (o) { return o.section === "options" && !groupeDuBillard(o, tous); });
+      if (s.id === "tapis") return C.draps(etat.cat, etat.cfg, tous).length > 0;
+      return true;
+    });
+  }
+
+  function rendreSections() {
+    var liste = sectionsVisibles(), ok = billardChoisi(), html = "";
+    liste.forEach(function (s, i) {
+      var verrou = s.apresBillard && !ok, ouverte = !verrou && !!etat.ouvertes[s.id];
+      var suivante = liste[i + 1];
+      html += '<section class="section' + (verrou ? " verrouillee" : "") + '" data-section="' + s.id + '">' +
+        '<button type="button" class="section-titre" data-action="basculer-section" data-id="' + s.id + '"' +
+        (verrou ? " disabled" : "") + ' aria-expanded="' + ouverte + '">' +
+        '<span class="section-numero">' + (i + 1) + '</span><span class="section-nom">' + h(s.titre) + '</span>' +
+        '<span class="section-resume">' + h(verrou ? "Choisir d'abord le billard" : (ouverte ? "" : resume(s.id))) + '</span></button>' +
+        (ouverte ? '<div class="section-corps">' + corps(s.id) +
+          (suivante ? '<div class="section-pied"><button type="button" class="bouton sombre" data-action="continuer" data-id="' + s.id + '"' +
+            (s.id === "billard" && !ok ? " disabled" : "") + '>Continuer</button></div>' : "") + '</div>' : "") +
+        '</section>';
+    });
+    $("#sections").innerHTML = html;
+  }
+
+  function resume(id) {
+    var cfg = etat.cfg, g = gammeChoisie(), tous = optionsCourantes();
+    var lgn = billardChoisi() ? C.lignes(etat.cat, cfg) : [];
+    var somme = function (section) {
+      var l = lgn.filter(function (x) { return x.section === section && !x.inclus; });
+      return l.reduce(function (s, x) { return s + x.net; }, 0);
+    };
+    switch (id) {
+      case "client":
+        return [[cfg.client.prenom, cfg.client.nom].join(" ").trim(), cfg.client.ville].filter(Boolean).join(" · ") || "À compléter";
+      case "billard":
+        if (!g) return "À choisir";
+        return [g.famille === "Lafuge" ? g.id : g.nom, cfg.modele, cfg.taille || cfg.versionModele].filter(Boolean).join(" · ");
+      case "tapis":
+        return [cfg.tapis.drap, cfg.tapis.teinte].filter(Boolean).join(" · ") || "À choisir";
+      case "options": {
+        var n = lgn.filter(function (x) { return x.section === "options" && !x.inclus; }).length;
+        return n ? n + " option" + (n > 1 ? "s" : "") + " · " + C.euros(somme("options")) : "Aucune option";
+      }
+      case "plateau": {
+        var p = tous.filter(function (o) { return o.section === "plateau" && choisie(o.id); });
+        return p.length ? p.map(function (o) { return o.nom; }).join(", ") : "Sans plateau";
+      }
+      case "accessoires": {
+        var q = Object.keys(cfg.accessoires).reduce(function (s, a) { return s + (cfg.accessoires[a] || 0); }, 0);
+        return q ? q + " article" + (q > 1 ? "s" : "") + " · " + C.euros(somme("accessoires")) : "Aucun";
+      }
+      case "libres": {
+        var l = lgn.filter(function (x) { return x.section === "libres"; }).length;
+        return l ? l + " ligne" + (l > 1 ? "s" : "") + " · " + C.euros(somme("libres")) : "Aucune";
+      }
+      case "livraison":
+        return cfg.livraison.formule === "montage" ? "Livraison et montage" + (C.nombre(cfg.livraison.prix) !== null ? " · " + C.euros(C.nombre(cfg.livraison.prix)) : "") : "Offerte";
+      case "remises": {
+        var t = C.totaux(etat.cat, cfg, lgn);
+        return t.remiseTotale ? "− " + C.euros(t.remiseTotale) : "Aucune";
+      }
+      case "arguments":
+        return cfg.arguments.length + " / " + C.MAX_ARGUMENTS;
+    }
+    return "";
+  }
+
+  function corps(id) {
+    switch (id) {
+      case "client": return corpsClient();
+      case "billard": return corpsBillard();
+      case "tapis": return corpsTapis();
+      case "options": return corpsOptions("options");
+      case "plateau": return corpsOptions("plateau");
+      case "accessoires": return corpsAccessoires();
+      case "libres": return corpsLibres();
+      case "livraison": return corpsLivraison();
+      case "remises": return corpsRemises();
+      case "arguments": return corpsArguments();
+    }
+    return "";
+  }
+
+  function champ(chemin, libelle, type, attributs, large) {
+    var id = idElement("c", chemin.replace(/\./g, "-"));
+    return '<div class="champ' + (large ? " large" : "") + '"><label for="' + id + '">' + h(libelle) + '</label>' +
+      '<input id="' + id + '" type="' + type + '" autocomplete="off" data-champ="' + chemin + '" value="' + h(valeur(chemin)) + '" ' + (attributs || "") + '></div>';
+  }
+
+  function carte(action, val, nom, sous, choisi, desactive) {
+    return '<button type="button" class="carte' + (choisi ? " choisie" : "") + '" data-action="' + action + '" data-valeur="' + h(val) + '"' +
+      (desactive ? " disabled" : "") + ' aria-pressed="' + !!choisi + '"><span class="carte-nom">' + h(nom) + '</span>' +
+      (sous ? '<span class="carte-prix">' + h(sous) + '</span>' : "") + '</button>';
+  }
+
+  function corpsClient() {
+    var cfg = etat.cfg;
+    return '<div class="grille">' +
+      '<div class="champ large"><label for="c-realisePar">Devis réalisé par</label><select id="c-realisePar" data-champ="realisePar">' +
+      '<option value="">Choisir…</option>' + equipe().map(function (n) {
+        return '<option' + (n === cfg.realisePar ? " selected" : "") + '>' + h(n) + '</option>';
+      }).join("") + '</select></div>' +
+      champ("client.prenom", "Prénom", "text") + champ("client.nom", "Nom", "text") +
+      champ("client.telephone", "Téléphone", "tel", 'inputmode="tel"') + champ("client.email", "Email", "email", 'inputmode="email"') +
+      champ("client.codePostal", "Code postal", "text", 'inputmode="numeric" maxlength="5"') + champ("client.ville", "Ville", "text") +
+      champ("client.adresse", "Adresse (facultatif au stade du devis)", "text", "", true) +
+      champ("client.origine", "Origine du contact", "text", 'list="origines"') +
+      champ("numeroFacturation", "N° logiciel de facturation (facultatif)", "text") +
+      '<datalist id="origines">' + ORIGINES.map(function (o) { return '<option value="' + h(o) + '">'; }).join("") + '</datalist>' +
+      '</div>';
+  }
+
+  function corpsBillard() {
+    var cat = etat.cat, cfg = etat.cfg, g = gammeChoisie(), html = "";
+    html += '<div class="groupe"><div class="groupe-titre">Gamme</div><div class="cartes">' + C.gammes(cat).map(function (x) {
+      return carte("choisir-gamme", x.id, x.famille === "Lafuge" ? x.id : x.nom, x.marque, x.id === cfg.gamme);
+    }).join("") + '</div></div>';
+    if (!g) return html;
+
+    html += '<div class="groupe"><div class="groupe-titre">Modèle</div><div class="cartes">' + C.modeles(cat, g.id).map(function (m) {
+      var prix = g.parTaille
+        ? C.taillesModele(cat, g.id, m.nom).map(function (t) { return C.nombre(m.prix[t]); })
+        : m.versions.map(function (v) { return v.prix; });
+      prix = prix.filter(function (p) { return p !== null; });
+      var min = prix.length ? Math.min.apply(null, prix) : null, max = prix.length ? Math.max.apply(null, prix) : null;
+      var sous = min === null ? "" : (min === max ? C.euros(min) : "dès " + C.euros(min));
+      return carte("choisir-modele", m.nom, m.nom, sous, m.nom === cfg.modele);
+    }).join("") + '</div></div>';
+    if (!cfg.modele) return html;
+
+    var m = C.modele(cat, g.id, cfg.modele);
+    if (g.parTaille) {
+      var offertes = C.taillesModele(cat, g.id, cfg.modele);
+      html += '<div class="groupe"><div class="groupe-titre">Taille</div><div class="cartes">' + C.tailles(cat, g.id).map(function (t) {
+        var dispo = offertes.indexOf(t) >= 0, p = C.lirePrix(m.prix[t]);
+        var sous = !dispo ? "Non proposée" : p.etat === "prix" ? C.euros(p.prix) : "Prix à saisir";
+        return carte("choisir-taille", t, t, sous, t === cfg.taille, !dispo);
+      }).join("") + '</div>';
+      if (cfg.taille) html += '<div class="aide">' + h(C.texteDimensions(C.dimensions(cat, g.id, cfg.taille))) + '</div>';
+      html += '</div>';
+      if (cfg.taille && C.lirePrix(m.prix[cfg.taille]).etat !== "prix") {
+        html += '<div class="champ"><label for="prix-billard">Prix du billard TTC (à saisir)</label>' +
+          '<input id="prix-billard" type="number" inputmode="decimal" step="any" data-prix-billard="1" value="' +
+          h(cfg.prixManuelBillard === undefined ? "" : cfg.prixManuelBillard) + '" class="' +
+          (C.nombre(cfg.prixManuelBillard) === null ? "a-saisir" : "") + '"></div>';
+      }
+    } else {
+      html += '<div class="groupe"><div class="groupe-titre">Version</div><div class="cartes">' + m.versions.map(function (v) {
+        return carte("choisir-version", v.nom, v.nom, [v.finition, v.prix !== null ? C.euros(v.prix) : ""].filter(Boolean).join(" · "),
+          v.nom === cfg.versionModele);
+      }).join("") + '</div></div>';
+    }
+    if (billardChoisi()) {
+      var tous = C.options(cat, cfg);
+      html += rendreGroupes(tous.filter(function (o) { return groupeDuBillard(o, tous); }), tous);
+    }
+    return html;
+  }
+
+  function corpsTapis() {
+    var cat = etat.cat, cfg = etat.cfg, tous = optionsCourantes(), d = C.draps(cat, cfg, tous), html = "";
+    html += '<div class="groupe"><div class="groupe-titre">Drap</div><div class="cartes">' + d.map(function (x) {
+      var o = x.option ? tous.filter(function (y) { return y.id === x.option; })[0] : null;
+      return carte("choisir-drap", x.nom, x.nom, o ? prixEntreParentheses(o) : "(inclus)", cfg.tapis.drap === x.nom);
+    }).join("") + '</div></div>';
+    var t = C.teintes(cat, cfg.tapis.drap);
+    if (t.length) {
+      html += '<div class="groupe"><div class="groupe-titre">Couleur</div><div class="cartes teintes">' + t.map(function (x) {
+        var code = /^#[0-9a-f]{3,8}$/i.test(x.code) ? x.code : "transparent";
+        return '<button type="button" class="carte' + (cfg.tapis.teinte === x.nom ? " choisie" : "") + '" data-action="choisir-teinte" data-valeur="' +
+          h(x.nom) + '" aria-pressed="' + (cfg.tapis.teinte === x.nom) + '"><span class="carte-nom"><span class="pastille" style="background:' + code + '"></span>' +
+          h(x.nom) + '</span></button>';
+      }).join("") + '</div></div>';
+    } else if (cfg.tapis.drap) {
+      html += champ("tapis.teinte", "Couleur du drap", "text", 'placeholder="Couleur choisie par le client"');
+    }
+    return html;
+  }
+
+  function corpsOptions(section) {
+    var tous = optionsCourantes();
+    var liste = tous.filter(function (o) { return o.section === section && !groupeDuBillard(o, tous); });
+    return rendreGroupes(liste, tous) || '<p class="aide">Aucune option pour ce modèle.</p>';
+  }
+
+  function libelleAucun(groupe) {
+    if (/^Essence$/i.test(groupe)) {
+      var m = C.modele(etat.cat, etat.cfg.gamme, etat.cfg.modele);
+      return "Matière de base" + (m && m.base ? " : " + m.base.charAt(0).toLowerCase() + m.base.slice(1) : "");
+    }
+    if (/plateau|dessus/i.test(groupe)) return "Sans plateau";
+    if (/rallonge|allonge/i.test(groupe)) return "Sans rallonge";
+    if (/supplément/i.test(groupe)) return "Sans supplément";
+    return "Aucun";
+  }
+
+  function rendreGroupes(liste, tous) {
+    var e = C.etats(tous, etat.cfg), oblig = C.groupesObligatoires(tous), ordre = [], par = {};
+    liste.forEach(function (o) {
+      if (!par[o.groupe]) { par[o.groupe] = []; ordre.push(o.groupe); }
+      par[o.groupe].push(o);
+    });
+    return ordre.map(function (groupe) {
+      var os = par[groupe], unSeul = os[0].choix === C.UN_SEUL;
+      var commun = os.every(function (o) { return o.conditions === os[0].conditions; }) ? os[0].conditions : "";
+      var html = '<div class="groupe" role="group" aria-label="' + h(groupe) + '"><div class="groupe-titre">' + h(groupe) + '</div>';
+      if (commun) html += '<div class="aide">' + h(commun) + '</div>';
+      if (unSeul && !oblig[groupe]) {
+        var aucun = !os.some(function (o) { return choisie(o.id); });
+        var id = idElement("aucun", groupe);
+        html += '<label class="option' + (aucun ? " choisie" : "") + '" for="' + h(id) + '"><input id="' + h(id) + '" type="radio" name="' + h("g-" + groupe) +
+          '" data-aucun="' + h(groupe) + '"' + (aucun ? " checked" : "") + '><span class="option-nom">' + h(libelleAucun(groupe)) +
+          '</span><span class="option-prix"></span></label>';
+      }
+      os.forEach(function (o) { html += ligneOption(o, e[o.id], unSeul, commun); });
+      return html + '</div>';
+    }).join("");
+  }
+
+  function ligneOption(o, st, unSeul, commun) {
+    var sel = etat.cfg.options[o.id] || {}, coche = !!sel.choisi, bloque = !st.disponible && !coche;
+    var id = idElement("o", o.id);
+    var html = '<label class="option' + (coche ? " choisie" : "") + (bloque ? " indisponible" : "") + '" for="' + h(id) + '">' +
+      '<input id="' + h(id) + '" type="' + (unSeul ? "radio" : "checkbox") + '" name="' + h("g-" + o.groupe) + '" data-option="' + h(o.id) + '"' +
+      (coche ? " checked" : "") + (bloque ? " disabled" : "") + '>' +
+      '<span class="option-nom">' + h(o.nom) + '</span><span class="option-prix">' + h(prixEntreParentheses(o)) + '</span>';
+    if (!st.disponible) html += '<span class="option-note">' + h(st.raison) + '</span>';
+    else if (o.conditions && !commun) html += '<span class="option-note">' + h(o.conditions) + '</span>';
+    if (coche && o.etat !== "prix" && o.etat !== "inclus") {
+      var pid = idElement("p", o.id);
+      html += '<span class="option-saisie"><input id="' + h(pid) + '" type="number" inputmode="decimal" step="any" placeholder="Prix TTC" aria-label="Prix de l\'option" data-prix-option="' +
+        h(o.id) + '" value="' + h(sel.prixManuel === undefined ? "" : sel.prixManuel) + '" class="' + (C.nombre(sel.prixManuel) === null ? "a-saisir" : "") + '"> €</span>';
+    }
+    if (coche && C.demandePrecision(o)) {
+      var qid = idElement("q", o.id);
+      html += '<span class="option-saisie"><input id="' + h(qid) + '" type="text" autocomplete="off" placeholder="Précision imprimée (couleur, référence…)" aria-label="Précision" data-precision-option="' +
+        h(o.id) + '" value="' + h(sel.precision || "") + '"></span>';
+    }
+    return html + '</label>';
+  }
+
+  function corpsAccessoires() {
+    var g = gammeChoisie(), html = "";
+    if (g.parametres["Kit accessoires inclus"] === "Oui") {
+      html += '<p class="aide">Kit accessoires inclus : ' + h(g.parametres["Contenu du kit accessoires"]) + '.</p>';
+    }
+    if (g.famille === "Lafuge" && g.parametres["Mention accessoires"]) html += '<p class="aide">' + h(String(g.parametres["Mention accessoires"]).replace(/\.?$/, ".")) + '</p>';
+    html += '<input id="recherche-accessoires" type="search" autocomplete="off" placeholder="Rechercher un accessoire" value="' + h(etat.recherche) + '">';
+    return html + '<div id="liste-accessoires">' + listeAccessoires() + '</div>';
+  }
+
+  function listeAccessoires() {
+    var acc = C.accessoires(etat.cat, etat.cfg), r = normaliser(etat.recherche), ordre = [], par = {};
+    acc.forEach(function (a) {
+      if (r && normaliser(a.article + " " + a.categorie + " " + a.detail).indexOf(r) < 0) return;
+      if (!par[a.categorie]) { par[a.categorie] = []; ordre.push(a.categorie); }
+      par[a.categorie].push(a);
+    });
+    if (!ordre.length) return '<p class="aide">Aucun accessoire ne correspond.</p>';
+    return ordre.map(function (c) {
+      var n = par[c].reduce(function (s, a) { return s + (etat.cfg.accessoires[a.article] || 0); }, 0);
+      var ouvert = r ? true : (etat.categories[c] !== undefined ? etat.categories[c] : n > 0);
+      return '<details data-categorie="' + h(c) + '"' + (ouvert ? " open" : "") + '><summary>' + h(c) +
+        (n ? ' <span class="compteur">(' + n + ')</span>' : "") + '</summary>' + par[c].map(ligneAccessoire).join("") + '</details>';
+    }).join("");
+  }
+
+  function ligneAccessoire(a) {
+    var q = etat.cfg.accessoires[a.article] || 0;
+    return '<div class="ligne"><div><div>' + h(a.article) + ' <span class="option-prix">(' + h(C.euros(a.prix || 0)) + ')</span></div>' +
+      (a.detail ? '<div class="aide">' + h(a.detail) + '</div>' : "") + '</div>' +
+      '<div class="quantite"><button type="button" data-action="quantite" data-article="' + h(a.article) + '" data-pas="-1" aria-label="Retirer un ' + h(a.article) + '"' +
+      (q ? "" : " disabled") + '>−</button><span>' + q + '</span><button type="button" data-action="quantite" data-article="' + h(a.article) +
+      '" data-pas="1" aria-label="Ajouter un ' + h(a.article) + '">+</button></div></div>';
+  }
+
+  function corpsLibres() {
+    var l = etat.cfg.lignesLibres;
+    return '<p class="aide">Pour ce qui n\'est pas au catalogue. Un prix négatif vient en déduction.</p>' + l.map(function (x, i) {
+      return '<div class="libre">' +
+        '<div class="champ"><label for="libre-libelle-' + i + '">Libellé</label><input id="libre-libelle-' + i + '" type="text" autocomplete="off" data-libre="' + i + '" data-cle="libelle" value="' + h(x.libelle) + '"></div>' +
+        '<div class="champ"><label for="libre-prix-' + i + '">Prix unitaire TTC</label><input id="libre-prix-' + i + '" type="number" inputmode="decimal" step="any" data-libre="' + i + '" data-cle="prix" value="' + h(x.prix) + '"></div>' +
+        '<div class="champ"><label for="libre-quantite-' + i + '">Quantité</label><input id="libre-quantite-' + i + '" type="number" inputmode="numeric" min="1" step="1" data-libre="' + i + '" data-cle="quantite" value="' + h(x.quantite) + '"></div>' +
+        '<button type="button" class="bouton lien" data-action="supprimer-libre" data-index="' + i + '">Retirer</button></div>';
+    }).join("") + '<div><button type="button" class="bouton" data-action="ajouter-libre">Ajouter une ligne</button></div>';
+  }
+
+  function corpsLivraison() {
+    var liv = etat.cfg.livraison, lo = C.livraisonOfferte(etat.cat), montage = liv.formule === "montage";
+    var html = '<div class="cartes deux">' +
+      carte("choisir-livraison", "offerte", lo.libelle, lo.detail, !montage) +
+      carte("choisir-livraison", "montage", "Livraison et montage", "Installation dans la pièce, mise à niveau et réglages par nos techniciens", montage) +
+      '</div>';
+    if (montage) {
+      html += '<div class="champ"><label for="prix-montage">Prix de la livraison et du montage TTC</label>' +
+        '<input id="prix-montage" type="number" inputmode="decimal" step="any" data-champ="livraison.prix" value="' + h(liv.prix) + '" class="' +
+        (C.nombre(liv.prix) === null ? "a-saisir" : "") + '"></div>';
+    }
+    return html;
+  }
+
+  function bascule(id, type) {
+    return '<span class="bascule" role="group" aria-label="Type de remise">' + ["%", "€"].map(function (t) {
+      return '<button type="button" class="' + (t === type ? "actif" : "") + '" data-action="type-remise" data-id="' + h(id) + '" data-type="' + t + '" aria-pressed="' + (t === type) + '">' + t + '</button>';
+    }).join("") + '</span>';
+  }
+
+  function texteNet(l) {
+    return l.remise ? '<span class="barre">' + h(C.euros(l.brut)) + '</span>' + h(C.euros(l.net)) : h(C.euros(l.brut));
+  }
+
+  function corpsRemises() {
+    var cfg = etat.cfg, lgn = C.lignes(etat.cat, cfg), t = C.totaux(etat.cat, cfg, lgn);
+    var html = '<div class="groupe"><div class="groupe-titre">Par ligne</div>' + lgn.filter(function (l) { return !l.inclus && l.brut > 0; }).map(function (l) {
+      var r = cfg.remises[l.id] || { type: "%", valeur: "" }, id = idElement("r", l.id);
+      return '<div class="remise"><div><div>' + h((l.quantite > 1 ? l.quantite + " × " : "") + l.libelle) + '</div><div class="aide" data-net="' + h(l.id) + '">' + texteNet(l) + '</div></div>' +
+        bascule(l.id, r.type) + '<input id="' + h(id) + '" type="number" inputmode="decimal" step="any" min="0" aria-label="Remise sur ' + h(l.libelle) + '" data-remise="' + h(l.id) + '" value="' + h(r.valeur) + '"></div>';
+    }).join("") + '</div>';
+    var rg = cfg.remiseGlobale;
+    html += '<div class="groupe"><div class="groupe-titre">Sur le total</div><div class="remise"><div><div>Remise globale</div><div class="aide" data-net="global">' +
+      (t.remiseGlobale ? "− " + h(C.euros(t.remiseGlobale)) : "") + '</div></div>' + bascule("global", rg.type) +
+      '<input id="r-global" type="number" inputmode="decimal" step="any" min="0" aria-label="Remise globale" data-remise="global" value="' + h(rg.valeur) + '"></div></div>';
+    return html + '<p class="aide">Le prix d\'origine est barré sur le devis. Sans remise, rien n\'apparaît.</p>';
+  }
+
+  function majNets() {
+    var cfg = etat.cfg, lgn = C.lignes(etat.cat, cfg), t = C.totaux(etat.cat, cfg, lgn);
+    lgn.forEach(function (l) {
+      var el = document.querySelector('[data-net="' + CSS.escape(l.id) + '"]');
+      if (el) el.innerHTML = texteNet(l);
+    });
+    var g = document.querySelector('[data-net="global"]');
+    if (g) g.textContent = t.remiseGlobale ? "− " + C.euros(t.remiseGlobale) : "";
+  }
+
+  function corpsArguments() {
+    var a = C.argumentsGamme(etat.cat, etat.cfg), sel = etat.cfg.arguments, plein = sel.length >= C.MAX_ARGUMENTS;
+    if (!a.length) return '<p class="aide">Aucun argument pour cette gamme dans le Sheet.</p>';
+    return '<p class="aide">' + C.MAX_ARGUMENTS + ' arguments au maximum sur le devis. Ceux proposés par défaut sont déjà cochés.</p>' +
+      '<div class="compteur">' + sel.length + ' / ' + C.MAX_ARGUMENTS + ' choisis</div>' + a.map(function (x) {
+        var c = sel.indexOf(x.id) >= 0, bloque = !c && plein, id = idElement("a", x.id);
+        return '<label class="option' + (c ? " choisie" : "") + (bloque ? " indisponible" : "") + '" for="' + h(id) + '"><input id="' + h(id) + '" type="checkbox" data-argument="' +
+          h(x.id) + '"' + (c ? " checked" : "") + (bloque ? " disabled" : "") + '><span class="option-nom"><strong>' + h(x.titre) + '</strong>' +
+          (x.texte ? '<br><span class="aide">' + h(x.texte) + '</span>' : "") + '</span><span></span></label>';
+      }).join("");
+  }
+
+  function rendreRecap() {
+    var cfg = etat.cfg, cat = etat.cat;
+    if (!cfg) return;
+    var lgn = billardChoisi() ? C.lignes(cat, cfg) : [], t = C.totaux(cat, cfg, lgn), pb = C.problemes(cat, cfg);
+    $("#barre-total").textContent = C.euros(t.total);
+    var html = '<div class="recap-entete"><h2>Récapitulatif</h2><button type="button" class="bouton lien seulement-mobile" data-action="fermer-recap">Fermer</button></div>';
+    if (!lgn.length) html += '<p class="aide">Le détail du devis s\'affiche ici dès que le billard est choisi.</p>';
+    else {
+      html += '<div class="recap-lignes">' + lgn.map(function (l) {
+        var prix = l.aSaisir ? '<span class="aide">à saisir</span>'
+          : l.inclus ? (l.section === "livraison" ? "offerte" : "inclus")
+          : (l.remise ? '<span class="barre">' + h(C.euros(l.brut)) + '</span>' : "") + h(C.euros(l.net));
+        return '<div class="recap-ligne"><span>' + h((l.quantite > 1 ? l.quantite + " × " : "") + l.libelle) + '</span><span class="prix">' + prix + '</span></div>';
+      }).join("") + '</div>';
+      if (t.remiseGlobale) html += '<div class="recap-ligne"><span>Remise sur le total</span><span class="prix">− ' + h(C.euros(t.remiseGlobale)) + '</span></div>';
+      html += '<div class="recap-total"><span>Total TTC</span><span class="montant" id="recap-total">' + h(C.euros(t.total)) + '</span></div>';
+      html += '<div class="recap-petit"><span>Dont TVA : ' + h(C.euros(t.tva)) + '</span>' +
+        (t.remiseTotale ? '<span>Remise accordée : ' + h(C.euros(t.remiseTotale)) + '</span>' : "") + '</div>';
+      html += '<div class="recap-petit">' + t.echeances.map(function (e) {
+        return '<span>' + h(e.libelle) + (e.taux ? " (" + Math.round(e.taux * 100) + " %)" : "") + " : " + h(C.euros(e.montant)) + '</span>';
+      }).join("") + (t.oney ? '<span>Paiement en 3 ou 4 fois avec Oney possible</span>' : "") +
+        '<span>Offre valable jusqu\'au ' + h(C.validite(cat, cfg)) + '</span></div>';
+    }
+    if (pb.length) html += '<div class="a-completer"><strong>À compléter avant le PDF</strong><ul>' + pb.map(function (p) { return '<li>' + h(p) + '</li>'; }).join("") + '</ul></div>';
+    if (etat.statut === "Généré" && !etat.modifie) {
+      html += '<div class="fait"><strong>Devis ' + h(cfg.ref) + ' généré le ' + h(cfg.date) + '</strong>' +
+        '<button type="button" class="bouton sombre" data-action="telecharger">Télécharger le PDF</button>' +
+        '<button type="button" class="bouton" data-action="ouvrir-pdf">Ouvrir le PDF dans un onglet</button>' +
+        '<button type="button" class="bouton" data-action="copier-crm">Copier le récap CRM</button>' +
+        '<button type="button" class="bouton lien" data-action="nouveau">Nouveau devis</button></div>';
+    } else {
+      html += '<div class="recap-actions"><button type="button" class="bouton" data-action="enregistrer"' + (etat.occupe ? " disabled" : "") + '>Enregistrer le brouillon</button>' +
+        '<button type="button" class="bouton action" data-action="generer"' + (pb.length || etat.occupe ? " disabled" : "") + '>Générer le PDF</button></div>';
+    }
+    $("#recap").innerHTML = html;
+  }
+
+  // -------------------------------------------------------------------------------------------------------
+  // Actions
+
+  function ouvrirSection(id) {
+    etat.ouvertes[id] = true;
+    rendre();
+    var el = document.querySelector('[data-section="' + id + '"]');
+    if (el) el.scrollIntoView({ block: "start", behavior: "smooth" });
+  }
+
+  function confirmerAbandon(cle, fn) {
+    if (!etat.modifie || etat.confirmation === cle) { etat.confirmation = null; fn(); return; }
+    etat.confirmation = cle;
+    message("Le devis en cours n'est pas enregistré. Cliquez à nouveau pour l'abandonner.");
+    setTimeout(function () { if (etat.confirmation === cle) etat.confirmation = null; }, 6000);
+  }
+
+  function nouveau() {
+    etat.cfg = nouvelleConfig();
+    etat.statut = null;
+    etat.modifie = false;
+    etat.ouvertes = { client: true };
+    etat.recherche = "";
+    etat.categories = {};
+    ecrire(CLE_EN_COURS, null);
+    $("#recap").classList.remove("ouvert");
+    rendre();
+    window.scrollTo(0, 0);
+  }
+
+  function resumeJournal() {
+    var t = C.totaux(etat.cat, etat.cfg);
+    return { total: t.total, remise: t.remiseTotale };
+  }
+
+  function appliquer(res) {
+    var cfg = etat.cfg;
+    cfg.ref = res.ref; cfg.version = res.version; cfg.refBase = res.refBase; cfg.date = res.date;
+    etat.statut = res.statut;
+    etat.modifie = false;
+    ecrire(CLE_EN_COURS, JSON.stringify({ cfg: cfg, statut: etat.statut, modifie: false }));
+  }
+
+  function occuper(v) { etat.occupe = v; rendreRecap(); }
+
+  function enregistrer() {
+    occuper(true);
+    var cfg = etat.cfg;
+    serveur("enregistrer", etat.jeton, JSON.stringify(cfg), "Brouillon", resumeJournal()).then(function (res) {
+      appliquer(res);
+      occuper(false);
+      rendre();
+      message("Brouillon enregistré : " + res.ref);
+    }).catch(function (e) { occuper(false); message("Enregistrement impossible : " + e.message); });
+  }
+
+  function generer() {
+    var pb = C.problemes(etat.cat, etat.cfg);
+    if (pb.length) { message("À compléter : " + pb[0]); return; }
+    occuper(true);
+    var envoi = JSON.parse(JSON.stringify(etat.cfg));
+    envoi.date = null;
+    serveur("enregistrer", etat.jeton, JSON.stringify(envoi), "Généré", resumeJournal()).then(function (res) {
+      appliquer(res);
+      occuper(false);
+      rendre();
+      return Pdf.telecharger(etat.cat, etat.cfg).then(function () { message("Devis " + res.ref + " généré et enregistré"); });
+    }).catch(function (e) { occuper(false); rendre(); message("Génération impossible : " + e.message); });
+  }
+
+  function copier(texte) {
+    function secours() {
+      var ta = document.createElement("textarea");
+      ta.value = texte;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed"; ta.style.top = "0"; ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+      document.body.removeChild(ta);
+      if (ok) message("Récap CRM copié");
+      else {
+        $("#texte-crm").value = texte;
+        $("#modale-crm").hidden = false;
+        $("#texte-crm").select();
+      }
+    }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(texte).then(function () { message("Récap CRM copié"); }, secours);
+    } else secours();
+  }
+
+  var minuterieRecherche = null;
+  function chargerListe() {
+    var q = $("#recherche-devis").value;
+    $("#liste-devis").innerHTML = '<p class="aide">Chargement…</p>';
+    serveur("listeDevis", etat.jeton, q).then(function (l) {
+      if (q !== $("#recherche-devis").value) return;
+      $("#liste-devis").innerHTML = l.length ? l.map(function (d) {
+        return '<button type="button" class="devis-ligne" data-action="ouvrir-devis" data-ref="' + h(d.ref) + '">' +
+          '<strong>' + h(d.ref) + '</strong><span>' + h(C.euros(C.nombre(d.total) || 0)) + '</span>' +
+          '<small>' + h([d.client, d.ville].filter(Boolean).join(" · ")) + '</small><small>' + h(d.statut + " · " + d.date) + '</small>' +
+          '<small>' + h([d.gamme, d.modele].filter(Boolean).join(" · ")) + '</small><small>' + h(d.realisePar || "") + '</small></button>';
+      }).join("") : '<p class="aide">Aucun devis trouvé.</p>';
+    }).catch(function (e) { $("#liste-devis").innerHTML = '<p class="erreur">' + h(e.message) + '</p>'; });
+  }
+
+  function ouvrirDevis(ref) {
+    serveur("ouvrir", etat.jeton, ref).then(function (r) {
+      var o = JSON.parse(r);
+      etat.cfg = completer(o.config);
+      etat.statut = o.statut;
+      etat.modifie = o.statut === "Généré";
+      etat.ouvertes = {};
+      etat.recherche = "";
+      etat.categories = {};
+      harmoniser();
+      ecrire(CLE_EN_COURS, JSON.stringify({ cfg: etat.cfg, statut: etat.statut, modifie: etat.modifie }));
+      $("#modale").hidden = true;
+      rendre();
+      window.scrollTo(0, 0);
+      message(o.statut === "Généré" ? "Devis " + ref + " repris : il sera enregistré en nouvelle version" : "Brouillon " + ref + " ouvert");
+    }).catch(function (e) { message("Ouverture impossible : " + e.message); });
+  }
+
+  var actions = {
+    "basculer-section": function (b) { etat.ouvertes[b.dataset.id] = !etat.ouvertes[b.dataset.id]; rendre(); },
+    "continuer": function (b) {
+      var liste = sectionsVisibles().map(function (s) { return s.id; }), i = liste.indexOf(b.dataset.id);
+      etat.ouvertes[b.dataset.id] = false;
+      if (liste[i + 1]) ouvrirSection(liste[i + 1]); else rendre();
+    },
+    "choisir-gamme": function (b) {
+      var cfg = etat.cfg;
+      if (cfg.gamme === b.dataset.valeur) return;
+      cfg.gamme = b.dataset.valeur; cfg.modele = null; cfg.versionModele = null; cfg.taille = null; cfg.prixManuelBillard = undefined;
+      cfg.options = {}; cfg.tapis = { drap: "", teinte: "" }; cfg.remises = {}; cfg.argumentsManuels = false; cfg.arguments = [];
+      apresChangement();
+    },
+    "choisir-modele": function (b) {
+      var cfg = etat.cfg, g = gammeChoisie();
+      cfg.modele = b.dataset.valeur; cfg.prixManuelBillard = undefined;
+      if (g.parTaille) {
+        if (C.taillesModele(etat.cat, g.id, cfg.modele).indexOf(cfg.taille) < 0) cfg.taille = null;
+      } else {
+        var v = C.modele(etat.cat, g.id, cfg.modele).versions;
+        cfg.versionModele = v.length === 1 ? v[0].nom : (v.some(function (x) { return x.nom === cfg.versionModele; }) ? cfg.versionModele : null);
+      }
+      apresChangement();
+    },
+    "choisir-version": function (b) { etat.cfg.versionModele = b.dataset.valeur; apresChangement(); },
+    "choisir-taille": function (b) { etat.cfg.taille = b.dataset.valeur; etat.cfg.prixManuelBillard = undefined; apresChangement(); },
+    "choisir-drap": function (b) {
+      var cfg = etat.cfg, tous = optionsCourantes();
+      var d = C.draps(etat.cat, cfg, tous).filter(function (x) { return x.nom === b.dataset.valeur; })[0];
+      var r = d && d.option ? C.basculer(tous, cfg, d.option, true) : [];
+      if (cfg.tapis.drap !== b.dataset.valeur) { cfg.tapis.drap = b.dataset.valeur; cfg.tapis.teinte = ""; }
+      apresChangement(r);
+    },
+    "choisir-teinte": function (b) { etat.cfg.tapis.teinte = b.dataset.valeur; apresChangement(); },
+    "choisir-livraison": function (b) { etat.cfg.livraison.formule = b.dataset.valeur; apresChangement(); },
+    "type-remise": function (b) {
+      var cfg = etat.cfg, id = b.dataset.id;
+      if (id === "global") cfg.remiseGlobale.type = b.dataset.type;
+      else { cfg.remises[id] = cfg.remises[id] || { type: "%", valeur: "" }; cfg.remises[id].type = b.dataset.type; }
+      apresChangement();
+    },
+    "quantite": function (b) {
+      var a = etat.cfg.accessoires, art = b.dataset.article;
+      a[art] = Math.max(0, (a[art] || 0) + Number(b.dataset.pas));
+      if (!a[art]) delete a[art];
+      marquerModifie();
+      $("#liste-accessoires").innerHTML = listeAccessoires();
+      rendreRecap();
+    },
+    "ajouter-libre": function () {
+      etat.cfg.lignesLibres.push({ libelle: "", prix: "", quantite: 1 });
+      marquerModifie();
+      rendre();
+      var i = etat.cfg.lignesLibres.length - 1;
+      var el = document.getElementById("libre-libelle-" + i);
+      if (el) el.focus();
+    },
+    "supprimer-libre": function (b) {
+      var cfg = etat.cfg, i = Number(b.dataset.index), remises = {};
+      cfg.lignesLibres.splice(i, 1);
+      Object.keys(cfg.remises).forEach(function (id) {
+        var m = /^libre\|(\d+)$/.exec(id);
+        if (!m) remises[id] = cfg.remises[id];
+        else if (Number(m[1]) < i) remises[id] = cfg.remises[id];
+        else if (Number(m[1]) > i) remises["libre|" + (Number(m[1]) - 1)] = cfg.remises[id];
+      });
+      cfg.remises = remises;
+      apresChangement();
+    },
+    "enregistrer": enregistrer,
+    "generer": generer,
+    "telecharger": function () { Pdf.telecharger(etat.cat, etat.cfg).catch(function (e) { message("PDF impossible : " + e.message); }); },
+    "ouvrir-pdf": function () { Pdf.ouvrir(etat.cat, etat.cfg); },
+    "copier-crm": function () { copier(C.recapCRM(etat.cat, etat.cfg, etat.cfg.ref)); },
+    "nouveau": function () { confirmerAbandon("nouveau", nouveau); },
+    "ouvrir-liste": function () { $("#modale").hidden = false; $("#recherche-devis").value = ""; chargerListe(); $("#recherche-devis").focus(); },
+    "fermer-modale": function () { $("#modale").hidden = true; },
+    "fermer-crm": function () { $("#modale-crm").hidden = true; },
+    "ouvrir-devis": function (b) { confirmerAbandon("ouvrir-" + b.dataset.ref, function () { ouvrirDevis(b.dataset.ref); }); },
+    "voir-recap": function () { $("#recap").classList.add("ouvert"); },
+    "fermer-recap": function () { $("#recap").classList.remove("ouvert"); },
+  };
+
+  document.addEventListener("click", function (ev) {
+    var b = ev.target.closest("[data-action]");
+    if (!b || b.disabled || !actions[b.dataset.action]) return;
+    actions[b.dataset.action](b);
+  });
+
+  document.addEventListener("input", function (ev) {
+    var t = ev.target, d = t.dataset, cfg = etat.cfg;
+    if (t.id === "recherche-devis") { clearTimeout(minuterieRecherche); minuterieRecherche = setTimeout(chargerListe, 300); return; }
+    if (t.id === "recherche-accessoires") { etat.recherche = t.value; $("#liste-accessoires").innerHTML = listeAccessoires(); return; }
+    if (!cfg) return;
+    if (d.champ) {
+      poser(d.champ, t.value);
+      if (d.champ === "realisePar") ecrire(CLE_AUTEUR, t.value);
+      if (d.champ === "livraison.prix") t.classList.toggle("a-saisir", C.nombre(t.value) === null);
+    } else if (d.prixOption) {
+      cfg.options[d.prixOption].prixManuel = t.value;
+      t.classList.toggle("a-saisir", C.nombre(t.value) === null);
+    } else if (d.precisionOption) {
+      cfg.options[d.precisionOption].precision = t.value;
+    } else if (d.prixBillard) {
+      cfg.prixManuelBillard = t.value;
+      t.classList.toggle("a-saisir", C.nombre(t.value) === null);
+    } else if (d.libre !== undefined) {
+      cfg.lignesLibres[Number(d.libre)][d.cle] = t.value;
+    } else if (d.remise) {
+      if (d.remise === "global") cfg.remiseGlobale.valeur = t.value;
+      else { cfg.remises[d.remise] = cfg.remises[d.remise] || { type: "%", valeur: "" }; cfg.remises[d.remise].valeur = t.value; }
+      majNets();
+    } else return;
+    marquerModifie();
+    rendreRecap();
+  });
+
+  document.addEventListener("change", function (ev) {
+    var t = ev.target, d = t.dataset, cfg = etat.cfg;
+    if (!cfg) return;
+    if (d.option) {
+      apresChangement(C.basculer(optionsCourantes(), cfg, d.option, t.checked));
+    } else if (d.aucun) {
+      var tous = optionsCourantes();
+      tous.forEach(function (o) { if (o.groupe === d.aucun && cfg.options[o.id]) cfg.options[o.id].choisi = false; });
+      apresChangement(C.nettoyer(tous, cfg));
+    } else if (d.argument) {
+      var i = cfg.arguments.indexOf(d.argument);
+      if (t.checked && i < 0 && cfg.arguments.length < C.MAX_ARGUMENTS) cfg.arguments.push(d.argument);
+      if (!t.checked && i >= 0) cfg.arguments.splice(i, 1);
+      cfg.argumentsManuels = true;
+      apresChangement();
+    }
+  });
+
+  document.addEventListener("toggle", function (ev) {
+    var c = ev.target.dataset && ev.target.dataset.categorie;
+    if (c && !etat.recherche) etat.categories[c] = ev.target.open;
+  }, true);
+
+  document.addEventListener("keydown", function (ev) {
+    if (ev.key === "Escape") { $("#modale").hidden = true; $("#modale-crm").hidden = true; $("#recap").classList.remove("ouvert"); }
+  });
+
+  // -------------------------------------------------------------------------------------------------------
+  // Connexion et démarrage
+
+  function afficherConnexion(texte) {
+    $("#app").hidden = true;
+    $("#connexion").hidden = false;
+    $("#connexion-erreur").textContent = texte || "";
+    $("#mdp").value = "";
+    $("#mdp").focus();
+  }
+
+  function sessionExpiree() {
+    etat.jeton = null;
+    ecrire(CLE_JETON, null);
+    afficherConnexion("Session expirée : reconnectez-vous. Le devis en cours est conservé.");
+  }
+
+  function chargerCatalogue() {
+    return serveur("catalogue", etat.jeton).then(function (json) {
+      etat.cat = JSON.parse(json);
+      if (!etat.cfg) {
+        var enCours = null;
+        try { enCours = JSON.parse(lire(CLE_EN_COURS) || "null"); } catch (e) { enCours = null; }
+        if (enCours && enCours.cfg) {
+          etat.cfg = completer(enCours.cfg);
+          etat.statut = enCours.statut || null;
+          etat.modifie = !!enCours.modifie;
+          etat.ouvertes = {};
+          harmoniser();
+          if (etat.modifie) message("Le devis en cours a été restauré");
+        } else etat.cfg = nouvelleConfig();
+      }
+      $("#connexion").hidden = true;
+      $("#app").hidden = false;
+      rendre();
+    });
+  }
+
+  $("#form-connexion").addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var bouton = ev.target.querySelector("button");
+    bouton.disabled = true;
+    $("#connexion-erreur").textContent = "";
+    serveur("connexion", $("#mdp").value).then(function (r) {
+      if (!r.ok) throw new Error(r.message);
+      etat.jeton = r.jeton;
+      ecrire(CLE_JETON, r.jeton);
+      return chargerCatalogue();
+    }).catch(function (e) {
+      $("#connexion-erreur").textContent = e.message;
+    }).then(function () { bouton.disabled = false; });
+  });
+
+  $("#logo-connexion").src = LOGOS.bdf;
+  $("#logo-entete").src = LOGOS.bdf;
+  etat.jeton = lire(CLE_JETON);
+  if (etat.jeton) chargerCatalogue().catch(function () { afficherConnexion(); });
+  else afficherConnexion();
+})();
+</script>

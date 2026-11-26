@@ -109,7 +109,7 @@ function creerAppsScript(o) {
     Logger: { log: () => {} },
   };
   vm.createContext(contexte);
-  vm.runInContext(fs.readFileSync(path.join(APPSCRIPT, "Code.gs"), "utf8"), contexte, { filename: "Code.gs" });
+  vm.runInContext(fs.readFileSync(path.join(APPSCRIPT, "a-copier", "Code.gs"), "utf8"), contexte, { filename: "Code.gs" });
 
   /** Exécute une fonction comme depuis l'éditeur Apps Script (propriétaire connecté). */
   function depuisEditeur(nom, ...args) {

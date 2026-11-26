@@ -22,10 +22,14 @@ var ENTETES_JOURNAL = ["Référence", "Date", "Réalisé par", "N° facturation"
 // Page
 
 function doGet() {
-  // Index est le fichier assemblé (devis/appscript/a-copier/Index.html) : styles, moteur, logos, PDF et interface.
-  return HtmlService.createHtmlOutputFromFile("Index")
+  return HtmlService.createTemplateFromFile("Index").evaluate()
     .setTitle("Devis · Billards de France")
     .addMetaTag("viewport", "width=device-width, initial-scale=1");
+}
+
+/** Insère un fichier HTML du projet (Styles, Calcul, Logos, Pdf, App) dans Index. */
+function include(nom) {
+  return HtmlService.createHtmlOutputFromFile(nom).getContent();
 }
 
 // --------------------------------------------------------------------------------------------------------------

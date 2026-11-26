@@ -41,8 +41,10 @@ window.google = { script: { run: (function () {
 })() } };`;
 
 function page(origine) {
-  // Le fichier réellement collé dans Apps Script (assemblé par devis/outils/assembler_appscript.py).
-  let html = fs.readFileSync(path.join(APPSCRIPT, "a-copier", "Index.html"), "utf8");
+  // Les fichiers réellement collés dans Apps Script (dossier a-copier), inclusions résolues comme par include().
+  const COPIER = path.join(APPSCRIPT, "a-copier");
+  let html = fs.readFileSync(path.join(COPIER, "Index.html"), "utf8");
+  html = html.replace(/<\?!=\s*include\('([^']+)'\);\s*\?>/g, (_, nom) => fs.readFileSync(path.join(COPIER, nom + ".html"), "utf8"));
   // Adresse absolue : pdfmake ne télécharge que les polices dont l'adresse commence par http(s)://.
   html = html.split("https://cdn.jsdelivr.net/npm/").join(origine + "/npm/");
   html = html.replace(/<link rel="preconnect"[^>]*>\s*/g, "");

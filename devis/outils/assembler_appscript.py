@@ -2,7 +2,7 @@
 
 - Calcul.html : le moteur calcul.js dans une balise <script> (Apps Script n'inclut que des fichiers HTML) ;
 - Logos.html : les logos en données intégrées (logo Billards de France en PNG, logo Lafuge en SVG recoloré en noir) ;
-- a-copier/ : les 3 seuls fichiers à coller dans l'éditeur Apps Script (Code.gs, Index.html assemblé, appsscript.json).
+- a-copier/ : les 8 fichiers à coller dans l'éditeur Apps Script, réunis au même endroit.
 
 Usage :
     python3 devis/outils/assembler_appscript.py            # écrit les fichiers
@@ -11,7 +11,6 @@ Usage :
 
 import base64
 import json
-import re
 import sys
 from pathlib import Path
 
@@ -40,27 +39,14 @@ def logos_html() -> str:
     return "<script>\nwindow.LOGOS = " + json.dumps(logos, ensure_ascii=False, indent=2) + ";\n</script>\n"
 
 
-def index_assemble() -> str:
-    """Index.html avec ses inclusions déjà remplies : le seul fichier HTML à coller dans Apps Script."""
-    html = (APPSCRIPT / "Index.html").read_text(encoding="utf-8")
-    sources = {"Calcul": calcul_html(), "Logos": logos_html()}
-
-    def remplacer(m):
-        nom = m.group(1)
-        return sources[nom] if nom in sources else (APPSCRIPT / f"{nom}.html").read_text(encoding="utf-8")
-
-    html = re.sub(r"<\?!=\s*include\('([^']+)'\);\s*\?>", remplacer, html)
-    if "<?" in html:
-        raise SystemExit("Index assemblé : balise « <? » restante")
-    return html
-
-
 def copie(nom):
     return lambda: (APPSCRIPT / nom).read_text(encoding="utf-8")
 
 
-FICHIERS = {"Calcul.html": calcul_html, "Logos.html": logos_html, "a-copier/Index.html": index_assemble,
-            "a-copier/Code.gs": copie("Code.gs"), "a-copier/appsscript.json": copie("appsscript.json")}
+DEPLOIEMENT = ["Code.gs", "Index.html", "Styles.html", "Calcul.html", "Logos.html", "Pdf.html", "App.html", "appsscript.json"]
+FICHIERS = {"Calcul.html": calcul_html, "Logos.html": logos_html}
+FICHIERS.update({f"a-copier/{n}": (calcul_html if n == "Calcul.html" else logos_html if n == "Logos.html" else copie(n))
+                 for n in DEPLOIEMENT})
 
 
 def main() -> int:
