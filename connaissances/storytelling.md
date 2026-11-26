@@ -39,3 +39,41 @@ Les règles de `CLAUDE.md` s'appliquent :
 - références clients uniquement sur Lafuge ;
 - rien qui rende le client frileux ;
 - pas d'« AI slop ».
+
+## Bloc Lafuge : proposition du 26/11 (à valider)
+**Place dans le PDF** :
+- page 2 du devis Lafuge, avant « Caractéristiques de votre billard » ;
+- à gauche, une photo d'atelier ou de bois en gros plan ; à droite, le texte ;
+- environ 120 mots : le client doit le lire en trente secondes.
+
+**Structure** : un titre, puis trois temps courts tournés vers le client (le lieu, la main, le temps), puis une signature.
+
+**Brouillon**
+
+> **Votre billard naîtra en Chartreuse**
+>
+> **Le lieu.** Au cœur du parc naturel régional de la Chartreuse, notre atelier de Miribel-les-Échelles ne fabrique que des pièces uniques. Aucun Lafuge n'attend en stock : le vôtre commencera le jour de votre commande.
+>
+> **La main.** Un seul ébéniste le suivra du début à la fin. Il part du bois brut, choisit chaque pièce, l'ajuste à la main, ponce et lustre chaque surface. Ce sont ses gestes que vous retrouverez sous vos doigts.
+>
+> **Le temps.** Huit semaines au moins pour le fabriquer, des générations pour en profiter. Puis nos équipes le livrent, l'installent et le règlent chez vous.
+>
+> *Billard Lafuge, maison du groupe Billards de France. Trois générations de la famille Fitan au service du bois massif depuis 1946.*
+
+**Faits utilisés**, tous sur nos pages (preuves dans `arguments-lafuge.md`) :
+- atelier de Chartreuse, pièce unique, aucun stock ;
+- un seul artisan, « on part du tronc d'arbre » ;
+- délai de 8 semaines minimum (Sheet) ;
+- installation par nos équipes ;
+- famille Fitan depuis 1946.
+
+**Photos nécessaires** :
+- ébéniste au travail sur un cadre ;
+- veinage du bois en très gros plan ;
+- atelier ou paysage de Chartreuse.
+
+**Garde-fous** :
+- jamais « 0 SAV » ;
+- références clients uniquement sur Lafuge ;
+- aucune promesse invérifiable (« meilleur du marché », « le plus… ») ;
+- la Référence n'a jamais ce bloc.
