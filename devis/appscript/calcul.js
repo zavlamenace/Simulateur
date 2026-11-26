@@ -492,6 +492,23 @@
   }
 
   /**
+   * Arguments liés aux choix (bloc « ARGUMENTS DES CHOIX » de l'onglet de la gamme, ou de « Lafuge contenus » pour
+   * Lafuge) : { choix → texte imprimé sous la ligne }. Seuls les textes au statut « Actif » sont imprimés.
+   */
+  function argumentsDesChoix(cat, g) {
+    if (!g) return {};
+    var lignes = (cat[g.id] && cat[g.id]["ARGUMENTS DES CHOIX"]) ||
+      (g.famille === "Lafuge" && cat["Lafuge contenus"] && cat["Lafuge contenus"]["ARGUMENTS DES CHOIX"]) || [];
+    var out = {};
+    lignes.forEach(function (l) {
+      if (texte(l.Statut) === "Actif" && !vide(l.Choix) && !vide(l["Texte imprimé sous la ligne"])) {
+        out[texte(l.Choix)] = texte(l["Texte imprimé sous la ligne"]);
+      }
+    });
+    return out;
+  }
+
+  /**
    * Lignes du devis : billard, options, tapis, plateau, accessoires, lignes libres, livraison.
    * Chaque ligne : { id, section, libelle, detail, quantite, prixUnitaire, brut, remise, net, inclus, valeurOfferte }.
    */
@@ -520,12 +537,16 @@
       l.net = arrondi(l.brut - l.remise);
       out.push(l);
     };
-    pousser({ id: "billard", section: "billard", libelle: libelleBillard,
-              detail: g.parTaille ? texteDimensions(dimensions(cat, cfg.gamme, cfg.taille)) : (m && m.versions.filter(function (x) { return x.nom === cfg.versionModele; })[0] || {}).finition || "",
-              quantite: 1, prixUnitaire: prixBillard || 0, aSaisir: prixBillard === null });
-
+    var choix = argumentsDesChoix(cat, g);
     var opts = options(cat, cfg);
     var sel = choisies(cfg);
+    var essenceChoisie = opts.some(function (o) { return o.groupe === "Essence" && sel[o.id]; });
+    var detailBillard = g.parTaille ? texteDimensions(dimensions(cat, cfg.gamme, cfg.taille))
+      : (m && m.versions.filter(function (x) { return x.nom === cfg.versionModele; })[0] || {}).finition || "";
+    if (g.parTaille && m && !essenceChoisie && choix[m.base]) detailBillard = [detailBillard, choix[m.base]].filter(Boolean).join("\n");
+    pousser({ id: "billard", section: "billard", libelle: libelleBillard, detail: detailBillard,
+              quantite: 1, prixUnitaire: prixBillard || 0, aSaisir: prixBillard === null });
+
     var tapisChoisi = cfg.tapis || {};
     opts.forEach(function (o) {
       if (!sel[o.id]) return;
@@ -535,12 +556,12 @@
       var libelle = /^Teinte incluse$/.test(o.nom) ? "Teinte" : o.nom;
       if (precision) libelle += " : " + precision;
       if (o.section === "tapis") libelle = libelle.replace(/\s*\(\d+ teintes\)/, "") + (tapisChoisi.teinte ? ", couleur " + tapisChoisi.teinte : "");
-      pousser({ id: o.id, section: o.section, libelle: libelle, detail: o.detail, quantite: 1, prixUnitaire: prix || 0,
+      pousser({ id: o.id, section: o.section, libelle: libelle, detail: o.detail || choix[o.nom] || "", quantite: 1, prixUnitaire: prix || 0,
                 inclus: o.etat === "inclus", aSaisir: prix === null || prix === undefined, surDemande: o.etat === "sur_demande" || o.etat === "a_chiffrer" });
     });
     if (g.parTaille && tapisChoisi.drap) {
       pousser({ id: "tapis", section: "tapis", libelle: "Drap " + tapisChoisi.drap + (tapisChoisi.teinte ? ", couleur " + tapisChoisi.teinte : ""),
-                detail: "", quantite: 1, prixUnitaire: 0, inclus: true });
+                detail: choix[tapisChoisi.drap] || "", quantite: 1, prixUnitaire: 0, inclus: true });
     }
     if (texte(g.parametres["Kit accessoires inclus"]) === "Oui") {
       pousser({ id: "kit", section: "accessoires", libelle: "Kit accessoires inclus", detail: texte(g.parametres["Contenu du kit accessoires"]),
@@ -663,7 +684,7 @@
     options: options, demandePrecision: demandePrecision, groupesObligatoires: groupesObligatoires, etats: etats, basculer: basculer, nettoyer: nettoyer,
     dimensions: dimensions, texteDimensions: texteDimensions, dateDevis: dateDevis, validite: validite,
     draps: draps, teintes: teintes, accessoires: accessoires, argumentsGamme: argumentsGamme,
-    argumentsParDefaut: argumentsParDefaut, livraisonOfferte: livraisonOfferte, livraisonMontage: livraisonMontage,
+    argumentsParDefaut: argumentsParDefaut, livraisonOfferte: livraisonOfferte, livraisonMontage: livraisonMontage, argumentsDesChoix: argumentsDesChoix,
     formuleLivraison: formuleLivraison, ficheTechnique: ficheTechnique,
     lignes: lignes, totaux: totaux, problemes: problemes, recapCRM: recapCRM, remiseDe: remiseDe, texteRemise: texteRemise,
   };

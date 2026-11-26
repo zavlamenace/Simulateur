@@ -457,6 +457,10 @@ def onglet_lafuge_contenus(wb):
                note="De base : la matière indiquée sous le titre de la fiche. En option (bois massif) : cadre, pieds, "
                     "traverses et châssis passent en bois massif ; le métal (châssis acier, pieds acier) reste.")
         bloc_arguments_lafuge(f, suffixe, arguments_brouillons.lignes("Lafuge" if jeu == "mixte" else "Lafuge français"))
+    f.bloc("ARGUMENTS DES CHOIX", ["Choix", "Texte imprimé sous la ligne", "Source", "Statut"], [], vides=20,
+           validations={"Statut": STATUTS_ARG},
+           note="Imprimé sous la ligne de l'option, du drap ou du billard (matière de base) quand le client fait ce choix. "
+                "« Choix » = nom exact de l'option, du drap ou de la matière de base. Seul le statut « Actif » est imprimé.")
 
 
 def bloc_arguments_lafuge(f, suffixe, lignes, vides=4):

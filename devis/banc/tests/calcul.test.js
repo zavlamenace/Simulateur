@@ -212,3 +212,24 @@ test("26/11 : Lafuge livré et installé par nos équipes, cuir noir ou SOFIC, g
   assert.ok(C.teintes(cat, "Strachan 777").some((t) => t.nom === "Gris"));
 });
 
+test("Arguments liés aux choix : imprimés sous la ligne, seulement au statut « Actif »", () => {
+  const c = JSON.parse(JSON.stringify(cat));
+  c["Lafuge contenus"]["ARGUMENTS DES CHOIX"] = [
+    { Choix: "Chêne massif", "Texte imprimé sous la ligne": "Chêne massif de France", Statut: "Actif" },
+    { Choix: "Strachan 777", "Texte imprimé sous la ligne": "Le drap des grands tournois", Statut: "Actif" },
+    { Choix: "Érable sycomore massif", "Texte imprimé sous la ligne": "Érable sycomore massif", Statut: "Actif" },
+    { Choix: "Bandes initiales américaines", "Texte imprimé sous la ligne": "Brouillon", Statut: "À valider" },
+  ];
+  const cfg = { gamme: "Lafuge mixte", modele: "Loft", taille: "2,30 m", options: {}, tapis: { drap: "Strachan 777", teinte: "Vert" } };
+  let opts = C.options(c, cfg);
+  C.nettoyer(opts, cfg);
+  let l = C.lignes(c, cfg);
+  assert.match(l[0].detail, /\nÉrable sycomore massif$/, "matière de base sous le billard");
+  assert.equal(l.find((x) => x.id === "tapis").detail, "Le drap des grands tournois");
+  assert.equal(l.find((x) => /Bandes initiales américaines/.test(x.libelle)).detail, "", "brouillon jamais imprimé");
+  C.basculer(opts, cfg, opts.find((o) => o.nom === "Chêne massif").id, true);
+  l = C.lignes(c, cfg);
+  assert.equal(l.find((x) => x.libelle === "Chêne massif").detail, "Chêne massif de France");
+  assert.doesNotMatch(l[0].detail, /Érable/, "plus d'érable sous le billard une fois l'essence choisie");
+});
+
