@@ -117,3 +117,40 @@ def lignes(gamme):
         [i, v, t, x, PHOTO_A_FOURNIR if photo else "", "À valider", "Oui" if defaut else "Non"]
         for i, (v, t, x, photo, defaut) in enumerate(ARGUMENTS[gamme], start=1)
     ]
+
+
+# Arguments liés aux choix (bloc « ARGUMENTS DES CHOIX » de « Lafuge contenus »), brouillons du 26/11.
+# Imprimés sous la ligne de l'option seulement quand l'équipe passe leur statut à « Actif ».
+FR_26 = "Origine confirmée par la direction (26/11)"
+SIMONIS = "Drap Iwan Simonis : la manufacture belge tisse des draps depuis 1680 et habille les grands championnats."
+BANDES_FR = "Bandes en caoutchouc fabriqué en France, calibrées pour ce jeu."
+LAQUE_TXT = "Laqué à la main dans notre cabine de finition, dans la couleur RAL de votre choix."
+CHOIX_LAFUGE = [
+    ["Érable sycomore massif", "Érable sycomore massif français : un bois clair, dense et homogène, recherché des ébénistes et des luthiers.",
+     FR_26 + " ; Futura-Sciences, fiche CIRAD", "À valider"],
+    ["Chêne massif", "Chêne massif français : un bois dense et durable, au veinage marqué, qui se patine avec le temps.",
+     FR_26 + " ; IGN : les chênes, 44 % du volume des feuillus français", "À valider"],
+    ["Noyer massif", "Noyer massif français : le bois des pièces d'exception, sombre et profond.", FR_26, "À valider"],
+    ["Érable massif", "Érable massif français : un bois clair, dense et homogène.", FR_26, "À valider"],
+    ["Mélèze massif", "Mélèze massif : un bois de montagne au veinage chaleureux.", "Origine non précisée", "À valider"],
+    ["Simonis 760", SIMONIS, "iwansimonis.com (sources du fabricant)", "À valider"],
+    ["Simonis 330", SIMONIS, "iwansimonis.com (sources du fabricant)", "À valider"],
+    ["Strachan 777", "Drap Strachan : la maison anglaise dont les draps équipent le championnat du monde de snooker depuis 1980.",
+     "WSP Textiles, Intergame (sources du fabricant)", "À valider"],
+    ["Bandes initiales américaines", BANDES_FR, "Confirmé par la direction (26/11)", "À valider"],
+    ["Bandes initiales anglaises", BANDES_FR, "Confirmé par la direction (26/11)", "À valider"],
+    ["Bandes initiales françaises", BANDES_FR, "Confirmé par la direction (26/11)", "À valider"],
+    ["2e jeu de bandes interchangeables",
+     "Grâce au système breveté de bandes interchangeables, inclus, vous changez de jeu en quelques minutes, sans outil.",
+     "Brevet déposé en 2000 (billardsdefrance.fr, Brevets et innovations)", "À valider"],
+    ["Bandes A37 toilées", "Bandes A37 toilées : un caoutchouc de qualité compétition, pour un rebond vif et constant.",
+     "Artemis A37 (fabriqué en Allemagne) ; le détail de l'option dans les fiches est prioritaire", "À valider"],
+    ["Chauffage de l'ardoise",
+     "L'ardoise chauffée garde le drap parfaitement sec : la bille roule plus vite et plus régulièrement.", "À confirmer",
+     "À valider"],
+    ["Laque", LAQUE_TXT, "billardsdefrance.fr (cabine de finition dédiée à la laque)", "À valider"],
+    ["Laque du cadre", LAQUE_TXT, "billardsdefrance.fr", "À valider"],
+    ["Plateau simple, érable ou chêne, toutes teintes", "En une minute, votre billard devient une table à manger.",
+     "Affirmation de la direction (26/11)", "À valider"],
+]
+

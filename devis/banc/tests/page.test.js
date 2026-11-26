@@ -289,7 +289,7 @@ test("5. Lafuge bandes françaises sur téléphone (390 px) : A37, chauffage, Si
   const page = await nouvellePage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
   await sansDebordement(page);
   await saisirClient(page, { prenom: "Julie", nom: "Roux", codePostal: "38000", ville: "Grenoble", par: "Stéphanie Guigon" });
-  await carte(page, "choisir-gamme", "Lafuge bandes françaises");
+  await carte(page, "choisir-gamme", "Lafuge bandes françaises fixes");
   await carte(page, "choisir-modele", "Loft");
   assert.equal(await page.isDisabled('[data-action="choisir-taille"][data-valeur="2,60 m"]'), true, "taille non proposée");
   await carte(page, "choisir-taille", "2,40 m");

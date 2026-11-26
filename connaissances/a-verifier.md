@@ -2,7 +2,6 @@
 
 ## À confirmer par la direction
 - **Adresses exactes des revendeurs** : L'Ébéno (région toulousaine) et L'Univers du Billard (région nantaise).
-- **Oney** : peut-on écrire « sans frais » ? Le site le dit, mais ce n'est pas confirmé à l'oral.
 - **Prix des pieds métalliques Prestige** : à définir (option « Bientôt »).
 - **Nouvelle grille livraison + montage** : sur papier, à transcrire.
 - **Grilles tarifaires papier** :
@@ -15,16 +14,15 @@
 - **Mont Blanc français 2,80 m** : options à saisir par l'utilisateur dans le Sheet.
 - **Grille livraison + montage** (toutes gammes) : à recevoir ; l'outil propose une saisie manuelle en attendant.
 
-## Page de devis (26/11) : à valider par l'équipe
-- **Origines du contact** : la page propose « Site internet », « Appel téléphonique », « Showroom », « Salon », « Recommandation », « Revendeur » et « Réseaux sociaux ». La saisie libre reste possible.
-- **Règlement imprimé sur le PDF** :
-  - moyens de paiement : « Carte bancaire (Visa, Mastercard), American Express, Apple Pay ou PayPal » ;
-  - encadré Oney : « Réglez votre billard en plusieurs fois par carte bancaire », sans « sans frais » tant que ce n'est pas confirmé.
-- **Bandes initiales 10 et 12 pieds** : les lignes s'impriment « Snooker » et « Russe », comme dans le Sheet.
-- **Fiche technique** :
-  - une ligne propre à une taille (« 2,80 m : 6 pieds ») ne s'imprime que pour cette taille ;
-  - Chambord et Compétition en 10 et 12 pieds : nombre de pieds à confirmer.
-- **Équipements inclus du modèle** (piètement démontable du Chambord, par exemple) : cochés d'office, le commercial peut les décocher.
+## Page de devis : encore à trancher (26/11)
+- **Bandes initiales 10 et 12 pieds** :
+  - les lignes du devis s'impriment « Snooker » et « Russe » ;
+  - question : faut-il écrire « Bandes de snooker » et « Bandes de billard russe » ?
+- **Chambord et Compétition en 10 et 12 pieds** :
+  - la fiche technique ne donne le nombre de pieds que pour le 2,80 m (6 pieds) ;
+  - combien de pieds en 10 et 12 pieds ?
+- **Soho** : prix de l'option érable massif.
+- **Origine du contact** : la liste du formulaire comprend Google, intelligence artificielle, YouTube, réseaux sociaux, presse, bouche-à-oreille, showroom, salon, revendeur, déjà client, autre.
 
 ## Contradictions tranchées
 | Sujet | Sources en conflit | Décision |
@@ -71,6 +69,13 @@
 ## Points à corriger sur le site
 - **Fiche Panama** : « Conçu et assemblé en France », alors que c'est une Référence, fabriquée en Chine.
 - **Fiche New-York** : vernis « Brillant +130 € » et « Grand brillant +730 € ». La grille fait foi : grand brillant 540 € / 270 €.
+- **Page savoir-faire Lafuge** (relevé le 26/11) :
+  - « système de bandes interchangeables breveté offert » : le système est inclus, mais le 2e jeu de bandes est payant ;
+  - 12 pieds à 3,86 m (grille 2027 : 3,83 m) ;
+  - délai de 6 à 12 semaines (Sheet : 8 semaines minimum) ;
+  - Strachan en 6 coloris (grille : 7) ;
+  - bois « France / Europe » : chêne, érable et noyer sont français ;
+  - la page « Notre histoire » affiche « 0 SAV en 10 ans », mention interdite côté client.
 
 ## Risque relevé sur le site
 La page « savoir-faire Plaisance » affirme « une fabrication française dans nos ateliers du Gers » et « organisation en série sur l'atelier du Gers… modèles à partir de 1 995 € ». Or 1 995 € est le prix de la Référence, fabriquée en Chine. Le tableau comparatif et d'autres pages attribuent aussi la Référence à l'atelier du Gers. **Ce sont des allégations d'origine à corriger côté site** (risque de pratique commerciale trompeuse).

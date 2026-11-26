@@ -383,7 +383,7 @@ def onglets_lafuge(wb, ht=False):
     """
     conv = lt.ht if ht else (lambda v: v)
     for jeu, nom, titre in (("mixte", "Lafuge mixte", "Billard Lafuge · mixte"),
-                            ("français", "Lafuge bandes françaises", "Billard Lafuge · bandes françaises")):
+                            ("français", "Lafuge bandes françaises fixes", "Billard Lafuge · bandes françaises")):
         tailles = lt.TAILLES[jeu]
         prix = [f"Prix {t}" for t in tailles]
         n = len(tailles)
@@ -457,7 +457,8 @@ def onglet_lafuge_contenus(wb):
                note="De base : la matière indiquée sous le titre de la fiche. En option (bois massif) : cadre, pieds, "
                     "traverses et châssis passent en bois massif ; le métal (châssis acier, pieds acier) reste.")
         bloc_arguments_lafuge(f, suffixe, arguments_brouillons.lignes("Lafuge" if jeu == "mixte" else "Lafuge français"))
-    f.bloc("ARGUMENTS DES CHOIX", ["Choix", "Texte imprimé sous la ligne", "Source", "Statut"], [], vides=20,
+    f.bloc("ARGUMENTS DES CHOIX", ["Choix", "Texte imprimé sous la ligne", "Source", "Statut"],
+           arguments_brouillons.CHOIX_LAFUGE, vides=20,
            validations={"Statut": STATUTS_ARG},
            note="Imprimé sous la ligne de l'option, du drap ou du billard (matière de base) quand le client fait ce choix. "
                 "« Choix » = nom exact de l'option, du drap ou de la matière de base. Seul le statut « Actif » est imprimé.")
@@ -673,12 +674,27 @@ def onglet_mode_emploi(wb):
                   "« Proposé par défaut = Oui » les pré-coche (4 au maximum par gamme et par version)."),
         ("texte", "Valable pour : « Tous » pour toute la gamme, ou une version (ex. « Pieds métalliques »). "
                   "Photo : lien vers la photo ultra zoomée ; « À fournir » = photo attendue ; vide = argument en texte seul."),
-        ("section", "Lafuge (onglets « Lafuge mixte » et « Lafuge bandes françaises »)"),
+        ("section", "Lafuge (onglets « Lafuge mixte », « Lafuge bandes françaises fixes » et « Lafuge contenus »)"),
         ("texte", "Un bloc par fiche papier (ex. « ■ LOFT · ÉLÉGANCE ») : le prix du billard puis toutes ses options, "
                   "une colonne par taille. Le bloc MODÈLES sert à retrouver vite le prix d'un billard."),
         ("texte", "Cases de prix : nombre = prix ; « Inclus » ; « Impossible » ; « Sur demande » = prix saisi à la main "
                   "dans l'outil ; « — » = taille non proposée pour ce modèle ; case vide (surlignée) = pas encore chiffrée."),
         ("texte", "Les prix revendeur HT sont dans un classeur séparé et confidentiel, jamais lu par l'outil de devis."),
+        ("section", "Règles conditionnelles : tout se règle ici, sans toucher au code"),
+        ("texte", "L'un ou l'autre : mettez les options dans le même Groupe, Choix « Un seul par groupe » (ex. cuir noir ou cuir SOFIC). "
+                  "Une ligne « Aucun » est ajoutée automatiquement dans l'outil."),
+        ("texte", "Une option qui en exige une autre : dans Nécessite, le nom exact (ex. l'allonge nécessite « Plateau table bois laqué »). "
+                  "Plusieurs noms séparés par « ; » : l'un d'eux suffit."),
+        ("texte", "Deux options incompatibles : dans Exclut, le nom exact (ex. la laque exclut « Chêne massif »). "
+                  "L'exclusion vaut dans les deux sens."),
+        ("texte", "Une option impossible à une taille : « Impossible » dans la case de cette taille. Sans supplément : 0. "
+                  "Prix à saisir au devis : « Sur demande »."),
+        ("texte", "Une option réservée à un modèle : son nom dans Valable pour (ex. « Rustic »)."),
+        ("texte", "Contrôle automatique : en cas de faute (nom introuvable dans Nécessite ou Exclut, Choix mal écrit, case de prix "
+                  "inconnue, Valable pour sans modèle), l'outil affiche en haut « Contrôle du Sheet : N règles à corriger » avec la "
+                  "liste. La fonction verifierInstallation de l'éditeur Apps Script donne la même liste."),
+        ("texte", "Arguments liés aux choix : bloc « ARGUMENTS DES CHOIX » de l'onglet « Lafuge contenus ». Le texte s'imprime sous la "
+                  "ligne de l'option choisie quand son Statut est « Actif »."),
         ("section", "Photos"),
         ("texte", "Collez un lien : photo du site billardsdefrance.fr (clic droit sur l'image > copier l'adresse) "
                   "ou fichier Google Drive partagé en lecture."),

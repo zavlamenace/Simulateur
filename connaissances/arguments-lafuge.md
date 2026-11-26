@@ -8,36 +8,20 @@ Chaque argument indique le texte proposé pour le devis, le fait qui le prouve e
   - **À confirmer** : contradiction ou absence de preuve.
 - **Règle** : rien n'est imprimé tant que le statut du Sheet n'est pas « Actif ».
 
-## 1. Points à trancher avant validation
-1. **Origine des bois.**
-   - Vous avez dit « chêne, érable et noyer français ».
-   - Notre page Lafuge écrit, dans le tableau des matériaux, « Bois structure : France / Europe ».
-   - Le site billard-lafuge.fr écrit « les meilleurs matériaux provenant de France ».
-   - **Question** : quels fournisseurs, quelle origine pour chaque essence ? Sans confirmation, on écrit « massif » sans « français ».
-2. **Bandes A37.**
-   - C'est une référence de la marque Artemis, vendue comme « qualité compétition » et fabriquée en Allemagne selon le revendeur La Boutique du Billard.
-   - On ne peut donc écrire ni « français » ni « meilleur du marché » (aucune preuve).
-   - **Proposition** : « qualité compétition ».
-3. **Autres bandes.**
-   - Notre page écrit « caoutchouc de manufacture française de haute qualité » ; billard-lafuge.fr écrit « caoutchouc naturel ».
-   - **Question** : quel fabricant ? Klematch, par exemple, est présenté par la Fédération française de billard comme fabricant de bandes en France.
-4. **Date de fondation de Lafuge.**
-   - billard-lafuge.fr : « depuis 1985 », « près de 40 ans » et « plus de 30 ans » selon les pages ;
-   - annuaire Marques de France : 1992.
-   - **Question** : quelle date retenir ?
-5. **Bandes interchangeables.**
-   - Notre page Lafuge écrit « offert pour les projets multi-jeux ».
-   - Vous avez corrigé le 19/11 : il n'est pas offert.
-   - **La page du site est à corriger.**
-6. **« Transformé en table en une minute »** : aucune page ne donne de durée. On garde votre affirmation, à condition qu'elle soit vraie sur tous les plateaux, y compris en 3 parties.
-7. **Autres écarts entre le site et le Sheet** :
-   - 12 pieds : 3,86 m sur le site, 3,83 m dans la grille 2027 ;
-   - délai : 6 à 12 semaines sur le site, 8 semaines minimum dans le Sheet ;
-   - Strachan : 6 coloris sur le site, 7 dans la grille.
-8. **Label.**
-   - Lafuge n'apparaît ni dans les entreprises du patrimoine vivant (EPV), ni chez Origine France Garantie (recherche Marques de France).
-   - Billards Toulet a le label EPV.
-   - **Piste** : déposer un dossier EPV pour l'atelier de Miribel. C'est un label d'État, très fort pour le luxe.
+## 1. Points tranchés le 26/11
+- **Bois** : chêne, érable et noyer sont français. On écrit « massif français ».
+- **Bandes A37** :
+  - Artemis, qualité compétition, fabriquées en Allemagne ;
+  - on écrit « qualité compétition », jamais « français » ni « meilleur du marché ».
+- **Autres bandes** : caoutchouc fabriqué en France.
+- **Fondation** : « créé en 1985, inventeur du convertible ».
+- **Bandes interchangeables** :
+  - le système breveté est inclus ;
+  - le 2e jeu de bandes est en option ;
+  - notre page Lafuge est à corriger (voir `a-verifier.md`).
+- **Oney** : « 3x ou 4x sans frais », jusqu'à 3 000 €.
+- **Label EPV** : à étudier, ce n'est qu'une piste.
+- **Textes des choix** : écrits dans le bloc « ARGUMENTS DES CHOIX » du Sheet, au statut « À valider ». Ils s'impriment dès que l'équipe passe le statut à « Actif ».
 
 ## 2. Arguments de gamme (bloc « Les points forts », 4 au maximum)
 | Argument | Texte proposé pour le devis | Preuve | Statut |

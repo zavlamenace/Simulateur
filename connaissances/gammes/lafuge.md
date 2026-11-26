@@ -20,8 +20,16 @@ Haut de gamme et luxe. **Fait main, à l'unité, par un seul artisan du début �
 ## Matériaux
 - **Ardoise italienne rectifiée** de 19 à 50 mm selon la taille.
 - **Drap** : Simonis 760 (26 teintes) ou Strachan 777 (7 teintes), inclus.
-- **Bandes** : caoutchouc français de haute qualité. Le système de bandes interchangeables brevetées est **disponible** (il n'est **pas offert** : correction du 19/11 ; le résumé d'entreprise d'origine disait « offert pour les projets multi-jeux », c'est faux).
-- **Bois** : chêne, érable, noyer, mélèze, kotibé, et autres essences nobles sur demande.
+- **Bandes** :
+  - caoutchouc fabriqué en France ;
+  - exception : les bandes A37 toilées du billard français (Artemis), qualité compétition, fabriquées en Allemagne (confirmé le 26/11).
+  - **Système de bandes interchangeables brevetées : inclus** (26/11) sur les billards mixtes ; le 2e jeu de bandes reste en option (dès 860 €).
+- **Fondation** : « créé en 1985, inventeur du convertible » (réponse du 26/11 ; 1985 est aussi l'année de l'invention du convertible par Gilbert Fitan).
+- **Bois** : chêne, érable, noyer, mélèze, kotibé, et autres essences nobles sur demande. **Chêne, érable et noyer : bois français** (confirmé le 26/11).
+- **Placage** : les modèles en MDF plaqué chêne (Soho, Arcade, Trocadéro, Mont Blanc, City, Éos, Eiffel, Alpha, Beaubourg) se font aussi en placage érable, sans supplément. Les modèles en érable massif d'origine n'existent pas en placage érable (26/11).
+- **Boîtes élasthanne** : sans supplément sur Loft, Élégance, Chambord, Soho, Arcade, Rustic, Castel, Manoir, Louis-Philippe, Mont Blanc et Trocadéro ; impossibles sur les autres modèles (26/11).
+- **Trocadéro** : la finition brossée est aussi proposée avec le mélèze massif (26/11).
+- **Soho** : érable massif en option, prix à confirmer (saisi à la main en attendant).
 - **Châssis** : bois massif intégral ou métallique selon la taille. Longerons métalliques sur les grands formats.
 - **Finitions** : bois naturel, vernis mat, satiné ou brillant, laque (tout RAL), patine, incrustations, marqueterie.
 - **Plateau table** (option) : bois assorti, verre trempé fumé ou clair, céramique, mixte. Allonge sur demande.

@@ -8,8 +8,8 @@ Clientèle : particuliers uniquement. Prix **TTC**, TVA 20 % détaillée (TVA = 
 | Billards Plaisance (Référence, Design, Prestige) | 30 % à la validation du devis | — | avant livraison |
 | Billard Lafuge | 30 % à la validation du devis | 30 % au lancement en production | avant livraison |
 
-- **Paiement en 3x ou 4x avec Oney** : jusqu'à 3 000 €. L'encadré du PDF n'apparaît que si le total est inférieur ou égal à 3 000 €. Le site annonce « sans frais » : à vérifier avant d'écrire « sans frais ».
-- **Moyens de paiement acceptés** : carte bancaire (Visa, Mastercard), American Express, Apple Pay, PayPal, Oney.
+- **Paiement en 3x ou 4x sans frais avec Oney** : jusqu'à 3 000 € (« sans frais » validé le 26/11). L'encadré du PDF n'apparaît que si le total est inférieur ou égal à 3 000 €. Petite mention : « Par carte bancaire, pour un achat jusqu'à 3 000 €, sous réserve d'acceptation par Oney ».
+- **Moyens de paiement acceptés** (bandeau du site, 26/11) : « Paiement 100 % sécurisé » : carte bancaire, Visa, Mastercard, American Express, PayPal, Apple Pay, Bancontact, Wero, Oney 3x et 4x.
 - **PayPlug** (prestataire de paiement) ne doit **jamais** apparaître côté client. Le lien de paiement est envoyé manuellement après la validation par email.
 
 ## Validation du devis par le client

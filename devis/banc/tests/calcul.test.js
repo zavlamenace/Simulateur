@@ -23,9 +23,9 @@ function choisir(cfg, nom) {
 
 test("gammes : 5 gammes, Lafuge par taille", () => {
   const g = C.gammes(cat).map((x) => x.id);
-  assert.deepEqual(g, ["Référence", "Design", "Prestige", "Lafuge mixte", "Lafuge bandes françaises"]);
+  assert.deepEqual(g, ["Référence", "Design", "Prestige", "Lafuge mixte", "Lafuge bandes françaises fixes"]);
   assert.equal(C.gamme(cat, "Lafuge mixte").jeu, "mixte");
-  assert.equal(C.gamme(cat, "Lafuge bandes françaises").famille, "Lafuge");
+  assert.equal(C.gamme(cat, "Lafuge bandes françaises fixes").famille, "Lafuge");
 });
 
 test("format des prix", () => {
@@ -128,7 +128,7 @@ test("Lafuge mixte : Chambord 12 pieds, snooker par défaut, laque et chêne exc
 });
 
 test("Lafuge français : Loft 2,40 m, A37 en option, chauffage, finitions sur chêne uniquement", () => {
-  const cfg = config({ gamme: "Lafuge bandes françaises", modele: "Loft", taille: "2,40 m", tapis: { drap: "Simonis 330", teinte: "Bleu" } });
+  const cfg = config({ gamme: "Lafuge bandes françaises fixes", modele: "Loft", taille: "2,40 m", tapis: { drap: "Simonis 330", teinte: "Bleu" } });
   const opts = C.options(cat, cfg);
   assert.equal(opts.find((o) => o.nom === "Bandes A37 toilées").prix, 750);
   assert.equal(opts.find((o) => o.nom === "Chauffage de l'ardoise").prix, 1800);
@@ -142,7 +142,7 @@ test("Lafuge français : Loft 2,40 m, A37 en option, chauffage, finitions sur ch
 });
 
 test("Lafuge : A37 inclus dès 2,60 m, plateau encastré et supplément verre", () => {
-  const cfg = config({ gamme: "Lafuge bandes françaises", modele: "Arcade", taille: "2,60 m", tapis: { drap: "Simonis 330", teinte: "Vert" } });
+  const cfg = config({ gamme: "Lafuge bandes françaises fixes", modele: "Arcade", taille: "2,60 m", tapis: { drap: "Simonis 330", teinte: "Vert" } });
   assert.equal(C.options(cat, cfg).find((o) => o.nom === "Bandes A37 toilées").etat, "inclus");
   const mixte = config({ gamme: "Lafuge mixte", modele: "Loft", taille: "2,30 m", tapis: { drap: "Simonis 760", teinte: "Gris" } });
   let opts = C.options(cat, mixte);
@@ -176,7 +176,7 @@ test("Arguments : 4 au maximum par défaut, liste Lafuge par jeu", () => {
   const r = config({ gamme: "Référence", modele: "Rio", versionModele: "Pieds métalliques" });
   const d = C.argumentsParDefaut(cat, r);
   assert.ok(d.length <= 4 && d.includes("Pieds métalliques de 5 mm") && !d.includes("Pieds bois massif et Formica"));
-  const fr = config({ gamme: "Lafuge bandes françaises", modele: "Loft", taille: "2,30 m" });
+  const fr = config({ gamme: "Lafuge bandes françaises fixes", modele: "Loft", taille: "2,30 m" });
   assert.ok(C.argumentsGamme(cat, fr).some((a) => a.titre === "Chauffage de l'ardoise"));
 });
 
@@ -197,7 +197,7 @@ test("26/11 : Lafuge livré et installé par nos équipes, cuir noir ou SOFIC, g
   assert.equal(liv.libelle, "Livraison et installation par nos équipes");
   assert.equal(liv.aSaisir, true);
   assert.ok(C.problemes(cat, cfg).includes("Saisir le prix : Livraison et installation par nos équipes"));
-  assert.equal(C.livraisonOfferte(cat, C.gamme(cat, "Lafuge bandes françaises")), null);
+  assert.equal(C.livraisonOfferte(cat, C.gamme(cat, "Lafuge bandes françaises fixes")), null);
   assert.equal(C.formuleLivraison(cat, { gamme: "Design", livraison: { formule: "offerte" } }), "offerte");
   const opts = C.options(cat, cfg);
   const cuir = opts.filter((o) => o.groupe === "Entrées de poche en cuir");

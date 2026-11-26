@@ -19,8 +19,8 @@ from lire_sheet import controler, lire_classeur, lire_onglet  # noqa: E402
 DONNEES = RACINE / "devis" / "donnees"
 
 
-GAMMES = ("Référence", "Design", "Prestige", "Lafuge mixte", "Lafuge bandes françaises")
-ARGS_LAFUGE = {"Lafuge mixte": "ARGUMENTS & PHOTOS · MIXTE", "Lafuge bandes françaises": "ARGUMENTS & PHOTOS · BANDES FRANÇAISES"}
+GAMMES = ("Référence", "Design", "Prestige", "Lafuge mixte", "Lafuge bandes françaises fixes")
+ARGS_LAFUGE = {"Lafuge mixte": "ARGUMENTS & PHOTOS · MIXTE", "Lafuge bandes françaises fixes": "ARGUMENTS & PHOTOS · BANDES FRANÇAISES"}
 
 
 def arguments(c, gamme):
@@ -40,7 +40,7 @@ def test_structure_et_coherence():
         c = lire_classeur(construire(tmp))
     for gamme in ("Référence", "Design", "Prestige"):
         assert {"GAMME", "MODÈLES", "OPTIONS", "ARGUMENTS & PHOTOS"} <= set(c[gamme]), gamme
-    for onglet in ("Lafuge mixte", "Lafuge bandes françaises"):
+    for onglet in ("Lafuge mixte", "Lafuge bandes françaises fixes"):
         assert {"GAMME", "TAILLES", "MODÈLES", "PLATEAUX"} <= set(c[onglet])
         assert len(c[onglet]["MODÈLES"]) == 19
     assert {"FICHES TECHNIQUES · MIXTE", "ARGUMENTS & PHOTOS · MIXTE", "FICHES TECHNIQUES · BANDES FRANÇAISES",
