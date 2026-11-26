@@ -515,6 +515,9 @@ def onglet_coloris(wb):
     )
     for i, (_, _, h) in enumerate(COLORIS):
         f.ws.cell(p + i, 4).fill = PatternFill("solid", fgColor=h)
+    f.bloc("DRAPS", ["Drap", "Mêmes couleurs que", "Note interne"],
+           [["Simonis 330", "Simonis 760", "Billard français Lafuge : même nuancier que le Simonis 760 (26/11)"]],
+           note="Un drap sans liste propre reprend les couleurs d'un autre drap.")
 
 
 def onglet_accessoires(wb):

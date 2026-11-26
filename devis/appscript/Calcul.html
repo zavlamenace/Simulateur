@@ -355,10 +355,15 @@
     return d ? d.split(/\s+ou\s+/).map(function (n) { return { nom: n.trim(), option: null }; }) : [];
   }
 
-  function teintes(cat, drap) {
-    var c = (cat.Coloris && cat.Coloris.COLORIS) || [];
-    return c.filter(function (l) { return texte(l.Drap) === drap && statutVisible(l.Statut); })
+  /** Couleurs d'un drap (onglet Coloris). Un drap sans liste propre peut renvoyer à celle d'un autre (bloc DRAPS). */
+  function teintes(cat, drap, profondeur) {
+    var co = cat.Coloris || {};
+    var propres = (co.COLORIS || []).filter(function (l) { return texte(l.Drap) === drap && statutVisible(l.Statut); })
       .map(function (l) { return { nom: texte(l.Teinte), code: texte(l["Code couleur"]) }; });
+    if (propres.length || (profondeur || 0) > 2) return propres;
+    var renvoi = (co.DRAPS || []).filter(function (l) { return texte(l.Drap) === drap; })[0];
+    var autre = renvoi ? texte(renvoi["Mêmes couleurs que"]) : "";
+    return autre && autre !== drap ? teintes(cat, autre, (profondeur || 0) + 1) : propres;
   }
 
   function accessoires(cat, cfg) {

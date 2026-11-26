@@ -28,10 +28,14 @@ La page de création de devis est **écrite et testée**, avec les décisions de
 
 ## Reste à faire
 - **Installation dans Apps Script** (phase D), avec l'utilisateur : `devis/appscript/INSTALLATION.md`.
+  - 26/11 : la page est déployée, mais la connexion répondait « Mot de passe non défini ».
+  - Correction : le mot de passe se saisit désormais dans Paramètres du projet > Propriétés du script (`MOT_DE_PASSE`), sans modifier le code.
+  - Ajout d'un diagnostic, `verifierInstallation`.
+- **Adresse courte** `devis.billardsdefrance.fr` (validée le 26/11) : redirection Cloudflare vers l'adresse `/exec`, décrite dans INSTALLATION.md.
+- **Simonis 330** : mêmes couleurs que le Simonis 760 (26/11). Le renvoi est dans le bloc « DRAPS » de l'onglet Coloris, en ligne et dans la trace.
 - **Retours de l'équipe** sur l'ergonomie et sur le PDF provisoire (captures envoyées le 26/11).
 - **Ensuite** :
   - grille montage ;
-  - couleurs Simonis 330 ;
   - PDF premium (phase B) : storytelling, photos.
 
 ## Contexte

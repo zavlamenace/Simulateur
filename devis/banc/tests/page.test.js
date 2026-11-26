@@ -254,7 +254,7 @@ test("4. Lafuge mixte Chambord 12 pieds : prix sur demande, règles, ligne libre
   assert.deepEqual(page.erreurs, []);
 });
 
-test("5. Lafuge bandes françaises sur téléphone (390 px) : A37, chauffage, Simonis 330", async () => {
+test("5. Lafuge bandes françaises sur téléphone (390 px) : A37, chauffage, Simonis 330 et ses couleurs", async () => {
   const page = await nouvellePage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
   await sansDebordement(page);
   await saisirClient(page, { prenom: "Julie", nom: "Roux", codePostal: "38000", ville: "Grenoble", par: "Stéphanie Guigon" });
@@ -264,7 +264,7 @@ test("5. Lafuge bandes françaises sur téléphone (390 px) : A37, chauffage, Si
   await carte(page, "choisir-taille", "2,40 m");
   await page.click('[data-action="continuer"][data-id="billard"]');
   assert.match(await texte(page, '[data-section="tapis"]'), /Simonis 330/);
-  await page.fill("#c-tapis-teinte", "Vert anglais");
+  await carte(page, "choisir-teinte", "Vert anglais");
   await sansDebordement(page);
   await ouvrirSection(page, "options");
   await option(page, "Bandes A37 toilées").click();

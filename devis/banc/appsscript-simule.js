@@ -72,6 +72,7 @@ function creerAppsScript(o) {
     console,
     SpreadsheetApp: {
       getActive: () => ({
+        getName: () => "BdF – Tarifs & contenus (banc)",
         getSheets: () => feuilles.slice(),
         getSheetByName: (n) => feuilles.find((f) => f.getName() === n) || null,
       }),
@@ -117,9 +118,8 @@ function creerAppsScript(o) {
   }
 
   if (o.motDePasse) {
-    const source = contexte.definirMotDePasse.toString().replace("REMPLACER-PAR-LE-MOT-DE-PASSE", o.motDePasse);
-    vm.runInContext("definirMotDePasse = " + source, contexte);
-    depuisEditeur("definirMotDePasse");
+    proprietes.MOT_DE_PASSE = o.motDePasse;
+    contexte.appliquerMotDePasseEnAttente_(contexte.PropertiesService.getScriptProperties());
   }
 
   /** Appel comme google.script.run : seules les fonctions publiques (sans « _ » final) sont accessibles. */

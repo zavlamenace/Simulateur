@@ -31,11 +31,21 @@ Autorisations demandées :
 - l'adresse email du compte, qui sert à réserver les fonctions d'administration au propriétaire.
 
 ## 4. Mot de passe de l'équipe
-1. Dans `Code.gs`, fonction `definirMotDePasse` : remplacer `REMPLACER-PAR-LE-MOT-DE-PASSE` par le mot de passe choisi (10 caractères au moins).
-2. Choisir `definirMotDePasse` dans la liste en haut de l'éditeur, puis **Exécuter**. Accepter les autorisations.
-3. Remettre le texte `REMPLACER-PAR-LE-MOT-DE-PASSE`, puis enregistrer. Le mot de passe n'est conservé que haché.
+Aucune modification du code n'est nécessaire.
+1. Dans l'éditeur Apps Script, ouvrir **Paramètres du projet** (roue dentée, à gauche).
+2. Tout en bas, dans **Propriétés du script**, cliquer **Ajouter une propriété du script** (ou **Modifier les propriétés du script**).
+3. Propriété : `MOT_DE_PASSE` (en majuscules). Valeur : le mot de passe choisi, de 10 caractères au moins.
+4. **Enregistrer les propriétés du script**.
 
-Pour changer le mot de passe plus tard, refaire ces trois étapes : toutes les sessions ouvertes sont fermées.
+À la première connexion sur la page, le mot de passe est haché et salé, puis la valeur en clair est effacée des propriétés.
+
+Pour le changer plus tard, recréer la propriété `MOT_DE_PASSE` avec la nouvelle valeur. Toutes les sessions ouvertes sont alors fermées.
+
+**En cas de doute**, choisir `verifierInstallation` dans la liste en haut de l'éditeur, puis **Exécuter**. Le journal d'exécution indique :
+- le classeur lu ;
+- l'état du mot de passe ;
+- les onglets lus par la page ;
+- l'état du Journal.
 
 ## 5. Déployer
 1. **Déployer > Nouveau déploiement**, type **Application Web**.
@@ -52,6 +62,24 @@ Pour changer le mot de passe plus tard, refaire ces trois étapes : toutes les s
 2. **Sur téléphone** : même parcours. Si le téléchargement ne démarre pas, utiliser **Ouvrir le PDF dans un onglet**.
 3. **Récap CRM** : cliquer **Copier le récap CRM**, puis coller dans le CRM.
 
+## Adresse courte : devis.billardsdefrance.fr
+La page Apps Script ne peut pas s'afficher sous votre nom de domaine. L'adresse courte **redirige** vers son adresse `/exec`.
+
+Le site passe par Cloudflare. Si le domaine est géré dans Cloudflare :
+1. **DNS > Enregistrements > Ajouter** :
+   - type `AAAA`, nom `devis`, contenu `100::` ;
+   - proxy activé (nuage orange).
+2. **Règles > Redirect Rules > Créer une règle** :
+   - nom « Devis » ;
+   - condition « Nom d'hôte égal à `devis.billardsdefrance.fr` » ;
+   - URL statique : l'adresse `/exec` de l'étape 5, code 302 ;
+   - **Déployer**.
+3. Tester `https://devis.billardsdefrance.fr` dans une fenêtre de navigation privée.
+
+Une redirection « masquée » (cadre) ne fonctionne pas : Google refuse de s'afficher dans le cadre d'un autre site.
+
+La page est protégée par le mot de passe, et non par le secret de son adresse.
+
 ## Mettre à jour la page
 - **Code** :
   1. remplacer le contenu des fichiers modifiés ;
@@ -61,7 +89,7 @@ Pour changer le mot de passe plus tard, refaire ces trois étapes : toutes les s
 
 ## Sécurité
 - Session de 8 heures. Après 10 mots de passe erronés, les connexions sont bloquées 30 minutes.
-- `fermerToutesLesSessions` (depuis l'éditeur) déconnecte tout le monde, par exemple après un départ. Changer aussi le mot de passe.
+- Après un départ, changer le mot de passe (étape 4) : tout le monde est déconnecté. `fermerToutesLesSessions` (depuis l'éditeur) déconnecte aussi tout le monde, sans changer le mot de passe.
 - Les fonctions d'administration refusent tout appel venant de la page.
 - Le classeur « Tarifs revendeurs HT » n'est jamais lu par l'outil.
 

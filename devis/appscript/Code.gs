@@ -54,27 +54,13 @@ function proprietaire_() {
   }
 }
 
-/** À lancer une fois depuis l'éditeur (voir INSTALLATION.md) : remplacez le texte puis exécutez. */
-function definirMotDePasse() {
-  proprietaire_();
-  var motDePasse = "REMPLACER-PAR-LE-MOT-DE-PASSE";
-  if (motDePasse.indexOf("REMPLACER") === 0 || motDePasse.length < 10) {
-    throw new Error("Choisissez un mot de passe d'au moins 10 caractères, puis relancez.");
-  }
-  var p = PropertiesService.getScriptProperties();
-  var sel = Utilities.getUuid();
-  p.setProperty("MDP_SEL", sel);
-  p.setProperty("MDP_EMPREINTE", hacher_(sel, motDePasse));
-  p.deleteProperty("ECHECS");
-  p.deleteProperty("BLOQUE_JUSQUA");
-  fermerToutesLesSessions();
-  Logger.log("Mot de passe enregistré. Effacez-le maintenant de cette fonction.");
-}
-
 /** Ferme toutes les sessions ouvertes (par exemple après un changement d'équipe). */
 function fermerToutesLesSessions() {
   proprietaire_();
-  var p = PropertiesService.getScriptProperties();
+  fermerSessions_(PropertiesService.getScriptProperties());
+}
+
+function fermerSessions_(p) {
   Object.keys(p.getProperties()).forEach(function (k) { if (k.indexOf("SESSION_") === 0) p.deleteProperty(k); });
 }
 
@@ -87,8 +73,12 @@ function connexion(motDePasse) {
     if (bloque > Date.now()) {
       return { ok: false, message: "Trop d'essais. Réessayez dans " + Math.ceil((bloque - Date.now()) / 60000) + " minutes." };
     }
+    var attente = appliquerMotDePasseEnAttente_(p);
+    if (attente) return { ok: false, message: attente };
     var sel = p.getProperty("MDP_SEL"), empreinte = p.getProperty("MDP_EMPREINTE");
-    if (!sel || !empreinte) return { ok: false, message: "Mot de passe non défini : voir INSTALLATION.md." };
+    if (!sel || !empreinte) {
+      return { ok: false, message: "Mot de passe pas encore défini : ajoutez la propriété MOT_DE_PASSE dans les paramètres du projet Apps Script (INSTALLATION.md, étape 4)." };
+    }
     if (hacher_(sel, String(motDePasse || "")) !== empreinte) {
       var echecs = Number(p.getProperty("ECHECS") || 0) + 1;
       p.setProperty("ECHECS", String(echecs));
@@ -106,6 +96,41 @@ function connexion(motDePasse) {
   } finally {
     verrou.releaseLock();
   }
+}
+
+/**
+ * Mot de passe saisi par le propriétaire dans Paramètres du projet > Propriétés du script (MOT_DE_PASSE) :
+ * il est haché et salé à la connexion suivante, puis la valeur en clair est effacée. Toutes les sessions sont fermées.
+ * Renvoie un message d'erreur, ou null.
+ */
+function appliquerMotDePasseEnAttente_(p) {
+  var clair = p.getProperty("MOT_DE_PASSE");
+  if (clair === null || clair === undefined) return null;
+  clair = String(clair).trim();
+  if (clair.length < 10) return "Le mot de passe saisi dans les propriétés du script doit faire au moins 10 caractères.";
+  var sel = Utilities.getUuid();
+  p.setProperty("MDP_SEL", sel);
+  p.setProperty("MDP_EMPREINTE", hacher_(sel, clair));
+  p.deleteProperty("MOT_DE_PASSE");
+  p.deleteProperty("ECHECS");
+  p.deleteProperty("BLOQUE_JUSQUA");
+  fermerSessions_(p);
+  return null;
+}
+
+/** Diagnostic à lancer depuis l'éditeur : le résultat s'affiche dans le journal d'exécution. */
+function verifierInstallation() {
+  var p = PropertiesService.getScriptProperties();
+  var l = ["Classeur : " + SpreadsheetApp.getActive().getName()];
+  l.push("Mot de passe : " + (p.getProperty("MOT_DE_PASSE") ? "en attente, appliqué à la prochaine connexion"
+    : p.getProperty("MDP_EMPREINTE") ? "défini" : "NON DÉFINI (étape 4)"));
+  var onglets = [];
+  SpreadsheetApp.getActive().getSheets().forEach(function (f) {
+    if (!ONGLETS_IGNORES[f.getName()] && !f.isSheetHidden()) onglets.push(f.getName());
+  });
+  l.push("Onglets lus par la page : " + onglets.join(", "));
+  try { journal_(); l.push("Journal : prêt"); } catch (e) { l.push("Journal : " + e.message); }
+  Logger.log(l.join("\n"));
 }
 
 function purgerSessions_(p) {

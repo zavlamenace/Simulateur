@@ -10,7 +10,6 @@
   - Lafuge : documents 2027 transcrits et publiés le 25/11 (`gammes/lafuge.md`).
 
 ## Lafuge : publié le 25/11, reste à compléter
-- **Couleurs du drap Simonis 330** (billard français) : liste à recevoir ; en attendant, la couleur se saisit en texte libre.
 - **Boîtes élasthanne** (jupe du cadre affinée de 20 mm) : prix à fixer ; impossibles sur City, Éos, Eiffel, Alpha, Beaubourg.
 - **Piètement démontable** de City, Éos, Eiffel, Alpha et Beaubourg : prix à fixer (case vide dans le Sheet).
 - **Mont Blanc français 2,80 m** : options à saisir par l'utilisateur dans le Sheet.

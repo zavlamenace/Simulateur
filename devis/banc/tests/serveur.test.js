@@ -51,7 +51,6 @@ test("Aucune donnée sans session valide", () => {
 test("Fonctions d'administration refusées depuis la page, privées inaccessibles", () => {
   const gas = serveur();
   const jeton = connecter(gas);
-  assert.throws(() => gas.appeler("definirMotDePasse", []), /Réservé au propriétaire/);
   assert.throws(() => gas.appeler("fermerToutesLesSessions", []), /Réservé au propriétaire/);
   assert.ok(gas.proprietes["SESSION_" + jeton], "la session n'a pas été fermée");
   assert.throws(() => gas.appeler("verifier_", [jeton]), /Fonction inconnue/);
@@ -94,6 +93,24 @@ test("Journal : références, brouillon mis à jour, devis généré jamais modi
   const j = gas.feuilles.find((f) => f.getName() === "Journal");
   const entetes = j.getRange(5, 1, 1, j.getLastColumn()).getValues()[0];
   for (const h of ["Statut", "Version", "Téléphone", "Email", "Origine du contact", "Mis à jour"]) assert.ok(entetes.includes(h), h);
+});
+
+test("Mot de passe saisi dans les propriétés du script : haché à la connexion suivante, puis effacé", () => {
+  const gas = creerAppsScript({ feuilles });
+  assert.match(gas.appeler("connexion", ["x"]).message, /pas encore défini/);
+  gas.proprietes.MOT_DE_PASSE = "court";
+  assert.match(gas.appeler("connexion", ["court"]).message, /au moins 10 caractères/);
+  gas.proprietes.MOT_DE_PASSE = "  billard-2026-equipe ";
+  const r = gas.appeler("connexion", ["billard-2026-equipe"]);
+  assert.equal(r.ok, true);
+  assert.equal(gas.proprietes.MOT_DE_PASSE, undefined);
+  assert.ok(gas.proprietes.MDP_EMPREINTE);
+  assert.ok(!Object.values(gas.proprietes).some((v) => v.includes("billard-2026-equipe")));
+  gas.proprietes.MOT_DE_PASSE = "nouveau-mot-de-passe";
+  assert.equal(gas.appeler("connexion", ["billard-2026-equipe"]).ok, false, "l'ancien ne marche plus");
+  assert.equal(gas.proprietes["SESSION_" + r.jeton], undefined, "sessions fermées");
+  assert.equal(gas.appeler("connexion", ["nouveau-mot-de-passe"]).ok, true);
+  gas.depuisEditeur("verifierInstallation");
 });
 
 test("Fichiers dérivés à jour (Calcul.html, Logos.html)", () => {
