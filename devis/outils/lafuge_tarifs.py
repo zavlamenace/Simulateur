@@ -162,6 +162,58 @@ def finitions(f, tailles, parchemin, brossee, bicolore, base_chene, grands=SD, c
     return opts
 
 
+PLACAGE_ERABLE = "Placage érable"
+# 26/11 : les modèles en MDF plaqué chêne se font aussi, sans supplément, en placage érable. Les modèles en érable
+# massif d'origine ne se font pas en placage érable.
+MODELES_PLACAGE = {"SOHO", "ARCADE", "TROCADÉRO", "MONT BLANC", "CITY · ÉOS", "EIFFEL · ALPHA", "BEAUBOURG"}
+
+
+def placage(f, tailles):
+    # Exclut les essences massives, la laque et les finitions réservées au chêne.
+    exclut = " ; ".join(o.nom for o in f.options if o.groupe in ("Essence", "Laque") or o.nom in (PARCHEMIN, BROSSEE))
+    return Option("Placage", PLACAGE_ERABLE, colonnes(f.jeu, tailles, [0], 0), exclut=exclut,
+                  conditions="Au lieu du placage chêne, sans supplément ; impossible avec une essence massive, la laque ou une finition sur chêne",
+                  note="Ajouté le 26/11")
+
+
+def ajouter_placage(f, tailles):
+    """Insère « Placage érable » juste avant le groupe Essence."""
+    i = next(k for k, o in enumerate(f.options) if o.groupe == "Essence")
+    f.options.insert(i, placage(f, tailles))
+
+
+ERABLE_MASSIF = "Érable massif"
+
+
+def retouches_26_11(fiches):
+    """Retouches du 26/11 sur les fiches construites : érable massif du Soho, placage érable, brossée du Trocadéro."""
+    for f in fiches:
+        tailles = [t for t, v in next(iter(f.modeles.values())).items() if v not in (NP, IMP)]
+        if f.nom == "SOHO":
+            i = max(k for k, o in enumerate(f.options) if o.groupe == "Essence") + 1
+            f.options.insert(i, Option("Essence", ERABLE_MASSIF, colonnes(f.jeu, tailles, [SD], SD), exclut=LAQUE,
+                                       choix="Un seul par groupe", conditions="Impossible avec la laque",
+                                       note="Ajouté le 26/11 : prix à confirmer, saisi à la main en attendant"))
+        if f.nom in MODELES_PLACAGE:
+            ajouter_placage(f, tailles)
+        if f.nom == "TROCADÉRO":
+            brossee_sur_meleze(f)
+        # 26/11 : « Exclut » et « Nécessite » ne citent que des options de la fiche (contrôle des règles du Sheet).
+        noms = {o.nom for o in f.options} | {o.groupe for o in f.options} | {p[1] for p in plateaux(f.jeu)}
+        for o in f.options:
+            o.exclut = " ; ".join(x.strip() for x in o.exclut.split(";") if x.strip() in noms)
+            o.necessite = " ; ".join(x.strip() for x in o.necessite.split(";") if x.strip() in noms)
+    return fiches
+
+
+def brossee_sur_meleze(f):
+    """26/11 : sur le Trocadéro, la finition brossée est aussi proposée avec le mélèze massif."""
+    for o in f.options:
+        if o.nom == BROSSEE:
+            o.exclut = " ; ".join(x.strip() for x in o.exclut.split(";") if x.strip() != MELEZE)
+            o.conditions = "Sur chêne ou mélèze"
+
+
 def teinte(f, tailles, speciale=True):
     jeu = f.jeu
     return [
@@ -180,7 +232,7 @@ def laque(f, tailles, valeurs, grands=SD, nom=LAQUE, conditions="", doc=LAQUE):
 
 
 def communs(f, tailles, liseré=True, repères=True, cuir=True, sofic=True, cadre=410, pietement=410,
-            jeu2=None, elasthanne=None, grands=SD, a37=True, chauffage=None, liseré_doc=True, cadre_doc=True,
+            jeu2=None, elasthanne=0, grands=SD, a37=True, chauffage=None, liseré_doc=True, cadre_doc=True,
             pietement_doc=True):
     """Options présentes sur (presque) tous les billards, dans l'ordre des fiches papier."""
     jeu, opts = f.jeu, []
@@ -204,9 +256,11 @@ def communs(f, tailles, liseré=True, repères=True, cuir=True, sofic=True, cadr
             opts.append(Option(POCHES_CUIR, SOFIC, colonnes(jeu, tailles, [990], grands),
                                choix="Un seul par groupe",
                                conditions="Cuir noir ou cuir de couleur : l'un ou l'autre", doc=SOFIC))
-        opts.append(Option("Poches", ELASTHANNE, colonnes(jeu, tailles, [elasthanne], grands if elasthanne != IMP else IMP),
+        # 26/11 : sans supplément, à toutes les tailles ; impossible sur City, Éos, Eiffel, Alpha, Beaubourg,
+        # Compétition et Harmonie.
+        opts.append(Option("Poches", ELASTHANNE, colonnes(jeu, tailles, [elasthanne], elasthanne),
                            detail=TXT_ELASTHANNE,
-                           note="Prix à fixer (25/11)" if elasthanne is None else "Impossible sur ce modèle"))
+                           note="Sans supplément (26/11)" if elasthanne != IMP else "Impossible sur ce modèle"))
     else:
         if a37:
             v = {"2,30 m": 750, "2,40 m": 750, "2,60 m": INC, "2,80 m": INC, "3,10 m": INC}
@@ -388,7 +442,7 @@ def fiches_mixte():
                            liseré_doc=False))
     renommer_laque(f)
     f.technique = [("Châssis", ACIER_60_60, ACIER_60_60, ACIER_60_60),
-                   ("Cadre", *tech_massif("MDF plaqué chêne ou érable", "MDF")),
+                   ("Cadre", *tech_massif("MDF plaqué chêne", "MDF")),  # 26/11 : érable = option « Placage érable »
                    ("Pieds", acier, acier, acier),
                    ("Traverses", "Multiplis 40 mm habillé d'une équerre en acier laqué",
                     "Multiplis 40 mm habillé d'une équerre en acier laqué",
@@ -485,7 +539,7 @@ def fiches_mixte():
                  + finitions(f, TG, [1000, 1120, 1280, 1380], [1000, 1120, 1280, 1380], [300, 400, 500, 600],
                              base_chene=False)
                  + teinte(f, TG) + [laque(f, TG, [2100, 2200, 2300, 2400], grands=(2540, 2760))]
-                 + communs(f, TG, jeu2=[860, 920, 990, 1060], cuir=480, pietement=INC)
+                 + communs(f, TG, jeu2=[860, 920, 990, 1060], cuir=480, pietement=INC, elasthanne=IMP)
                  + grands(f, TG, six_pieds={"2,60 m": 1370, "2,80 m": INC, "doc": True},
                           retour=[1220, 1320, 1420, 1520]))
     f.technique = [("Mention", "Billard 100 % bois massif", "", ""),
@@ -531,7 +585,7 @@ def fiches_mixte():
                         Option("Teinte", TEINTE_INCLUSE, colonnes(J, T2, [INC], INC), choix="Un seul par groupe"),
                         Option("Teinte", TEINTE_SPECIALE, colonnes(J, T2, [IMP], IMP), choix="Un seul par groupe"),
                         Option("Laque", LAQUE, colonnes(J, T2, [IMP], IMP), note="Les Harmonie ne sont jamais laquées")]
-                     + communs(f, T2, liseré=None, jeu2=[860], cuir=INC))
+                     + communs(f, T2, liseré=None, jeu2=[860], cuir=INC, elasthanne=IMP))
         f.technique = [("Mention", "Billard 100 % bois massif", "", ""),
                        ("Cadre", f"{princ} massif", "", ""), ("Pieds", f"{princ} massif", "", ""),
                        ("Traverses", f"{princ} massif", "", ""), ("Décor", f"Incrustations {inserts} massif", "", "")]
@@ -556,7 +610,7 @@ def fiches_mixte():
                    ("Traverses", *tech_massif("Érable sycomore massif", "Érable massif laqué")),
                    ("Piètement", "2,80 m : 6 pieds", "2,80 m : 6 pieds", "2,80 m : 6 pieds")]
     out.append(f)
-    return out
+    return retouches_26_11(out)
 
 
 # --- Billard français à bandes fixes (document « Billards français Lafuge », TTC) -----------------------------
@@ -718,7 +772,7 @@ def fiches_francais():
     renommer_laque(f)
     # Correction 25/11 : fiche technique reprise du pool (le document français copiait celle de City).
     f.technique = [("Châssis", ACIER_60_60, ACIER_60_60, ACIER_60_60),
-                   ("Cadre", *tech_massif("MDF plaqué chêne ou érable", "MDF")),
+                   ("Cadre", *tech_massif("MDF plaqué chêne", "MDF")),  # 26/11 : érable = option « Placage érable »
                    ("Pieds", acier, acier, acier),
                    ("Traverses", "Multiplis 40 mm habillé d'une équerre en acier laqué",
                     "Multiplis 40 mm habillé d'une équerre en acier laqué",
@@ -817,7 +871,7 @@ def fiches_francais():
                    ("Dimensions", "2,80 m : demi-match ; 3,10 m : match", "2,80 m : demi-match ; 3,10 m : match",
                     "2,80 m : demi-match ; 3,10 m : match")]
     out.append(f)
-    return out
+    return retouches_26_11(out)
 
 
 # --- Plateaux (identiques pour les deux jeux) -------------------------------------------------------------------

@@ -233,3 +233,18 @@ test("Arguments liés aux choix : imprimés sous la ligne, seulement au statut �
   assert.doesNotMatch(l[0].detail, /Érable/, "plus d'érable sous le billard une fois l'essence choisie");
 });
 
+test("Contrôle des règles : signale les fautes de frappe du Sheet", () => {
+  assert.deepEqual(C.controleRegles(cat), []);
+  const c = JSON.parse(JSON.stringify(cat));
+  const allonge = c.Design.OPTIONS.find((l) => /^Allonge/.test(l.Option));
+  allonge["Nécessite"] = "Plateau bois laqué";
+  const sofic = c["Lafuge mixte"].CHAMBORD.find((l) => /SOFIC/.test(l.Option));
+  sofic.Choix = "Un seul";
+  sofic["Prix 2,30 m"] = "990 euros";
+  const a = C.controleRegles(c);
+  assert.equal(a.length, 3);
+  assert.match(a.join("\n"), /« Plateau bois laqué » \(colonne Nécessite\) n'existe pas/);
+  assert.match(a.join("\n"), /Choix « Un seul » inconnu/);
+  assert.match(a.join("\n"), /« Prix 2,30 m » = « 990 euros »/);
+});
+

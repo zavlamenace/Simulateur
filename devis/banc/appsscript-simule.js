@@ -71,6 +71,7 @@ function creerAppsScript(o) {
   const feuilles = o.feuilles.map((f) => new Feuille(f.nom, f.valeurs, f.cachee));
   const proprietes = {};
   const journalDesAppels = [];
+  const journaux = [];
   let editeur = false;
 
   const contexte = {
@@ -116,7 +117,7 @@ function creerAppsScript(o) {
       getActiveUser: () => ({ getEmail: () => (editeur ? "proprietaire@exemple.fr" : "") }),
       getEffectiveUser: () => ({ getEmail: () => "proprietaire@exemple.fr" }),
     },
-    Logger: { log: () => {} },
+    Logger: { log: (m) => { journaux.push(String(m)); } },
   };
   vm.createContext(contexte);
   vm.runInContext(fs.readFileSync(path.join(APPSCRIPT, "a-copier", "Code.gs"), "utf8"), contexte, { filename: "Code.gs" });
@@ -140,7 +141,7 @@ function creerAppsScript(o) {
     return JSON.parse(JSON.stringify(r === undefined ? null : r));
   }
 
-  return { appeler, depuisEditeur, contexte, feuilles, proprietes, journalDesAppels };
+  return { appeler, depuisEditeur, contexte, feuilles, proprietes, journalDesAppels, journaux };
 }
 
 module.exports = { creerAppsScript };

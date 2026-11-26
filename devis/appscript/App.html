@@ -7,7 +7,8 @@
   "use strict";
   var C = window.Calcul;
   var CLE_JETON = "devis-jeton", CLE_EN_COURS = "devis-en-cours", CLE_AUTEUR = "devis-realise-par";
-  var ORIGINES = ["Site internet", "Appel téléphonique", "Showroom", "Salon", "Recommandation", "Revendeur", "Réseaux sociaux"];
+  var ORIGINES = ["Google", "Intelligence artificielle (ChatGPT…)", "YouTube", "Réseaux sociaux", "Presse, journal",
+    "Bouche-à-oreille, connaissance", "Showroom ou magasin", "Salon ou foire", "Revendeur", "Déjà client"];
   var SECTIONS = [
     { id: "client", titre: "Client" },
     { id: "billard", titre: "Billard" },
@@ -19,6 +20,7 @@
     { id: "livraison", titre: "Livraison", apresBillard: true },
     { id: "remises", titre: "Remises", apresBillard: true },
     { id: "arguments", titre: "Arguments", apresBillard: true },
+    { id: "origine", titre: "Où nous avez-vous connu ?", apresBillard: true },
   ];
 
   var etat = {
@@ -49,7 +51,7 @@
 
   function prixEntreParentheses(o) {
     if (o.etat === "inclus") return "(inclus)";
-    if (o.etat === "prix") return "(" + C.euros(o.prix) + ")";
+    if (o.etat === "prix") return o.prix === 0 ? "(sans supplément)" : "(" + C.euros(o.prix) + ")";
     return "(prix à saisir)";
   }
 
@@ -215,6 +217,11 @@
             (s.id === "billard" && !ok ? " disabled" : "") + '>Continuer</button></div>' : "") + '</div>' : "") +
         '</section>';
     });
+    if (etat.anomalies && etat.anomalies.length) {
+      html = '<details class="a-completer controle"><summary>Contrôle du Sheet : ' + etat.anomalies.length + ' règle' +
+        (etat.anomalies.length > 1 ? "s" : "") + ' à corriger</summary><ul>' +
+        etat.anomalies.map(function (a) { return '<li>' + h(a) + '</li>'; }).join("") + '</ul></details>' + html;
+    }
     $("#sections").innerHTML = html;
   }
 
@@ -257,6 +264,8 @@
       }
       case "arguments":
         return cfg.arguments.length + " / " + C.MAX_ARGUMENTS;
+      case "origine":
+        return cfg.client.origine || "À demander au client";
     }
     return "";
   }
@@ -273,6 +282,7 @@
       case "livraison": return corpsLivraison();
       case "remises": return corpsRemises();
       case "arguments": return corpsArguments();
+      case "origine": return corpsOrigine();
     }
     return "";
   }
@@ -300,9 +310,7 @@
       champ("client.telephone", "Téléphone", "tel", 'inputmode="tel"') + champ("client.email", "Email", "email", 'inputmode="email"') +
       champ("client.codePostal", "Code postal", "text", 'inputmode="numeric" maxlength="5"') + champ("client.ville", "Ville", "text") +
       champ("client.adresse", "Adresse (facultatif au stade du devis)", "text", "", true) +
-      champ("client.origine", "Origine du contact", "text", 'list="origines"') +
       champ("numeroFacturation", "N° logiciel de facturation (facultatif)", "text") +
-      '<datalist id="origines">' + ORIGINES.map(function (o) { return '<option value="' + h(o) + '">'; }).join("") + '</datalist>' +
       '</div>';
   }
 
@@ -532,6 +540,14 @@
     if (g) g.textContent = t.remiseGlobale ? "− " + C.euros(t.remiseGlobale) : "";
   }
 
+  function corpsOrigine() {
+    var o = etat.cfg.client.origine || "", autre = o && ORIGINES.indexOf(o) < 0;
+    return '<p class="aide">Dernière question à poser au client.</p><div class="cartes">' + ORIGINES.map(function (x) {
+      return carte("choisir-origine", x, x, "", o === x);
+    }).join("") + carte("choisir-origine", "Autre", "Autre", "", autre) + '</div>' +
+      (autre ? champ("client.origine", "Précisez", "text", 'placeholder="Comment nous a-t-il connus ?"') : "");
+  }
+
   function corpsArguments() {
     var a = C.argumentsGamme(etat.cat, etat.cfg), sel = etat.cfg.arguments, plein = sel.length >= C.MAX_ARGUMENTS;
     if (!a.length) return '<p class="aide">Aucun argument pour cette gamme dans le Sheet.</p>';
@@ -555,6 +571,7 @@
       html += '<div class="recap-lignes">' + lgn.map(function (l) {
         var prix = l.aSaisir ? '<span class="aide">à saisir</span>'
           : l.inclus ? (l.section === "livraison" ? "offerte" : "inclus")
+          : l.sansSupplement ? "sans supplément"
           : (l.remise ? '<span class="barre">' + h(C.euros(l.brut)) + '</span>' : "") + h(C.euros(l.net));
         return '<div class="recap-ligne"><span>' + h((l.quantite > 1 ? l.quantite + " × " : "") + l.libelle) +
           (l.remise ? ' <span class="remise-texte">(remise ' + h(l.remiseTexte) + ')</span>' : "") + '</span><span class="prix">' + prix + '</span></div>';
@@ -566,7 +583,7 @@
         (t.remiseTotale ? '<span>Remise accordée : ' + h(C.euros(t.remiseTotale)) + '</span>' : "") + '</div>';
       html += '<div class="recap-petit">' + t.echeances.map(function (e) {
         return '<span>' + h(e.libelle) + (e.taux ? " (" + Math.round(e.taux * 100) + " %)" : "") + " : " + h(C.euros(e.montant)) + '</span>';
-      }).join("") + (t.oney ? '<span>Paiement en 3 ou 4 fois avec Oney possible</span>' : "") +
+      }).join("") + (t.oney ? '<span>Paiement en 3x ou 4x sans frais avec Oney possible</span>' : "") +
         '<span>Offre valable jusqu\'au ' + h(C.validite(cat, cfg)) + '</span></div>';
     }
     if (pb.length) html += '<div class="a-completer"><strong>À compléter avant le PDF</strong><ul>' + pb.map(function (p) { return '<li>' + h(p) + '</li>'; }).join("") + '</ul></div>';
@@ -743,6 +760,11 @@
       if (cfg.tapis.drap !== b.dataset.valeur) { cfg.tapis.drap = b.dataset.valeur; cfg.tapis.teinte = ""; }
       apresChangement(r);
     },
+    "choisir-origine": function (b) {
+      etat.cfg.client.origine = b.dataset.valeur === "Autre" ? " " : b.dataset.valeur;
+      apresChangement();
+      if (b.dataset.valeur === "Autre") { var el = document.getElementById("c-client-origine"); if (el) { el.value = ""; el.focus(); } }
+    },
     "choisir-teinte": function (b) { etat.cfg.tapis.teinte = b.dataset.valeur; apresChangement(); },
     "choisir-livraison": function (b) { etat.cfg.livraison.formule = b.dataset.valeur; apresChangement(); },
     "type-remise": function (b) {
@@ -874,6 +896,7 @@
   function chargerCatalogue() {
     return serveur("catalogue", etat.jeton).then(function (json) {
       etat.cat = JSON.parse(json);
+      etat.anomalies = C.controleRegles(etat.cat);
       if (!etat.cfg) {
         var enCours = null;
         try { enCours = JSON.parse(lire(CLE_EN_COURS) || "null"); } catch (e) { enCours = null; }

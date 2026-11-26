@@ -12,7 +12,7 @@ const { chromium } = require("playwright");
 const { demarrer } = require("../serveur");
 
 const SORTIES = path.join(__dirname, "..", "sorties");
-const INTERDITS_TOUS = [/sans frais/i, /payplug/i, /rétractation/i, /0 SAV/i, /rappel/i, /hauteur/i];
+const INTERDITS_TOUS = [/payplug/i, /rétractation/i, /0 SAV/i, /rappel/i, /hauteur/i];
 const INTERDITS_REFERENCE = [/italien/i, /fabriqué(e)?s? (à|dans|en)/i, /atelier/i, /fabrication (française|artisanale)/i, /made in/i];
 
 let banc, navigateur;
@@ -118,11 +118,14 @@ test("1. Référence simple : kit inclus, Oney, aucune mention d'origine, récap
   assert.deepEqual(await aCompleter(page), ["Choisir la couleur du drap"]);
   assert.equal(await page.isDisabled('[data-action="generer"]'), true);
   await carte(page, "choisir-teinte", "Rouge");
+  assert.equal(await page.locator(".controle").count(), 0, "aucune anomalie de règles");
   await ouvrirSection(page, "options");
   assert.match(await texte(page, ".option:has(input[data-option$='|Rangement des accessoires'])"), /\(400 €\)/);
   await option(page, "Rangement des accessoires").click();
   assert.equal(await total(page), "2 395 €");
   assert.match(await texte(page, "#recap"), /Oney/);
+  await ouvrirSection(page, "origine");
+  await carte(page, "choisir-origine", "YouTube");
   await ouvrirSection(page, "arguments");
   assert.equal(await page.locator("input[data-argument]:checked").count(), 4);
   assert.equal(await page.locator("input[data-argument]:not(:checked):not([disabled])").count(), 0, "un 5e argument est impossible");
@@ -132,7 +135,7 @@ test("1. Référence simple : kit inclus, Oney, aucune mention d'origine, récap
   assert.equal(pdf.nomPropose, `Devis ${ref} Martin.pdf`);
   for (const attendu of ["Billard Référence Premium Santiago", "Tapis standard, couleur Rouge", "Kit accessoires inclus", "330 €",
     "Rangement des accessoires", "2 395 €", "Livraison par messagerie au pied de la porte", "Sur une palette fabriquée sur mesure", "Offerte", "Oney", "Je valide mon devis", "Bon pour accord",
-    "Conditions générales de vente sur billardsdefrance.fr", "Xavier Fitan", "Claire Martin"]) {
+    "Conditions générales de vente sur billardsdefrance.fr", "3x ou 4x sans frais avec Oney", "jusqu'à 3 000 €", "Bancontact", "Xavier Fitan", "Claire Martin"]) {
     assert.ok(pdf.texte.includes(attendu), attendu);
   }
   sansMentionsInterdites(pdf.texte, true);
@@ -144,6 +147,7 @@ test("1. Référence simple : kit inclus, Oney, aucune mention d'origine, récap
   assert.match(crm, new RegExp(`^Devis ${ref} du \\d{2}/\\d{2}/\\d{4}`));
   assert.match(crm, /Total TTC : 2 395 €/);
   assert.match(crm, /Réalisé par : Xavier Fitan/);
+  assert.match(crm, /Origine du contact : YouTube/);
   assert.deepEqual(page.erreurs, []);
 });
 
@@ -246,6 +250,7 @@ test("4. Lafuge mixte Chambord 12 pieds : prix sur demande, règles, ligne libre
   await option(page, "Cadre snooker").click();
   const precision = await page.locator('input[data-precision-option$="|Teinte incluse"]').boundingBox();
   assert.ok(precision.width >= 250, `zone de saisie trop étroite : ${precision.width}px`);
+  assert.match(await texte(page, ".option:has(input[data-option$='|Boîtes élasthanne'])"), /\(sans supplément\)/);
   await option(page, "Entrées de poche en cuir noir").click();
   await option(page, "Cuir de couleur (gamme SOFIC)").click();
   assert.equal(await option(page, "Entrées de poche en cuir noir").isChecked(), false, "cuir noir ou SOFIC, l'un ou l'autre");

@@ -123,6 +123,9 @@ test("Mot de passe saisi dans les propriétés du script : haché à la connexio
   assert.equal(gas.proprietes["SESSION_" + r.jeton], undefined, "sessions fermées");
   assert.equal(gas.appeler("connexion", ["nouveau-mot-de-passe"]).ok, true);
   gas.depuisEditeur("verifierInstallation");
+  const diag = gas.journaux.join("\n");
+  assert.match(diag, /Mot de passe : défini/);
+  assert.match(diag, /Règles du Sheet : aucune anomalie/);
 });
 
 test("Fichiers dérivés à jour (Calcul.html, Logos.html)", () => {

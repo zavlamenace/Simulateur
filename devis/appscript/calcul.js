@@ -442,6 +442,23 @@
   // ---------------------------------------------------------------------------------------------------------
   // Fiche technique Lafuge
 
+  /**
+   * Valeur propre à une taille : « 2,80 m : 6 pieds » ou « 2,30 m : bois massif ; 2,80 et 3,10 m : acier UPN ».
+   * Renvoie la partie de la taille choisie, ou "" si la valeur ne concerne que d'autres tailles.
+   */
+  function valeurPourTaille(valeur, taille) {
+    var parties = valeur.split(/\s*;\s*/);
+    var motif = /^((?:\d+(?:,\d+)?(?: m)?(?:, | et )?)+(?: m| pieds)) : (.*)$/;
+    if (!parties.every(function (p) { return motif.test(p); })) return valeur;
+    for (var i = 0; i < parties.length; i++) {
+      var m = motif.exec(parties[i]);
+      var unite = / pieds$/.test(m[1]) ? " pieds" : " m";
+      var tailles = m[1].replace(/ (m|pieds)$/, "").split(/, | et /).map(function (x) { return x.replace(/ m$/, "") + unite; });
+      if (tailles.indexOf(taille) >= 0) return m[2].charAt(0).toUpperCase() + m[2].slice(1);
+    }
+    return "";
+  }
+
   function ficheTechnique(cat, cfg, opts) {
     var g = gamme(cat, cfg.gamme);
     if (!g || !g.parTaille) return [];
@@ -453,6 +470,8 @@
     var laque = opts.some(function (o) { return o.groupe === "Laque" && sel[o.id]; });
     var essence = opts.filter(function (o) { return o.groupe === "Essence" && sel[o.id]; })[0];
     var essenceNom = essence ? essence.nom.replace(/^Cadre en /, "").replace(/^./, function (x) { return x.toUpperCase(); }) : "";
+    var placage = opts.filter(function (o) { return o.groupe === "Placage" && sel[o.id]; })[0];
+    var placageNom = placage ? texte(placage.nom).replace(/^Placage /, "") : "";
     return lignes.filter(function (l) {
       if (!m || texte(l.Fiche) !== m.fiche) return false;
       var propre = texte(l["Élément"]).match(/\((.*)\)$/);
@@ -467,8 +486,8 @@
           var cadreSeul = /^Cadre en /.test(essence.nom);
           if (!cadreSeul || element === "Cadre") valeur = essenceNom;
         }
-        var taille = valeur.match(/^(\d+(?:,\d+)? m|\d+ pieds) : (.*)$/);
-        if (taille) valeur = taille[1] === cfg.taille ? taille[2] : "";
+        if (placageNom && !laque && !(essence && valeur === essenceNom)) valeur = valeur.replace(/plaqué chêne( ou érable)?/, "plaqué " + placageNom);
+        valeur = valeurPourTaille(valeur, cfg.taille);
         return { element: element, valeur: valeur };
       })
       .filter(function (l) { return l.valeur; });
@@ -557,7 +576,8 @@
       if (precision) libelle += " : " + precision;
       if (o.section === "tapis") libelle = libelle.replace(/\s*\(\d+ teintes\)/, "") + (tapisChoisi.teinte ? ", couleur " + tapisChoisi.teinte : "");
       pousser({ id: o.id, section: o.section, libelle: libelle, detail: o.detail || choix[o.nom] || "", quantite: 1, prixUnitaire: prix || 0,
-                inclus: o.etat === "inclus", aSaisir: prix === null || prix === undefined, surDemande: o.etat === "sur_demande" || o.etat === "a_chiffrer" });
+                inclus: o.etat === "inclus", aSaisir: prix === null || prix === undefined, surDemande: o.etat === "sur_demande" || o.etat === "a_chiffrer",
+                sansSupplement: o.etat === "prix" && o.prix === 0 });
     });
     if (g.parTaille && tapisChoisi.drap) {
       pousser({ id: "tapis", section: "tapis", libelle: "Drap " + tapisChoisi.drap + (tapisChoisi.teinte ? ", couleur " + tapisChoisi.teinte : ""),
@@ -622,6 +642,53 @@
   }
 
   // ---------------------------------------------------------------------------------------------------------
+  // Contrôle des règles du Sheet (fautes de frappe dans Nécessite, Exclut, Choix, Valable pour, cases de prix)
+
+  var CHOIX = { "": true, "Un seul par groupe": true, "Plusieurs possibles": true };
+  var MOTS_PRIX = { "Inclus": true, "Impossible": true, "Sur demande": true, "—": true };
+
+  function controleRegles(cat) {
+    var anomalies = [];
+    gammes(cat).forEach(function (g) {
+      var blocs = cat[g.id];
+      var noms = { Tous: true };
+      (blocs["MODÈLES"] || []).forEach(function (m) { noms[texte(m["Modèle"])] = true; if (!vide(m.Version)) noms[texte(m.Version)] = true; });
+      var aControler = g.parTaille
+        ? modeles(cat, g.id).map(function (m) { return m.fiche; }).filter(function (f, i, t) { return f && t.indexOf(f) === i; })
+        : ["OPTIONS"];
+      var plateaux = g.parTaille ? (blocs.PLATEAUX || []) : [];
+      aControler.concat(g.parTaille ? ["PLATEAUX"] : []).forEach(function (bloc) {
+        var lignes = blocs[bloc];
+        if (!lignes) { anomalies.push("« " + g.id + " » : bloc « " + bloc + " » introuvable (nom de fiche du bloc MODÈLES)"); return; }
+        var cibles = {};
+        lignes.concat(bloc === "PLATEAUX" ? [] : plateaux).forEach(function (l) {
+          if (!vide(l.Option)) cibles[texte(l.Option)] = true;
+          if (!vide(l.Groupe)) cibles[texte(l.Groupe)] = true;
+        });
+        lignes.forEach(function (l) {
+          var nom = texte(l.Option);
+          if (!nom || GROUPES_TECHNIQUES[texte(l.Groupe)]) return;
+          var ou = "« " + g.id + " », bloc « " + bloc + " », « " + nom + " »";
+          ["Nécessite", "Exclut"].forEach(function (col) {
+            liste(l[col]).forEach(function (cible) {
+              if (!cibles[cible]) anomalies.push(ou + " : « " + cible + " » (colonne " + col + ") n'existe pas dans ce bloc");
+            });
+          });
+          if (!CHOIX[texte(l.Choix)]) anomalies.push(ou + " : Choix « " + texte(l.Choix) + " » inconnu (« Un seul par groupe » ou « Plusieurs possibles »)");
+          texte(l["Valable pour"]).split(",").map(function (x) { return x.trim(); }).filter(Boolean).forEach(function (v) {
+            if (!noms[v]) anomalies.push(ou + " : Valable pour « " + v + " » ne correspond à aucun modèle ni version");
+          });
+          Object.keys(l).forEach(function (col) {
+            if (!/^Prix/.test(col) || vide(l[col]) || nombre(l[col]) !== null || MOTS_PRIX[texte(l[col])]) return;
+            anomalies.push(ou + " : case « " + col + " » = « " + texte(l[col]) + " » (attendu : un prix, Inclus, Impossible, Sur demande ou —)");
+          });
+        });
+      });
+    });
+    return anomalies;
+  }
+
+  // ---------------------------------------------------------------------------------------------------------
   // Contrôles avant PDF, récapitulatif CRM
 
   function problemes(cat, cfg) {
@@ -666,7 +733,7 @@
     l.push("");
     l.push("Gamme : " + g.nom);
     lgn.forEach(function (x) {
-      var prix = x.inclus ? (x.section === "livraison" ? "offerte" : x.id === "kit" ? "offert" : "inclus") : euros(x.net);
+      var prix = x.inclus ? (x.section === "livraison" ? "offerte" : x.id === "kit" ? "offert" : "inclus") : x.sansSupplement ? "sans supplément" : euros(x.net);
       l.push("- " + (x.quantite > 1 ? x.quantite + " × " : "") + x.libelle + " : " + prix +
         (x.remise ? " (remise " + x.remiseTexte + (/%/.test(x.remiseTexte) ? " = " + euros(x.remise) : "") + ")" : ""));
     });
@@ -686,6 +753,6 @@
     draps: draps, teintes: teintes, accessoires: accessoires, argumentsGamme: argumentsGamme,
     argumentsParDefaut: argumentsParDefaut, livraisonOfferte: livraisonOfferte, livraisonMontage: livraisonMontage, argumentsDesChoix: argumentsDesChoix,
     formuleLivraison: formuleLivraison, ficheTechnique: ficheTechnique,
-    lignes: lignes, totaux: totaux, problemes: problemes, recapCRM: recapCRM, remiseDe: remiseDe, texteRemise: texteRemise,
+    lignes: lignes, totaux: totaux, problemes: problemes, controleRegles: controleRegles, recapCRM: recapCRM, remiseDe: remiseDe, texteRemise: texteRemise,
   };
 });

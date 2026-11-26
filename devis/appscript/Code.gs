@@ -135,6 +135,11 @@ function verifierInstallation() {
   });
   l.push("Onglets lus par la page : " + onglets.join(", "));
   try { journal_(); l.push("Journal : prêt"); } catch (e) { l.push("Journal : " + e.message); }
+  try {
+    var anomalies = moteur_().controleRegles(lireCatalogue_());
+    l.push("Règles du Sheet : " + (anomalies.length ? anomalies.length + " à corriger" : "aucune anomalie"));
+    anomalies.forEach(function (a) { l.push("  - " + a); });
+  } catch (e) { l.push("Règles du Sheet : contrôle impossible (" + e.message + ")"); }
   Logger.log(l.join("\n"));
 }
 
@@ -189,13 +194,25 @@ function lireOnglet_(valeurs) {
 /** Tout le catalogue (sauf le mode d'emploi et le journal), en JSON. */
 function catalogue(jeton) {
   verifier_(jeton);
+  return JSON.stringify(lireCatalogue_());
+}
+
+function lireCatalogue_() {
   var out = {};
   SpreadsheetApp.getActive().getSheets().forEach(function (feuille) {
     var nom = feuille.getName();
     if (ONGLETS_IGNORES[nom] || feuille.isSheetHidden()) return;
     out[nom] = lireOnglet_(feuille.getDataRange().getValues());
   });
-  return JSON.stringify(out);
+  return out;
+}
+
+/** Le moteur de la page (fichier Calcul), chargé côté serveur pour le contrôle des règles. */
+function moteur_() {
+  var code = HtmlService.createHtmlOutputFromFile("Calcul").getContent().replace(/<\/?script>/g, "");
+  var module = { exports: {} };
+  new Function("module", code)(module);
+  return module.exports;
 }
 
 // --------------------------------------------------------------------------------------------------------------

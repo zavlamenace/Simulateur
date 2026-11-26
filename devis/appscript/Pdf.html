@@ -107,6 +107,7 @@
       return { stack: [{ text: C.euros(l.brut), decoration: "lineThrough", color: GRIS, fontSize: 8 },
         { text: "Remise " + l.remiseTexte, color: ANTHRACITE, fontSize: 8 }, { text: C.euros(l.net), bold: true }], alignment: "right" };
     }
+    if (l.sansSupplement) return { text: "Sans supplément", alignment: "right" };
     return { text: C.euros(l.net), alignment: "right" };
   }
 
@@ -171,10 +172,12 @@
       return [{ text: e.libelle + (e.taux ? " (" + Math.round(e.taux * 100) + " %)" : "") }, { text: C.euros(e.montant), alignment: "right" }];
     });
     var gauche = [{ text: "Règlement", style: "etiquette" }, { table: { widths: ["*", "auto"], body: paiement }, layout: sansLignes },
-      { text: "Carte bancaire (Visa, Mastercard), American Express, Apple Pay ou PayPal.", style: "petit", margin: [0, 4, 0, 0] }];
+      { text: "Paiement 100 % sécurisé : carte bancaire, Visa, Mastercard, American Express, PayPal, Apple Pay, Bancontact ou Wero.", style: "petit", margin: [0, 4, 0, 0] }];
     if (tot.oney) {
-      gauche.push({ table: { widths: ["*"], body: [[{ stack: [{ text: "Paiement en 3 ou 4 fois avec Oney", bold: true },
-        { text: "Réglez votre billard en plusieurs fois par carte bancaire.", style: "petit" }], fillColor: CREME, margin: [8, 6, 8, 6] }]] },
+      var seuil = C.nombre(p["Seuil Oney 3x / 4x (€)"]) || 3000;
+      gauche.push({ table: { widths: ["*"], body: [[{ stack: [{ text: "Paiement en 3x ou 4x sans frais avec Oney", bold: true },
+        { text: "Par carte bancaire, pour un achat jusqu'à " + C.euros(seuil) + ", sous réserve d'acceptation par Oney.", style: "petit" }],
+        fillColor: CREME, margin: [8, 6, 8, 6] }]] },
         layout: { hLineWidth: function () { return 0; }, vLineWidth: function () { return 0; } }, margin: [0, 8, 0, 0] });
     }
     var delai = t(g.parametres["Délai de fabrication"]);

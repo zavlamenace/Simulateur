@@ -44,7 +44,7 @@ def test_structure_et_coherence():
         assert {"GAMME", "TAILLES", "MODÈLES", "PLATEAUX"} <= set(c[onglet])
         assert len(c[onglet]["MODÈLES"]) == 19
     assert {"FICHES TECHNIQUES · MIXTE", "ARGUMENTS & PHOTOS · MIXTE", "FICHES TECHNIQUES · BANDES FRANÇAISES",
-            "ARGUMENTS & PHOTOS · BANDES FRANÇAISES"} == set(c["Lafuge contenus"])
+            "ARGUMENTS & PHOTOS · BANDES FRANÇAISES", "ARGUMENTS DES CHOIX"} == set(c["Lafuge contenus"])
     assert len(c["Référence"]["MODÈLES"]) == 12
     assert len(c["Design"]["MODÈLES"]) == 4
     assert len(c["Prestige"]["MODÈLES"]) == 13
