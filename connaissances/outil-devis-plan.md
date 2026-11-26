@@ -191,3 +191,174 @@ La page de création de devis est **écrite et testée**, avec les décisions de
 - `devis/tests/test_sheet.py` et `test_lafuge.py` verts après les retouches Lafuge ; relecture en ligne de chaque bloc publié.
 - Tests unitaires du moteur de calcul et les 5 scénarios Playwright verts.
 - Captures ordinateur et téléphone envoyées à l'utilisateur pour validation de l'ergonomie.
+
+---
+
+# Outil de devis — plan v9 (26/11) : retours de test, arguments liés aux choix, storytelling Lafuge
+
+## Contexte
+L'utilisateur a testé la page déployée. Il demande :
+- des corrections (journal, livraison Lafuge, couleurs, zones de saisie, entrées de poche) ;
+- des photos d'accessoires ;
+- un accès sans compte Google pour les collègues ;
+- des arguments qui apparaissent selon les choix ;
+- une liste d'arguments Lafuge appuyés par des faits trouvés sur internet ;
+- la définition du bloc histoire/storytelling Lafuge.
+
+L'historique des versions précédentes est dans `connaissances/outil-devis-plan.md`.
+
+**Décisions du 26/11 (réponses de l'utilisateur) :**
+- **Suivi du Journal** : liste validée. Les colonnes « Prochaine relance » et « Note de suivi » sont refusées. Les automatismes sont validés : « Envoyé » à la génération, « Remplacé par une nouvelle version ».
+- **Lafuge** : jamais de livraison offerte. Livraison et montage uniquement par nos équipes ou par des équipes formées par nous, en France. Prix saisi à chaque devis.
+- **Arguments liés aux choix** : imprimés **sous la ligne de l'option choisie**. Les 4 « points forts » de gamme restent à part.
+- **Gris** : sur le **Simonis seulement** (760, donc aussi 330), on garde Gris clair, Gris ardoise et Noir.
+- **Photos d'accessoires** : maintenant, depuis billardsdefrance.fr uniquement, avec validation par l'utilisateur avant affichage.
+- **Accès** : le lien doit marcher pour tous les collègues, avec un autre compte Google ou sans compte.
+
+## Avancement (reprise après redémarrage)
+**Fait en local, pas encore commité :**
+- `Code.gs` : Journal sans « Prochaine relance » ni « Note de suivi ».
+- `calcul.js` :
+  - `formulesLivraison`, `livraisonOfferte(cat, g)`, `livraisonMontage`, `formuleLivraison` ;
+  - Lafuge forcé en « Livraison et installation par nos équipes », prix obligatoire.
+- `App.html` : carte livraison selon la gamme, `harmoniser()` force la formule, « Sans entrées de poche en cuir ».
+- `lafuge_tarifs.py` : groupe `POCHES_CUIR`, « Un seul par groupe », sans Nécessite.
+- `construire_sheet.py` : livraison Lafuge, offerte limitée à Plaisance, Gris clair, Gris requin masqué.
+- Trace et `catalogue.json` régénérés, `a-copier/` réassemblé.
+- Tests : 27/27 JS (dont livraison Lafuge, cuir exclusif, largeur ≥ 250 px, gris) et Python verts.
+
+**Fait en ligne :** « Livraison & montage »!E6 = « Référence, Design, Prestige ».
+
+**À refaire en ligne** (appels interrompus par le redémarrage ; relire avant d'écrire) :
+- « Livraison & montage »!A10:G10 : nouvelle formule Lafuge (ligne 10 vide à la relecture) ;
+- Coloris!B32:F33 : « Gris » → « Gris clair » (#A7ADB0) ; « Gris requin » → Masqué, note « N'existe pas (26/11) » ;
+- « Lafuge mixte » : lignes « Entrées de poche en cuir noir » et « Cuir de couleur (gamme SOFIC) » de chaque fiche :
+  - Groupe → « Entrées de poche en cuir » ;
+  - Choix → « Un seul par groupe » ;
+  - Nécessite → vide ;
+  - Conditions du SOFIC → « Cuir noir ou cuir de couleur : l'un ou l'autre ».
+
+  Lire A:B pour trouver les lignes, et la ligne d'en-têtes pour les colonnes.
+
+**Puis :**
+- connaissances : `coloris.md`, `conditions.md` (livraison Lafuge), `outil-devis-plan.md` ;
+- commit et push ;
+- envoi des fichiers `a-copier/` modifiés : Code, Calcul, App, et Styles s'il a changé ;
+- ensuite les sections 2, 3 et 4.
+
+## 1. Corrections
+Toujours **relire en ligne avant d'écrire** ; écritures ciblées ; mise à jour de la trace (`construire_sheet.py`, `lafuge_tarifs.py`) et des tests.
+
+- **Journal** (`Code.gs`) : retirer « Prochaine relance » et « Note de suivi » de `ENTETES_JOURNAL`. On garde « Suivi », sa liste déroulante et les deux automatismes ; tests du serveur adaptés.
+- **Livraison Lafuge** :
+  - **Sheet**, onglet « Livraison & montage » :
+    - ajouter la formule « Livraison et installation par nos équipes » : Gammes compatibles « Lafuge », Prix TTC vide (saisi), Actif ;
+    - texte du détail, à valider : « Par nos équipes ou par des installateurs formés par nos soins, partout en France : acheminement jusqu'à la pièce, pose de l'ardoise, mise à niveau et réglages » ;
+    - la formule offerte passe en « Référence, Design, Prestige ».
+  - **Moteur** (`calcul.js`) :
+    - une formule n'est retenue que si elle est compatible avec la famille de la gamme ;
+    - pour Lafuge, la livraison est forcée sur cette formule (aussi dans `harmoniser()` à la réouverture d'un ancien devis), avec prix obligatoire dans `problemes()`.
+  - **Page** : la section Livraison ne montre que cette carte et le champ prix.
+  - **Tests** : le Lafuge n'a jamais de ligne « offerte » ; le PDF est bloqué sans prix.
+- **Couleurs Simonis 760**, onglet Coloris :
+  - « Gris » → « Gris clair » ;
+  - « Gris requin » → Statut « Masqué ». Règle du Sheet : on masque, on ne supprime pas ;
+  - le Strachan 777 ne change pas ;
+  - le Simonis 330 suit automatiquement (bloc DRAPS) ;
+  - mettre à jour `coloris.md`.
+- **Zones de saisie** : toutes en pleine largeur (précision, teinte, prix à saisir, prix du billard, montage, lignes libres).
+  - Vérifier dans le banc la précision « Teinte incluse » Lafuge, et ajouter un test qui mesure la largeur (≥ 250 px sur ordinateur).
+  - Rappeler à l'utilisateur de recoller **Styles** : la capture laisse penser que l'ancien est encore déployé.
+- **Entrées de poche** (Lafuge mixte) : un choix exclusif.
+  - Créer un groupe « Entrées de poche en cuir », « Un seul par groupe », sans Nécessite :
+    - « Entrées de poche en cuir noir » (480 €) ;
+    - « Cuir de couleur (gamme SOFIC) » (990 €) ;
+    - plus la ligne « Sans entrées de poche en cuir ».
+  - Les boîtes élasthanne restent dans « Poches ».
+  - Écriture en ligne :
+    - mettre à jour les cellules Groupe, Choix et Nécessite de chaque bloc fiche concerné ;
+    - en un seul `update_spreadsheet` après relecture ;
+    - vérifier qu'aucun « Exclut » ne vise l'ancien groupe.
+  - Mettre à jour `lafuge_tarifs.py` et `test_lafuge.py`.
+- **Accès pour tous** (`INSTALLATION.md` et vérification avec l'utilisateur) :
+  - le déploiement doit être « Exécuter en tant que : Moi » et « Qui a accès : **Tout le monde** », et non « Tout le monde disposant d'un compte Google » ;
+  - test sur un téléphone en 4G sans compte Google, puis dans une fenêtre privée déconnectée ;
+  - si le compte est un Google Workspace qui interdit l'accès anonyme, solution de repli à étudier avec l'utilisateur ;
+  - l'adresse courte devis.billardsdefrance.fr (redirection Cloudflare) est déjà documentée.
+
+## 2. Arguments liés aux choix (sous la ligne)
+- **Sheet**, onglet « Lafuge contenus » : nouveau bloc « ■ ARGUMENTS DES CHOIX », colonnes Choix | Texte imprimé sous la ligne | Source | Statut.
+  - « Choix » vaut l'une de ces valeurs :
+    - un nom d'option (Chêne massif, Noyer massif, Bandes A37 toilées, bandes initiales, 2e jeu de bandes, plateaux encastrés, plateau simple…) ;
+    - un drap (Simonis 760, Strachan 777, Simonis 330) ;
+    - une matière de base (Érable sycomore massif), imprimée sous la ligne du billard.
+  - Un seul endroit, lisible par l'équipe : on évite de recopier le texte dans les 19 fiches des deux onglets.
+- **Moteur** (`calcul.js`, `lignes()`) :
+  - détail d'une ligne = « Détail imprimé » de l'option s'il existe, sinon le texte du bloc ;
+  - ligne du drap Lafuge = texte du drap ;
+  - ligne du billard = dimensions, puis le texte de la matière de base si aucune essence n'est choisie.
+  - Seuls les textes au statut « Actif » sont imprimés. Les brouillons « À valider » restent invisibles sur le devis.
+- **Textes de départ** (idées de l'utilisateur, à étayer par la recherche) :
+  - chêne, érable et noyer massifs français ;
+  - bandes A37 : le meilleur caoutchouc du marché ;
+  - autres bandes : caoutchouc français premium ;
+  - Simonis et Strachan : les leaders mondiaux ;
+  - plateaux encastrés : ne font qu'un avec le billard ;
+  - plateau : billard transformé en table en une minute ;
+  - bandes interchangeables brevetées : deux jeux sur un seul billard, sur les mixtes uniquement.
+
+## 3. Recherche, liste d'arguments Lafuge et storytelling (livrable à valider)
+- **Sources internes** : `connaissances/` (lafuge.md, arguments.md, storytelling.md, entreprise.md), le Sheet, tout ce qui a été dit en conversation.
+- **Recherche web (WebSearch / WebFetch)**, avec un fait concret sourcé (lien) par argument :
+  - Simonis : histoire, compétitions officielles (UMB, WPA) ;
+  - Strachan : snooker, World Snooker ;
+  - bandes A37 : fabricant, usage en compétition ;
+  - caoutchouc français ;
+  - forêt française de chêne (ONF, IGN) ;
+  - érable sycomore ;
+  - noyer du Dauphiné et de l'Isère, proches de Miribel-les-Échelles ;
+  - ardoise italienne de Ligurie ;
+  - brevet des bandes interchangeables (Google Patents, INPI) ;
+  - histoire de Lafuge et de l'atelier de Chartreuse ;
+  - éventuels labels (Entreprise du patrimoine vivant…).
+  - **Règle** : on n'écrit rien qu'on ne peut pas prouver. Un argument non vérifié est signalé comme tel.
+- **Livrable 1 : liste complète des arguments Lafuge** :
+  - arguments de gamme et arguments liés aux choix ;
+  - chacun avec son texte court pour le devis, le fait qui le prouve et la source ;
+  - plus les nouveaux arguments trouvés (labels, origine des essences, poids, durée de vie, accompagnement architecte, pyramide russe, etc.).
+- **Livrable 2 : bloc storytelling Lafuge** :
+  - place dans le PDF ;
+  - structure : un titre, puis trois temps courts (le lieu, la main, le temps), tournés vers le client ;
+  - brouillon de texte et photos nécessaires ;
+  - mêmes garde-fous que `CLAUDE.md`.
+- **Restitution** : dans `connaissances/arguments.md` et `connaissances/storytelling.md`, plus un résumé dans la conversation. L'utilisateur valide avant toute écriture en ligne (textes au statut « À valider » jusque-là).
+
+## 4. Photos des accessoires
+- Relier chaque accessoire du Sheet à sa fiche sur billardsdefrance.fr, par sa référence (colonne « Réf. »), à défaut par son nom.
+- Récupérer l'adresse de la photo principale.
+- Présenter un tableau de validation (miniatures et produits correspondants), en signalant les accessoires sans photo (Lafuge, sans doute).
+- **Après validation** :
+  - écrire les adresses dans la colonne « Photo » de l'onglet Accessoires (écritures ciblées) ;
+  - la page affiche une miniature de 48 px, chargée seulement à l'ouverture de la catégorie, pour rester légère ;
+  - aucune photo n'est imprimée sur le PDF provisoire.
+
+## Fichiers touchés
+- **Code** : `devis/appscript/` (`Code.gs`, `calcul.js`, `App.html`, `Styles.html`, puis `assembler_appscript.py` pour `a-copier/`).
+- **Trace et tests** : `devis/outils/construire_sheet.py`, `lafuge_tarifs.py`, `devis/banc/tests/*`, `devis/tests/test_lafuge.py`.
+- **Connaissances** : `coloris.md`, `conditions.md`, `arguments.md`, `storytelling.md`, `outil-devis-plan.md`, `a-verifier.md`.
+
+## Vérification
+- Tests JS : moteur, serveur, parcours Chromium. Nouveaux cas :
+  - Lafuge sans livraison offerte, avec prix de montage obligatoire ;
+  - entrées de poche exclusives ;
+  - largeur des champs ;
+  - gris du Simonis ;
+  - textes sous la ligne affichés seulement au statut « Actif ».
+- Tests Python verts.
+- Relecture en ligne des cellules écrites.
+- Envoi à l'utilisateur :
+  - fichiers modifiés de `a-copier/` à recoller ;
+  - captures et PDF d'exemple ;
+  - liste d'arguments et brouillon storytelling à valider ;
+  - tableau des photos à valider.
+- Commit et push sur `claude/billiard-quote-tool-1wrwy3`.

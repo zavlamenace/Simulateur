@@ -53,11 +53,12 @@ Pour le changer plus tard, recréer la propriété `MOT_DE_PASSE` avec la nouvel
 ## 5. Déployer
 1. **Déployer > Nouveau déploiement**, type **Application Web**.
 2. Description : « Devis v1 ».
-3. **Exécuter en tant que** : Moi. **Qui a accès** : Tout le monde.
+3. **Exécuter en tant que** : Moi. **Qui a accès** : **Tout le monde**, et non « Tout le monde disposant d'un compte Google ». Les collègues ouvrent ainsi la page sans compte Google, ou avec leur propre compte ; seul le mot de passe de l'équipe est demandé.
 4. Copier l'URL de l'application Web (elle finit par `/exec`).
 5. La transmettre à l'équipe avec le mot de passe, par un canal privé.
 
 ## 6. Premiers contrôles
+0. **Accès** : ouvrir l'adresse sur un téléphone en 4G, sans être connecté à Google. La page de connexion doit s'afficher directement. Si Google demande de se connecter, le réglage « Qui a accès » n'est pas sur « Tout le monde » : corriger dans Déployer > Gérer les déploiements.
 1. **Sur ordinateur** :
    - ouvrir l'URL et se connecter ;
    - faire un devis Référence complet, puis **Générer le PDF** ;

@@ -19,6 +19,7 @@ Clientèle : particuliers uniquement. Prix **TTC**, TVA 20 % détaillée (TVA = 
 - **Validité** : 30 jours, avec la date affichée (« Offre valable jusqu'au … »).
 
 ## Livraison
+- **Lafuge : jamais de livraison offerte** (26/11). Un Lafuge est un meuble précieux et complexe : il est toujours livré et installé par nos équipes ou par des installateurs formés par nos soins, en France. Ligne du devis : « Livraison et installation par nos équipes », prix saisi à chaque devis en attendant la grille.
 - Libellé sur le devis (26/11) : « Livraison par messagerie au pied de la porte », détail « Sur une palette fabriquée sur mesure pour protéger le billard », prix « Offerte » avec la valeur de 300 € barrée.
 - **Offerte** au pied de la porte, par messagerie, sur une palette fabriquée sur mesure pour protéger le billard. **Valeur affichée : 300 €**.
 - France métropolitaine, hors Corse. Hors France continentale : sur devis.
