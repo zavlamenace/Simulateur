@@ -77,3 +77,27 @@ Les règles de `CLAUDE.md` s'appliquent :
 - références clients uniquement sur Lafuge ;
 - aucune promesse invérifiable (« meilleur du marché », « le plus… ») ;
 - la Référence n'a jamais ce bloc.
+
+## Maquette de la page 2 (26/11, à valider)
+Maquettes en images fixes, une par gamme : `devis/maquettes/page2/rendus/`. Générateur : `devis/maquettes/page2/generer.py`.
+
+**Ordre de la page** :
+1. en-tête : logo(s), numéro de devis, client et date ;
+2. nom du modèle (EB Garamond), configuration en une ligne ;
+3. photo détourée du modèle, coins arrondis de 6 px, mention « Modèle similaire au devis, photo non représentative de votre configuration. » ;
+4. positionnement de gamme en citation, avec sa phrase ;
+5. « Les points forts » : 3 tuiles photo ultra zoomée + titre + phrase (le positionnement compte comme 4e argument) ; un argument sans photo devient une tuile typographique (« 12 couverts », liste des références clients) ;
+6. Lafuge seulement : bloc « Votre billard naîtra en Chartreuse » avec une photo d'atelier ;
+7. bandeau des pictogrammes rouges du site (truck, unloading, lock ; plus hands et wood pour Design et Prestige ; hands, sliders, unloading, lock pour Lafuge). La Référence n'a ni « Fabrication artisanale » ni « Famille d'ébénistes ».
+
+**Texte court du bloc Lafuge retenu pour la maquette** (le brouillon long ne tenait pas sur la page) :
+> **Le lieu.** Au cœur du parc naturel régional de Chartreuse, notre atelier de Miribel-les-Échelles ne fabrique que des pièces uniques.
+> **La main.** Tout part du tronc d'arbre. Un seul ébéniste façonne votre billard, du choix du bois à la dernière finition.
+> **Le temps.** Quelques semaines pour le fabriquer, des générations pour en profiter.
+> *Trois générations de la famille Fitan au service du bois massif depuis 1946.*
+
+« Quelques semaines » remplace « huit semaines au moins » : le délai figure déjà page 1.
+
+**Pictogramme du paiement** : « Paiement en 3x ou 4x sans frais avec Oney » si le total est de 3 000 € ou moins ; sinon « Paiement sécurisé : carte, PayPal, Apple Pay, Wero ».
+
+**Photos des maquettes** : fiches du site (Caracas, Paris), photos d'atelier fournies le 26/11. Les photos de Design et de bandes sont des remplaçants ; les tuiles « Photo ultra zoomée à fournir » signalent les manques (tranche de l'ardoise).
