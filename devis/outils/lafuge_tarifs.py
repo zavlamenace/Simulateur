@@ -107,6 +107,8 @@ TEINTE_INCLUSE, TEINTE_SPECIALE = "Teinte incluse", "Teinte spéciale"
 LAQUE, LISERE, LISERE_ALU = "Laque", "Liseré de couleur", "Liseré aluminium ou bois gainé du drap"
 REPERES, JEU2, A37 = "Repères de bandes en nacre", "2e jeu de bandes interchangeables", "Bandes A37 toilées"
 CUIR, SOFIC = "Entrées de poche en cuir noir", "Cuir de couleur (gamme SOFIC)"
+# 26/11 : cuir noir ou cuir de couleur SOFIC, l'un ou l'autre (plus de « Nécessite »).
+POCHES_CUIR = "Entrées de poche en cuir"
 CADRE_DEM, PIET_DEM = "Cadre démontable", "Piètement démontable"
 ELASTHANNE = "Boîtes élasthanne"
 CADRE_SNOOKER, SIX_PIEDS, RETOUR, PLOTS, CHAUFFAGE = ("Cadre snooker", "Option 6 pieds", "Retour centralisé des billes",
@@ -195,13 +197,13 @@ def communs(f, tailles, liseré=True, repères=True, cuir=True, sofic=True, cadr
                                conditions="Jeu d'un autre type que les bandes initiales ; impossible en 10 et 12 pieds",
                                doc=JEU2))
         if cuir is not None:
-            opts.append(Option("Poches", CUIR, colonnes(jeu, tailles, [cuir if cuir != INC else INC],
-                                                        grands if cuir != INC else INC),
-                               doc=CUIR if cuir not in (INC,) else ""))
+            opts.append(Option(POCHES_CUIR, CUIR, colonnes(jeu, tailles, [cuir if cuir != INC else INC],
+                                                           grands if cuir != INC else INC),
+                               choix="Un seul par groupe", doc=CUIR if cuir not in (INC,) else ""))
         if sofic:
-            opts.append(Option("Poches", SOFIC, colonnes(jeu, tailles, [990], grands),
-                               necessite=CUIR if cuir != INC else "",
-                               conditions="Cuir d'une autre couleur que le noir", doc=SOFIC))
+            opts.append(Option(POCHES_CUIR, SOFIC, colonnes(jeu, tailles, [990], grands),
+                               choix="Un seul par groupe",
+                               conditions="Cuir noir ou cuir de couleur : l'un ou l'autre", doc=SOFIC))
         opts.append(Option("Poches", ELASTHANNE, colonnes(jeu, tailles, [elasthanne], grands if elasthanne != IMP else IMP),
                            detail=TXT_ELASTHANNE,
                            note="Prix à fixer (25/11)" if elasthanne is None else "Impossible sur ce modèle"))

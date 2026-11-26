@@ -101,7 +101,8 @@ test("Journal : références, brouillon mis à jour, devis généré jamais modi
   assert.equal(ouvert.config.modele, "Boston");
   const j = gas.feuilles.find((f) => f.getName() === "Journal");
   const entetes = j.getRange(5, 1, 1, j.getLastColumn()).getValues()[0];
-  for (const h of ["Statut", "Version", "Téléphone", "Email", "Origine du contact", "Mis à jour", "Suivi", "Prochaine relance", "Note de suivi"]) {
+  for (const h of ["Statut", "Version", "Téléphone", "Email", "Origine du contact", "Mis à jour", "Suivi"]) {
+    assert.ok(!entetes.includes("Prochaine relance") && !entetes.includes("Note de suivi"));
     assert.ok(entetes.includes(h), h);
   }
 });

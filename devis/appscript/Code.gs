@@ -16,7 +16,7 @@ var ITERATIONS = 2000;
 var ONGLETS_IGNORES = { "Mode d'emploi": true, "Journal": true };
 var ENTETES_JOURNAL = ["Référence", "Date", "Réalisé par", "N° facturation", "Client", "Ville", "Gamme", "Modèle",
   "Total TTC", "Remise", "Configuration complète", "Statut", "Version", "Téléphone", "Email", "Origine du contact",
-  "Mis à jour", "Suivi", "Prochaine relance", "Note de suivi"];
+  "Mis à jour", "Suivi"];
 /** Étapes du suivi commercial (liste déroulante de la colonne « Suivi » du Journal). */
 var SUIVI = ["Envoyé", "En réflexion", "À relancer", "Relancé", "En négociation", "Validé (bon pour accord)", "Acompte reçu",
   "Perdu", "Sans suite", "Remplacé par une nouvelle version"];
@@ -227,7 +227,6 @@ function journal_() {
   if (!feuille.getRange(debut, colonnes["Suivi"]).getDataValidation()) {
     feuille.getRange(debut, colonnes["Suivi"], hauteur, 1).setDataValidation(
       SpreadsheetApp.newDataValidation().requireValueInList(SUIVI, true).setAllowInvalid(true).build());
-    feuille.getRange(debut, colonnes["Prochaine relance"], hauteur, 1).setNumberFormat("dd/mm/yyyy");
   }
   return { feuille: feuille, ligneEntetes: ligneEntetes, colonnes: colonnes };
 }

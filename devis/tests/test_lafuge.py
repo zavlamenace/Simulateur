@@ -154,6 +154,9 @@ def test_accessoires_conformes():
 
 
 def test_regles_et_structure():
+    for f in fiches("mixte"):
+        cuir = [o for o in f.options if o.nom in (L.CUIR, L.SOFIC)]
+        assert all(o.groupe == L.POCHES_CUIR and o.choix == "Un seul par groupe" and not o.necessite for o in cuir), f.nom
     for jeu in ("mixte", "français"):
         fs = fiches(jeu)
         assert sum(len(f.modeles) for f in fs) == 19

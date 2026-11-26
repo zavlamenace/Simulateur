@@ -244,19 +244,30 @@ test("4. Lafuge mixte Chambord 12 pieds : prix sur demande, règles, ligne libre
   assert.equal(await page.isDisabled('[data-action="generer"]'), true);
   await page.fill('input[data-prix-option$="|Noyer massif"]', "3000");
   await option(page, "Cadre snooker").click();
+  const precision = await page.locator('input[data-precision-option$="|Teinte incluse"]').boundingBox();
+  assert.ok(precision.width >= 250, `zone de saisie trop étroite : ${precision.width}px`);
+  await option(page, "Entrées de poche en cuir noir").click();
+  await option(page, "Cuir de couleur (gamme SOFIC)").click();
+  assert.equal(await option(page, "Entrées de poche en cuir noir").isChecked(), false, "cuir noir ou SOFIC, l'un ou l'autre");
+  await page.click('input[data-aucun="Entrées de poche en cuir"]');
+  assert.equal(await option(page, "Cuir de couleur (gamme SOFIC)").isChecked(), false);
+  await ouvrirSection(page, "livraison");
+  assert.equal(await page.locator('[data-action="choisir-livraison"][data-valeur="offerte"]').count(), 0, "jamais de livraison offerte sur Lafuge");
+  assert.ok((await aCompleter(page)).includes("Saisir le prix : Livraison et installation par nos équipes"));
+  await page.fill("#prix-montage", "1500");
   await ouvrirSection(page, "libres");
   await page.click('[data-action="ajouter-libre"]');
   await page.fill("#libre-libelle-0", "Housse de protection sur mesure");
   await page.fill("#libre-prix-0", "150");
   await page.fill("#libre-quantite-0", "2");
-  assert.equal(await total(page), "28 300 €");
+  assert.equal(await total(page), "29 800 €");
   assert.match(await texte(page, "#recap"), /2 × Housse de protection sur mesure\s*300 €/);
-  assert.match(await texte(page, "#recap"), /lancement en fabrication \(30 %\) : 8 490 €/);
+  assert.match(await texte(page, "#recap"), /lancement en fabrication \(30 %\) : 8 940 €/);
   await page.screenshot({ path: path.join(SORTIES, "ordinateur-lafuge.png"), fullPage: false });
 
   const pdf = await generer(page, "4-lafuge-mixte");
   for (const attendu of ["Billard mixte Chambord, 12 pieds", "Noyer massif", "3 000 €", "Cadre snooker", "Housse de protection sur mesure",
-    "28 300 €", "Caractéristiques de votre billard", "Surface de jeu", "Ardoise italienne", "Strachan 777",
+    "29 800 €", "Livraison et installation par nos équipes", "installateurs formés par nos soins", "Caractéristiques de votre billard", "Surface de jeu", "Ardoise italienne", "Strachan 777",
     "Billard vendu hors accessoires", "maison du groupe Billards de France", "Au lancement en fabrication", "Piètement démontable",
     "Philippe Fitan", "Miribel-les-Échelles"]) {
     assert.ok(pdf.texte.includes(attendu), attendu);
@@ -264,6 +275,7 @@ test("4. Lafuge mixte Chambord 12 pieds : prix sur demande, règles, ligne libre
   assert.match(pdf.texte, /Cadre\s+Noyer massif/, "la fiche suit l'essence choisie");
   assert.doesNotMatch(pdf.texte, /Érable sycomore massif/, "plus d'érable une fois le noyer choisi");
   assert.doesNotMatch(pdf.texte, /2,80 m : 6 pieds/, "ligne propre à une autre taille");
+  assert.doesNotMatch(pdf.texte, /Offerte|pied de la porte/, "jamais de livraison offerte sur Lafuge");
   sansMentionsInterdites(pdf.texte, false);
   assert.deepEqual(page.erreurs, []);
 });
@@ -284,7 +296,9 @@ test("5. Lafuge bandes françaises sur téléphone (390 px) : A37, chauffage, Si
   await option(page, "Bandes A37 toilées").click();
   await option(page, "Chauffage de l'ardoise").click();
   await sansDebordement(page);
-  assert.equal(await texte(page, "#barre-total"), "10 320 €");
+  await ouvrirSection(page, "livraison");
+  await page.fill("#prix-montage", "1200");
+  assert.equal(await texte(page, "#barre-total"), "11 520 €");
   assert.equal(await page.isVisible("#barre-mobile"), true);
   await page.screenshot({ path: path.join(SORTIES, "telephone-options.png") });
   await page.click('[data-action="voir-recap"]');
@@ -292,7 +306,7 @@ test("5. Lafuge bandes françaises sur téléphone (390 px) : A37, chauffage, Si
   await page.screenshot({ path: path.join(SORTIES, "telephone-recap.png") });
   const pdf = await generer(page, "5-lafuge-francais");
   for (const attendu of ["Billard français à bandes fixes Loft, 2,40 m", "Bandes A37 toilées", "Chauffage de l'ardoise",
-    "Simonis 330, Vert anglais", "10 320 €", "Stéphanie Guigon"]) {
+    "Simonis 330, Vert anglais", "11 520 €", "Livraison et installation par nos équipes", "Stéphanie Guigon"]) {
     assert.ok(pdf.texte.includes(attendu), attendu);
   }
   sansMentionsInterdites(pdf.texte, false);

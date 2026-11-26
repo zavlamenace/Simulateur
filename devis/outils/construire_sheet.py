@@ -497,10 +497,13 @@ COLORIS = [
     ("Simonis 760", "Rouge vin", "7A1E33"), ("Simonis 760", "Fuchsia", "B0236E"),
     ("Simonis 760", "Violet", "5B2C7A"), ("Simonis 760", "Orange", "D9661F"),
     ("Simonis 760", "Camel", "B48A57"), ("Simonis 760", "Or", "C9A227"),
-    ("Simonis 760", "Gris", "7D8285"), ("Simonis 760", "Gris requin", "5E6468"),
+    ("Simonis 760", "Gris clair", "A7ADB0"), ("Simonis 760", "Gris requin", "5E6468"),
     ("Simonis 760", "Gris ardoise", "4A5157"), ("Simonis 760", "Noir", "1A1A1A"),
 ]
 COLORIS += [("Strachan 777", t, gp.STRACHAN_HEX[t]) for t in gp.STRACHAN]
+
+
+MASQUES = {("Simonis 760", "Gris requin")}
 
 
 def onglet_coloris(wb):
@@ -509,7 +512,8 @@ def onglet_coloris(wb):
                 [16, 24, 14, 10, 12, 40], onglet="2E7D3A")
     p, d = f.bloc(
         "COLORIS", ["Drap", "Teinte", "Code couleur", "Aperçu", "Statut", "Note interne"],
-        [[dr, t, f"#{h}", None, "Actif", None] for dr, t, h in COLORIS], vides=10,
+        [[dr, t, f"#{h}", None, "Masqué" if (dr, t) in MASQUES else "Actif",
+          "N'existe pas (26/11)" if (dr, t) in MASQUES else None] for dr, t, h in COLORIS], vides=10,
         validations={"Drap": '"Standard,Simonis 760,Strachan 777"', "Statut": STATUTS},
         note="Standard = 4 teintes incluses sur la Référence uniquement.",
     )
@@ -547,7 +551,10 @@ def onglet_livraison(wb):
          "Note interne"],
         [
             ["Livraison par messagerie au pied de la porte", "Sur une palette fabriquée sur mesure pour protéger le billard",
-             0, 300, "Toutes", "Actif", None],
+             0, 300, "Référence, Design, Prestige", "Actif", None],
+            ["Livraison et installation par nos équipes",
+             "Par nos équipes ou par des installateurs formés par nos soins, partout en France : acheminement jusqu'à la pièce, pose de l'ardoise, mise à niveau et réglages", None, None, "Lafuge", "Actif",
+             "Lafuge : jamais de livraison offerte (meuble précieux, montage par nos équipes). Prix saisi à chaque devis en attendant la grille (26/11)"],
             ["Livraison et montage — rez-de-chaussée", "Livraison et montage complet par nos techniciens", 725, None,
              "Toutes", "Masqué", "Ancienne grille du site : à remplacer par la nouvelle grille"],
             ["Livraison et montage — sous-sol ou 1er étage", "Livraison et montage complet par nos techniciens", 875,

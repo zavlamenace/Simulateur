@@ -404,13 +404,39 @@
       .map(function (a) { return a.id; });
   }
 
-  /** Formule de livraison offerte : la formule active à 0 € (son nom est le libellé imprimé, le prix s'affiche « Offerte »). */
-  function livraisonOfferte(cat) {
-    var f = ((cat["Livraison & montage"] && cat["Livraison & montage"].FORMULES) || [])
-      .filter(function (l) { return texte(l.Statut) === "Actif"; });
-    var o = f.filter(function (l) { return nombre(l["Prix TTC"]) === 0 || /offerte/i.test(texte(l.Formule)); })[0];
-    return o ? { libelle: texte(o.Formule), detail: texte(o["Détail imprimé sur le devis"]),
-                 valeur: nombre(o["Valeur si offert"]) || 0 } : { libelle: "Livraison par messagerie au pied de la porte", detail: "", valeur: 0 };
+  function compatible(valeur, g) {
+    var c = texte(valeur);
+    return !g || c === "" || c === "Toutes" || c.split(",").some(function (x) { return x.trim() === g.famille || x.trim() === g.id; });
+  }
+
+  function formulesLivraison(cat, g) {
+    return ((cat["Livraison & montage"] && cat["Livraison & montage"].FORMULES) || []).filter(function (l) {
+      return texte(l.Statut) === "Actif" && !vide(l.Formule) && compatible(l["Gammes compatibles"], g);
+    });
+  }
+
+  /**
+   * Formule de livraison offerte de la gamme : la formule active à 0 € (son nom est le libellé imprimé, le prix
+   * s'affiche « Offerte »). null si la gamme n'en a pas (Lafuge : livraison et installation par nos équipes uniquement).
+   */
+  function livraisonOfferte(cat, g) {
+    var o = formulesLivraison(cat, g).filter(function (l) { return nombre(l["Prix TTC"]) === 0 || /offerte/i.test(texte(l.Formule)); })[0];
+    if (!o) return g ? null : { libelle: "Livraison par messagerie au pied de la porte", detail: "", valeur: 0 };
+    return { libelle: texte(o.Formule), detail: texte(o["Détail imprimé sur le devis"]), valeur: nombre(o["Valeur si offert"]) || 0 };
+  }
+
+  /** Formule « livraison et montage » de la gamme (prix saisi à chaque devis). */
+  function livraisonMontage(cat, g) {
+    var o = formulesLivraison(cat, g).filter(function (l) { return vide(l["Prix TTC"]) && !/offerte/i.test(texte(l.Formule)); })[0];
+    return o ? { libelle: texte(o.Formule), detail: texte(o["Détail imprimé sur le devis"]) }
+      : { libelle: "Livraison et montage", detail: "Livraison, installation dans la pièce, mise à niveau et réglages par nos techniciens" };
+  }
+
+  /** « offerte » ou « montage » : une gamme sans livraison offerte est toujours livrée et installée par nos équipes. */
+  function formuleLivraison(cat, cfg) {
+    var g = gamme(cat, cfg.gamme);
+    if (g && !livraisonOfferte(cat, g)) return "montage";
+    return (cfg.livraison && cfg.livraison.formule) === "montage" ? "montage" : "offerte";
   }
 
   // ---------------------------------------------------------------------------------------------------------
@@ -534,13 +560,12 @@
                 prixUnitaire: nombre(l.prix) || 0 });
     });
     var liv = cfg.livraison || { formule: "offerte" };
-    if (liv.formule === "montage") {
-      var pm = nombre(liv.prix);
-      pousser({ id: "livraison", section: "livraison", libelle: "Livraison et montage", detail: texte(liv.detail) ||
-                "Livraison, installation dans la pièce, mise à niveau et réglages par nos techniciens",
+    if (formuleLivraison(cat, cfg) === "montage") {
+      var pm = nombre(liv.prix), mo = livraisonMontage(cat, g);
+      pousser({ id: "livraison", section: "livraison", libelle: mo.libelle, detail: texte(liv.detail) || mo.detail,
                 quantite: 1, prixUnitaire: pm || 0, aSaisir: pm === null });
     } else {
-      var lo = livraisonOfferte(cat);
+      var lo = livraisonOfferte(cat, g);
       pousser({ id: "livraison", section: "livraison", libelle: lo.libelle, detail: lo.detail, quantite: 1, prixUnitaire: 0,
                 inclus: true, valeurOfferte: lo.valeur });
     }
@@ -638,7 +663,8 @@
     options: options, demandePrecision: demandePrecision, groupesObligatoires: groupesObligatoires, etats: etats, basculer: basculer, nettoyer: nettoyer,
     dimensions: dimensions, texteDimensions: texteDimensions, dateDevis: dateDevis, validite: validite,
     draps: draps, teintes: teintes, accessoires: accessoires, argumentsGamme: argumentsGamme,
-    argumentsParDefaut: argumentsParDefaut, livraisonOfferte: livraisonOfferte, ficheTechnique: ficheTechnique,
+    argumentsParDefaut: argumentsParDefaut, livraisonOfferte: livraisonOfferte, livraisonMontage: livraisonMontage,
+    formuleLivraison: formuleLivraison, ficheTechnique: ficheTechnique,
     lignes: lignes, totaux: totaux, problemes: problemes, recapCRM: recapCRM, remiseDe: remiseDe, texteRemise: texteRemise,
   };
 });

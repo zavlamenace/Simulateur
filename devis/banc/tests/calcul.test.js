@@ -121,7 +121,10 @@ test("Lafuge mixte : Chambord 12 pieds, snooker par défaut, laque et chêne exc
   assert.equal(t.echeances[0].montant, 8718);
   assert.equal(t.echeances[1].montant, 8718);
   assert.equal(t.echeances[2].montant, 29060 - 2 * 8718);
+  assert.deepEqual(C.problemes(cat, cfg), ["Saisir le prix : Livraison et installation par nos équipes"]);
+  cfg.livraison = { formule: "montage", prix: 1500 };
   assert.deepEqual(C.problemes(cat, cfg), []);
+  assert.equal(C.totaux(cat, cfg).total, 29060 + 1500);
 });
 
 test("Lafuge français : Loft 2,40 m, A37 en option, chauffage, finitions sur chêne uniquement", () => {
@@ -186,3 +189,26 @@ test("Contrôles avant PDF et récap CRM", () => {
   assert.match(recap, /Devis BDF-2026-0001/);
   assert.match(recap, /Total TTC : 4 390 €/);
 });
+
+test("26/11 : Lafuge livré et installé par nos équipes, cuir noir ou SOFIC, gris du Simonis", () => {
+  const cfg = { gamme: "Lafuge mixte", modele: "Loft", taille: "2,30 m", options: {}, livraison: { formule: "offerte" } };
+  assert.equal(C.formuleLivraison(cat, cfg), "montage");
+  const liv = C.lignes(cat, cfg).find((l) => l.id === "livraison");
+  assert.equal(liv.libelle, "Livraison et installation par nos équipes");
+  assert.equal(liv.aSaisir, true);
+  assert.ok(C.problemes(cat, cfg).includes("Saisir le prix : Livraison et installation par nos équipes"));
+  assert.equal(C.livraisonOfferte(cat, C.gamme(cat, "Lafuge bandes françaises")), null);
+  assert.equal(C.formuleLivraison(cat, { gamme: "Design", livraison: { formule: "offerte" } }), "offerte");
+  const opts = C.options(cat, cfg);
+  const cuir = opts.filter((o) => o.groupe === "Entrées de poche en cuir");
+  assert.deepEqual(cuir.map((o) => [o.nom, o.choix, o.necessite.length]),
+    [["Entrées de poche en cuir noir", C.UN_SEUL, 0], ["Cuir de couleur (gamme SOFIC)", C.UN_SEUL, 0]]);
+  C.basculer(opts, cfg, cuir[0].id, true);
+  C.basculer(opts, cfg, cuir[1].id, true);
+  assert.equal(cfg.options[cuir[0].id].choisi, false);
+  const gris = C.teintes(cat, "Simonis 760").map((t) => t.nom).filter((n) => /^Gris|^Noir/.test(n));
+  assert.deepEqual(gris, ["Gris clair", "Gris ardoise", "Noir"]);
+  assert.deepEqual(C.teintes(cat, "Simonis 330").map((t) => t.nom), C.teintes(cat, "Simonis 760").map((t) => t.nom));
+  assert.ok(C.teintes(cat, "Strachan 777").some((t) => t.nom === "Gris"));
+});
+

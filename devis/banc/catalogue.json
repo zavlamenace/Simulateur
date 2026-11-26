@@ -2099,7 +2099,7 @@
 "Note interne": null
 },
 {
-"Groupe": "Poches",
+"Groupe": "Entrées de poche en cuir",
 "Option": "Entrées de poche en cuir noir",
 "Valable pour": "Tous",
 "Prix 2,10 m": 480,
@@ -2112,13 +2112,13 @@
 "Conditions": null,
 "Nécessite": null,
 "Exclut": null,
-"Choix": "Plusieurs possibles",
+"Choix": "Un seul par groupe",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
 },
 {
-"Groupe": "Poches",
+"Groupe": "Entrées de poche en cuir",
 "Option": "Cuir de couleur (gamme SOFIC)",
 "Valable pour": "Tous",
 "Prix 2,10 m": 990,
@@ -2128,10 +2128,10 @@
 "Prix 2,80 m": "—",
 "Prix 10 pieds": "—",
 "Prix 12 pieds": "—",
-"Conditions": "Cuir d'une autre couleur que le noir",
-"Nécessite": "Entrées de poche en cuir noir",
+"Conditions": "Cuir noir ou cuir de couleur : l'un ou l'autre",
+"Nécessite": null,
 "Exclut": null,
-"Choix": "Plusieurs possibles",
+"Choix": "Un seul par groupe",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
@@ -2500,7 +2500,7 @@
 "Note interne": null
 },
 {
-"Groupe": "Poches",
+"Groupe": "Entrées de poche en cuir",
 "Option": "Entrées de poche en cuir noir",
 "Valable pour": "Tous",
 "Prix 2,10 m": 480,
@@ -2513,13 +2513,13 @@
 "Conditions": null,
 "Nécessite": null,
 "Exclut": null,
-"Choix": "Plusieurs possibles",
+"Choix": "Un seul par groupe",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
 },
 {
-"Groupe": "Poches",
+"Groupe": "Entrées de poche en cuir",
 "Option": "Cuir de couleur (gamme SOFIC)",
 "Valable pour": "Tous",
 "Prix 2,10 m": 990,
@@ -2529,10 +2529,10 @@
 "Prix 2,80 m": "—",
 "Prix 10 pieds": "—",
 "Prix 12 pieds": "—",
-"Conditions": "Cuir d'une autre couleur que le noir",
-"Nécessite": "Entrées de poche en cuir noir",
+"Conditions": "Cuir noir ou cuir de couleur : l'un ou l'autre",
+"Nécessite": null,
 "Exclut": null,
-"Choix": "Plusieurs possibles",
+"Choix": "Un seul par groupe",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
@@ -2920,7 +2920,7 @@
 "Note interne": null
 },
 {
-"Groupe": "Poches",
+"Groupe": "Entrées de poche en cuir",
 "Option": "Entrées de poche en cuir noir",
 "Valable pour": "Tous",
 "Prix 2,10 m": 480,
@@ -2933,13 +2933,13 @@
 "Conditions": null,
 "Nécessite": null,
 "Exclut": null,
-"Choix": "Plusieurs possibles",
+"Choix": "Un seul par groupe",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
 },
 {
-"Groupe": "Poches",
+"Groupe": "Entrées de poche en cuir",
 "Option": "Cuir de couleur (gamme SOFIC)",
 "Valable pour": "Tous",
 "Prix 2,10 m": 990,
@@ -2949,10 +2949,10 @@
 "Prix 2,80 m": "—",
 "Prix 10 pieds": "—",
 "Prix 12 pieds": "—",
-"Conditions": "Cuir d'une autre couleur que le noir",
-"Nécessite": "Entrées de poche en cuir noir",
+"Conditions": "Cuir noir ou cuir de couleur : l'un ou l'autre",
+"Nécessite": null,
 "Exclut": null,
-"Choix": "Plusieurs possibles",
+"Choix": "Un seul par groupe",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
@@ -3359,7 +3359,7 @@
 "Note interne": null
 },
 {
-"Groupe": "Poches",
+"Groupe": "Entrées de poche en cuir",
 "Option": "Entrées de poche en cuir noir",
 "Valable pour": "Tous",
 "Prix 2,10 m": 480,
@@ -3372,13 +3372,13 @@
 "Conditions": null,
 "Nécessite": null,
 "Exclut": null,
-"Choix": "Plusieurs possibles",
+"Choix": "Un seul par groupe",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
 },
 {
-"Groupe": "Poches",
+"Groupe": "Entrées de poche en cuir",
 "Option": "Cuir de couleur (gamme SOFIC)",
 "Valable pour": "Tous",
 "Prix 2,10 m": 990,
@@ -3388,10 +3388,10 @@
 "Prix 2,80 m": "—",
 "Prix 10 pieds": "—",
 "Prix 12 pieds": "—",
-"Conditions": "Cuir d'une autre couleur que le noir",
-"Nécessite": "Entrées de poche en cuir noir",
+"Conditions": "Cuir noir ou cuir de couleur : l'un ou l'autre",
+"Nécessite": null,
 "Exclut": null,
-"Choix": "Plusieurs possibles",
+"Choix": "Un seul par groupe",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
@@ -3741,7 +3741,7 @@
 "Note interne": null
 },
 {
-"Groupe": "Poches",
+"Groupe": "Entrées de poche en cuir",
 "Option": "Entrées de poche en cuir noir",
 "Valable pour": "Tous",
 "Prix 2,10 m": 480,
@@ -3754,13 +3754,13 @@
 "Conditions": null,
 "Nécessite": null,
 "Exclut": null,
-"Choix": "Plusieurs possibles",
+"Choix": "Un seul par groupe",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
 },
 {
-"Groupe": "Poches",
+"Groupe": "Entrées de poche en cuir",
 "Option": "Cuir de couleur (gamme SOFIC)",
 "Valable pour": "Tous",
 "Prix 2,10 m": 990,
@@ -3770,10 +3770,10 @@
 "Prix 2,80 m": "—",
 "Prix 10 pieds": "—",
 "Prix 12 pieds": "—",
-"Conditions": "Cuir d'une autre couleur que le noir",
-"Nécessite": "Entrées de poche en cuir noir",
+"Conditions": "Cuir noir ou cuir de couleur : l'un ou l'autre",
+"Nécessite": null,
 "Exclut": null,
-"Choix": "Plusieurs possibles",
+"Choix": "Un seul par groupe",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
@@ -4199,7 +4199,7 @@
 "Note interne": null
 },
 {
-"Groupe": "Poches",
+"Groupe": "Entrées de poche en cuir",
 "Option": "Entrées de poche en cuir noir",
 "Valable pour": "Tous",
 "Prix 2,10 m": 480,
@@ -4212,13 +4212,13 @@
 "Conditions": null,
 "Nécessite": null,
 "Exclut": null,
-"Choix": "Plusieurs possibles",
+"Choix": "Un seul par groupe",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
 },
 {
-"Groupe": "Poches",
+"Groupe": "Entrées de poche en cuir",
 "Option": "Cuir de couleur (gamme SOFIC)",
 "Valable pour": "Tous",
 "Prix 2,10 m": 990,
@@ -4228,10 +4228,10 @@
 "Prix 2,80 m": 990,
 "Prix 10 pieds": "Sur demande",
 "Prix 12 pieds": "Sur demande",
-"Conditions": "Cuir d'une autre couleur que le noir",
-"Nécessite": "Entrées de poche en cuir noir",
+"Conditions": "Cuir noir ou cuir de couleur : l'un ou l'autre",
+"Nécessite": null,
 "Exclut": null,
-"Choix": "Plusieurs possibles",
+"Choix": "Un seul par groupe",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
@@ -4638,7 +4638,7 @@
 "Note interne": null
 },
 {
-"Groupe": "Poches",
+"Groupe": "Entrées de poche en cuir",
 "Option": "Entrées de poche en cuir noir",
 "Valable pour": "Tous",
 "Prix 2,10 m": 480,
@@ -4651,13 +4651,13 @@
 "Conditions": null,
 "Nécessite": null,
 "Exclut": null,
-"Choix": "Plusieurs possibles",
+"Choix": "Un seul par groupe",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
 },
 {
-"Groupe": "Poches",
+"Groupe": "Entrées de poche en cuir",
 "Option": "Cuir de couleur (gamme SOFIC)",
 "Valable pour": "Tous",
 "Prix 2,10 m": 990,
@@ -4667,10 +4667,10 @@
 "Prix 2,80 m": "—",
 "Prix 10 pieds": "—",
 "Prix 12 pieds": "—",
-"Conditions": "Cuir d'une autre couleur que le noir",
-"Nécessite": "Entrées de poche en cuir noir",
+"Conditions": "Cuir noir ou cuir de couleur : l'un ou l'autre",
+"Nécessite": null,
 "Exclut": null,
-"Choix": "Plusieurs possibles",
+"Choix": "Un seul par groupe",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
@@ -5077,7 +5077,7 @@
 "Note interne": null
 },
 {
-"Groupe": "Poches",
+"Groupe": "Entrées de poche en cuir",
 "Option": "Entrées de poche en cuir noir",
 "Valable pour": "Tous",
 "Prix 2,10 m": 480,
@@ -5090,13 +5090,13 @@
 "Conditions": null,
 "Nécessite": null,
 "Exclut": null,
-"Choix": "Plusieurs possibles",
+"Choix": "Un seul par groupe",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
 },
 {
-"Groupe": "Poches",
+"Groupe": "Entrées de poche en cuir",
 "Option": "Cuir de couleur (gamme SOFIC)",
 "Valable pour": "Tous",
 "Prix 2,10 m": 990,
@@ -5106,10 +5106,10 @@
 "Prix 2,80 m": 990,
 "Prix 10 pieds": "Sur demande",
 "Prix 12 pieds": "Sur demande",
-"Conditions": "Cuir d'une autre couleur que le noir",
-"Nécessite": "Entrées de poche en cuir noir",
+"Conditions": "Cuir noir ou cuir de couleur : l'un ou l'autre",
+"Nécessite": null,
 "Exclut": null,
-"Choix": "Plusieurs possibles",
+"Choix": "Un seul par groupe",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
@@ -5554,7 +5554,7 @@
 "Note interne": null
 },
 {
-"Groupe": "Poches",
+"Groupe": "Entrées de poche en cuir",
 "Option": "Entrées de poche en cuir noir",
 "Valable pour": "Tous",
 "Prix 2,10 m": 480,
@@ -5567,13 +5567,13 @@
 "Conditions": null,
 "Nécessite": null,
 "Exclut": null,
-"Choix": "Plusieurs possibles",
+"Choix": "Un seul par groupe",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
 },
 {
-"Groupe": "Poches",
+"Groupe": "Entrées de poche en cuir",
 "Option": "Cuir de couleur (gamme SOFIC)",
 "Valable pour": "Tous",
 "Prix 2,10 m": 990,
@@ -5583,10 +5583,10 @@
 "Prix 2,80 m": 990,
 "Prix 10 pieds": "Sur demande",
 "Prix 12 pieds": "Sur demande",
-"Conditions": "Cuir d'une autre couleur que le noir",
-"Nécessite": "Entrées de poche en cuir noir",
+"Conditions": "Cuir noir ou cuir de couleur : l'un ou l'autre",
+"Nécessite": null,
 "Exclut": null,
-"Choix": "Plusieurs possibles",
+"Choix": "Un seul par groupe",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
@@ -6031,7 +6031,7 @@
 "Note interne": null
 },
 {
-"Groupe": "Poches",
+"Groupe": "Entrées de poche en cuir",
 "Option": "Entrées de poche en cuir noir",
 "Valable pour": "Tous",
 "Prix 2,10 m": 480,
@@ -6044,13 +6044,13 @@
 "Conditions": null,
 "Nécessite": null,
 "Exclut": null,
-"Choix": "Plusieurs possibles",
+"Choix": "Un seul par groupe",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
 },
 {
-"Groupe": "Poches",
+"Groupe": "Entrées de poche en cuir",
 "Option": "Cuir de couleur (gamme SOFIC)",
 "Valable pour": "Tous",
 "Prix 2,10 m": 990,
@@ -6060,10 +6060,10 @@
 "Prix 2,80 m": "—",
 "Prix 10 pieds": "—",
 "Prix 12 pieds": "—",
-"Conditions": "Cuir d'une autre couleur que le noir",
-"Nécessite": "Entrées de poche en cuir noir",
+"Conditions": "Cuir noir ou cuir de couleur : l'un ou l'autre",
+"Nécessite": null,
 "Exclut": null,
-"Choix": "Plusieurs possibles",
+"Choix": "Un seul par groupe",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
@@ -6451,7 +6451,7 @@
 "Note interne": null
 },
 {
-"Groupe": "Poches",
+"Groupe": "Entrées de poche en cuir",
 "Option": "Entrées de poche en cuir noir",
 "Valable pour": "Tous",
 "Prix 2,10 m": 480,
@@ -6464,13 +6464,13 @@
 "Conditions": null,
 "Nécessite": null,
 "Exclut": null,
-"Choix": "Plusieurs possibles",
+"Choix": "Un seul par groupe",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
 },
 {
-"Groupe": "Poches",
+"Groupe": "Entrées de poche en cuir",
 "Option": "Cuir de couleur (gamme SOFIC)",
 "Valable pour": "Tous",
 "Prix 2,10 m": 990,
@@ -6480,10 +6480,10 @@
 "Prix 2,80 m": "—",
 "Prix 10 pieds": "—",
 "Prix 12 pieds": "—",
-"Conditions": "Cuir d'une autre couleur que le noir",
-"Nécessite": "Entrées de poche en cuir noir",
+"Conditions": "Cuir noir ou cuir de couleur : l'un ou l'autre",
+"Nécessite": null,
 "Exclut": null,
-"Choix": "Plusieurs possibles",
+"Choix": "Un seul par groupe",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
@@ -6738,7 +6738,7 @@
 "Note interne": null
 },
 {
-"Groupe": "Poches",
+"Groupe": "Entrées de poche en cuir",
 "Option": "Entrées de poche en cuir noir",
 "Valable pour": "Tous",
 "Prix 2,10 m": "Inclus",
@@ -6751,13 +6751,13 @@
 "Conditions": null,
 "Nécessite": null,
 "Exclut": null,
-"Choix": "Plusieurs possibles",
+"Choix": "Un seul par groupe",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
 },
 {
-"Groupe": "Poches",
+"Groupe": "Entrées de poche en cuir",
 "Option": "Cuir de couleur (gamme SOFIC)",
 "Valable pour": "Tous",
 "Prix 2,10 m": 990,
@@ -6767,10 +6767,10 @@
 "Prix 2,80 m": "—",
 "Prix 10 pieds": "—",
 "Prix 12 pieds": "—",
-"Conditions": "Cuir d'une autre couleur que le noir",
+"Conditions": "Cuir noir ou cuir de couleur : l'un ou l'autre",
 "Nécessite": null,
 "Exclut": null,
-"Choix": "Plusieurs possibles",
+"Choix": "Un seul par groupe",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
@@ -7025,7 +7025,7 @@
 "Note interne": null
 },
 {
-"Groupe": "Poches",
+"Groupe": "Entrées de poche en cuir",
 "Option": "Entrées de poche en cuir noir",
 "Valable pour": "Tous",
 "Prix 2,10 m": "Inclus",
@@ -7038,13 +7038,13 @@
 "Conditions": null,
 "Nécessite": null,
 "Exclut": null,
-"Choix": "Plusieurs possibles",
+"Choix": "Un seul par groupe",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
 },
 {
-"Groupe": "Poches",
+"Groupe": "Entrées de poche en cuir",
 "Option": "Cuir de couleur (gamme SOFIC)",
 "Valable pour": "Tous",
 "Prix 2,10 m": 990,
@@ -7054,10 +7054,10 @@
 "Prix 2,80 m": "—",
 "Prix 10 pieds": "—",
 "Prix 12 pieds": "—",
-"Conditions": "Cuir d'une autre couleur que le noir",
+"Conditions": "Cuir noir ou cuir de couleur : l'un ou l'autre",
 "Nécessite": null,
 "Exclut": null,
-"Choix": "Plusieurs possibles",
+"Choix": "Un seul par groupe",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
@@ -7464,7 +7464,7 @@
 "Note interne": null
 },
 {
-"Groupe": "Poches",
+"Groupe": "Entrées de poche en cuir",
 "Option": "Entrées de poche en cuir noir",
 "Valable pour": "Tous",
 "Prix 2,10 m": 480,
@@ -7477,13 +7477,13 @@
 "Conditions": null,
 "Nécessite": null,
 "Exclut": null,
-"Choix": "Plusieurs possibles",
+"Choix": "Un seul par groupe",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
 },
 {
-"Groupe": "Poches",
+"Groupe": "Entrées de poche en cuir",
 "Option": "Cuir de couleur (gamme SOFIC)",
 "Valable pour": "Tous",
 "Prix 2,10 m": 990,
@@ -7493,10 +7493,10 @@
 "Prix 2,80 m": 990,
 "Prix 10 pieds": "Sur demande",
 "Prix 12 pieds": "Sur demande",
-"Conditions": "Cuir d'une autre couleur que le noir",
-"Nécessite": "Entrées de poche en cuir noir",
+"Conditions": "Cuir noir ou cuir de couleur : l'un ou l'autre",
+"Nécessite": null,
 "Exclut": null,
-"Choix": "Plusieurs possibles",
+"Choix": "Un seul par groupe",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
@@ -13640,8 +13640,8 @@
 },
 {
 "Drap": "Simonis 760",
-"Teinte": "Gris",
-"Code couleur": "#7D8285",
+"Teinte": "Gris clair",
+"Code couleur": "#A7ADB0",
 "Aperçu": null,
 "Statut": "Actif",
 "Note interne": null
@@ -13651,8 +13651,8 @@
 "Teinte": "Gris requin",
 "Code couleur": "#5E6468",
 "Aperçu": null,
-"Statut": "Actif",
-"Note interne": null
+"Statut": "Masqué",
+"Note interne": "N'existe pas (26/11)"
 },
 {
 "Drap": "Simonis 760",
@@ -14582,9 +14582,18 @@
 "Détail imprimé sur le devis": "Sur une palette fabriquée sur mesure pour protéger le billard",
 "Prix TTC": 0,
 "Valeur si offert": 300,
-"Gammes compatibles": "Toutes",
+"Gammes compatibles": "Référence, Design, Prestige",
 "Statut": "Actif",
 "Note interne": null
+},
+{
+"Formule": "Livraison et installation par nos équipes",
+"Détail imprimé sur le devis": "Par nos équipes ou par des installateurs formés par nos soins, partout en France : acheminement jusqu'à la pièce, pose de l'ardoise, mise à niveau et réglages",
+"Prix TTC": null,
+"Valeur si offert": null,
+"Gammes compatibles": "Lafuge",
+"Statut": "Actif",
+"Note interne": "Lafuge : jamais de livraison offerte (meuble précieux, montage par nos équipes). Prix saisi à chaque devis en attendant la grille (26/11)"
 },
 {
 "Formule": "Livraison et montage — rez-de-chaussée",

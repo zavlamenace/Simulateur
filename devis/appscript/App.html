@@ -139,6 +139,7 @@
       if (o.section === "options" && o.etat === "inclus" && o.choix !== C.UN_SEUL && cfg.options[o.id] === undefined) cfg.options[o.id] = { choisi: true };
     });
     retirees = C.nettoyer(tous, cfg);
+    cfg.livraison.formule = C.formuleLivraison(etat.cat, cfg);
     var d = C.draps(etat.cat, cfg, tous);
     if (!d.length) cfg.tapis.drap = "";
     else {
@@ -249,7 +250,7 @@
         return l ? l + " ligne" + (l > 1 ? "s" : "") + " · " + C.euros(somme("libres")) : "Aucune";
       }
       case "livraison":
-        return cfg.livraison.formule === "montage" ? "Livraison et montage" + (C.nombre(cfg.livraison.prix) !== null ? " · " + C.euros(C.nombre(cfg.livraison.prix)) : "") : "Offerte";
+        return C.formuleLivraison(etat.cat, cfg) === "montage" ? C.livraisonMontage(etat.cat, g).libelle + (C.nombre(cfg.livraison.prix) !== null ? " · " + C.euros(C.nombre(cfg.livraison.prix)) : "") : "Offerte";
       case "remises": {
         var t = C.totaux(etat.cat, cfg, lgn);
         return t.remiseTotale ? "− " + C.euros(t.remiseTotale) : "Aucune";
@@ -386,6 +387,7 @@
     if (/plateau|dessus/i.test(groupe)) return "Sans plateau";
     if (/rallonge|allonge/i.test(groupe)) return "Sans rallonge";
     if (/supplément/i.test(groupe)) return "Sans supplément";
+    if (/entrées de poche/i.test(groupe)) return "Sans entrées de poche en cuir";
     return "Aucun";
   }
 
@@ -481,13 +483,15 @@
   }
 
   function corpsLivraison() {
-    var liv = etat.cfg.livraison, lo = C.livraisonOfferte(etat.cat), montage = liv.formule === "montage";
+    var g = gammeChoisie(), liv = etat.cfg.livraison, lo = C.livraisonOfferte(etat.cat, g), mo = C.livraisonMontage(etat.cat, g);
+    var montage = C.formuleLivraison(etat.cat, etat.cfg) === "montage";
     var html = '<div class="cartes deux">' +
-      carte("choisir-livraison", "offerte", lo.libelle, ["Offerte", lo.detail].filter(Boolean).join(" · "), !montage) +
-      carte("choisir-livraison", "montage", "Livraison et montage", "Installation dans la pièce, mise à niveau et réglages par nos techniciens", montage) +
+      (lo ? carte("choisir-livraison", "offerte", lo.libelle, ["Offerte", lo.detail].filter(Boolean).join(" · "), !montage) : "") +
+      carte("choisir-livraison", "montage", mo.libelle, mo.detail, montage) +
       '</div>';
+    if (!lo) html += '<p class="aide">Pour cette gamme, la livraison et l\'installation sont toujours assurées par nos équipes.</p>';
     if (montage) {
-      html += '<div class="champ"><label for="prix-montage">Prix de la livraison et du montage TTC</label>' +
+      html += '<div class="champ"><label for="prix-montage">Prix de la livraison et de l\'installation TTC</label>' +
         '<input id="prix-montage" type="number" inputmode="decimal" step="any" data-champ="livraison.prix" value="' + h(liv.prix) + '" class="' +
         (C.nombre(liv.prix) === null ? "a-saisir" : "") + '"></div>';
     }
