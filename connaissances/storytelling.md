@@ -107,3 +107,20 @@ Maquettes en images fixes, une par gamme : `devis/maquettes/page2/rendus/`. Gén
 - **Lafuge en deux pages de présentation** : 1. le billard et ses points forts ; 2. le bois, l'histoire et la fabrication. Puis le devis chiffré.
 - **La présentation passe en tête du PDF** (toutes gammes) : le client voit d'abord son billard et la réassurance, puis le devis.
 - Photos d'atelier des points forts Lafuge : recadrer plus haut.
+
+## Maquettes du 27/11 (à valider)
+Fichiers : `devis/maquettes/page1/rendus/` ; générateur : `devis/maquettes/page1/generer.py`.
+- **Ordre du PDF** : présentation du billard en page 1, puis le devis chiffré. Lafuge : 1. billard et points forts ; 2. « De l'arbre au billard » ; puis le devis.
+- **Page de présentation** :
+  - en-tête : logo, numéro de devis, client et date ;
+  - nom du modèle, puis « Billard convertible en table · gamme » ;
+  - fiche de configuration sur une ligne : taille, jeu choisi, tapis, finition, plateau ;
+  - photos, deux variantes à départager :
+    - A : en billard et en table, côte à côte, dans la couleur de tapis choisie quand le site a la photo ;
+    - B : une grande photo en billard et une vignette en table (Lafuge : vignette de détail) ;
+  - mention « Modèle similaire au devis, photo non représentative de votre configuration. » ;
+  - accroche de gamme (bloc GAMME du Sheet) ;
+  - 3 points forts numérotés, chacun avec sa photo (« Photo à venir » en attendant) ;
+  - bandeau de pictogrammes rouges, sans montage.
+- **Page histoire Lafuge**, ton neutre : « Le bois », « La main », « Le temps », trois photos d'atelier légendées, signature familiale.
+- **Photos en mode table** : le site en a pour la Référence (Caracas) et le Design (Boston, dans la même pièce que les photos par couleur). Aucune pour le Prestige.
