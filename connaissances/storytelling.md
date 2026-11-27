@@ -124,3 +124,14 @@ Fichiers : `devis/maquettes/page1/rendus/` ; générateur : `devis/maquettes/pag
   - bandeau de pictogrammes rouges, sans montage.
 - **Page histoire Lafuge**, ton neutre : « Le bois », « La main », « Le temps », trois photos d'atelier légendées, signature familiale.
 - **Photos en mode table** : le site en a pour la Référence (Caracas) et le Design (Boston, dans la même pièce que les photos par couleur). Aucune pour le Prestige.
+
+## Maquettes finales du 28/11 (version retenue)
+Fichiers : `devis/maquettes/finale/rendus/` ; générateur : `devis/maquettes/finale/generer.py`. Les maquettes du 27/11 (`devis/maquettes/page1/`) sont abandonnées.
+- **Base : la première version (26/11)**, pour toutes les gammes. Ajouts :
+  - photo détourée rétrécie d'un quart de la largeur de la page, calée à gauche ;
+  - vignette « En table » (190 px de large) à sa droite, à la même hauteur ; Lafuge sans plateau : vignette de détail ;
+  - jeu choisi dans la ligne sous le titre ; « convertible en table » partout.
+- **Lafuge** : logo Lafuge seul ; « Billard Lafuge, maison du groupe Billards de France » gardé en bas de page (validé).
+- **Page 2 Lafuge** : aspect du bloc histoire de la V1 (photo à gauche, panneau sable à droite), en quatre étapes : le bois brut, le billard brut, les finitions selon les choix du client, la pose du drap. Signature : « Trois générations de la famille Fitan au service du bois massif depuis 1946. »
+- **Réassurance validée** : « Inventeur du convertible en table, depuis 1985 » ; Lafuge : « Livré et installé par nos équipes ou notre réseau formé ».
+- **Photos à fournir** : détourées en table pour Design et Prestige ; détourées en jeu et en table pour Lafuge ; gros plans des points forts.

@@ -1,0 +1,71 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><style>
+@font-face{font-family:'DM Sans';font-weight:400;src:url(fonts/dm-sans-latin-400-normal.woff2)}
+@font-face{font-family:'DM Sans';font-weight:500;src:url(fonts/dm-sans-latin-500-normal.woff2)}
+@font-face{font-family:'DM Sans';font-style:italic;src:url(fonts/dm-sans-latin-400-italic.woff2)}
+@font-face{font-family:'EB Garamond';font-weight:400;src:url(fonts/eb-garamond-latin-400-normal.woff2)}
+@font-face{font-family:'EB Garamond';font-weight:500;src:url(fonts/eb-garamond-latin-500-normal.woff2)}
+@font-face{font-family:'EB Garamond';font-style:italic;src:url(fonts/eb-garamond-latin-400-italic.woff2)}
+:root{--noir:#151515;--gris:#3d4248;--doux:#6b7075;--sable:#f6f3ee;--lin:#efe9e3;--r:6px}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff}
+body{width:794px;height:1123px;padding:40px 52px 30px;font:400 11.5px/1.5 'DM Sans',sans-serif;color:var(--noir);
+  display:flex;flex-direction:column}
+header{display:flex;justify-content:space-between;align-items:flex-end;padding-bottom:14px;border-bottom:1px solid var(--lin)}
+header img{height:34px;display:block}
+header img.laf{height:46px}
+.ref{text-align:right;font-size:10px;color:var(--doux);line-height:1.6}
+.ref b{color:var(--noir);font-weight:500}
+.sur{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--doux);margin-top:26px}
+h1{font:400 38px/1.1 'EB Garamond',serif;margin-top:4px}
+.sous{font-size:12px;color:var(--gris);margin-top:6px}
+.hero{display:grid;grid-template-columns:492px 1fr;align-items:center;margin-top:22px}
+.hero .vignette{justify-self:end}
+.hero .principale{display:block;width:100%;height:auto;max-height:300px;object-fit:contain;object-position:left center;border-radius:var(--r)}
+.hero .principale.photo{height:300px;object-fit:cover;object-position:center}
+.vignette img,.vignette .vide{display:block;width:190px;height:143px;border-radius:var(--r);object-fit:cover}
+.vignette img.detouree{object-fit:contain;border:1px solid var(--lin);background:#fff}
+.vignette figcaption{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--doux);margin-top:7px}
+.vide{display:flex;align-items:center;justify-content:center;flex-direction:column;background:var(--lin);color:var(--doux);
+  font-size:9.5px;text-align:center;padding:10px}
+.mention{font-size:9px;font-style:italic;color:var(--doux);margin-top:6px}
+.pos{margin-top:24px;padding:14px 0;border-top:1px solid var(--lin);border-bottom:1px solid var(--lin)}
+.pos q{font:italic 400 23px/1.25 'EB Garamond',serif;quotes:none}
+h2{font:400 21px/1.2 'EB Garamond',serif;margin-top:30px}
+.points{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:12px}
+.tuile{aspect-ratio:4/3;border-radius:var(--r);overflow:hidden;background:var(--lin)}
+.tuile img{width:100%;height:100%;object-fit:cover;display:block}
+.tuile.blanc{background:#fff;border:1px solid var(--lin)}
+.tuile.blanc img{object-fit:contain}
+.tuile.texte{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+  background:var(--sable);padding:14px;font:400 14.5px/1.45 'EB Garamond',serif}
+h3{font-size:12px;font-weight:500;margin-top:9px;line-height:1.35}
+.point p{color:var(--gris);font-size:10.5px;margin-top:3px;line-height:1.45}
+.reass{display:flex;justify-content:space-around;gap:8px;margin-top:auto;padding:14px 10px 12px;background:var(--sable);border-radius:var(--r)}
+.reass div{display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center;flex:1}
+.reass img{width:28px;height:28px;flex:none}
+.reass b{display:block;font-weight:500;font-size:10.5px;line-height:1.3}
+.reass span{display:block;font-size:9.5px;color:var(--doux);line-height:1.3}
+footer{display:flex;justify-content:space-between;font-size:9px;color:var(--doux);margin-top:12px}
+/* Page « Votre billard naîtra en Chartreuse » */
+.intro{font:400 15px/1.5 'EB Garamond',serif;color:var(--gris);margin-top:8px;max-width:600px}
+.etapes{display:flex;flex-direction:column;gap:14px;margin-top:20px}
+.etape{display:grid;grid-template-columns:240px 1fr;grid-template-rows:176px;gap:22px;background:var(--sable);border-radius:var(--r);overflow:hidden;height:176px}
+.etape img{width:240px;height:176px;object-fit:cover;display:block}
+.etape img.bas{object-position:center 80%}
+.etape div{padding:20px 22px 16px 0;display:flex;flex-direction:column;justify-content:center}
+.etape .num{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--doux)}
+.etape h2{margin:4px 0 8px}
+.etape p{font-size:11px;color:var(--gris);line-height:1.55}
+.sign{font:italic 13px/1.4 'EB Garamond',serif;color:var(--noir);margin-top:auto;padding-top:16px}
+</style></head><body><header><img class="laf" src="img/logo-lafuge.svg"><div class="ref"><b>Devis n° 2026-0142</b><br>Pour M. et Mme Martin · 28 novembre 2026</div></header>
+<p class="sur">Votre billard</p>
+<h1>Chambord</h1>
+<p class="sous">Billard mixte 2,60 m · jeu américain · chêne massif français, finition brossée blanchie · drap Simonis 760</p>
+<section class="hero"><img class="principale photo" src="img/laf-billard.jpg">
+<figure class="vignette"><img class="" src="img/laf-detail2.jpg"><figcaption>Détail du pied</figcaption></figure></section>
+<p class="mention">Modèle similaire au devis, photo non représentative de votre configuration.</p>
+<div class="pos"><q>Le billard le plus personnalisable.</q></div>
+<h2>Les points forts</h2>
+<div class="points"><div class="point"><div class="tuile"><img src="img/laf-mains.jpg"></div><h3>Une pièce unique, faite à la main</h3><p>Fabriquée à l'unité par un seul ébéniste, du début à la fin.</p></div><div class="point"><div class="tuile"><img src="img/laf-planches.jpg"></div><h3>Essences nobles massives</h3><p>Chêne, érable et noyer massifs français, ou mélèze massif.</p></div><div class="point"><div class="tuile texte">Yacht Club de Monaco<br>Sheraton Paris<br>Villas de la Côte d'Azur</div><h3>Ils nous ont choisis</h3><p>Et des villas prestigieuses de la côte atlantique.</p></div></div>
+<div class="reass"><div><img src="img/hands.svg"><p><b>Fabrication artisanale</b><span>à Miribel-les-Échelles</span></p></div><div><img src="img/wood.svg"><p><b>3e génération</b><span>famille d'ébénistes depuis 1946</span></p></div><div><img src="img/sliders.svg"><p><b>Sur mesure</b><span>chaque détail à votre choix</span></p></div><div><img src="img/truck.svg"><p><b>Livré et installé</b><span>par nos équipes ou notre réseau formé</span></p></div><div><img src="img/lock.svg"><p><b>Paiement sécurisé</b><span>carte, PayPal, Apple Pay, Wero</span></p></div></div>
+<footer><span>Billard Lafuge, maison du groupe Billards de France · billard-lafuge.fr</span><span>1 / 4</span></footer></body></html>

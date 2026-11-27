@@ -47,6 +47,7 @@ Source principale : grilles tarifaires papier « Gamme Prestige », pages 8/13 e
 - **Ce que c'est** : un bois massif haute densité aux fibres serrées et rigides.
 - **Pourquoi c'est important** : un billard pèse plusieurs centaines de kilos, en grande partie à cause de l'ardoise. La moindre torsion du cadre fausserait la trajectoire des billes.
 - **Ce que ça garantit** : le châssis absorbe le poids de l'ardoise sans jamais fléchir, et ne travaille ni avec l'humidité ni avec les variations de température. La surface de jeu reste parfaitement plane et indéformable dans le temps.
+- **Recherche du 28/11** : « Woodstone » n'apparaît nulle part sur internet ; seuls nos documents le décrivent (« fibres entrecroisées », bois haute densité). Les formulations proposées s'appuient sur le principe connu des bois à couches croisées (contreplaqué, bois lamellé-croisé des bâtiments en bois) : les fibres croisées se tiennent entre elles, la structure est rigide dans tous les sens et bouge beaucoup moins qu'un bois massif avec l'humidité. Le croisement réduit ces mouvements sans les supprimer : ne pas écrire « jamais ». Composition exacte à confirmer par la direction.
 
 ## Options (grille papier)
 | Option | Prix TTC | Règle |

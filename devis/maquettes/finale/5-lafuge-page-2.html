@@ -1,0 +1,67 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><style>
+@font-face{font-family:'DM Sans';font-weight:400;src:url(fonts/dm-sans-latin-400-normal.woff2)}
+@font-face{font-family:'DM Sans';font-weight:500;src:url(fonts/dm-sans-latin-500-normal.woff2)}
+@font-face{font-family:'DM Sans';font-style:italic;src:url(fonts/dm-sans-latin-400-italic.woff2)}
+@font-face{font-family:'EB Garamond';font-weight:400;src:url(fonts/eb-garamond-latin-400-normal.woff2)}
+@font-face{font-family:'EB Garamond';font-weight:500;src:url(fonts/eb-garamond-latin-500-normal.woff2)}
+@font-face{font-family:'EB Garamond';font-style:italic;src:url(fonts/eb-garamond-latin-400-italic.woff2)}
+:root{--noir:#151515;--gris:#3d4248;--doux:#6b7075;--sable:#f6f3ee;--lin:#efe9e3;--r:6px}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff}
+body{width:794px;height:1123px;padding:40px 52px 30px;font:400 11.5px/1.5 'DM Sans',sans-serif;color:var(--noir);
+  display:flex;flex-direction:column}
+header{display:flex;justify-content:space-between;align-items:flex-end;padding-bottom:14px;border-bottom:1px solid var(--lin)}
+header img{height:34px;display:block}
+header img.laf{height:46px}
+.ref{text-align:right;font-size:10px;color:var(--doux);line-height:1.6}
+.ref b{color:var(--noir);font-weight:500}
+.sur{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--doux);margin-top:26px}
+h1{font:400 38px/1.1 'EB Garamond',serif;margin-top:4px}
+.sous{font-size:12px;color:var(--gris);margin-top:6px}
+.hero{display:grid;grid-template-columns:492px 1fr;align-items:center;margin-top:22px}
+.hero .vignette{justify-self:end}
+.hero .principale{display:block;width:100%;height:auto;max-height:300px;object-fit:contain;object-position:left center;border-radius:var(--r)}
+.hero .principale.photo{height:300px;object-fit:cover;object-position:center}
+.vignette img,.vignette .vide{display:block;width:190px;height:143px;border-radius:var(--r);object-fit:cover}
+.vignette img.detouree{object-fit:contain;border:1px solid var(--lin);background:#fff}
+.vignette figcaption{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--doux);margin-top:7px}
+.vide{display:flex;align-items:center;justify-content:center;flex-direction:column;background:var(--lin);color:var(--doux);
+  font-size:9.5px;text-align:center;padding:10px}
+.mention{font-size:9px;font-style:italic;color:var(--doux);margin-top:6px}
+.pos{margin-top:24px;padding:14px 0;border-top:1px solid var(--lin);border-bottom:1px solid var(--lin)}
+.pos q{font:italic 400 23px/1.25 'EB Garamond',serif;quotes:none}
+h2{font:400 21px/1.2 'EB Garamond',serif;margin-top:30px}
+.points{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:12px}
+.tuile{aspect-ratio:4/3;border-radius:var(--r);overflow:hidden;background:var(--lin)}
+.tuile img{width:100%;height:100%;object-fit:cover;display:block}
+.tuile.blanc{background:#fff;border:1px solid var(--lin)}
+.tuile.blanc img{object-fit:contain}
+.tuile.texte{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+  background:var(--sable);padding:14px;font:400 14.5px/1.45 'EB Garamond',serif}
+h3{font-size:12px;font-weight:500;margin-top:9px;line-height:1.35}
+.point p{color:var(--gris);font-size:10.5px;margin-top:3px;line-height:1.45}
+.reass{display:flex;justify-content:space-around;gap:8px;margin-top:auto;padding:14px 10px 12px;background:var(--sable);border-radius:var(--r)}
+.reass div{display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center;flex:1}
+.reass img{width:28px;height:28px;flex:none}
+.reass b{display:block;font-weight:500;font-size:10.5px;line-height:1.3}
+.reass span{display:block;font-size:9.5px;color:var(--doux);line-height:1.3}
+footer{display:flex;justify-content:space-between;font-size:9px;color:var(--doux);margin-top:12px}
+/* Page « Votre billard naîtra en Chartreuse » */
+.intro{font:400 15px/1.5 'EB Garamond',serif;color:var(--gris);margin-top:8px;max-width:600px}
+.etapes{display:flex;flex-direction:column;gap:14px;margin-top:20px}
+.etape{display:grid;grid-template-columns:240px 1fr;grid-template-rows:176px;gap:22px;background:var(--sable);border-radius:var(--r);overflow:hidden;height:176px}
+.etape img{width:240px;height:176px;object-fit:cover;display:block}
+.etape img.bas{object-position:center 80%}
+.etape div{padding:20px 22px 16px 0;display:flex;flex-direction:column;justify-content:center}
+.etape .num{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--doux)}
+.etape h2{margin:4px 0 8px}
+.etape p{font-size:11px;color:var(--gris);line-height:1.55}
+.sign{font:italic 13px/1.4 'EB Garamond',serif;color:var(--noir);margin-top:auto;padding-top:16px}
+</style></head><body><header><img class="laf" src="img/logo-lafuge.svg"><div class="ref"><b>Devis n° 2026-0142</b><br>Pour M. et Mme Martin · 28 novembre 2026</div></header>
+<p class="sur">Fabrication</p>
+<h1>Votre billard naîtra en Chartreuse</h1>
+<p class="intro">Chaque billard Lafuge est fabriqué à l'unité dans notre atelier de Miribel-les-Échelles, au cœur du
+parc naturel régional de Chartreuse. Un seul ébéniste le suit, du bois brut à la pose du drap.</p>
+<div class="etapes"><section class="etape"><img class="bas" src="img/laf-planches-haut.jpg"><div><span class="num">01</span><h2>La noblesse du bois brut</h2><p>Tout part du tronc d'arbre. Chêne, érable et noyer français, ou mélèze, sont choisis en plateaux bruts pour leur veinage, puis travaillés en massif.</p></div></section><section class="etape"><img class="" src="img/laf-atelier.jpg"><div><span class="num">02</span><h2>Du bois au billard brut</h2><p>Un seul ébéniste débite, assemble et ajuste chaque pièce à la main. Le cadre, les pieds et le châssis prennent forme : votre billard existe, encore brut.</p></div></section><section class="etape"><img class="" src="img/laf-laque.jpg"><div><span class="num">03</span><h2>Des finitions à votre image</h2><p>Teinte, laque, liserés, repères : chaque finition suit vos choix. La laque est appliquée dans une cabine dédiée, dans la couleur que vous avez retenue.</p></div></section><section class="etape"><img class="" src="img/laf-drap.jpg"><div><span class="num">04</span><h2>Le drap, dernière étape</h2><p>Le drap est coupé puis tendu à la main. Habillé et réglé, votre billard est prêt à prendre place chez vous et à donner son caractère à la pièce.</p></div></section></div>
+<p class="sign">Trois générations de la famille Fitan au service du bois massif depuis 1946.</p>
+<footer><span>Billard Lafuge, maison du groupe Billards de France · billard-lafuge.fr</span><span>2 / 4</span></footer></body></html>
