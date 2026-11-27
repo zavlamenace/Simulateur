@@ -10,7 +10,7 @@ Source : `connaissances/sources/grille-accessoires-p11.jpg`. Validé le 19/11/20
 | 0191508 | 16 billes pool Ø 50,8 mm + 1 triangle + 1 règle de jeu | 80 € |
 | 0190500 | 3 billes françaises Ø 61,5 mm + règle de jeu | 35 € |
 
-Le kit inclus avec la Référence correspond au jeu de 7 éléments (250 €) plus 16 billes avec triangle et règle (80 €). C'est l'origine de la **valeur affichée de 330 €**.
+Le kit inclus avec la Référence correspond au jeu de 7 éléments (250 €) plus 16 billes avec triangle et règle (80 €). La **valeur affichée est de 300 €** (27/11, au lieu de 330 €), à bien mettre en avant.
 
 ## Accessoires complémentaires
 | Réf. | Article | Prix |

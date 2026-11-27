@@ -551,7 +551,7 @@
   function corpsArguments() {
     var a = C.argumentsGamme(etat.cat, etat.cfg), sel = etat.cfg.arguments, plein = sel.length >= C.MAX_ARGUMENTS;
     if (!a.length) return '<p class="aide">Aucun argument pour cette gamme dans le Sheet.</p>';
-    return '<p class="aide">' + C.MAX_ARGUMENTS + ' arguments au maximum sur le devis. Ceux proposés par défaut sont déjà cochés.</p>' +
+    return '<p class="aide">' + C.MAX_ARGUMENTS + ' points forts au maximum sur le devis, chacun avec sa photo. Ceux proposés par défaut sont déjà cochés ; vous pouvez en remplacer un.</p>' +
       '<div class="compteur">' + sel.length + ' / ' + C.MAX_ARGUMENTS + ' choisis</div>' + a.map(function (x) {
         var c = sel.indexOf(x.id) >= 0, bloque = !c && plein, id = idElement("a", x.id);
         return '<label class="option' + (c ? " choisie" : "") + (bloque ? " indisponible" : "") + '" for="' + h(id) + '"><input id="' + h(id) + '" type="checkbox" data-argument="' +

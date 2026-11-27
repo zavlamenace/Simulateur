@@ -163,10 +163,18 @@ def bloc_arguments(f, lignes, vides=6):
     f.bloc(
         "ARGUMENTS & PHOTOS", ENTETES_ARGS, lignes, vides,
         validations={"Statut": STATUTS_ARG, "Proposé par défaut": OUI_NON},
-        note="Dans l'outil, on coche 4 arguments au maximum par devis ; « Proposé par défaut = Oui » les pré-coche. "
+        note="Points forts : 3 au maximum par devis, « Oui » les pré-coche. L'accroche se règle dans le bloc GAMME. "
              "Valable pour : « Tous » ou une version (ex. « Pieds métalliques »). Photo : lien vers la photo ultra zoomée "
              "(« À fournir » = photo attendue).",
     )
+
+
+def bloc_choix(f, gamme, vides=10):
+    f.bloc("ARGUMENTS DES CHOIX", ["Choix", "Texte imprimé sous la ligne", "Source", "Statut"],
+           arguments_brouillons.CHOIX_PLAISANCE[gamme], vides=vides,
+           validations={"Statut": STATUTS_ARG},
+           note="Phrase commerciale imprimée sous la ligne de l'option choisie, après son « Détail imprimé sur le devis ». "
+                "« Choix » = nom exact de l'option. Seul le statut « Actif » est imprimé.")
 
 
 def jeux_de_bandes():
@@ -207,11 +215,11 @@ def onglet_reference(wb, ref):
     bloc_gamme(f, [
         ["Nom affiché", "Référence Premium", "Nom de la gamme sur le devis"],
         ["Marque", "Billard Plaisance", "Billard Plaisance ou Billard Lafuge (logo et échéancier)"],
-        ["Accroche", "Le meilleur rapport qualité-prix", "Une phrase sous le nom de la gamme"],
+        ["Accroche", "Le meilleur rapport qualité-prix du marché en 2,10 m, la taille standard du billard", "Phrase d'accroche imprimée en tête du devis"],
         ["Délai de fabrication", "2 à 3 semaines", "Hors organisation de la livraison"],
         ["Atelier affiché sur le devis", None, "Laisser vide pour la Référence : aucune mention d'origine"],
         ["Kit accessoires inclus", "Oui", "Oui : le bloc « Kit accessoires offert » s'affiche"],
-        ["Valeur du kit accessoires", 330, "Valeur affichée à côté de « offert »"],
+        ["Valeur du kit accessoires", 300, "Valeur affichée à côté de « offert » (300 €, 27/11)"],
         ["Contenu du kit accessoires",
          "16 billes (US Ø 57 mm ou Pool Ø 50,8 mm), 1 boîte de craies, 4 queues de 120 cm, 1 triangle, 1 brosse, 1 porte-queue",
          "Imprimé tel quel"],
@@ -260,6 +268,7 @@ def onglet_reference(wb, ref):
     ]
     bloc_options(f, opts)
     bloc_arguments(f, arguments_brouillons.lignes("Référence"))
+    bloc_choix(f, "Référence")
 
 
 def onglet_design(wb, dp):
@@ -271,9 +280,9 @@ def onglet_design(wb, dp):
     bloc_gamme(f, [
         ["Nom affiché", "Design", None],
         ["Marque", "Billard Plaisance", None],
-        ["Accroche", "Le meilleur rapport qualité-prix en fabrication française, en laqué", None],
+        ["Accroche", "Le billard convertible en table, laqué et fabriqué à la main dans notre atelier du Gers", None],
         ["Délai de fabrication", "4 à 6 semaines", "Hors organisation de la livraison"],
-        ["Atelier affiché sur le devis", "Fabriqué dans nos ateliers de Plaisance-du-Gers", None],
+        ["Atelier affiché sur le devis", "Fabriqué à la main dans notre atelier de Plaisance-du-Gers (Sud-Ouest)", None],
         ["Kit accessoires inclus", "Non", None],
         ["Valeur du kit accessoires", None, None],
         ["Contenu du kit accessoires", None, None],
@@ -309,6 +318,7 @@ def onglet_design(wb, dp):
     ]
     bloc_options(f, opts)
     bloc_arguments(f, arguments_brouillons.lignes("Design"))
+    bloc_choix(f, "Design")
 
 
 def onglet_prestige(wb, dp):
@@ -320,9 +330,9 @@ def onglet_prestige(wb, dp):
     bloc_gamme(f, [
         ["Nom affiché", "Prestige", None],
         ["Marque", "Billard Plaisance", None],
-        ["Accroche", "Le billard convertible le plus abouti, en bois massif", None],
+        ["Accroche", "Le billard convertible en table le plus fonctionnel du marché, allonge incluse pour 12 convives", None],
         ["Délai de fabrication", "4 à 6 semaines", "Hors organisation de la livraison"],
-        ["Atelier affiché sur le devis", "Fabriqué dans nos ateliers de Plaisance-du-Gers", None],
+        ["Atelier affiché sur le devis", "Fabriqué à la main dans notre atelier de Plaisance-du-Gers (Sud-Ouest)", None],
         ["Kit accessoires inclus", "Non", None],
         ["Valeur du kit accessoires", None, None],
         ["Contenu du kit accessoires", None, None],
@@ -353,6 +363,7 @@ def onglet_prestige(wb, dp):
     ]
     bloc_options(f, opts)
     bloc_arguments(f, arguments_brouillons.lignes("Prestige"))
+    bloc_choix(f, "Prestige")
 
 
 GRIS_IMPOSSIBLE, AMBRE = "9A9D9F", "F6E7C8"
@@ -401,7 +412,7 @@ def onglets_lafuge(wb, ht=False):
                 ["Marque", "Billard Lafuge", "Logo Lafuge, échéancier en 3 versements"],
                 ["Jeu", "Billard mixte : pool, américain, anglais, snooker, russe" if jeu == "mixte"
                  else "Billard français à bandes fixes", None],
-                ["Accroche", "Une pièce unique, fabriquée à la main par un seul ébéniste", None],
+                ["Accroche", "Le billard le plus personnalisable", None],
                 ["Délai de fabrication", lt.GAMME["Délai de fabrication"], None],
                 ["Atelier affiché sur le devis", "Fabriqué à la main dans notre atelier de Miribel-les-Échelles", None],
                 ["Drap", lt.DRAP[jeu], None],
@@ -468,7 +479,7 @@ def bloc_arguments_lafuge(f, suffixe, lignes, vides=4):
     f.bloc(
         f"ARGUMENTS & PHOTOS · {suffixe}", ENTETES_ARGS, lignes, vides,
         validations={"Statut": STATUTS_ARG, "Proposé par défaut": OUI_NON},
-        note="On coche 4 arguments au maximum par devis ; « Proposé par défaut = Oui » les pré-coche.",
+        note="Points forts : 3 au maximum par devis, « Oui » les pré-coche. L'accroche se règle dans le bloc GAMME.",
     )
 
 
@@ -670,8 +681,9 @@ def onglet_mode_emploi(wb):
         ("texte", "Valable pour : « Tous », une version (ex. « Pieds métalliques ») ou des modèles séparés par des virgules."),
         ("texte", "Prix TTC en euros. Prix vide = sur devis. Valeur si offert : montant affiché barré à côté de « Offert »."),
         ("section", "Arguments & photos (réassurance)"),
-        ("texte", "Dans l'outil, après le choix du produit, on coche au maximum 4 arguments selon le client. "
-                  "« Proposé par défaut = Oui » les pré-coche (4 au maximum par gamme et par version)."),
+        ("texte", "Phrase d'accroche de la gamme : paramètre « Accroche » du bloc GAMME, imprimé en tête du devis."),
+        ("texte", "Points forts : 3 au maximum par devis, chacun avec son texte et sa photo. « Proposé par défaut = Oui » "
+                  "les pré-coche (3 au maximum par gamme et par version) ; le commercial peut en remplacer un."),
         ("texte", "Valable pour : « Tous » pour toute la gamme, ou une version (ex. « Pieds métalliques »). "
                   "Photo : lien vers la photo ultra zoomée ; « À fournir » = photo attendue ; vide = argument en texte seul."),
         ("section", "Lafuge (onglets « Lafuge mixte », « Lafuge bandes françaises fixes » et « Lafuge contenus »)"),
@@ -693,8 +705,9 @@ def onglet_mode_emploi(wb):
         ("texte", "Contrôle automatique : en cas de faute (nom introuvable dans Nécessite ou Exclut, Choix mal écrit, case de prix "
                   "inconnue, Valable pour sans modèle), l'outil affiche en haut « Contrôle du Sheet : N règles à corriger » avec la "
                   "liste. La fonction verifierInstallation de l'éditeur Apps Script donne la même liste."),
-        ("texte", "Arguments liés aux choix : bloc « ARGUMENTS DES CHOIX » de l'onglet « Lafuge contenus ». Le texte s'imprime sous la "
-                  "ligne de l'option choisie quand son Statut est « Actif »."),
+        ("texte", "Arguments liés aux choix : bloc « ARGUMENTS DES CHOIX » de l'onglet de la gamme (« Lafuge contenus » pour "
+                  "Lafuge). Le texte s'imprime sous la ligne de l'option choisie, après son « Détail imprimé sur le devis », "
+                  "quand son Statut est « Actif »."),
         ("section", "Photos"),
         ("texte", "Collez un lien : photo du site billardsdefrance.fr (clic droit sur l'image > copier l'adresse) "
                   "ou fichier Google Drive partagé en lecture."),

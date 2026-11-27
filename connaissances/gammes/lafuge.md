@@ -23,13 +23,13 @@ Haut de gamme et luxe. **Fait main, à l'unité, par un seul artisan du début �
 - **Bandes** :
   - caoutchouc fabriqué en France ;
   - exception : les bandes A37 toilées du billard français (Artemis), qualité compétition, fabriquées en Allemagne (confirmé le 26/11).
-  - **Système de bandes interchangeables brevetées : inclus** (26/11) sur les billards mixtes ; le 2e jeu de bandes reste en option (dès 860 €).
+  - **Système de bandes interchangeables brevetées : inclus** (26/11) sur les billards mixtes ; le 2e jeu de bandes reste en option (dès 860 €). Conseil (27/11) : l'acheter avec le billard, pour éviter un transport plus tard.
 - **Fondation** : « créé en 1985, inventeur du convertible » (réponse du 26/11 ; 1985 est aussi l'année de l'invention du convertible par Gilbert Fitan).
 - **Bois** : chêne, érable, noyer, mélèze, kotibé, et autres essences nobles sur demande. **Chêne, érable et noyer : bois français** (confirmé le 26/11).
 - **Placage** : les modèles en MDF plaqué chêne (Soho, Arcade, Trocadéro, Mont Blanc, City, Éos, Eiffel, Alpha, Beaubourg) se font aussi en placage érable, sans supplément. Les modèles en érable massif d'origine n'existent pas en placage érable (26/11).
 - **Boîtes élasthanne** : sans supplément sur Loft, Élégance, Chambord, Soho, Arcade, Rustic, Castel, Manoir, Louis-Philippe, Mont Blanc et Trocadéro ; impossibles sur les autres modèles (26/11).
 - **Trocadéro** : la finition brossée est aussi proposée avec le mélèze massif (26/11).
-- **Soho** : érable massif en option, prix à confirmer (saisi à la main en attendant).
+- **Soho** : pas d'érable massif (erreur corrigée le 27/11) ; placage chêne ou érable, sans supplément.
 - **Châssis** : bois massif intégral ou métallique selon la taille. Longerons métalliques sur les grands formats.
 - **Finitions** : bois naturel, vernis mat, satiné ou brillant, laque (tout RAL), patine, incrustations, marqueterie.
 - **Plateau table** (option) : bois assorti, verre trempé fumé ou clair, céramique, mixte. Allonge sur demande.
@@ -62,7 +62,7 @@ Voir `connaissances/arguments.md` (logique de sélection, règles de rédaction,
 - **Les grilles récapitulatives du 20/11 ne servent plus** : les documents détaillés font foi, modèle par modèle et taille par taille (laque, retour centralisé…).
 
 ### Deux types de billard
-- **Billard mixte** (document « pool et US », billard à poches) : **bandes initiales** américaines, anglaises ou françaises, **une seule au choix, incluse** ; le **2e jeu de bandes** est en option (dès 860 €). En 10 et 12 pieds : snooker ou russe, au même prix. Drap Simonis 760 ou Strachan 777 inclus.
+- **Billard mixte** (document « pool et US », billard à poches) : **bandes initiales** américaines, anglaises ou françaises, **une seule au choix, incluse** ; le **2e jeu de bandes** est en option (dès 860 €). En 10 et 12 pieds : le client choisit son jeu, « Jeu snooker » ou « Jeu pyramide russe », au même prix (libellés du 27/11) ; il arrive en général avec son idée du jeu. Drap Simonis 760 ou Strachan 777 inclus.
 - **Billard français à bandes fixes** : sans poches. Drap **Simonis 330** inclus. Bandes A37 toilées en option jusqu'à 2,40 m (750 €), incluses au-delà ; chauffage de l'ardoise dès 2,40 m.
 - **19 modèles** dans chaque onglet. Loft / Élégance, Rustic / Castel, Louis-Philippe / Manoir, City / Éos et Eiffel / Alpha sont des billards distincts partageant une fiche papier.
 
@@ -82,7 +82,7 @@ Voir `connaissances/arguments.md` (logique de sélection, règles de rédaction,
 - **Teinte** : « teinte incluse » ou « teinte spéciale » (+600 €, dessus +250 €) ; pas de teinte spéciale sur Harmonie.
 - **Harmonie** : configuration unique (essence principale + incrustations de l'autre), entrées de poche cuir incluses, ni laque ni bicolore.
 - **Plateau** : au choix, indépendant du billard. Simple (990 €, toutes teintes) en 2,10 et 2,30 m ; encastré (creusé à l'endroit des poches) en chêne ou érable, finitions, laqué, mélèze, noyer plaqué ; 3 parties de série dès 2,40 m ; verre et bois ou céramique et bois toujours sur un encastré ; rallonge 50 cm jamais incluse, 2,10 et 2,30 m seulement. Pas de plateau sur Compétition et Chambord.
-- **Démontage** (cadre, piètement : 410 €) : pour les pièces d'accès difficile.
+- **Démontage** (cadre, piètement : 410 €) : pour les pièces d'accès difficile. Piètement démontable impossible sur Arcade, Trocadéro, Mont Blanc, City, Éos, Eiffel, Alpha et Beaubourg.
 - **Rien d'offert** : le devis Lafuge indique « hors accessoires ».
 
 ### Fiche technique imprimée sur le devis

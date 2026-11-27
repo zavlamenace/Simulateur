@@ -37,10 +37,12 @@ Si une information nouvelle contredit ces fichiers, mettre le fichier à jour da
   - la promesse de rappel personnel de Philippe Fitan ;
   - PayPlug ;
   - le droit de rétractation ou son exclusion ;
+  - le montage dans la réassurance (c'est une option que le client a prise ou non, en connaissant son prix) ;
   - quoi que ce soit qui puisse rendre le client frileux.
 - **Pas d'encadré visio** pour l'instant (peut revenir plus tard sur demande).
-- **Kit accessoires** : mis en avant uniquement sur la Référence (inclus). Pour les autres gammes, c'est un argument oral, absent du PDF.
-- **Logos** : produit Plaisance = logo Billards de France seul. Produit Lafuge = logo BdF + logo Lafuge, avec « Billard Lafuge, maison du groupe Billards de France ».
+- **Kit accessoires** : mis en avant uniquement sur la Référence (inclus, valeur 300 €).
+- **« Convertible »** : toujours « convertible en table ». Pour les autres gammes, c'est un argument oral, absent du PDF.
+- **Logos** : produit Plaisance = logo Billards de France seul. Produit Lafuge = logo Billards Lafuge seul (27/11) ; la phrase « Billard Lafuge, maison du groupe Billards de France » peut rester en texte discret.
 - **Design** : épuré, va à l'essentiel, pas d'« AI slop » :
   - pas de dégradé, d'ombre décorative, d'icône gadget ni d'emoji ;
   - rouge réservé à l'action de validation ;

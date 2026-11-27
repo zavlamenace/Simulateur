@@ -101,3 +101,9 @@ Maquettes en images fixes, une par gamme : `devis/maquettes/page2/rendus/`. Gén
 **Pictogramme du paiement** : « Paiement en 3x ou 4x sans frais avec Oney » si le total est de 3 000 € ou moins ; sinon « Paiement sécurisé : carte, PayPal, Apple Pay, Wero ».
 
 **Photos des maquettes** : fiches du site (Caracas, Paris), photos d'atelier fournies le 26/11. Les photos de Design et de bandes sont des remplaçants ; les tuiles « Photo ultra zoomée à fournir » signalent les manques (tranche de l'ardoise).
+
+## Retour du 27/11
+- Texte de la maquette du 26/11 jugé **trop racoleur**. Ton voulu : neutre, élégant, commercial sans être vendeur.
+- **Lafuge en deux pages de présentation** : 1. le billard et ses points forts ; 2. le bois, l'histoire et la fabrication. Puis le devis chiffré.
+- **La présentation passe en tête du PDF** (toutes gammes) : le client voit d'abord son billard et la réassurance, puis le devis.
+- Photos d'atelier des points forts Lafuge : recadrer plus haut.

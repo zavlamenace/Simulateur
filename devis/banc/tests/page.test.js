@@ -127,13 +127,13 @@ test("1. Référence simple : kit inclus, Oney, aucune mention d'origine, récap
   await ouvrirSection(page, "origine");
   await carte(page, "choisir-origine", "YouTube");
   await ouvrirSection(page, "arguments");
-  assert.equal(await page.locator("input[data-argument]:checked").count(), 4);
+  assert.equal(await page.locator("input[data-argument]:checked").count(), 3);
   assert.equal(await page.locator("input[data-argument]:not(:checked):not([disabled])").count(), 0, "un 5e argument est impossible");
 
   const pdf = await generer(page, "1-reference");
   const ref = pdf.texte.match(/BDF-\d{4}-\d{4}/)[0];
   assert.equal(pdf.nomPropose, `Devis ${ref} Martin.pdf`);
-  for (const attendu of ["Billard Référence Premium Santiago", "Tapis standard, couleur Rouge", "Kit accessoires inclus", "330 €",
+  for (const attendu of ["Billard Référence Premium Santiago", "Tapis standard, couleur Rouge", "Kit accessoires inclus", "300 €",
     "Rangement des accessoires", "2 395 €", "Livraison par messagerie au pied de la porte", "Sur une palette fabriquée sur mesure", "Offerte", "Oney", "Je valide mon devis", "Bon pour accord",
     "Conditions générales de vente sur billardsdefrance.fr", "3x ou 4x sans frais avec Oney", "jusqu'à 3 000 €", "Bancontact", "Xavier Fitan", "Claire Martin"]) {
     assert.ok(pdf.texte.includes(attendu), attendu);
@@ -234,7 +234,7 @@ test("4. Lafuge mixte Chambord 12 pieds : prix sur demande, règles, ligne libre
   await carte(page, "choisir-gamme", "Lafuge mixte");
   await carte(page, "choisir-modele", "Chambord");
   await carte(page, "choisir-taille", "12 pieds");
-  assert.equal(await option(page, "Snooker").isChecked(), true);
+  assert.equal(await option(page, "Jeu snooker").isChecked(), true);
   assert.equal(await option(page, "Bandes initiales américaines").count(), 0, "américaines impossibles en 12 pieds");
   await page.click('[data-action="continuer"][data-id="billard"]');
   await carte(page, "choisir-drap", "Strachan 777");

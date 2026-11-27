@@ -39,7 +39,7 @@ test("Référence : billard, tapis et jeu inclus par défaut, kit, livraison off
   assert.equal(l[0].prixUnitaire, 1995);
   assert.ok(l.some((x) => x.libelle.startsWith("Tapis standard") && x.inclus));
   const kit = l.find((x) => x.id === "kit");
-  assert.ok(kit && kit.inclus && kit.valeurOfferte === 330);
+  assert.ok(kit && kit.inclus && kit.valeurOfferte === 300);
   assert.equal(l.find((x) => x.id === "livraison").valeurOfferte, 300);
   const t = C.totaux(cat, cfg, l);
   assert.equal(t.total, 1995);
@@ -102,7 +102,7 @@ test("Lafuge mixte : Chambord 12 pieds, snooker par défaut, laque et chêne exc
   assert.ok(!opts.some((o) => o.nom === "2e jeu de bandes interchangeables"));
   assert.ok(!opts.some((o) => o.section === "plateau"), "pas de version table");
   const jeu = opts.filter((o) => o.groupe === "Bandes initiales (une incluse)" && cfg.options[o.id] && cfg.options[o.id].choisi);
-  assert.deepEqual(jeu.map((o) => o.nom), ["Snooker"]);
+  assert.deepEqual(jeu.map((o) => o.nom), ["Jeu snooker"]);
   choisir(cfg, "Laque");
   opts = C.options(cat, cfg);
   const e = C.etats(opts, cfg);
@@ -231,6 +231,23 @@ test("Arguments liés aux choix : imprimés sous la ligne, seulement au statut �
   l = C.lignes(c, cfg);
   assert.equal(l.find((x) => x.libelle === "Chêne massif").detail, "Chêne massif de France");
   assert.doesNotMatch(l[0].detail, /Érable/, "plus d'érable sous le billard une fois l'essence choisie");
+});
+
+test("Arguments des choix Plaisance : phrase ajoutée après le détail de l'option, une fois « Actif »", () => {
+  const c = JSON.parse(JSON.stringify(cat));
+  const bloc = c.Design["ARGUMENTS DES CHOIX"];
+  assert.ok(bloc.length >= 10 && bloc.every((l) => l.Statut === "À valider"), "brouillons du 27/11");
+  const cfg = { gamme: "Design", modele: "Boston", versionModele: "Pieds carrés hêtre 120 × 120", options: {}, tapis: {} };
+  let opts = C.options(c, cfg);
+  C.nettoyer(opts, cfg);
+  C.basculer(opts, cfg, opts.find((o) => o.nom === "Plateau table bois laqué").id, true);
+  let ligne = C.lignes(c, cfg).find((x) => x.libelle === "Plateau table bois laqué");
+  assert.equal(ligne.detail, "Plateau en 2 parties, laqué dans la finition du billard", "brouillon jamais imprimé");
+  bloc.find((l) => l.Choix === "Plateau table bois laqué").Statut = "Actif";
+  ligne = C.lignes(c, cfg).find((x) => x.libelle === "Plateau table bois laqué");
+  assert.match(ligne.detail, /^Plateau en 2 parties, laqué dans la finition du billard\nPosez le plateau/);
+  assert.equal(C.MAX_ARGUMENTS, 3);
+  assert.ok(C.argumentsParDefaut(c, cfg).length <= 3);
 });
 
 test("Contrôle des règles : signale les fautes de frappe du Sheet", () => {

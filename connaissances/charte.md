@@ -25,7 +25,7 @@ Les deux polices sont sur Google Fonts, sous licence OFL : on peut les intégrer
 ## Logos
 - Billards de France : `connaissances/sources/logo-billards-de-france.png` (843 × 271, fond transparent). Le site en a aussi une version mobile : `/themes/billardsdefrance2026/assets/img/billards-de-france-logo-mobile.png`.
 - Billards Plaisance : `https://www.billardsdefrance.fr/img/cms/billards-plaisance-logo.svg`. **Non utilisé dans les devis** : un produit Plaisance porte le logo BdF seul.
-- Billards Lafuge : `https://www.billardsdefrance.fr/img/cms/billards-lafuge-logo.svg`.
+- Billards Lafuge : `https://www.billardsdefrance.fr/img/cms/billards-lafuge-logo.svg`. **Seul logo d'un devis Lafuge** (27/11) : pas de logo Billards de France.
 
 ## Principes pour le PDF
 - Épuré, qui va à l'essentiel ; beaucoup de blanc ; grille typographique stricte.

@@ -13,8 +13,8 @@
 },
 {
 "Paramètre": "Accroche",
-"Valeur": "Le meilleur rapport qualité-prix",
-"Explication": "Une phrase sous le nom de la gamme"
+"Valeur": "Le meilleur rapport qualité-prix du marché en 2,10 m, la taille standard du billard",
+"Explication": "Phrase d'accroche imprimée en tête du devis"
 },
 {
 "Paramètre": "Délai de fabrication",
@@ -33,8 +33,8 @@
 },
 {
 "Paramètre": "Valeur du kit accessoires",
-"Valeur": 330,
-"Explication": "Valeur affichée à côté de « offert »"
+"Valeur": 300,
+"Explication": "Valeur affichée à côté de « offert » (300 €, 27/11)"
 },
 {
 "Paramètre": "Contenu du kit accessoires",
@@ -381,17 +381,17 @@
 {
 "Ordre": 1,
 "Valable pour": "Tous",
-"Titre": "Le meilleur rapport qualité-prix du marché",
+"Titre": "Le meilleur rapport qualité-prix du marché en 2,10m",
 "Texte": "Ardoise monobloc, structure en bois massif et pack accessoires inclus.",
 "Photo": null,
 "Statut": "À valider",
-"Proposé par défaut": "Oui"
+"Proposé par défaut": "Non"
 },
 {
 "Ordre": 2,
 "Valable pour": "Tous",
 "Titre": "Ardoise monobloc de 19 mm",
-"Texte": "Une pierre naturelle d'un seul tenant : elle ne gonfle pas et ne se déforme pas avec l'humidité, contrairement au MDF. La bille roule droit, durablement.",
+"Texte": "Une pierre naturelle d'un seul tenant : elle ne gonfle pas et ne se déforme pas avec l'humidité, contrairement au MDF ou aggloméré. ",
 "Photo": "À fournir",
 "Statut": "À valider",
 "Proposé par défaut": "Oui"
@@ -399,8 +399,8 @@
 {
 "Ordre": 3,
 "Valable pour": "Tous",
-"Titre": "Pack accessoires offert",
-"Texte": "16 billes, 4 queues, triangle, craies, brosse et porte-queue inclus (valeur 330 €).",
+"Titre": "Pack accessoires inclus, d'une valeur de 300 €",
+"Texte": "16 billes, 4 queues, triangle, craies, brosse et porte-queue.",
 "Photo": "À fournir",
 "Statut": "À valider",
 "Proposé par défaut": "Oui"
@@ -462,11 +462,91 @@
 {
 "Ordre": 10,
 "Valable pour": "Tous",
-"Titre": "Billard et table à manger",
+"Titre": "Billard convertible en table",
 "Texte": "Avec le plateau en 2 parties, une table pour 8 à 10 personnes.",
 "Photo": null,
 "Statut": "À valider",
 "Proposé par défaut": "Non"
+}
+],
+"ARGUMENTS DES CHOIX": [
+{
+"Choix": "Tapis standard (4 teintes)",
+"Texte imprimé sous la ligne": "Un drap rapide et résistant, dans l'une des quatre teintes de la gamme.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "Tapis Simonis 760 (26 teintes)",
+"Texte imprimé sous la ligne": "Drap Iwan Simonis : la manufacture belge tisse des draps depuis 1680 et habille les grands championnats.",
+"Source": "Sources du fabricant (iwansimonis.com, WSP Textiles)",
+"Statut": "À valider"
+},
+{
+"Choix": "Tapis Strachan 777 (7 teintes)",
+"Texte imprimé sous la ligne": "Drap Strachan : la maison anglaise dont les draps équipent le championnat du monde de snooker depuis 1980.",
+"Source": "Sources du fabricant (iwansimonis.com, WSP Textiles)",
+"Statut": "À valider"
+},
+{
+"Choix": "Billard américain",
+"Texte imprimé sous la ligne": "Le jeu le plus répandu, avec des bandes calibrées pour ses billes de 57 mm.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "Pool anglais",
+"Texte imprimé sous la ligne": "Le jeu des pubs anglais, avec des bandes calibrées pour ses billes de 50,8 mm.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "6 plugs pour jouer au billard français",
+"Texte imprimé sous la ligne": "Six plugs referment les poches : vous jouez aussi au billard français sur le même billard.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "Plateau 100 % bois en 2 parties",
+"Texte imprimé sous la ligne": "Posez le plateau : votre billard devient une table à manger pour 8 à 10 personnes.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "Plateau 100 % verre Sécurit en 2 parties",
+"Texte imprimé sous la ligne": "Verre de sécurité trempé : résistant aux chocs et facile à entretenir.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "Pieds noirs",
+"Texte imprimé sous la ligne": "Laque époxy : une finition dure, qui résiste aux chocs.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "Pieds blancs",
+"Texte imprimé sous la ligne": "Laque époxy : une finition dure, qui résiste aux chocs.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "Pieds gris anthracite",
+"Texte imprimé sous la ligne": "Laque époxy : une finition dure, qui résiste aux chocs.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "Pieds couleur RAL au choix",
+"Texte imprimé sous la ligne": "Les pieds dans la couleur de votre intérieur, parmi tout le nuancier RAL.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "Rangement des accessoires",
+"Texte imprimé sous la ligne": "Queues, billes, craies et brosse ont leur place sous le billard.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
 }
 ]
 },
@@ -484,7 +564,7 @@
 },
 {
 "Paramètre": "Accroche",
-"Valeur": "Le meilleur rapport qualité-prix en fabrication française, en laqué",
+"Valeur": "Le billard convertible en table, laqué et fabriqué à la main dans notre atelier du Gers",
 "Explication": null
 },
 {
@@ -494,7 +574,7 @@
 },
 {
 "Paramètre": "Atelier affiché sur le devis",
-"Valeur": "Fabriqué dans nos ateliers de Plaisance-du-Gers",
+"Valeur": "Fabriqué à la main dans notre atelier de Plaisance-du-Gers (Sud-Ouest)",
 "Explication": null
 },
 {
@@ -782,11 +862,11 @@
 {
 "Ordre": 1,
 "Valable pour": "Tous",
-"Titre": "Le meilleur rapport qualité-prix en fabrication française",
-"Texte": "Un billard laqué, fabriqué à la main dans nos ateliers du Gers.",
+"Titre": "Le billard convertible en table, laqué et fabriqué à la main dans notre atelier du Gers",
+"Texte": "Laque mate, satinée ou brillante, dans la couleur RAL de votre choix.",
 "Photo": null,
 "Statut": "À valider",
-"Proposé par défaut": "Oui"
+"Proposé par défaut": "Non"
 },
 {
 "Ordre": 2,
@@ -869,6 +949,104 @@
 "Statut": "À valider",
 "Proposé par défaut": "Non"
 }
+],
+"ARGUMENTS DES CHOIX": [
+{
+"Choix": "Tapis Simonis 760 (26 teintes)",
+"Texte imprimé sous la ligne": "Drap Iwan Simonis : la manufacture belge tisse des draps depuis 1680 et habille les grands championnats.",
+"Source": "Sources du fabricant (iwansimonis.com, WSP Textiles)",
+"Statut": "À valider"
+},
+{
+"Choix": "Tapis Strachan 777 (7 teintes)",
+"Texte imprimé sous la ligne": "Drap Strachan : la maison anglaise dont les draps équipent le championnat du monde de snooker depuis 1980.",
+"Source": "Sources du fabricant (iwansimonis.com, WSP Textiles)",
+"Statut": "À valider"
+},
+{
+"Choix": "Jeu de bandes français",
+"Texte imprimé sous la ligne": "Bandes en caoutchouc fabriqué en France, calibrées pour ce jeu.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "Jeu de bandes américain",
+"Texte imprimé sous la ligne": "Bandes en caoutchouc fabriqué en France, calibrées pour ce jeu.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "Jeu de bandes pool",
+"Texte imprimé sous la ligne": "Bandes en caoutchouc fabriqué en France, calibrées pour ce jeu.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "2e jeu de bandes américain",
+"Texte imprimé sous la ligne": "Système breveté : changez de bandes, vous changez de jeu, sur le même billard.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "2e jeu de bandes pool",
+"Texte imprimé sous la ligne": "Système breveté : changez de bandes, vous changez de jeu, sur le même billard.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "2e jeu de bandes français",
+"Texte imprimé sous la ligne": "Système breveté : changez de bandes, vous changez de jeu, sur le même billard.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "Couleur RAL au choix",
+"Texte imprimé sous la ligne": "Laqué à la main dans notre atelier du Gers, dans la couleur RAL de votre choix.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "Vernis grand brillant et polissage du billard",
+"Texte imprimé sous la ligne": "Vernis grand brillant, poli à la main pour un éclat profond.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "Vernis grand brillant et polissage du dessus de table",
+"Texte imprimé sous la ligne": "Le plateau assorti au billard, dans le même éclat.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "Rangement des accessoires",
+"Texte imprimé sous la ligne": "Queues, billes, craies et brosse ont leur place sous le billard.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "Allonge de plateau 45 cm",
+"Texte imprimé sous la ligne": "Avec l'allonge, la table reçoit jusqu'à 12 convives.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "Plateau table bois laqué",
+"Texte imprimé sous la ligne": "Posez le plateau : votre billard devient une table à manger pour 8 à 10 personnes.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "Plateau 100 % verre Sécurit 8 mm",
+"Texte imprimé sous la ligne": "Verre de sécurité trempé : résistant aux chocs et facile à entretenir.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "Plateau vitré cadre bois",
+"Texte imprimé sous la ligne": "Cadre bois et verre de sécurité ; l'allonge de 45 cm est incluse pour recevoir jusqu'à 12 convives.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+}
 ]
 },
 "Prestige": {
@@ -885,7 +1063,7 @@
 },
 {
 "Paramètre": "Accroche",
-"Valeur": "Le billard convertible le plus abouti, en bois massif",
+"Valeur": "Le billard convertible en table le plus fonctionnel du marché, allonge incluse pour 12 convives",
 "Explication": null
 },
 {
@@ -895,7 +1073,7 @@
 },
 {
 "Paramètre": "Atelier affiché sur le devis",
-"Valeur": "Fabriqué dans nos ateliers de Plaisance-du-Gers",
+"Valeur": "Fabriqué à la main dans notre atelier de Plaisance-du-Gers (Sud-Ouest)",
 "Explication": null
 },
 {
@@ -1252,26 +1430,26 @@
 {
 "Ordre": 1,
 "Valable pour": "Tous",
-"Titre": "Le billard convertible le plus fonctionnel du marché",
-"Texte": "Rangements intégrés, réception centralisée des billes, allonge incluse.",
+"Titre": "Le billard convertible en table le plus fonctionnel du marché",
+"Texte": "Rangement intégré des accessoires et des plateaux, réception des billes centralisée et insonorisée, allonge incluse pour recevoir jusqu'à 12 convives.",
 "Photo": null,
 "Statut": "À valider",
-"Proposé par défaut": "Oui"
+"Proposé par défaut": "Non"
 },
 {
 "Ordre": 2,
 "Valable pour": "Tous",
-"Titre": "12 couverts, allonge incluse",
-"Texte": "Avec le plateau bois, l'allonge de 45 cm est fournie.",
-"Photo": null,
+"Titre": "Bandes interchangeables brevetées",
+"Texte": "Plusieurs jeux sur un même billard : vous passez d'un jeu à l'autre en changeant de bandes.",
+"Photo": "À fournir",
 "Statut": "À valider",
 "Proposé par défaut": "Oui"
 },
 {
 "Ordre": 3,
 "Valable pour": "Tous",
-"Titre": "Châssis Woodstone",
-"Texte": "Un bois haute densité aux fibres serrées : il absorbe le poids de l'ardoise sans fléchir et ne travaille ni avec l'humidité ni avec la température.",
+"Titre": "Rangement intégré de tous les accessoires",
+"Texte": "Le système Octopack range sous le billard les queues, les billes, les bandes, les craies et les plateaux.",
 "Photo": "À fournir",
 "Statut": "À valider",
 "Proposé par défaut": "Oui"
@@ -1288,17 +1466,17 @@
 {
 "Ordre": 5,
 "Valable pour": "Tous",
-"Titre": "Système de rangement Octopack",
-"Texte": "Un système intégré sous le billard pour ranger queues, bandes, billes et craies.",
-"Photo": "À fournir",
+"Titre": "12 couverts, allonge incluse",
+"Texte": "Avec le plateau bois comme avec le plateau vitré, l'allonge de 45 cm est fournie.",
+"Photo": null,
 "Statut": "À valider",
 "Proposé par défaut": "Non"
 },
 {
 "Ordre": 6,
 "Valable pour": "Tous",
-"Titre": "Rangement des plateaux intégré",
-"Texte": "Pendant la partie, les plateaux se rangent sous le billard.",
+"Titre": "Châssis Woodstone",
+"Texte": "Un bois haute densité aux fibres serrées : il absorbe le poids de l'ardoise sans fléchir et ne travaille ni avec l'humidité ni avec la température.",
 "Photo": "À fournir",
 "Statut": "À valider",
 "Proposé par défaut": "Non"
@@ -1306,8 +1484,8 @@
 {
 "Ordre": 7,
 "Valable pour": "Tous",
-"Titre": "Bandes interchangeables brevetées",
-"Texte": "Plusieurs jeux sur un même billard : français, américain ou pool, à vous de choisir.",
+"Titre": "Rangement des plateaux intégré",
+"Texte": "Pendant la partie, les plateaux se rangent sous le billard.",
 "Photo": "À fournir",
 "Statut": "À valider",
 "Proposé par défaut": "Non"
@@ -1351,11 +1529,91 @@
 {
 "Ordre": 12,
 "Valable pour": "Tous",
-"Titre": "Fabriqué dans le Gers",
-"Texte": "Bois massif teinté et verni à la main dans nos ateliers de Plaisance-du-Gers.",
+"Titre": "Fabriqué à la main dans le Gers",
+"Texte": "Bois massif teinté et verni à la main dans notre atelier de Plaisance-du-Gers (Sud-Ouest).",
 "Photo": null,
 "Statut": "À valider",
 "Proposé par défaut": "Non"
+}
+],
+"ARGUMENTS DES CHOIX": [
+{
+"Choix": "Tapis Simonis 760 (26 teintes)",
+"Texte imprimé sous la ligne": "Drap Iwan Simonis : la manufacture belge tisse des draps depuis 1680 et habille les grands championnats.",
+"Source": "Sources du fabricant (iwansimonis.com, WSP Textiles)",
+"Statut": "À valider"
+},
+{
+"Choix": "Tapis Strachan 777 (7 teintes)",
+"Texte imprimé sous la ligne": "Drap Strachan : la maison anglaise dont les draps équipent le championnat du monde de snooker depuis 1980.",
+"Source": "Sources du fabricant (iwansimonis.com, WSP Textiles)",
+"Statut": "À valider"
+},
+{
+"Choix": "Jeu de bandes français",
+"Texte imprimé sous la ligne": "Bandes en caoutchouc fabriqué en France, calibrées pour ce jeu.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "Jeu de bandes américain",
+"Texte imprimé sous la ligne": "Bandes en caoutchouc fabriqué en France, calibrées pour ce jeu.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "Jeu de bandes pool",
+"Texte imprimé sous la ligne": "Bandes en caoutchouc fabriqué en France, calibrées pour ce jeu.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "2e jeu de bandes américain",
+"Texte imprimé sous la ligne": "Système breveté : changez de bandes, vous changez de jeu, sur le même billard.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "2e jeu de bandes pool",
+"Texte imprimé sous la ligne": "Système breveté : changez de bandes, vous changez de jeu, sur le même billard.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "2e jeu de bandes français",
+"Texte imprimé sous la ligne": "Système breveté : changez de bandes, vous changez de jeu, sur le même billard.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "Plateau table bois",
+"Texte imprimé sous la ligne": "Dans la teinte du billard ; l'allonge de 45 cm est incluse pour recevoir jusqu'à 12 convives.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "Plateau 100 % verre Sécurit 8 mm",
+"Texte imprimé sous la ligne": "Verre de sécurité trempé : résistant aux chocs et facile à entretenir.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "Plateau verre et cadre couleur de rappel",
+"Texte imprimé sous la ligne": "Le cadre reprend la couleur du billard ; l'allonge de 45 cm est incluse pour recevoir jusqu'à 12 convives.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "Motif décor à carré",
+"Texte imprimé sous la ligne": "Quatre carrés peints sur le plateau, pour une table au dessin plus graphique.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
+},
+{
+"Choix": "Pieds métalliques",
+"Texte imprimé sous la ligne": "Des pieds métalliques, pour une ligne plus contemporaine.",
+"Source": "Nos fiches et grilles",
+"Statut": "À valider"
 }
 ]
 },
@@ -1378,7 +1636,7 @@
 },
 {
 "Paramètre": "Accroche",
-"Valeur": "Une pièce unique, fabriquée à la main par un seul ébéniste",
+"Valeur": "Le billard le plus personnalisable",
 "Explication": null
 },
 {
@@ -2284,7 +2542,7 @@
 "Prix 12 pieds": "—",
 "Conditions": "Au lieu du placage chêne, sans supplément ; impossible avec une essence massive, la laque ou une finition sur chêne",
 "Nécessite": null,
-"Exclut": "Chêne massif ; Mélèze massif ; Érable massif ; Finition parchemin, patine antiquaire ou cérusée ; Finition brossée ; Laque",
+"Exclut": "Chêne massif ; Mélèze massif ; Finition parchemin, patine antiquaire ou cérusée ; Finition brossée ; Laque",
 "Choix": "Plusieurs possibles",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
@@ -2327,25 +2585,6 @@
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
-},
-{
-"Groupe": "Essence",
-"Option": "Érable massif",
-"Valable pour": "Tous",
-"Prix 2,10 m": "Sur demande",
-"Prix 2,30 m": "Sur demande",
-"Prix 2,40 m": "Sur demande",
-"Prix 2,60 m": "Sur demande",
-"Prix 2,80 m": "—",
-"Prix 10 pieds": "—",
-"Prix 12 pieds": "—",
-"Conditions": "Impossible avec la laque",
-"Nécessite": null,
-"Exclut": "Laque",
-"Choix": "Un seul par groupe",
-"Statut": "Actif",
-"Détail imprimé sur le devis": null,
-"Note interne": "Ajouté le 26/11 : prix à confirmer, saisi à la main en attendant"
 },
 {
 "Groupe": "Finition",
@@ -3056,8 +3295,8 @@
 "Groupe": "Démontage",
 "Option": "Piètement démontable",
 "Valable pour": "Tous",
-"Prix 2,10 m": null,
-"Prix 2,30 m": null,
+"Prix 2,10 m": "Impossible",
+"Prix 2,30 m": "Impossible",
 "Prix 2,40 m": "—",
 "Prix 2,60 m": "—",
 "Prix 2,80 m": "—",
@@ -3068,8 +3307,8 @@
 "Exclut": null,
 "Choix": "Plusieurs possibles",
 "Statut": "Actif",
-"Détail imprimé sur le devis": "Pour une pièce d'accès difficile : le billard se démonte pour passer.",
-"Note interne": "Pas encore chiffré"
+"Détail imprimé sur le devis": null,
+"Note interne": null
 }
 ],
 "EIFFEL · ALPHA": [
@@ -3514,8 +3753,8 @@
 "Groupe": "Démontage",
 "Option": "Piètement démontable",
 "Valable pour": "Tous",
-"Prix 2,10 m": null,
-"Prix 2,30 m": null,
+"Prix 2,10 m": "Impossible",
+"Prix 2,30 m": "Impossible",
 "Prix 2,40 m": "—",
 "Prix 2,60 m": "—",
 "Prix 2,80 m": "—",
@@ -3526,8 +3765,8 @@
 "Exclut": null,
 "Choix": "Plusieurs possibles",
 "Statut": "Actif",
-"Détail imprimé sur le devis": "Pour une pièce d'accès difficile : le billard se démonte pour passer.",
-"Note interne": "Pas encore chiffré"
+"Détail imprimé sur le devis": null,
+"Note interne": null
 }
 ],
 "BEAUBOURG": [
@@ -3915,8 +4154,8 @@
 "Groupe": "Démontage",
 "Option": "Piètement démontable",
 "Valable pour": "Tous",
-"Prix 2,10 m": null,
-"Prix 2,30 m": null,
+"Prix 2,10 m": "Impossible",
+"Prix 2,30 m": "Impossible",
 "Prix 2,40 m": "—",
 "Prix 2,60 m": "—",
 "Prix 2,80 m": "—",
@@ -3927,8 +4166,8 @@
 "Exclut": null,
 "Choix": "Plusieurs possibles",
 "Statut": "Actif",
-"Détail imprimé sur le devis": "Pour une pièce d'accès difficile : le billard se démonte pour passer.",
-"Note interne": "Pas encore chiffré"
+"Détail imprimé sur le devis": null,
+"Note interne": null
 }
 ],
 "ARCADE": [
@@ -4010,7 +4249,7 @@
 },
 {
 "Groupe": "Bandes initiales (une incluse)",
-"Option": "Snooker",
+"Option": "Jeu snooker",
 "Valable pour": "Tous",
 "Prix 2,10 m": "Impossible",
 "Prix 2,30 m": "Impossible",
@@ -4019,7 +4258,7 @@
 "Prix 2,80 m": "Impossible",
 "Prix 10 pieds": "Inclus",
 "Prix 12 pieds": "Inclus",
-"Conditions": "10 et 12 pieds : snooker ou russe au choix, inclus, au même prix",
+"Conditions": "10 et 12 pieds : le client choisit son jeu, snooker ou pyramide russe, inclus, au même prix",
 "Nécessite": null,
 "Exclut": null,
 "Choix": "Un seul par groupe",
@@ -4029,7 +4268,7 @@
 },
 {
 "Groupe": "Bandes initiales (une incluse)",
-"Option": "Russe",
+"Option": "Jeu pyramide russe",
 "Valable pour": "Tous",
 "Prix 2,10 m": "Impossible",
 "Prix 2,30 m": "Impossible",
@@ -4038,7 +4277,7 @@
 "Prix 2,80 m": "Impossible",
 "Prix 10 pieds": "Inclus",
 "Prix 12 pieds": "Inclus",
-"Conditions": "10 et 12 pieds : snooker ou russe au choix, inclus, au même prix",
+"Conditions": "10 et 12 pieds : le client choisit son jeu, snooker ou pyramide russe, inclus, au même prix",
 "Nécessite": null,
 "Exclut": null,
 "Choix": "Un seul par groupe",
@@ -4945,7 +5184,7 @@
 },
 {
 "Groupe": "Bandes initiales (une incluse)",
-"Option": "Snooker",
+"Option": "Jeu snooker",
 "Valable pour": "Tous",
 "Prix 2,10 m": "Impossible",
 "Prix 2,30 m": "Impossible",
@@ -4954,7 +5193,7 @@
 "Prix 2,80 m": "Impossible",
 "Prix 10 pieds": "Inclus",
 "Prix 12 pieds": "Inclus",
-"Conditions": "10 et 12 pieds : snooker ou russe au choix, inclus, au même prix",
+"Conditions": "10 et 12 pieds : le client choisit son jeu, snooker ou pyramide russe, inclus, au même prix",
 "Nécessite": null,
 "Exclut": null,
 "Choix": "Un seul par groupe",
@@ -4964,7 +5203,7 @@
 },
 {
 "Groupe": "Bandes initiales (une incluse)",
-"Option": "Russe",
+"Option": "Jeu pyramide russe",
 "Valable pour": "Tous",
 "Prix 2,10 m": "Impossible",
 "Prix 2,30 m": "Impossible",
@@ -4973,7 +5212,7 @@
 "Prix 2,80 m": "Impossible",
 "Prix 10 pieds": "Inclus",
 "Prix 12 pieds": "Inclus",
-"Conditions": "10 et 12 pieds : snooker ou russe au choix, inclus, au même prix",
+"Conditions": "10 et 12 pieds : le client choisit son jeu, snooker ou pyramide russe, inclus, au même prix",
 "Nécessite": null,
 "Exclut": null,
 "Choix": "Un seul par groupe",
@@ -5441,7 +5680,7 @@
 },
 {
 "Groupe": "Bandes initiales (une incluse)",
-"Option": "Snooker",
+"Option": "Jeu snooker",
 "Valable pour": "Tous",
 "Prix 2,10 m": "Impossible",
 "Prix 2,30 m": "Impossible",
@@ -5450,7 +5689,7 @@
 "Prix 2,80 m": "Impossible",
 "Prix 10 pieds": "Inclus",
 "Prix 12 pieds": "Inclus",
-"Conditions": "10 et 12 pieds : snooker ou russe au choix, inclus, au même prix",
+"Conditions": "10 et 12 pieds : le client choisit son jeu, snooker ou pyramide russe, inclus, au même prix",
 "Nécessite": null,
 "Exclut": null,
 "Choix": "Un seul par groupe",
@@ -5460,7 +5699,7 @@
 },
 {
 "Groupe": "Bandes initiales (une incluse)",
-"Option": "Russe",
+"Option": "Jeu pyramide russe",
 "Valable pour": "Tous",
 "Prix 2,10 m": "Impossible",
 "Prix 2,30 m": "Impossible",
@@ -5469,7 +5708,7 @@
 "Prix 2,80 m": "Impossible",
 "Prix 10 pieds": "Inclus",
 "Prix 12 pieds": "Inclus",
-"Conditions": "10 et 12 pieds : snooker ou russe au choix, inclus, au même prix",
+"Conditions": "10 et 12 pieds : le client choisit son jeu, snooker ou pyramide russe, inclus, au même prix",
 "Nécessite": null,
 "Exclut": null,
 "Choix": "Un seul par groupe",
@@ -7351,7 +7590,7 @@
 },
 {
 "Groupe": "Bandes initiales (une incluse)",
-"Option": "Snooker",
+"Option": "Jeu snooker",
 "Valable pour": "Tous",
 "Prix 2,10 m": "Impossible",
 "Prix 2,30 m": "Impossible",
@@ -7360,7 +7599,7 @@
 "Prix 2,80 m": "Impossible",
 "Prix 10 pieds": "Inclus",
 "Prix 12 pieds": "Inclus",
-"Conditions": "10 et 12 pieds : snooker ou russe au choix, inclus, au même prix",
+"Conditions": "10 et 12 pieds : le client choisit son jeu, snooker ou pyramide russe, inclus, au même prix",
 "Nécessite": null,
 "Exclut": null,
 "Choix": "Un seul par groupe",
@@ -7370,7 +7609,7 @@
 },
 {
 "Groupe": "Bandes initiales (une incluse)",
-"Option": "Russe",
+"Option": "Jeu pyramide russe",
 "Valable pour": "Tous",
 "Prix 2,10 m": "Impossible",
 "Prix 2,30 m": "Impossible",
@@ -7379,7 +7618,7 @@
 "Prix 2,80 m": "Impossible",
 "Prix 10 pieds": "Inclus",
 "Prix 12 pieds": "Inclus",
-"Conditions": "10 et 12 pieds : snooker ou russe au choix, inclus, au même prix",
+"Conditions": "10 et 12 pieds : le client choisit son jeu, snooker ou pyramide russe, inclus, au même prix",
 "Nécessite": null,
 "Exclut": null,
 "Choix": "Un seul par groupe",
@@ -8094,7 +8333,7 @@
 },
 {
 "Paramètre": "Accroche",
-"Valeur": "Une pièce unique, fabriquée à la main par un seul ébéniste",
+"Valeur": "Le billard le plus personnalisable",
 "Explication": null
 },
 {
@@ -8758,7 +8997,7 @@
 "Prix 3,10 m": "—",
 "Conditions": "Au lieu du placage chêne, sans supplément ; impossible avec une essence massive, la laque ou une finition sur chêne",
 "Nécessite": null,
-"Exclut": "Chêne massif ; Mélèze massif ; Érable massif ; Finition parchemin, patine antiquaire ou cérusée ; Finition brossée ; Laque",
+"Exclut": "Chêne massif ; Mélèze massif ; Finition parchemin, patine antiquaire ou cérusée ; Finition brossée ; Laque",
 "Choix": "Plusieurs possibles",
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
@@ -8797,23 +9036,6 @@
 "Statut": "Actif",
 "Détail imprimé sur le devis": null,
 "Note interne": null
-},
-{
-"Groupe": "Essence",
-"Option": "Érable massif",
-"Valable pour": "Tous",
-"Prix 2,30 m": "Sur demande",
-"Prix 2,40 m": "Sur demande",
-"Prix 2,60 m": "—",
-"Prix 2,80 m": "—",
-"Prix 3,10 m": "—",
-"Conditions": "Impossible avec la laque",
-"Nécessite": null,
-"Exclut": "Laque",
-"Choix": "Un seul par groupe",
-"Statut": "Actif",
-"Détail imprimé sur le devis": null,
-"Note interne": "Ajouté le 26/11 : prix à confirmer, saisi à la main en attendant"
 },
 {
 "Groupe": "Finition",
@@ -10187,7 +10409,7 @@
 "Groupe": "Démontage",
 "Option": "Piètement démontable",
 "Valable pour": "Tous",
-"Prix 2,30 m": null,
+"Prix 2,30 m": "Impossible",
 "Prix 2,40 m": "—",
 "Prix 2,60 m": "—",
 "Prix 2,80 m": "—",
@@ -10197,8 +10419,8 @@
 "Exclut": null,
 "Choix": "Plusieurs possibles",
 "Statut": "Actif",
-"Détail imprimé sur le devis": "Pour une pièce d'accès difficile : le billard se démonte pour passer.",
-"Note interne": "Pas encore chiffré"
+"Détail imprimé sur le devis": null,
+"Note interne": null
 }
 ],
 "EIFFEL · ALPHA": [
@@ -10495,7 +10717,7 @@
 "Groupe": "Démontage",
 "Option": "Piètement démontable",
 "Valable pour": "Tous",
-"Prix 2,30 m": null,
+"Prix 2,30 m": "Impossible",
 "Prix 2,40 m": "—",
 "Prix 2,60 m": "—",
 "Prix 2,80 m": "—",
@@ -10505,8 +10727,8 @@
 "Exclut": null,
 "Choix": "Plusieurs possibles",
 "Statut": "Actif",
-"Détail imprimé sur le devis": "Pour une pièce d'accès difficile : le billard se démonte pour passer.",
-"Note interne": "Pas encore chiffré"
+"Détail imprimé sur le devis": null,
+"Note interne": null
 }
 ],
 "BEAUBOURG": [
@@ -10752,7 +10974,7 @@
 "Groupe": "Démontage",
 "Option": "Piètement démontable",
 "Valable pour": "Tous",
-"Prix 2,30 m": null,
+"Prix 2,30 m": "Impossible",
 "Prix 2,40 m": "—",
 "Prix 2,60 m": "—",
 "Prix 2,80 m": "—",
@@ -10762,8 +10984,8 @@
 "Exclut": null,
 "Choix": "Plusieurs possibles",
 "Statut": "Actif",
-"Détail imprimé sur le devis": "Pour une pièce d'accès difficile : le billard se démonte pour passer.",
-"Note interne": "Pas encore chiffré"
+"Détail imprimé sur le devis": null,
+"Note interne": null
 }
 ],
 "COMPÉTITION": [
@@ -12554,7 +12776,7 @@
 "Fiche": "SOHO",
 "Élément": "Cadre",
 "De base": "MDF plaqué chêne",
-"En option": "Chêne massif ou mélèze massif ; érable sur demande",
+"En option": "Chêne massif ou mélèze massif",
 "Version laquée": "MDF"
 },
 {
@@ -12562,7 +12784,7 @@
 "Fiche": "SOHO",
 "Élément": "Pieds",
 "De base": "MDF plaqué chêne",
-"En option": "Chêne massif ou mélèze massif ; érable sur demande",
+"En option": "Chêne massif ou mélèze massif",
 "Version laquée": "MDF"
 },
 {
@@ -12570,7 +12792,7 @@
 "Fiche": "SOHO",
 "Élément": "Traverses",
 "De base": "Chêne massif",
-"En option": "Chêne massif ou mélèze massif ; érable sur demande",
+"En option": "Chêne massif ou mélèze massif",
 "Version laquée": "Érable massif"
 },
 {
@@ -13022,7 +13244,7 @@
 "Texte": "Essence, teinte, laque, taille, finitions, liserés : chaque détail est à votre choix.",
 "Photo": null,
 "Statut": "À valider",
-"Proposé par défaut": "Oui"
+"Proposé par défaut": "Non"
 },
 {
 "Ordre": 2,
@@ -13133,7 +13355,7 @@
 "Fiche": "SOHO",
 "Élément": "Cadre",
 "De base": "MDF plaqué chêne",
-"En option": "Chêne massif ou mélèze massif ; érable sur demande",
+"En option": "Chêne massif ou mélèze massif",
 "Version laquée": "MDF"
 },
 {
@@ -13141,7 +13363,7 @@
 "Fiche": "SOHO",
 "Élément": "Pieds",
 "De base": "MDF plaqué chêne",
-"En option": "Chêne massif ou mélèze massif ; érable sur demande",
+"En option": "Chêne massif ou mélèze massif",
 "Version laquée": "MDF"
 },
 {
@@ -13149,7 +13371,7 @@
 "Fiche": "SOHO",
 "Élément": "Traverses",
 "De base": "Chêne massif",
-"En option": "Chêne massif ou mélèze massif ; érable sur demande",
+"En option": "Chêne massif ou mélèze massif",
 "Version laquée": "Érable massif"
 },
 {
@@ -13649,7 +13871,7 @@
 "Texte": "Essence, teinte, laque, taille, finitions, liserés : chaque détail est à votre choix.",
 "Photo": null,
 "Statut": "À valider",
-"Proposé par défaut": "Oui"
+"Proposé par défaut": "Non"
 },
 {
 "Ordre": 2,

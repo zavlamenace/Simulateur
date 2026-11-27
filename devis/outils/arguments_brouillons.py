@@ -3,7 +3,9 @@
 Une entrée : (Valable pour, Titre, Texte, photo prévue, proposé par défaut).
 - « Valable pour » : « Tous » ou une version (« Pieds bois massif », « Pieds métalliques »).
 - Photo prévue : la colonne Photo affiche « À fournir » en attendant la photo ultra zoomée.
-- Proposé par défaut : pré-coché dans l'outil (4 au maximum par gamme et par version).
+- Proposé par défaut : point fort pré-coché dans l'outil (3 au maximum par gamme et par version, 27/11).
+  La phrase d'accroche de la gamme se règle dans le bloc GAMME (paramètre « Accroche ») ; la ligne de
+  positionnement reste ici comme argument au choix, non pré-coché.
 Règles de rédaction : connaissances/arguments.md.
 """
 
@@ -19,13 +21,14 @@ BOITES = ("Tous", "6 boîtes insonorisées", "Les billes tombent sans bruit.")
 
 ARGUMENTS = {
     "Référence": [
-        ("Tous", "Le meilleur rapport qualité-prix du marché",
-         "Ardoise monobloc, structure en bois massif et pack accessoires inclus.", False, True),
+        # Titre et texte de l'ardoise modifiés par l'équipe dans le Sheet (relu le 27/11).
+        ("Tous", "Le meilleur rapport qualité-prix du marché en 2,10m",
+         "Ardoise monobloc, structure en bois massif et pack accessoires inclus.", False, False),
         ("Tous", "Ardoise monobloc de 19 mm",
          "Une pierre naturelle d'un seul tenant : elle ne gonfle pas et ne se déforme pas avec l'humidité, "
-         "contrairement au MDF. La bille roule droit, durablement.", True, True),
-        ("Tous", "Pack accessoires offert",
-         "16 billes, 4 queues, triangle, craies, brosse et porte-queue inclus (valeur 330 €).", True, True),
+         "contrairement au MDF ou aggloméré. ", True, True),
+        ("Tous", "Pack accessoires inclus, d'une valeur de 300 €",
+         "16 billes, 4 queues, triangle, craies, brosse et porte-queue.", True, True),
         ("Pieds bois massif", "Pieds bois massif et Formica",
          "Le Formica, le matériau des plans de travail de cuisine : il résiste aux chocs, aux rayures et aux taches, "
          "là où le papier décor courant s'abîme.", True, True),
@@ -35,12 +38,12 @@ ARGUMENTS = {
         BOITES + (True, False),
         ("Tous", "Vérins de réglage", "Une planéité parfaite, même sur un sol irrégulier.", True, False),
         ("Tous", "Bandes en caoutchouc toilé", "Un rebond vif et régulier.", True, False),
-        ("Tous", "Billard et table à manger", "Avec le plateau en 2 parties, une table pour 8 à 10 personnes.",
+        ("Tous", "Billard convertible en table", "Avec le plateau en 2 parties, une table pour 8 à 10 personnes.",
          False, False),
     ],
     "Design": [
-        ("Tous", "Le meilleur rapport qualité-prix en fabrication française",
-         "Un billard laqué, fabriqué à la main dans nos ateliers du Gers.", False, True),
+        ("Tous", "Le billard convertible en table, laqué et fabriqué à la main dans notre atelier du Gers",
+         "Laque mate, satinée ou brillante, dans la couleur RAL de votre choix.", False, False),
         DRAP + (True, True),
         ("Tous", "Ardoise italienne monobloc de 19 mm",
          "Une pierre naturelle d'un seul tenant, dans un schiste italien réputé pour sa densité : elle ne se déforme "
@@ -54,19 +57,23 @@ ARGUMENTS = {
         ("Tous", "Votre couleur", "Laque dans la couleur RAL de votre choix.", False, False),
     ],
     "Prestige": [
-        ("Tous", "Le billard convertible le plus fonctionnel du marché",
-         "Rangements intégrés, réception centralisée des billes, allonge incluse.", False, True),
-        ("Tous", "12 couverts, allonge incluse", "Avec le plateau bois, l'allonge de 45 cm est fournie.", False, True),
-        ("Tous", "Châssis Woodstone",
-         "Un bois haute densité aux fibres serrées : il absorbe le poids de l'ardoise sans fléchir et ne travaille "
-         "ni avec l'humidité ni avec la température.", True, True),
+        ("Tous", "Le billard convertible en table le plus fonctionnel du marché",
+         "Rangement intégré des accessoires et des plateaux, réception des billes centralisée et insonorisée, "
+         "allonge incluse pour recevoir jusqu'à 12 convives.", False, False),
+        ("Tous", "Bandes interchangeables brevetées",
+         "Plusieurs jeux sur un même billard : vous passez d'un jeu à l'autre en changeant de bandes.", True, True),
+        ("Tous", "Rangement intégré de tous les accessoires",
+         "Le système Octopack range sous le billard les queues, les billes, les bandes, les craies et les plateaux.",
+         True, True),
         ("Tous", "Réception centralisée et insonorisée",
          "Goulottes capitonnées en 3 épaisseurs, un tiroir abattant de chaque côté.", True, True),
-        ("Tous", "Système de rangement Octopack",
-         "Un système intégré sous le billard pour ranger queues, bandes, billes et craies.", True, False),
+        ("Tous", "12 couverts, allonge incluse",
+         "Avec le plateau bois comme avec le plateau vitré, l'allonge de 45 cm est fournie.", False, False),
+        ("Tous", "Châssis Woodstone",
+         "Un bois haute densité aux fibres serrées : il absorbe le poids de l'ardoise sans fléchir et ne travaille "
+         "ni avec l'humidité ni avec la température.", True, False),
         ("Tous", "Rangement des plateaux intégré", "Pendant la partie, les plateaux se rangent sous le billard.",
          True, False),
-        BANDES_INTERCHANGEABLES + (True, False),
         ("Tous", "Ardoise italienne monobloc de 19 mm",
          "Une pierre naturelle d'un seul tenant, sur longerons métalliques : elle ne se déforme pas avec "
          "l'humidité, contrairement au MDF.", True, False),
@@ -74,12 +81,12 @@ ARGUMENTS = {
         BANDES_FRANCAISES + (True, False),
         ("Tous", "Pieds en bois massif", "Chêne, hêtre ou tauari selon le modèle, teintés et vernis à la main.",
          True, False),
-        ("Tous", "Fabriqué dans le Gers",
-         "Bois massif teinté et verni à la main dans nos ateliers de Plaisance-du-Gers.", False, False),
+        ("Tous", "Fabriqué à la main dans le Gers",
+         "Bois massif teinté et verni à la main dans notre atelier de Plaisance-du-Gers (Sud-Ouest).", False, False),
     ],
     "Lafuge": [
         ("Tous", "Le billard le plus personnalisable",
-         "Essence, teinte, laque, taille, finitions, liserés : chaque détail est à votre choix.", False, True),
+         "Essence, teinte, laque, taille, finitions, liserés : chaque détail est à votre choix.", False, False),
         ("Tous", "Une pièce unique, faite à la main",
          "Fabriquée à l'unité par un seul ébéniste, du début à la fin, à Miribel-les-Échelles.", False, True),
         ("Tous", "Essences nobles massives", "Érable, chêne, mélèze ou noyer massifs.", True, True),
@@ -93,7 +100,7 @@ ARGUMENTS = {
     ],
     "Lafuge français": [
         ("Tous", "Le billard le plus personnalisable",
-         "Essence, teinte, laque, taille, finitions, liserés : chaque détail est à votre choix.", False, True),
+         "Essence, teinte, laque, taille, finitions, liserés : chaque détail est à votre choix.", False, False),
         ("Tous", "Une pièce unique, faite à la main",
          "Fabriquée à l'unité par un seul ébéniste, du début à la fin, à Miribel-les-Échelles.", False, True),
         ("Tous", "Essences nobles massives", "Érable, chêne, mélèze ou noyer massifs.", True, True),
@@ -154,3 +161,79 @@ CHOIX_LAFUGE = [
      "Affirmation de la direction (26/11)", "À valider"],
 ]
 
+
+
+# Arguments des choix des gammes Plaisance (bloc « ARGUMENTS DES CHOIX » de chaque onglet), brouillons du 27/11.
+# Imprimés sous la ligne de l'option, après le « Détail imprimé sur le devis », quand le statut passe à « Actif ».
+# Référence : aucune mention d'origine, jamais « italienne ».
+DRAP_SIMONIS = "Drap Iwan Simonis : la manufacture belge tisse des draps depuis 1680 et habille les grands championnats."
+DRAP_STRACHAN = ("Drap Strachan : la maison anglaise dont les draps équipent le championnat du monde de snooker "
+                 "depuis 1980.")
+SRC_FAB = "Sources du fabricant (iwansimonis.com, WSP Textiles)"
+BANDES_FR_PL = "Bandes en caoutchouc fabriqué en France, calibrées pour ce jeu."
+DEUXIEME_JEU = "Système breveté : changez de bandes, vous changez de jeu, sur le même billard."
+RANGEMENT = "Queues, billes, craies et brosse ont leur place sous le billard."
+VERRE = "Verre de sécurité trempé : résistant aux chocs et facile à entretenir."
+TABLE = "Posez le plateau : votre billard devient une table à manger pour 8 à 10 personnes."
+ALLONGE_12 = "l'allonge de 45 cm est incluse pour recevoir jusqu'à 12 convives."
+EPOXY = "Laque époxy : une finition dure, qui résiste aux chocs."
+NOS = "Nos fiches et grilles"
+
+
+def _choix(*lignes):
+    return [[c, t, s, "À valider"] for c, t, s in lignes]
+
+
+CHOIX_PLAISANCE = {
+    "Référence": _choix(
+        ("Tapis standard (4 teintes)", "Un drap rapide et résistant, dans l'une des quatre teintes de la gamme.", NOS),
+        ("Tapis Simonis 760 (26 teintes)", DRAP_SIMONIS, SRC_FAB),
+        ("Tapis Strachan 777 (7 teintes)", DRAP_STRACHAN, SRC_FAB),
+        ("Billard américain", "Le jeu le plus répandu, avec des bandes calibrées pour ses billes de 57 mm.", NOS),
+        ("Pool anglais", "Le jeu des pubs anglais, avec des bandes calibrées pour ses billes de 50,8 mm.", NOS),
+        ("6 plugs pour jouer au billard français",
+         "Six plugs referment les poches : vous jouez aussi au billard français sur le même billard.", NOS),
+        ("Plateau 100 % bois en 2 parties", TABLE, NOS),
+        ("Plateau 100 % verre Sécurit en 2 parties", VERRE, NOS),
+        ("Pieds noirs", EPOXY, NOS),
+        ("Pieds blancs", EPOXY, NOS),
+        ("Pieds gris anthracite", EPOXY, NOS),
+        ("Pieds couleur RAL au choix", "Les pieds dans la couleur de votre intérieur, parmi tout le nuancier RAL.", NOS),
+        ("Rangement des accessoires", RANGEMENT, NOS),
+    ),
+    "Design": _choix(
+        ("Tapis Simonis 760 (26 teintes)", DRAP_SIMONIS, SRC_FAB),
+        ("Tapis Strachan 777 (7 teintes)", DRAP_STRACHAN, SRC_FAB),
+        ("Jeu de bandes français", BANDES_FR_PL, NOS),
+        ("Jeu de bandes américain", BANDES_FR_PL, NOS),
+        ("Jeu de bandes pool", BANDES_FR_PL, NOS),
+        ("2e jeu de bandes américain", DEUXIEME_JEU, NOS),
+        ("2e jeu de bandes pool", DEUXIEME_JEU, NOS),
+        ("2e jeu de bandes français", DEUXIEME_JEU, NOS),
+        ("Couleur RAL au choix", "Laqué à la main dans notre atelier du Gers, dans la couleur RAL de votre choix.", NOS),
+        ("Vernis grand brillant et polissage du billard", "Vernis grand brillant, poli à la main pour un éclat profond.",
+         NOS),
+        ("Vernis grand brillant et polissage du dessus de table", "Le plateau assorti au billard, dans le même éclat.",
+         NOS),
+        ("Rangement des accessoires", RANGEMENT, NOS),
+        ("Allonge de plateau 45 cm", "Avec l'allonge, la table reçoit jusqu'à 12 convives.", NOS),
+        ("Plateau table bois laqué", TABLE, NOS),
+        ("Plateau 100 % verre Sécurit 8 mm", VERRE, NOS),
+        ("Plateau vitré cadre bois", "Cadre bois et verre de sécurité ; " + ALLONGE_12, NOS),
+    ),
+    "Prestige": _choix(
+        ("Tapis Simonis 760 (26 teintes)", DRAP_SIMONIS, SRC_FAB),
+        ("Tapis Strachan 777 (7 teintes)", DRAP_STRACHAN, SRC_FAB),
+        ("Jeu de bandes français", BANDES_FR_PL, NOS),
+        ("Jeu de bandes américain", BANDES_FR_PL, NOS),
+        ("Jeu de bandes pool", BANDES_FR_PL, NOS),
+        ("2e jeu de bandes américain", DEUXIEME_JEU, NOS),
+        ("2e jeu de bandes pool", DEUXIEME_JEU, NOS),
+        ("2e jeu de bandes français", DEUXIEME_JEU, NOS),
+        ("Plateau table bois", "Dans la teinte du billard ; " + ALLONGE_12, NOS),
+        ("Plateau 100 % verre Sécurit 8 mm", VERRE, NOS),
+        ("Plateau verre et cadre couleur de rappel", "Le cadre reprend la couleur du billard ; " + ALLONGE_12, NOS),
+        ("Motif décor à carré", "Quatre carrés peints sur le plateau, pour une table au dessin plus graphique.", NOS),
+        ("Pieds métalliques", "Des pieds métalliques, pour une ligne plus contemporaine.", NOS),
+    ),
+}

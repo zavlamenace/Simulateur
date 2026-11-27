@@ -398,7 +398,8 @@
     });
   }
 
-  var MAX_ARGUMENTS = 4;
+  /** Points forts imprimés : 3 au maximum (27/11). L'accroche de la gamme vient du bloc GAMME. */
+  var MAX_ARGUMENTS = 3;
 
   function argumentsParDefaut(cat, cfg) {
     return argumentsGamme(cat, cfg).filter(function (a) { return a.parDefaut; }).slice(0, MAX_ARGUMENTS)
@@ -528,6 +529,12 @@
     return out;
   }
 
+  /** Détail imprimé de l'option, puis la phrase commerciale du bloc « ARGUMENTS DES CHOIX » (sans doublon). */
+  function joindreDetail(detail, argument) {
+    var d = texte(detail), a = texte(argument);
+    return d && a && d !== a ? d + "\n" + a : d || a;
+  }
+
   /**
    * Lignes du devis : billard, options, tapis, plateau, accessoires, lignes libres, livraison.
    * Chaque ligne : { id, section, libelle, detail, quantite, prixUnitaire, brut, remise, net, inclus, valeurOfferte }.
@@ -576,7 +583,7 @@
       var libelle = /^Teinte incluse$/.test(o.nom) ? "Teinte" : o.nom;
       if (precision) libelle += " : " + precision;
       if (o.section === "tapis") libelle = libelle.replace(/\s*\(\d+ teintes\)/, "") + (tapisChoisi.teinte ? ", couleur " + tapisChoisi.teinte : "");
-      pousser({ id: o.id, section: o.section, libelle: libelle, detail: o.detail || choix[o.nom] || "", quantite: 1, prixUnitaire: prix || 0,
+      pousser({ id: o.id, section: o.section, libelle: libelle, detail: joindreDetail(o.detail, choix[o.nom]), quantite: 1, prixUnitaire: prix || 0,
                 inclus: o.etat === "inclus", aSaisir: prix === null || prix === undefined, surDemande: o.etat === "sur_demande" || o.etat === "a_chiffrer",
                 sansSupplement: o.etat === "prix" && o.prix === 0 });
     });
@@ -716,7 +723,7 @@
     if (draps(cat, cfg, opts).length && !t.teinte) p.push("Choisir la couleur du drap");
     var e = etats(opts, cfg);
     opts.forEach(function (o) { if (sel[o.id] && !e[o.id].disponible) p.push(o.nom + " : " + e[o.id].raison); });
-    if ((cfg.arguments || []).length > MAX_ARGUMENTS) p.push("4 arguments au maximum");
+    if ((cfg.arguments || []).length > MAX_ARGUMENTS) p.push(MAX_ARGUMENTS + " points forts au maximum");
     return p;
   }
 

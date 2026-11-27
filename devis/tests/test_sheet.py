@@ -65,7 +65,7 @@ def test_regles_metier_reference():
         c = lire_classeur(construire(tmp))
     gamme = {p["Paramètre"]: p["Valeur"] for p in c["Référence"]["GAMME"]}
     assert not gamme["Atelier affiché sur le devis"], "aucune mention d'origine pour la Référence"
-    assert gamme["Valeur du kit accessoires"] == 330
+    assert gamme["Valeur du kit accessoires"] == 300
     textes = " ".join(str(v) for b in c["Référence"].values() for l in b for v in l.values() if v)
     assert "italienne" not in textes.lower()
     assert "fabriqu" not in " ".join(str(a["Texte"]) for a in c["Référence"]["ARGUMENTS & PHOTOS"]).lower()

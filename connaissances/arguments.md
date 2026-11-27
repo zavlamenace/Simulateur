@@ -100,3 +100,24 @@ Légende : ★ = proposé par défaut ; 📷 = photo ultra zoomée à fournir.
 - « Kotibé » retiré (absent des tarifs). L'ardoise n'est plus opposée au MDF sur Lafuge, car la fiche technique imprimée mentionne « MDF plaqué chêne » sur certains modèles.
 - Français : « Bandes A37 toilées incluses dès 2,60 m » et « Chauffage de l'ardoise » (texte à valider).
 - À mettre en avant à l'oral et dans les détails : multiplis plus résistant que le bois massif, plots Altuglas (effet de lévitation), cadre snooker (poches en cuir apparentes).
+
+## Décisions du 27/11
+- **3 points forts au maximum** par devis, chacun avec son texte et sa photo en gros plan. Ils sont pré-cochés par gamme (colonne « Proposé par défaut ») et le commercial peut en remplacer un. Les autres arguments s'impriment sous la ligne de l'option choisie (blocs « ARGUMENTS DES CHOIX » et colonne « Détail imprimé sur le devis »).
+- **Phrase d'accroche** de gamme, en plus des 3 points forts :
+  - Référence : « Le meilleur rapport qualité-prix du marché en 2,10 m », la taille standard du billard ;
+  - Design : « Le billard convertible en table, laqué et fabriqué à la main dans notre atelier du Gers » (n'est plus « le meilleur rapport qualité-prix ») ;
+  - Prestige : rangement intégré de tous les accessoires et des plateaux, réception des billes centralisée et insonorisée, allonge incluse pour recevoir jusqu'à 12 convives ;
+  - Lafuge : « Le billard le plus personnalisable ».
+- **Prestige** : le système de rangement Octopack et les bandes interchangeables (« et surtout ») passent avant le drap.
+- **Bandes interchangeables brevetées** : photo à venir sous les fiches produit du site.
+- **Photos des points forts** : elles arrivent au fur et à mesure sous les fiches produit du site.
+- **Pack accessoires Référence** : valeur 300 €, à mettre en avant.
+- **« Convertible » s'écrit toujours « convertible en table ».**
+- **Atelier** : « dans notre atelier du Gers (Sud-Ouest) » pour Design et Prestige.
+- **Réassurance** (bandeau de pictogrammes rouges) :
+  - jamais le montage : soit le client l'a pris, soit il connaît son prix ;
+  - toutes gammes : « 3e génération, famille d'ébénistes depuis 1946 » ;
+  - Design et Prestige : « Fabrication à la main à Plaisance-du-Gers » (pas « Fabrication artisanale ») ;
+  - Lafuge : « Fabrication artisanale » accepté ;
+  - Référence : aucune mention d'origine.
+- **Pourquoi on nous choisit** : le client veut un billard, il nous choisit parce que nous sommes les spécialistes du convertible. Le devis montre donc son billard en mode billard et en mode table.

@@ -182,18 +182,12 @@ def ajouter_placage(f, tailles):
     f.options.insert(i, placage(f, tailles))
 
 
-ERABLE_MASSIF = "Érable massif"
-
-
 def retouches_26_11(fiches):
-    """Retouches du 26/11 sur les fiches construites : érable massif du Soho, placage érable, brossée du Trocadéro."""
+    """Retouches du 26/11 sur les fiches construites : placage érable, brossée du Trocadéro.
+
+    27/11 : le Soho n'existe pas en érable massif (ajout du 26/11 retiré)."""
     for f in fiches:
         tailles = [t for t, v in next(iter(f.modeles.values())).items() if v not in (NP, IMP)]
-        if f.nom == "SOHO":
-            i = max(k for k, o in enumerate(f.options) if o.groupe == "Essence") + 1
-            f.options.insert(i, Option("Essence", ERABLE_MASSIF, colonnes(f.jeu, tailles, [SD], SD), exclut=LAQUE,
-                                       choix="Un seul par groupe", conditions="Impossible avec la laque",
-                                       note="Ajouté le 26/11 : prix à confirmer, saisi à la main en attendant"))
         if f.nom in MODELES_PLACAGE:
             ajouter_placage(f, tailles)
         if f.nom == "TROCADÉRO":
@@ -285,6 +279,8 @@ def communs(f, tailles, liseré=True, repères=True, cuir=True, sofic=True, cadr
 
 
 BANDES_INIT = "Bandes initiales (une incluse)"
+# Libellés du 27/11 (jamais « Bandes de snooker » ni « Bandes de billard russe »).
+JEU_SNOOKER, JEU_RUSSE = "Jeu snooker", "Jeu pyramide russe"
 
 
 def jeux_mixte(f, tailles, grands_formats):
@@ -295,9 +291,10 @@ def jeux_mixte(f, tailles, grands_formats):
         opts.append(Option(BANDES_INIT, nom, colonnes("mixte", tailles, [INC], IMP), choix="Un seul par groupe",
                            conditions=cond))
     if grands_formats:
-        for nom in ("Snooker", "Russe"):
+        for nom in (JEU_SNOOKER, JEU_RUSSE):
             opts.append(Option(BANDES_INIT, nom, colonnes("mixte", tailles, [IMP], INC), choix="Un seul par groupe",
-                               conditions="10 et 12 pieds : snooker ou russe au choix, inclus, au même prix"))
+                               conditions="10 et 12 pieds : le client choisit son jeu, snooker ou pyramide russe, "
+                                          "inclus, au même prix"))
     return opts
 
 
@@ -394,7 +391,7 @@ def fiches_mixte():
                  + teinte(f, T2) + [laque(f, T2, [1500]),
                                     Option("Liseré", LISERE_ALU, colonnes(J, T2, [650]), doc=LISERE_ALU,
                                            conditions="Liseré aluminium, ou bois gainé du drap du billard (rappel de couleur)")]
-                 + communs(f, T2, jeu2=[860], cuir=480, elasthanne=IMP, cadre_doc=False, pietement=None))
+                 + communs(f, T2, jeu2=[860], cuir=480, elasthanne=IMP, cadre_doc=False, pietement=IMP))
     f.technique = [("Châssis", ACIER_60_60, ACIER_60_60, ACIER_60_60),
                    ("Cadre", *tech_massif("MDF plaqué chêne", "MDF")),
                    ("Pieds", *tech_massif("MDF plaqué chêne, 120 × 120 mm", "MDF")),
@@ -412,7 +409,7 @@ def fiches_mixte():
                  + teinte(f, T2) + [laque(f, T2, [1100]),
                                     Option("Liseré", LISERE_ALU, colonnes(J, T2, [650]), doc=LISERE_ALU,
                                            conditions="Liseré aluminium, ou bois gainé du drap du billard (rappel de couleur)")]
-                 + communs(f, T2, jeu2=[860], cuir=480, elasthanne=IMP, cadre_doc=False, pietement=None))
+                 + communs(f, T2, jeu2=[860], cuir=480, elasthanne=IMP, cadre_doc=False, pietement=IMP))
     acier = "Acier laqué au RAL choisi par le client"
     f.technique = [("Châssis", ACIER_60_60, ACIER_60_60, ACIER_60_60),
                    ("Cadre", *tech_massif("MDF plaqué chêne", "MDF")),
@@ -438,7 +435,7 @@ def fiches_mixte():
                            exclut=f"Cadre en mélèze massif ; Cadre en chêne massif ; {REPERES} ; {TEINTE_SPECIALE} ; "
                                   f"{PARCHEMIN} ; {BROSSEE}",
                            conditions="Seul le liseré de couleur reste possible", doc=LAQUE)]
-                 + communs(f, T2, jeu2=[860], cuir=480, elasthanne=IMP, cadre_doc=False, pietement=None,
+                 + communs(f, T2, jeu2=[860], cuir=480, elasthanne=IMP, cadre_doc=False, pietement=IMP,
                            liseré_doc=False))
     renommer_laque(f)
     f.technique = [("Châssis", ACIER_60_60, ACIER_60_60, ACIER_60_60),
@@ -726,7 +723,7 @@ def fiches_francais():
                  + teinte(f, T23) + [laque(f, T23, [1500]),
                                      Option("Liseré", LISERE_ALU, colonnes(J, T23, [650]), doc=LISERE_ALU,
                                             conditions="Liseré aluminium, ou bois gainé du drap du billard (rappel de couleur)")]
-                 + communs(f, T23, a37=True, cadre_doc=False, pietement=None))
+                 + communs(f, T23, a37=True, cadre_doc=False, pietement=IMP))
     f.technique = [("Châssis", ACIER_60_60, ACIER_60_60, ACIER_60_60),
                    ("Cadre", *tech_massif("MDF plaqué chêne", "MDF")),
                    ("Pieds", *tech_massif("MDF plaqué chêne, 120 × 120 mm", "MDF")),
@@ -742,7 +739,7 @@ def fiches_francais():
                  + teinte(f, T23) + [laque(f, T23, [1100]),
                                      Option("Liseré", LISERE_ALU, colonnes(J, T23, [660]), doc=LISERE_ALU,
                                             conditions="Liseré aluminium, ou bois gainé du drap du billard (rappel de couleur)")]
-                 + communs(f, T23, a37=True, cadre_doc=False, pietement=None))
+                 + communs(f, T23, a37=True, cadre_doc=False, pietement=IMP))
     acier = "Acier laqué au RAL choisi par le client"
     f.technique = [("Châssis", ACIER_60_60, ACIER_60_60, ACIER_60_60),
                    ("Cadre", *tech_massif("MDF plaqué chêne", "MDF")),
@@ -768,7 +765,7 @@ def fiches_francais():
                            exclut=f"Cadre en mélèze massif ; Cadre en chêne massif ; {REPERES} ; {TEINTE_SPECIALE} ; "
                                   f"{PARCHEMIN} ; {BROSSEE}",
                            conditions="Seul le liseré de couleur reste possible", doc=LAQUE)]
-                 + communs(f, T23, a37=True, cadre_doc=False, pietement=None, liseré_doc=False))
+                 + communs(f, T23, a37=True, cadre_doc=False, pietement=IMP, liseré_doc=False))
     renommer_laque(f)
     # Correction 25/11 : fiche technique reprise du pool (le document français copiait celle de City).
     f.technique = [("Châssis", ACIER_60_60, ACIER_60_60, ACIER_60_60),

@@ -219,7 +219,7 @@ def test_fiches_techniques():
     assert cadre[1] == "Érable sycomore massif"
     assert L.option_bois(loft, cadre) == "Chêne massif ou mélèze massif ; noyer sur demande"
     soho = next(f for f in L.fiches_mixte() if f.nom == "SOHO")
-    assert L.option_bois(soho, next(e for e in soho.technique if e[0] == "Cadre")) == "Chêne massif ou mélèze massif ; érable sur demande"
+    assert L.option_bois(soho, next(e for e in soho.technique if e[0] == "Cadre")) == "Chêne massif ou mélèze massif"
     bandes = [o for o in loft.options if o.groupe == L.BANDES_INIT]
     assert len(bandes) == 3 and all(o.choix == "Un seul par groupe" for o in bandes)
     assert L.DRAP["français"] == "Simonis 330 inclus"
@@ -245,7 +245,18 @@ def test_retouches_du_26_11():
             interdits = {"CITY · ÉOS", "EIFFEL · ALPHA", "BEAUBOURG", "COMPÉTITION", "HARMONIE NOYER", "HARMONIE ÉRABLE"}
             assert valeurs == ({L.IMP} if f.nom in interdits else {0}), (f.nom, valeurs)
     soho = [f for f in toutes if f.nom == "SOHO"]
-    assert all(L.ERABLE_MASSIF in {o.nom for o in f.options} for f in soho)
+    assert all("Érable massif" not in {o.nom for o in f.options} for f in soho)
+
+
+def test_retouches_du_27_11():
+    for f in L.fiches_mixte() + L.fiches_francais():
+        noms = {o.nom: o for o in f.options}
+        if f.nom in {"CITY · ÉOS", "EIFFEL · ALPHA", "BEAUBOURG"}:
+            assert set(v for v in noms[L.PIET_DEM].prix.values() if v != L.NP) == {L.IMP}, f.nom
+        jeux = [o.nom for o in f.options if o.groupe == L.BANDES_INIT]
+        assert "Snooker" not in jeux and "Russe" not in jeux
+        if f.jeu == "mixte" and f.nom in {"CHAMBORD", "COMPÉTITION"}:
+            assert {L.JEU_SNOOKER, L.JEU_RUSSE} <= set(jeux), f.nom
 
 
 if __name__ == "__main__":
